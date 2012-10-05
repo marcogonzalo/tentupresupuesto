@@ -7,6 +7,8 @@ gem 'mysql2'
 gem 'foreigner'         # Soporte para Claves Foraneas en las migraciones
 gem 'enum_column3'      # Soporte para columnas de tipo ENUM de MySQL
 
+gem 'devise'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
