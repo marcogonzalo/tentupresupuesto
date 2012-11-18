@@ -1,3 +1,4 @@
+require 'devise/encryptable/encryptors/mi_sha512'
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
@@ -79,10 +80,10 @@ Devise.setup do |config|
   # Limiting the stretches to just one in testing will increase the performance of
   # your test suite dramatically. However, it is STRONGLY RECOMMENDED to not use
   # a value less than 10 in other environments.
-  config.stretches = Rails.env.test? ? 1 : 10
+  config.stretches = Rails.env.test? ? 1 : 1
 
   # Setup a pepper to generate the encrypted password.
-  # config.pepper = "sha256f166596f431a210763d80bd3f8fe58795d2abe7d3c1f87fee6f065f323f82151imv"
+  config.pepper = "c37ca64aaa24039fdbe3df27a46c50267f977982" # sha1
 
   # ==> Configuration for :confirmable
   # A period that the user is allowed to access the website even without
@@ -168,7 +169,7 @@ Devise.setup do |config|
   # :authlogic_sha512 (then you should set stretches above to 20 for default behavior)
   # and :restful_authentication_sha1 (then you should set stretches to 10, and copy
   # REST_AUTH_SITE_KEY to pepper)
-  # config.encryptor = :sha512
+  config.encryptor = :mi_sha512
 
   # ==> Configuration for :token_authenticatable
   # Defines name of the authentication token params key
@@ -178,7 +179,7 @@ Devise.setup do |config|
   # Turn scoped views on. Before rendering "sessions/new", it will first check for
   # "users/sessions/new". It's turned off by default because it's slower if you
   # are using only default views.
-  # config.scoped_views = false
+  config.scoped_views = true
 
   # Configure the default scope given to Warden. By default it's the first
   # devise role declared in your routes (usually :user).

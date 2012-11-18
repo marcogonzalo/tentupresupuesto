@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Nombre:</b>
+  <%= @solicitante.nombre %>
+</p>
+
+<p>
+  <b>Apellido:</b>
+  <%= @solicitante.apellido %>
+</p>
+
+
+<%= link_to 'Edit', edit_solicitante_path(@solicitante) %> |
+<%= link_to 'Back', solicitantes_path %>
