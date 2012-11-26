@@ -130,11 +130,11 @@ es-VE:
       record_invalid: ! 'La validación falló: %{errors}'
       taken: ya está en  uso
       too_long:
-        one: es demasiado largo (máximo 1 caracter)
-        other: es demasiado largo (máximo %{count} caracteres)
+        one: es muy largo (máximo 1 caracter)
+        other: es muy largo (máximo %{count} caracteres)
       too_short:
-        one: es demasiado corto (mínimo 1 caracter)
-        other: es demasiado corto (mínimo %{count} caracteres)
+        one: es muy corto (mínimo 1 caracter)
+        other: es muy corto (mínimo %{count} caracteres)
       wrong_length:
         one: longitud errónea (debe ser de 1 caracter)
         other: longitud errónea (debe ser de %{count} caracteres)
@@ -242,5 +242,16 @@ es-VE:
     errors:
       <<: *errors
   activerecord:
+    attributes:
+      usuario:
+        email: "Correo electrónico"
+        email_confirmation: "Confirmar correo electrónico"
+        password: "Clave"
+        fecha_nacimiento: "Fecha de nacimiento"
+        password_confirmation: "Confirmar clave"
+        telefono_alt: "Teléfono alternativo"
+        telefono_fijo: "Teléfono fijo"
+        telefono_movil: "Teléfono móvil"
+        acepta_terminos: "Acepto los Términos y Condiciones"
     errors:
       <<: *errors

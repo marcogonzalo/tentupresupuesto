@@ -28,20 +28,27 @@ ActiveRecord::Schema.define(:version => 20121118203908) do
   end
 
   create_table "usuarios", :force => true do |t|
-    t.string   "email",                  :default => "",    :null => false
-    t.string   "encrypted_password",     :default => "",    :null => false
-    t.string   "perfilable_type",        :default => "",    :null => false
+    t.string   "email",                                               :default => "",    :null => false
+    t.string   "encrypted_password",                                  :default => "",    :null => false
     t.integer  "perfilable_id"
-    t.boolean  "activo",                 :default => true
-    t.boolean  "acepta_terminos",        :default => false, :null => false
+    t.string   "perfilable_type"
+    t.string   "nombre",                 :limit => 50,                :default => "",    :null => false
+    t.string   "apellido",               :limit => 50,                :default => "",    :null => false
+    t.enum     "sexo",                   :limit => [:hombre, :mujer]
+    t.date     "fecha_nacimiento"
+    t.string   "telefono_local",         :limit => 20,                :default => "",    :null => false
+    t.string   "telefono_movil",         :limit => 20,                :default => "",    :null => false
+    t.string   "telefono_alt",           :limit => 20,                :default => ""
+    t.boolean  "activo",                                              :default => true,  :null => false
+    t.boolean  "acepta_terminos",                                     :default => false, :null => false
     t.datetime "ultimo_pago"
-    t.boolean  "notificaciones",         :default => false, :null => false
+    t.boolean  "notificaciones",                                      :default => false, :null => false
     t.string   "plan_beneficio"
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.string   "password_salt"
-    t.integer  "sign_in_count",          :default => 0
+    t.integer  "sign_in_count",                                       :default => 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -51,8 +58,8 @@ ActiveRecord::Schema.define(:version => 20121118203908) do
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
     t.string   "authentication_token"
-    t.datetime "created_at",                                :null => false
-    t.datetime "updated_at",                                :null => false
+    t.datetime "created_at",                                                             :null => false
+    t.datetime "updated_at",                                                             :null => false
   end
 
   add_index "usuarios", ["authentication_token"], :name => "index_usuarios_on_authentication_token", :unique => true

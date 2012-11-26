@@ -1,0 +1,34 @@
+<div class="page-header">
+  <h1>Tu perfil</h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt><strong>Nombre y apellido:</strong></dt>
+  <dd><%= @solicitante["datos"]["nombre"] %> <%= @solicitante["datos"]["apellido"] %></dd>
+  <dt><strong>C&eacute;dula:</strong></dt>
+  <dd><%= @solicitante["perfil"]["cedula"] %></dd>
+  <dt><strong>Correo electr&oacute;nico:</strong></dt>
+  <dd><%= @solicitante["datos"]["email"] %></dd>
+  <dt><strong>Sexo:</strong></dt>
+  <dd><%= @solicitante["datos"]["sexo"] %></dd>
+  <dt><strong>Fecha de nacimiento</strong></dt>
+  <dd><%= @solicitante["datos"]["fecha_nacimiento"] %></dd>
+  <dt><strong>Tel&eacute;fono fijo:</strong></dt>
+  <dd><%= @solicitante["datos"]["telefono_fijo"] %></dd>
+  <dt><strong>Tel&eacute;fono m&oacute;vil:</strong></dt>
+  <dd><%= @solicitante["datos"]["telefono_movil"] %></dd>
+  <dt><strong>Tel&eacute;fono alternativo:</strong></dt>
+  <dd><%= @solicitante["datos"]["telefono_alt"] %></dd>
+  <dt><strong>Calle/Avenida:</strong></dt>
+  <dd><%= @solicitante["perfil"]["calle_avenida"] %></dd>
+  <dt><strong>Casa/Edificio:</strong></dt>
+  <dd><%= @solicitante["perfil"]["casa_edificio"] %></dd>
+  <dt><strong>N&uacute;mero de casa/apartamento:</strong></dt>
+  <dd><%= @solicitante["perfil"]["numero_apto"] %></dd>
+  <dt><strong>Sector:</strong></dt>
+  <dd><%= @solicitante["perfil"]["sector"] %></dd>
+  <dt><strong>Solicitudes realizadas:</strong></dt>
+  <dd><%= @solicitante["perfil"]["solicitudes_realizadas"] %></dd>
+  <dt><strong>Trabajos recibidos:</strong></dt>
+  <dd><%= @solicitante["perfil"]["trabajos_recibidos"] %></dd>
+</dl>

@@ -1,9 +1,13 @@
 Ttp::Application.routes.draw do
-  devise_for :proveedor, :class_name => 'Usuario', :controllers => { :registrations => "usuario/registrations" }, :path_names => { :sign_in => 'iniciar_sesion', :sign_out => 'cerrar_sesion', :password => 'clave', :confirmation => 'verificacion' }
-  devise_for :solicitante, :class_name => 'Usuario', :controllers => { :registrations => "usuario/registrations" }, :path_names => { :sign_in => 'iniciar_sesion', :sign_out => 'cerrar_sesion', :password => 'clave', :confirmation => 'verificacion' }
+  devise_for :proveedor, :class_name => 'Usuario', :controllers => { :registrations => "usuario/registrations" }, :path_names => { :sign_in => 'iniciar_sesion', :sign_up => 'registro', :sign_out => 'cerrar_sesion', :password => 'clave', :confirmation => 'verificacion' }
+  devise_for :solicitante, :class_name => 'Usuario', :controllers => { :registrations => "usuario/registrations" }, :path_names => { :sign_in => 'iniciar_sesion', :sign_up => 'registro', :sign_out => 'cerrar_sesion', :password => 'clave', :confirmation => 'verificacion' }
 
   resources :solicitantes
   resources :proveedores
+
+  scope "/solicitante" do
+    get "perfil" => "solicitantes#perfil"
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -54,7 +58,7 @@ Ttp::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  # root :to => 'welcome#index'
+  root :to => 'welcome#index'
 
   # See how all your routes lay out with "rake routes"
 

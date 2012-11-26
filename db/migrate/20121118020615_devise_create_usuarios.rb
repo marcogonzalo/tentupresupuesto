@@ -6,25 +6,24 @@ class DeviseCreateUsuarios < ActiveRecord::Migration
       t.string :encrypted_password, :null => false, :default => ""
       
       ## Polymorphism
-      t.string  :perfilable_type,   :null => false, :default => ""
-      t.integer :perfilable_id,     :null => true
-      
-      ## Atributos adicionales
-      t.boolean   :activo,          :null => false, :default => true
-      t.boolean   :acepta_terminos, :null => false, :default => false
-      t.datetime  :ultimo_pago,     :null => true
-      t.boolean   :notificaciones,  :null => false, :default => false
-      t.string    :plan_beneficio,  :null => true
-
-      ## Recoverable
-      t.string   :reset_password_token
-      t.datetime :reset_password_sent_at
-
-      ## Rememberable
-      t.datetime :remember_created_at
+      t.references :perfilable, :polymorphic => true
       
       ## Encryptable
       t.string :password_salt
+      
+      ## Atributos adicionales
+      t.string    :nombre,            :limit => 50, :null => false, :default => ""
+      t.string    :apellido,          :limit => 50, :null => false, :default => ""
+      t.enum      :sexo,              :limit => [:masculino, :femenino],  :default => nil
+      t.date      :fecha_nacimiento,                :null => true,   :default => '0000-00-00'
+      t.string    :telefono_local,    :limit => 20, :null => true,  :default => ""
+      t.string    :telefono_movil,    :limit => 20, :null => true,  :default => ""
+      t.string    :telefono_alt,      :limit => 20, :null => true,   :default => ""
+      t.boolean   :activo,                          :null => false, :default => true
+      t.boolean   :acepta_terminos,                 :null => false, :default => false
+      t.datetime  :ultimo_pago,                     :null => true
+      t.boolean   :notificaciones,                  :null => false, :default => false
+      t.string    :plan_beneficio,                  :null => true
 
       ## Trackable
       t.integer  :sign_in_count, :default => 0
@@ -38,6 +37,13 @@ class DeviseCreateUsuarios < ActiveRecord::Migration
       t.datetime :confirmed_at
       t.datetime :confirmation_sent_at
       t.string   :unconfirmed_email # Only if using reconfirmable
+
+      ## Recoverable
+      t.string   :reset_password_token
+      t.datetime :reset_password_sent_at
+
+      ## Rememberable
+      t.datetime :remember_created_at
 
       ## Lockable
       # t.integer  :failed_attempts, :default => 0 # Only if lock strategy is :failed_attempts

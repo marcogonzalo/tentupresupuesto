@@ -3,9 +3,9 @@ class RegistrationsController < Devise::RegistrationsController
 
   def after_sign_up_path_for(resource)
     case resource.perfilable_type
-    when "solicitante"
+    when "Solicitante"
       return new_solicitante_path
-    when "proveedor"
+    when "Proveedor"
       return new_proveedor_path
     else
       root_path
