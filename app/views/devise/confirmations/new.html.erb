@@ -3,8 +3,6 @@
 <p>Un correo de confirmaci&oacute;n te ha sido enviado para validar la direcci&oacute;n de correo electr&oacute;nico que ingresaste. Por favor, sigue las instrucciones que all&iacute; te indicamos.</p>
 <p>Si no recibiste el mensaje ingresa la direcci&oacute;n de correo electr&oacute;nico con el que te registraste y lo enviaremos de nuevo.</p>
 <%= form_for(resource, :as => resource_name, :url => confirmation_path(resource_name), :html => { :method => :post }) do |f| %>
-  <%= devise_error_messages! %>
-
   <div><%= f.label :email %><br />
   <%= f.email_field :email %></div>
 

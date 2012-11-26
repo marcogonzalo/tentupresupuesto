@@ -1,5 +1,12 @@
-<p>Welcome <%= @resource.email %>!</p>
+<p>&iexcl;Hola, <%= @resource.nombre %>!</p>
 
-<p>You can confirm your account email through the link below:</p>
+<p>Puedes confirmar tu correo a trav&eacute;s del siguiente enlace: <%= link_to 'confirmar mi cuenta', confirmation_url(@resource, :confirmation_token => @resource.confirmation_token) %></p>
 
-<p><%= link_to 'Confirm my account', confirmation_url(@resource, :confirmation_token => @resource.confirmation_token) %></p>
+<p>
+  Si lo deseas, puedes hacerlo colocando en tu navegador la siguiente direcci&oacute;n:<br>
+  <%= link_to confirmation_url(@resource, :confirmation_token => @resource.confirmation_token), confirmation_url(@resource, :confirmation_token => @resource.confirmation_token) %>
+</p>
+
+<p>Gracias por utilizar nuestros servicios.</p>
+
+<p>Equipo de TenTuPresupuesto.</p>
