@@ -11,14 +11,8 @@ class Solicitante < ActiveRecord::Base
                                 :greater_than => 50000
                               }, 
             :presence => true
-  validates :calle_avenida, 
-            :length => { :in => 3..50 }, 
-            :allow_blank => true
-  validates :casa_edificio, 
-            :length => { :in => 3..25 }, 
-            :allow_blank => true
-  validates :numero_apto, 
-            :length => { :in => 1..10 }, 
+  validates :direccion, 
+            :length => { :in => 10..255 }, 
             :allow_blank => true
   validates :punto_referencia, 
             :length => { :in => 3..50 }, 
