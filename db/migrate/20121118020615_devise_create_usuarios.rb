@@ -1,6 +1,6 @@
 class DeviseCreateUsuarios < ActiveRecord::Migration
   def change
-    create_table(:usuarios) do |t|
+    create_table :usuarios, :options => 'ENGINE=InnoDB DEFAULT CHARSET=utf8' do |t|
       ## Database authenticatable
       t.string :email,              :null => false, :default => ""
       t.string :encrypted_password, :null => false, :default => ""

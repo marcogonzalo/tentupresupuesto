@@ -21,11 +21,18 @@ ActiveRecord::Schema.define(:version => 20121118203908) do
   end
 
   create_table "solicitantes", :force => true do |t|
-    t.string   "nombre"
-    t.string   "apellido"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.string   "cedula",                 :limit => 20, :default => "", :null => false
+    t.string   "calle_avenida",          :limit => 50, :default => ""
+    t.string   "casa_edificio",          :limit => 25, :default => ""
+    t.string   "numero_apto",            :limit => 10, :default => ""
+    t.string   "punto_referencia",       :limit => 50, :default => ""
+    t.integer  "solicitudes_realizadas",               :default => 0,  :null => false
+    t.integer  "trabajos_recibidos",                   :default => 0,  :null => false
+    t.datetime "created_at",                                           :null => false
+    t.datetime "updated_at",                                           :null => false
   end
+
+  add_index "solicitantes", ["cedula"], :name => "index_solicitantes_on_cedula", :unique => true
 
   create_table "usuarios", :force => true do |t|
     t.string   "email",                                               :default => "",    :null => false

@@ -253,5 +253,11 @@ es-VE:
         telefono_fijo: "Teléfono fijo"
         telefono_movil: "Teléfono móvil"
         acepta_terminos: "Acepto los Términos y Condiciones"
+      solicitante:
+        cedula: "Cédula"
+        calle_avenida: "Calle/Avenida"
+        casa_edificio: "Casa/Edificio"
+        numero_apto: "Número de casa/apartamento"
+        punto_referencia: "Punto de referencia"
     errors:
       <<: *errors

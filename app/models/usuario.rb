@@ -73,9 +73,9 @@ class Usuario < ActiveRecord::Base
   def perfil
     unless self.perfilable_id.nil? or self.perfilable_id <= 0
       case self.perfilable_type
-      when "Solicitante"
+      when "solicitante"
         Solicitante.find(self.perfilable_id)
-      when "Proveedor"
+      when "proveedor"
         Proveedor.find(self.perfilable_id)
       else
         nil

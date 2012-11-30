@@ -1,6 +1,36 @@
 #encoding: utf-8
 class Solicitante < ActiveRecord::Base
-  attr_accessible :apellido, :nombre
+  attr_accessible :cedula, :calle_avenida, :casa_edificio, :numero_apto, :punto_referencia
   
   has_one :usuario, :as => :perfilable
+  
+  validates :cedula, 
+            :length => { :in => 5..10 }, 
+            :numericality =>  { 
+                                :only_integer => true,
+                                :greater_than => 50000
+                              }, 
+            :presence => true
+  validates :calle_avenida, 
+            :length => { :in => 3..50 }, 
+            :allow_blank => true
+  validates :casa_edificio, 
+            :length => { :in => 3..25 }, 
+            :allow_blank => true
+  validates :numero_apto, 
+            :length => { :in => 1..10 }, 
+            :allow_blank => true
+  validates :punto_referencia, 
+            :length => { :in => 3..50 }, 
+            :allow_blank => true
+  validates :solicitudes_realizadas, 
+            :numericality =>  {
+                                :only_integer => true,
+                                :greater_than_or_equal_to => 0
+                              }
+  validates :trabajos_recibidos, 
+            :numericality =>  {
+                                :only_integer => true,
+                                :greater_than_or_equal_to => 0
+                              }
 end

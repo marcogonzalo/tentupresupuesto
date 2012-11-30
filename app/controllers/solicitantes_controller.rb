@@ -44,8 +44,7 @@ class SolicitantesController < ApplicationController
 
     respond_to do |format|
       if @solicitante.save
-        current_solicitante.perfilable_id = @solicitante
-        current_solicitante.save
+        current_solicitante.update_attribute('perfilable_id', @solicitante.id)
         
         format.html { redirect_to @solicitante, notice: 'Datos de solicitante registrados.' }
         format.json { render json: @solicitante, status: :created, location: @solicitante }
@@ -81,6 +80,15 @@ class SolicitantesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to solicitantes_url }
       format.json { head :no_content }
+    end
+  end
+  
+  def perfil
+    @solicitante = current_solicitante.datos_y_perfil
+
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: @solicitante }
     end
   end
 end
