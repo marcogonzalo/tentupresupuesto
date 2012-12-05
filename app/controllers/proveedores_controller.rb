@@ -43,14 +43,18 @@ class ProveedoresController < ApplicationController
     @proveedor = Proveedor.new(params[:proveedor])
 
     respond_to do |format|
-      if @proveedor.save
-        current_proveedor.perfilable_id = @proveedor
-        current_proveedor.save
-        format.html { redirect_to @proveedor, notice: 'Datos de proveedor registrados.' }
-        format.json { render json: @proveedor, status: :created, location: @proveedor }
+      if proveedor_signed_in?
+        if @proveedor.save
+          current_proveedor.update_attribute('perfilable_id', @proveedor.id)
+          
+          format.html { redirect_to @proveedor, notice: 'Datos de proveedor registrados.' }
+          format.json { render json: @proveedor, status: :created, location: @proveedor }
+        else
+          format.html { render action: "new" }
+          format.json { render json: @proveedor.errors, status: :unprocessable_entity }
+        end
       else
-        format.html { render action: "new" }
-        format.json { render json: @proveedor.errors, status: :unprocessable_entity }
+        redirect_to new_proveedor_session_path
       end
     end
   end

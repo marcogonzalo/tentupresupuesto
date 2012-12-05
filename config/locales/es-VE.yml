@@ -242,6 +242,10 @@ es-VE:
     errors:
       <<: *errors
   activerecord:
+#    models:
+#      usuario:
+#        one: Usuario
+#        other: Usuarios
     attributes:
       usuario:
         email: "Correo electrónico"
@@ -255,9 +259,24 @@ es-VE:
         acepta_terminos: "Acepto los Términos y Condiciones"
       solicitante:
         cedula: "Cédula"
-        calle_avenida: "Calle/Avenida"
-        casa_edificio: "Casa/Edificio"
-        numero_apto: "Número de casa/apartamento"
+        direccion: "Dirección"
         punto_referencia: "Punto de referencia"
+      proveedor:
+        correo_electronico: "Correo electrónico"
+        descripcion: "Descripción"
+        direccion: "Dirección"
+        nombre_empresa: "Nombre de la empresa"
+        punto_referencia: "Punto de referencia"
+        reputacion: "Reputación"
+        rif: "RIF"
+        telefono_alt: "Teléfono alternativo"
+        telefono_fijo: "Teléfono fijo"
+        telefono_movil: "Teléfono móvil"
+        tipo_proveedor: "Tipo de proveedor"
+        tipos_proveedor:
+          cooperativa: "Cooperativa"
+          independiente: "Independiente"
+          empresa_privada: "Empresa Privada"
+          empresa_produccion_social: "Empresa de Producción Social"
     errors:
       <<: *errors

@@ -14,17 +14,27 @@
 ActiveRecord::Schema.define(:version => 20121118203908) do
 
   create_table "proveedores", :force => true do |t|
-    t.string   "nombre"
-    t.string   "apellido"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.string   "nombre_empresa",        :limit => 50,                                                                           :default => "",             :null => false
+    t.enum     "tipo_proveedor",        :limit => [:independiente, :cooperativa, :empresa_produccion_social, :empresa_privada], :default => :independiente
+    t.string   "rif",                   :limit => 20,                                                                           :default => ""
+    t.text     "descripcion",                                                                                                                               :null => false
+    t.boolean  "verificado",                                                                                                    :default => false,          :null => false
+    t.string   "telefono_local",        :limit => 20,                                                                           :default => "",             :null => false
+    t.string   "telefono_movil",        :limit => 20,                                                                           :default => "",             :null => false
+    t.string   "telefono_alt",          :limit => 20,                                                                           :default => "",             :null => false
+    t.string   "direccion",                                                                                                     :default => ""
+    t.string   "punto_referencia",      :limit => 50,                                                                           :default => ""
+    t.integer  "solicitudes_atendidas",                                                                                         :default => 0,              :null => false
+    t.integer  "trabajos_realizados",                                                                                           :default => 0,              :null => false
+    t.float    "reputacion",                                                                                                    :default => 0.0,            :null => false
+    t.integer  "valoraciones",                                                                                                  :default => 0,              :null => false
+    t.datetime "created_at",                                                                                                                                :null => false
+    t.datetime "updated_at",                                                                                                                                :null => false
   end
 
   create_table "solicitantes", :force => true do |t|
     t.string   "cedula",                 :limit => 20, :default => "", :null => false
-    t.string   "calle_avenida",          :limit => 50, :default => ""
-    t.string   "casa_edificio",          :limit => 25, :default => ""
-    t.string   "numero_apto",            :limit => 10, :default => ""
+    t.string   "direccion",                            :default => ""
     t.string   "punto_referencia",       :limit => 50, :default => ""
     t.integer  "solicitudes_realizadas",               :default => 0,  :null => false
     t.integer  "trabajos_recibidos",                   :default => 0,  :null => false

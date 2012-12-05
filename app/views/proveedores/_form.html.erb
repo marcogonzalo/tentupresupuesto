@@ -1,24 +1,58 @@
 <%= form_for(@proveedor) do |f| %>
   <% if @proveedor.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@proveedor.errors.count, "error") %> prohibited this proveedor from being saved:</h2>
-
-      <ul>
-      <% @proveedor.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+      Ocurri&oacute; un error. No se pudo procesar la solicitud.
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :nombre %><br />
-    <%= f.text_field :nombre %>
-  </div>
-  <div class="field">
-    <%= f.label :apellido %><br />
-    <%= f.text_field :apellido %>
-  </div>
+  <fieldset>
+    <legend>Datos de la empresa</legend>
+    <div class="field">
+      <%= f.label :nombre_empresa %> (Si no tiene empresa, coloque algo relacionado al servicio ofrecido)<br />
+      <%= f.text_field :nombre_empresa %>
+    </div>
+    <div class="field">
+      <%= f.label :tipo_proveedor %><br />
+      <%= f.select :tipo_proveedor, tipos_proveedor %>
+    </div>
+    <div class="field">
+      <%= f.label :rif %> (Si no tiene, dejar en blanco)<br />
+      <%= f.text_field :rif %>
+    </div>
+    <div class="field">
+      <%= f.label :descripcion %><br />
+      <%= f.text_area :descripcion %>
+    </div>
+    
+  </fieldset>
+  <fieldset>
+    <legend>Datos de contacto</legend>
+    (Ser&aacute; entregado al cliente al aceptar el presupuesto)
+    <div class="field">
+      <%= f.label :telefono_local %><br />
+      <%= f.text_field :telefono_local %>
+    </div>
+    <div class="field">
+      <%= f.label :telefono_movil %><br />
+      <%= f.text_field :telefono_movil %>
+    </div>
+    <div class="field">
+      <%= f.label :telefono_alt %><br />
+      <%= f.text_field :telefono_alt %>
+    </div>
+  </fieldset>
+  <fieldset>
+    <legend>Datos de ubicaci&oacute;n</legend>
+    (Si tienes local u oficina)
+    <div class="field">
+      <%= f.label :direccion %><br />
+      <%= f.text_field :direccion %>
+    </div>
+    <div class="field">
+      <%= f.label :punto_referencia %><br />
+      <%= f.text_field :punto_referencia %>
+    </div>
+  </fieldset>
   <div class="actions">
     <%= f.submit %>
   </div>
