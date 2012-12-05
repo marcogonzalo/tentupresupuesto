@@ -43,14 +43,18 @@ class SolicitantesController < ApplicationController
     @solicitante = Solicitante.new(params[:solicitante])
 
     respond_to do |format|
-      if @solicitante.save
-        current_solicitante.update_attribute('perfilable_id', @solicitante.id)
-        
-        format.html { redirect_to @solicitante, notice: 'Datos de solicitante registrados.' }
-        format.json { render json: @solicitante, status: :created, location: @solicitante }
+      if solicitante_signed_in?
+        if @solicitante.save
+          current_solicitante.update_attribute('perfilable_id', @solicitante.id)
+          
+          format.html { redirect_to @solicitante, notice: 'Datos de solicitante registrados.' }
+          format.json { render json: @solicitante, status: :created, location: @solicitante }
+        else
+          format.html { render action: "new" }
+          format.json { render json: @solicitante.errors, status: :unprocessable_entity }
+        end
       else
-        format.html { render action: "new" }
-        format.json { render json: @solicitante.errors, status: :unprocessable_entity }
+        redirect_to new_solicitante_session_path
       end
     end
   end
