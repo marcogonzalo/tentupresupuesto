@@ -1,6 +1,11 @@
 <h2>Registro de <%= resource_name %></h2>
 
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+  <% if resource.errors.any? %>
+    <div id="error_explanation">
+      Ocurri&oacute; un error. No se pudo procesar la solicitud.
+    </div>
+  <% end %>
   <fieldset>
     <legend>Datos de la cuenta</legend>
     <div><%= f.label :email %><br />

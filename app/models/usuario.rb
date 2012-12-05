@@ -37,7 +37,7 @@ class Usuario < ActiveRecord::Base
             :format => { 
                           :with => /^(02)[0-9]{8,10}$/, 
                           :message => "tiene un formato inválido", 
-                          :if => "telefono_movil.blank?" 
+                          :if => "!telefono_local.blank?" 
                        } 
   validates :telefono_movil, 
             :presence => { 
@@ -47,12 +47,13 @@ class Usuario < ActiveRecord::Base
             :format => { 
                           :with => /^(04)(12|22|14|24|16|26)[0-9]{7,10}$/, 
                           :message => "tiene un formato inválido", 
-                          :if => "telefono_movil.blank?" 
+                          :if => "!telefono_movil.blank?" 
                        } 
   validates :telefono_alt,
             :format => { 
                           :with => /^(((04)(12|22|14|24|16|26))|(02))[0-9]{7,10}$/, 
-                          :message => "tiene un formato inválido" 
+                          :message => "tiene un formato inválido", 
+                          :if => "!telefono_alt.blank?"  
                        },
             :allow_blank => true
   validates :email, 
