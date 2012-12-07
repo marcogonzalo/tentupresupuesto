@@ -14,6 +14,7 @@ gem 'devise-encryptable'
 
 # Gems used only for assets and not required
 # in production environments by default.
+gem 'modernizr-rails'
 group :assets do
   gem 'less-rails',   '~> 2.2.3'
   gem 'sass-rails',   '~> 3.2.3'
@@ -23,7 +24,7 @@ group :assets do
   gem 'therubyracer', :platforms => :ruby
 
   gem 'uglifier', '>= 1.0.3'
-  gem 'twitter-bootstrap-rails', '~> 2.1.3'
+  gem 'twitter-bootstrap-rails'
 end
 
 gem 'jquery-rails'
