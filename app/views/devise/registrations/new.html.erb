@@ -8,47 +8,58 @@
   <% end %>
   <fieldset>
     <legend>Datos de la cuenta</legend>
-    <div><%= f.label :email %><br />
-    <%= f.email_field :email %></div>
+    <div class="control-group"><%= f.label :email %>
+      <div class="controls"><%= f.email_field :email %></div>
+    </div>
   
-    <div><%= f.label :email_confirmation %><br />
-    <%= f.email_field :email_confirmation %></div>
+    <div class="control-group"><%= f.label :email_confirmation %>
+      <div class="controls"><%= f.email_field :email_confirmation %></div>
+    </div>
   
-    <div><%= f.label :password %><br />
-    <%= f.password_field :password %></div>
+    <div class="control-group"><%= f.label :password %>
+      <div class="controls"><%= f.password_field :password %></div>
+    </div>
   
-    <div><%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation %></div>
+    <div class="control-group"><%= f.label :password_confirmation %>
+      <div class="controls"><%= f.password_field :password_confirmation %></div>
+    </div>
   </fieldset>
   <fieldset>
     <legend>Datos personales</legend>
-    <div><%= f.label :nombre %><br>
-    <%= f.text_field :nombre %></div>
+    <div class="control-group"><%= f.label :nombre %>
+      <div class="controls"><%= f.text_field :nombre %></div>
+    </div>
     
-    <div><%= f.label :apellido %><br>
-    <%= f.text_field :apellido %></div>
+    <div class="control-group"><%= f.label :apellido %>
+      <div class="controls"><%= f.text_field :apellido %></div>
+    </div>
     
-    <div><%= f.label :sexo %><br>
-    <%= f.enum_select :sexo %></div>
+    <div class="control-group"><%= f.label :sexo %>
+      <div class="controls"><%= f.enum_select :sexo %></div>
+    </div>
   
-    <div><%= f.label :fecha_nacimiento %><br>
-    <%= f.date_select :fecha_nacimiento, :start_year => Time.now.year - 85, :end_year => Time.now.year - 16, :class => 'date_field' %></div>
+    <div class="control-group"><%= f.label :fecha_nacimiento %>
+      <div class="controls"><%= f.date_select :fecha_nacimiento, :start_year => Time.now.year - 85, :end_year => Time.now.year - 16, :class => 'date_field' %></div>
+    </div>
     
-    <div><%= f.label :telefono_local %><br>
-    <%= f.text_field :telefono_local %></div>
+    <div class="control-group"><%= f.label :telefono_local %>
+      <div class="controls"><%= f.text_field :telefono_local %></div>
+    </div>
     
-    <div><%= f.label :telefono_movil %><br>
-    <%= f.text_field :telefono_movil %></div>
+    <div class="control-group"><%= f.label :telefono_movil %>
+      <div class="controls"><%= f.text_field :telefono_movil %></div>
+    </div>
     
-    <div><%= f.label :telefono_alt %><br>
-    <%= f.text_field :telefono_alt %></div>
+    <div class="control-group"><%= f.label :telefono_alt %>
+      <div class="controls"><%= f.text_field :telefono_alt %></div>
+    </div>
   </fieldset>
-  <div><%= f.label :acepta_terminos %><br />
-  <%= f.check_box :acepta_terminos %></div>
+  <div><%= f.check_box :acepta_terminos %><%= f.label :acepta_terminos %></div>
   
   <%= f.hidden_field :perfilable_type, :value => resource_name %>
 
-  <div><%= f.submit "Registrar" %></div>
+   <div class="form-actions">
+    <p><%= f.submit nil, :class => 'btn btn-primary' %></p>
+    <%= render "devise/shared/links" %>
+  </div>
 <% end %>
-
-<%= render "devise/shared/links" %>
