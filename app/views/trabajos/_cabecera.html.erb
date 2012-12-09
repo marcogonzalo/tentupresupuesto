@@ -1,0 +1,7 @@
+<header>
+  <h1 id="titulo"><%= trabajo.proposito %></h1>
+  <section id="datos-solicitud">
+    <p>Trabajo de CATEGORÍA ubicado en CIUDAD, ESTADO. <%= t('extras.presupuestos', :count => cantidad_presupuestos) %></p>
+    <p>Publicado el <time datetime="<%= l trabajo.created_at, :format => :html5 %>" pubdate="pubdate"><%= l trabajo.created_at, :format => :long %></time></p>
+  </section>
+</header>

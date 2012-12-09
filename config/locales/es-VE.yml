@@ -154,8 +154,8 @@ es-VE:
       other: '%{count} mensajes'
     presupuestos:
       zero: Sin presupuestos
-      one: 1 presupuesto
-      other: '%{count} presupuestos'
+      one: Con 1 presupuesto
+      other: 'Con %{count} presupuestos'
   helpers:
     links:
       back: Volver

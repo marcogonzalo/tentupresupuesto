@@ -14,6 +14,8 @@ class TrabajosController < ApplicationController
   # GET /trabajos/1.json
   def show
     @trabajo = Trabajo.find(params[:id])
+    @presupuestos = @trabajo.presupuestos
+    @contratado = @trabajo.contratado
 
     respond_to do |format|
       format.html # show.html.erb
