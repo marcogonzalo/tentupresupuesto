@@ -1,18 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
   <head>
-    <meta charset="utf-8">
-    <meta name="Title" content="TenTuPresupuesto - <%= yield(:title) if content_for?(:title) %>">
-    <meta name="Description" content="Búsqueda y contratación de servicios de reparación y remodelación por comparación de precios y calidad."
-    <meta name="Keywords" content="presupuestos, trabajadores a domicilio, contratación de servicios, reparación y remodelación, reparaciones, remodelaciones, licitaciones, hogar, casa, oficina, solicitudes, proveedores">
-    <meta name="Author" content="Marco Gonzalo Gómez Pérez & Augusto Ramírez">
-    <meta name="Language" content="Spanish">
-    <meta name="Robots" content="all"> 
-    <meta name="Revisit" content="1 day">
-    <meta name="Distribution" content="Global">
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>TenTuPresupuesto - <%= yield(:title) if content_for?(:title) %></title>
+    <%= render "layouts/shared/metatags" %>
     <%= csrf_meta_tags %>
 
     <!--[if lt IE 9]>
@@ -42,12 +31,23 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="#">Ttp</a>
+          <a class="brand" href="#"><%= image_tag "logo_ttp.png", {:title => "TenTuPresupuesto", :alt => "TenTuPresupuesto"} %></a>
+            <% if solicitante_signed_in? %>
+              Hola, <b><%= current_solicitante.nombre %></b>
+            <% elsif proveedor_signed_in? %>
+              Hola, <b><%= current_proveedor.nombre %></b>
+            <% end %>
           <div class="container nav-collapse">
             <ul class="nav">
-              <li><%= link_to "Link1", "/path1"  %></li>
-              <li><%= link_to "Link2", "/path2"  %></li>
-              <li><%= link_to "Link3", "/path3"  %></li>
+              <% if solicitante_signed_in? %>
+                <li><%= link_to('Cerrar sesión', destroy_solicitante_session_path, :method => :delete) %></li>
+              <% elsif proveedor_signed_in? %>
+                <li><%= link_to('Cerrar sesión', destroy_proveedor_session_path, :method => :delete) %></li>
+              <% else %>
+                <li>Ingresar como:</li>
+                <li><%= link_to('Solicitante', new_solicitante_session_path)  %></li>
+                <li><%= link_to('Proveedor', new_proveedor_session_path) %></li>
+              <% end %>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
