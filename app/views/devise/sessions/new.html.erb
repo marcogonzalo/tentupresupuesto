@@ -1,7 +1,11 @@
 <h2>Iniciar sesi&oacute;n</h2>
 
 <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
-  
+  <% if resource.errors.any? %>
+    <div id="error_explanation">
+      Ocurri&oacute; un error. No se pudo procesar la solicitud.
+    </div>
+  <% end %>
   <div class="control-group"><%= f.label :email %>
     <div class="controls"><%= f.email_field :email %></div>
   </div>
