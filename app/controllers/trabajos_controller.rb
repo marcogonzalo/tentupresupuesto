@@ -24,8 +24,15 @@ class TrabajosController < ApplicationController
   # GET /trabajos/new
   # GET /trabajos/new.json
   def new
-    @trabajo = Trabajo.new
-
+    perfil = current_solicitante.perfil
+    
+    if perfil.direccion.empty?
+      @trabajo = Trabajo.new
+    else
+      direccion = perfil.direccion
+      pto_ref = perfil.punto_referencia.nil? ? "" : ". Punto de referencia: "+perfil.punto_referencia
+      @trabajo = Trabajo.new(:direccion => direccion+pto_ref)
+    end
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @trabajo }
@@ -40,9 +47,11 @@ class TrabajosController < ApplicationController
   # POST /trabajos
   # POST /trabajos.json
   def create
+    
     @trabajo = Trabajo.new(params[:trabajo])
 
     respond_to do |format|
+      @trabajo.solicitante_id = current_solicitante.perfilable_id
       if @trabajo.save
         format.html { redirect_to @trabajo, notice: 'Trabajo was successfully created.' }
         format.json { render json: @trabajo, status: :created, location: @trabajo }
