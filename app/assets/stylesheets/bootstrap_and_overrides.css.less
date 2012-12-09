@@ -1,8 +1,8 @@
 @import "twitter/bootstrap/bootstrap";
 
-body { padding-top: 80px; } 
+body { /* Solo si cabecera va fija padding-top: 80px; */ } 
 #container { margin:0 auto;}
-.navbar .brand { padding-top:0px; padding-bottom:0px;}
+
 @import "twitter/bootstrap/responsive";
 
 // Set the correct sprite paths
@@ -40,6 +40,9 @@ body { padding-top: 80px; }
 @gridGutterWidth768:10px;
 //@gridColumnWidth1200
 @gridGutterWidth1200:10px;
+
+.navbar .brand { padding-top:0px; padding-bottom:0px; }
+.btn:hover { background-position: 0 0; transition: none; }
 
 select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input { margin-bottom:0px; margin-right:5px; }
 select { width: auto; }

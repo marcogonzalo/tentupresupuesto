@@ -11,7 +11,7 @@
  *= require bootstrap_and_overrides
  *= require_self
  */
-
+.navbar-inner .nav { margin-top:10px;}
 .error-campo {
   color: red;
   display: inline;
