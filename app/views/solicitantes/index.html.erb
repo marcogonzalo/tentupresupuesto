@@ -1,25 +1,44 @@
-<h1>Listing solicitantes</h1>
-
-<table>
-  <tr>
-    <th>Nombre</th>
-    <th>Apellido</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @solicitantes.each do |solicitante| %>
-  <tr>
-    <td><%= solicitante.nombre %></td>
-    <td><%= solicitante.apellido %></td>
-    <td><%= link_to 'Show', solicitante %></td>
-    <td><%= link_to 'Edit', edit_solicitante_path(solicitante) %></td>
-    <td><%= link_to 'Destroy', solicitante, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
+<%- model_class = Solicitante -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:id) %></th>
+      <th><%= model_class.human_attribute_name(:cedula) %></th>
+      <th><%= model_class.human_attribute_name(:direccion) %></th>
+      <th><%= model_class.human_attribute_name(:punto_referencia) %></th>
+      <th><%= model_class.human_attribute_name(:solicitudes_realizadas) %></th>
+      <th><%= model_class.human_attribute_name(:trabajos_recibidos) %></th>
+      <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @solicitantes.each do |solicitante| %>
+      <tr>
+        <td><%= link_to solicitante.id, solicitante_path(solicitante) %></td>
+        <td><%= solicitante.cedula %></td>
+        <td><%= solicitante.direccion %></td>
+        <td><%= solicitante.punto_referencia %></td>
+        <td><%= solicitante.solicitudes_realizadas %></td>
+        <td><%= solicitante.trabajos_recibidos %></td>
+        <td><%=l solicitante.created_at %></td>
+        <td>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_solicitante_path(solicitante), :class => 'btn btn-mini' %>
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      solicitante_path(solicitante),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-mini btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
 </table>
 
-<br />
-
-<%= link_to 'New Solicitante', new_solicitante_path %>
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_solicitante_path,
+            :class => 'btn btn-primary' %>

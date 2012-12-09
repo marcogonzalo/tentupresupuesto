@@ -1,15 +1,29 @@
-<p id="notice"><%= notice %></p>
+<%- model_class = Solicitante -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human %></h1>
+</div>
 
-<p>
-  <b>Nombre:</b>
-  <%= @solicitante.nombre %>
-</p>
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:cedula) %>:</strong></dt>
+  <dd><%= @solicitante.cedula %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:direccion) %>:</strong></dt>
+  <dd><%= @solicitante.direccion %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:punto_referencia) %>:</strong></dt>
+  <dd><%= @solicitante.punto_referencia %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:solicitudes_realizadas) %>:</strong></dt>
+  <dd><%= @solicitante.solicitudes_realizadas %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:trabajos_recibidos) %>:</strong></dt>
+  <dd><%= @solicitante.trabajos_recibidos %></dd>
+</dl>
 
-<p>
-  <b>Apellido:</b>
-  <%= @solicitante.apellido %>
-</p>
-
-
-<%= link_to 'Edit', edit_solicitante_path(@solicitante) %> |
-<%= link_to 'Back', solicitantes_path %>
+<div class="form-actions">
+  <%= link_to t('.back', :default => t("helpers.links.back")),
+              solicitantes_path, :class => 'btn'  %>
+  <%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_solicitante_path(@solicitante), :class => 'btn' %>
+  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              solicitante_path(@solicitante),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :class => 'btn btn-danger' %>
+</div>

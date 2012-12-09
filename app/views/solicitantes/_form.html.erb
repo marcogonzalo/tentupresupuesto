@@ -1,27 +1,24 @@
 <%= form_for(@solicitante) do |f| %>
   <% if @solicitante.errors.any? %>
-    <div id="error_explanation">
-      Ocurri&oacute; un error. No se pudo procesar la solicitud.
+    <div class="alert alert-error">
+      Ocurri&oacute; un error. Revisa el formulario.
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :cedula %><br />
-    <%= f.number_field :cedula %>
+  <div class="control-group"><%= f.label :cedula %>
+    <div class="controls"><%= f.number_field :cedula %></div>
   </div>
   <fieldset>
     <legend>Datos de ubicaci&oacute;n</legend>
     (Facilita la publicaci&oacute;n de solicitudes)
-    <div class="field">
-      <%= f.label :direccion %><br />
-      <%= f.text_field :direccion %>
+    <div class="control-group"><%= f.label :direccion %>
+      <div class="controls"><%= f.text_field :direccion %></div>
     </div>
-    <div class="field">
-      <%= f.label :punto_referencia %><br />
-      <%= f.text_field :punto_referencia %>
+    <div class="control-group"><%= f.label :punto_referencia %>
+      <div class="controls"><%= f.text_field :punto_referencia %></div>
     </div>
   </fieldset>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="form-actions">
+    <p><%= f.submit "Guardar perfil", :class => 'btn btn-primary' %></p>
   </div>
 <% end %>
