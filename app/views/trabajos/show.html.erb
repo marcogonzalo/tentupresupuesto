@@ -2,6 +2,11 @@
 <% content_for :head do %>
   <%= stylesheet_link_tag 'trabajos' %>
 <% end %>
+<% 
+  content_for :title do 
+    @trabajo.proposito
+  end
+%>
 <% cantidad_presupuestos = @trabajo.presupuestos.nil? ? @trabajo.presupuestos.count : 0 %>
 <article id="solicitud-trabajo">
 <%= render :partial => 'trabajos/cabecera', :locals => {:trabajo => @trabajo, :cantidad_presupuestos => cantidad_presupuestos} %>
