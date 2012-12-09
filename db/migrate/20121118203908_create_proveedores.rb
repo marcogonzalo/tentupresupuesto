@@ -18,5 +18,6 @@ class CreateProveedores < ActiveRecord::Migration
       
       t.timestamps
     end
+    add_index :proveedores,  :rif,               :unique => true
   end
 end
