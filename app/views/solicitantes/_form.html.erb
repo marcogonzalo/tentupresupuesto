@@ -1,9 +1,4 @@
 <%= form_for(@solicitante) do |f| %>
-  <% if @solicitante.errors.any? %>
-    <div class="alert alert-error">
-      Ocurri&oacute; un error. Revisa el formulario.
-    </div>
-  <% end %>
 
   <div class="control-group"><%= f.label :cedula %>
     <div class="controls"><%= f.number_field :cedula %></div>
