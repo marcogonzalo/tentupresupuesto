@@ -1,0 +1,13 @@
+<% if flash[:warning] %>
+  <p class="alert alert-warning"><%= flash[:notice] %></p>
+<% elsif flash[:error] %>
+  <p class="alert alert-error"><%= flash[:error] %></p>
+<% elsif flash[:info] %>
+  <p class="alert alert-info"><%= flash[:info] %></p>
+<% elsif flash[:success] %>
+  <p class="alert alert-success"><%= flash[:success] %></p>
+<% elsif notice %>
+  <p class="alert alert-warning"><%= notice %></p>
+<% elsif alert %>
+  <p class="alert alert-error"><%= alert %></p>
+<% end %>

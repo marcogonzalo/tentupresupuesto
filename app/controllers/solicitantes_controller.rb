@@ -1,3 +1,4 @@
+# coding: utf-8
 class SolicitantesController < ApplicationController
   # GET /solicitantes
   # GET /solicitantes.json
@@ -44,17 +45,27 @@ class SolicitantesController < ApplicationController
 
     respond_to do |format|
       if solicitante_signed_in?
-        if @solicitante.save
-          current_solicitante.update_attribute('perfilable_id', @solicitante.id)
-          
-          format.html { redirect_to @solicitante, notice: 'Datos de solicitante registrados.' }
-          format.json { render json: @solicitante, status: :created, location: @solicitante }
+        if current_solicitante.perfilable_id.nil? or current_solicitante.perfilable_id <= 0
+          if @solicitante.save
+            current_solicitante.update_attribute('perfilable_id', @solicitante.id)
+            
+            flash[:success] = "Datos de proveedor registrados."
+            format.html { redirect_to @solicitante }
+            format.json { render json: @solicitante, status: :created, location: @solicitante }
+          else
+            flash[:error] = "Error al procesar la información."
+            format.html { render action: "new" }
+            format.json { render json: @solicitante.errors, status: :unprocessable_entity }
+          end
         else
+          flash[:warning] = 'Ya posee un perfil asociado.'
           format.html { render action: "new" }
           format.json { render json: @solicitante.errors, status: :unprocessable_entity }
-        end
+        end  
       else
-        redirect_to new_solicitante_session_path
+        flash[:info] = 'No ha iniciado sesión.'
+        format.html { redirect_to new_solicitante_session }
+        format.json { render json: solicitante.errors, status: :unprocessable_entity }
       end
     end
   end

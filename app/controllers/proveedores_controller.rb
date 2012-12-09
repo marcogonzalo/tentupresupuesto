@@ -1,3 +1,4 @@
+# coding: utf-8
 class ProveedoresController < ApplicationController
   # GET /proveedores
   # GET /proveedores.json
@@ -44,17 +45,27 @@ class ProveedoresController < ApplicationController
 
     respond_to do |format|
       if proveedor_signed_in?
-        if @proveedor.save
-          current_proveedor.update_attribute('perfilable_id', @proveedor.id)
-          
-          format.html { redirect_to @proveedor, notice: 'Datos de proveedor registrados.' }
-          format.json { render json: @proveedor, status: :created, location: @proveedor }
+        if current_proveedor.perfilable_id.nil? or current_proveedor.perfilable_id <= 0
+          if @proveedor.save
+            current_proveedor.update_attribute('perfilable_id', @proveedor.id)
+            
+            flash[:success] = "Datos de proveedor registrados."
+            format.html { redirect_to @proveedor }
+            format.json { render json: @proveedor, status: :created, location: @proveedor }
+          else
+            flash[:error] = "Error al procesar la información."
+            format.html { render action: "new" }
+            format.json { render json: @proveedor.errors, status: :unprocessable_entity }
+          end
         else
-          format.html { render action: "new" }
-          format.json { render json: @proveedor.errors, status: :unprocessable_entity }
-        end
+          flash[:warning] = 'Ya posee un perfil asociado.'
+          format.html { render action: "new"  }
+          format.json { render json: @solicitante.errors, status: :unprocessable_entity }
+        end 
       else
-        redirect_to new_proveedor_session_path
+        flash[:info] = 'No ha iniciado sesión.'
+        format.html { redirect_to new_proveedor_session }
+        format.json { render json: @proveedor.errors, status: :unprocessable_entity }
       end
     end
   end
