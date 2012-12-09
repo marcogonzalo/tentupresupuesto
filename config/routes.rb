@@ -1,4 +1,6 @@
 Ttp::Application.routes.draw do
+  resources :trabajos
+
   devise_for :proveedor, :class_name => 'Usuario', :controllers => { :registrations => "usuario/registrations" }, :path_names => { :sign_in => 'iniciar_sesion', :sign_up => 'registro', :sign_out => 'cerrar_sesion', :password => 'clave', :confirmation => 'verificacion' }
   devise_for :solicitante, :class_name => 'Usuario', :controllers => { :registrations => "usuario/registrations" }, :path_names => { :sign_in => 'iniciar_sesion', :sign_up => 'registro', :sign_out => 'cerrar_sesion', :password => 'clave', :confirmation => 'verificacion' }
 

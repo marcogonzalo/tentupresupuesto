@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  proposito: MyString
+  descripcion: MyText
+  estatus: 
+  direccion: MyText
+  precio_final: 9.99
+
+two:
+  proposito: MyString
+  descripcion: MyText
+  estatus: 
+  direccion: MyText
+  precio_final: 9.99

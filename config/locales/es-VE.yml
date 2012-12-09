@@ -247,20 +247,6 @@ es-VE:
 #        one: Usuario
 #        other: Usuarios
     attributes:
-      usuario:
-        email: "Correo electrónico"
-        email_confirmation: "Confirmar correo electrónico"
-        password: "Clave"
-        fecha_nacimiento: "Fecha de nacimiento"
-        password_confirmation: "Confirmar clave"
-        telefono_alt: "Teléfono alternativo"
-        telefono_fijo: "Teléfono fijo"
-        telefono_movil: "Teléfono móvil"
-        acepta_terminos: "Acepto los Términos y Condiciones"
-      solicitante:
-        cedula: "Cédula"
-        direccion: "Dirección"
-        punto_referencia: "Punto de referencia"
       proveedor:
         correo_electronico: "Correo electrónico"
         descripcion: "Descripción"
@@ -278,5 +264,25 @@ es-VE:
           independiente: "Independiente"
           empresa_privada: "Empresa Privada"
           empresa_produccion_social: "Empresa de Producción Social"
+      solicitante:
+        cedula: "Cédula"
+        direccion: "Dirección"
+        punto_referencia: "Punto de referencia"
+      trabajo:
+        descripcion: "Descripción"
+        direccion: "Dirección"
+        estatus: "Estatus del trabajo"
+        precio_final: "Precio final"
+        proposito: "Propósito"
+      usuario:
+        email: "Correo electrónico"
+        email_confirmation: "Confirmar correo electrónico"
+        password: "Clave"
+        fecha_nacimiento: "Fecha de nacimiento"
+        password_confirmation: "Confirmar clave"
+        telefono_alt: "Teléfono alternativo"
+        telefono_fijo: "Teléfono fijo"
+        telefono_movil: "Teléfono móvil"
+        acepta_terminos: "Acepto los Términos y Condiciones"
     errors:
       <<: *errors

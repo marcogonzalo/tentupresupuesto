@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121118203908) do
+ActiveRecord::Schema.define(:version => 20121209014620) do
 
   create_table "proveedores", :force => true do |t|
     t.string   "nombre_empresa",        :limit => 50,                                                                           :default => "",             :null => false
@@ -43,6 +43,21 @@ ActiveRecord::Schema.define(:version => 20121118203908) do
   end
 
   add_index "solicitantes", ["cedula"], :name => "index_solicitantes_on_cedula", :unique => true
+
+  create_table "trabajos", :force => true do |t|
+    t.string   "proposito",      :limit => 100,                                                                             :default => "",        :null => false
+    t.text     "descripcion",                                                                                                                      :null => false
+    t.enum     "estatus",        :limit => [:buscando, :ejecutando, :finalizado, :cancelado],                               :default => :buscando
+    t.text     "direccion",                                                                                                                        :null => false
+    t.decimal  "precio_final",                                                                :precision => 8, :scale => 2, :default => 0.0,       :null => false
+    t.datetime "created_at",                                                                                                                       :null => false
+    t.datetime "updated_at",                                                                                                                       :null => false
+    t.integer  "solicitante_id"
+    t.integer  "contratado_id"
+  end
+
+  add_index "trabajos", ["contratado_id"], :name => "index_trabajos_on_contratado_id"
+  add_index "trabajos", ["solicitante_id"], :name => "index_trabajos_on_solicitante_id"
 
   create_table "usuarios", :force => true do |t|
     t.string   "email",                                               :default => "",    :null => false
@@ -83,5 +98,8 @@ ActiveRecord::Schema.define(:version => 20121118203908) do
   add_index "usuarios", ["confirmation_token"], :name => "index_usuarios_on_confirmation_token", :unique => true
   add_index "usuarios", ["email"], :name => "index_usuarios_on_email", :unique => true
   add_index "usuarios", ["reset_password_token"], :name => "index_usuarios_on_reset_password_token", :unique => true
+
+  add_foreign_key "trabajos", "proveedores", :name => "trabajos_contratado_id_fk", :column => "contratado_id"
+  add_foreign_key "trabajos", "solicitantes", :name => "trabajos_solicitante_id_fk"
 
 end
