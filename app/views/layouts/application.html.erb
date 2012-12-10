@@ -36,7 +36,7 @@
             <ul class="nav">
               <% if solicitante_signed_in? or proveedor_signed_in? %>
               <li class="dropdown">
-                <a href="#" class="dropdown-toggle btn btn-default stop" data-toggle="dropdown">
+                <a href="#" class="dropdown-toggle btn-default btn stop" data-toggle="dropdown">
                 <% if solicitante_signed_in? %>
                   Hola, <b><%= current_solicitante.nombre %></b>
                 <% elsif proveedor_signed_in? %>
@@ -54,7 +54,7 @@
               </li>
               <% else %>
               <li class="dropdown">
-                <a href="#" class="dropdown-toggle btn btn-warning stop" data-toggle="dropdown">
+                <a href="#" class="dropdown-toggle btn-warning btn stop" data-toggle="dropdown">
                   Iniciar sesión
                   <b class="caret"></b>
                 </a>
@@ -64,7 +64,7 @@
                 </ul>
               </li>
               <li class="dropdown">
-                <a href="#" class="dropdown-toggle btn btn-success stop" data-toggle="dropdown">
+                <a href="#" class="dropdown-toggle btn-success btn stop" data-toggle="dropdown">
                   Registrarme
                   <b class="caret"></b>
                 </a>
