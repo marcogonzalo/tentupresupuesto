@@ -6,8 +6,8 @@ body { /* Solo si cabecera va fija padding-top: 80px; */ }
 @import "twitter/bootstrap/responsive";
 
 // Set the correct sprite paths
-@iconSpritePath: asset-path("twitter/bootstrap/glyphicons-halflings");
-@iconWhiteSpritePath: asset-path("twitter/bootstrap/glyphicons-halflings-white");
+@iconSpritePath: asset-path("glyphicons-halflings");
+@iconWhiteSpritePath: asset-path("glyphicons-halflings-white");
 
 // Set the Font Awesome (Font Awesome is default. You can disable by commenting below lines)
 // Note: If you use asset_path() here, your compiled boostrap_and_overrides.css will not
@@ -43,6 +43,9 @@ body { /* Solo si cabecera va fija padding-top: 80px; */ }
 
 .navbar .brand { padding-top:0px; padding-bottom:0px; }
 .btn:hover { background-position: 0 0; transition: none; }
+.navbar .nav > li > a.btn:link {color:white; text-shadow: 0 1px 0 gray;}
+.navbar .nav > li > a.btn-default:link {color:#777; text-shadow: 0 1px 0 white;}
+.navbar-inner .nav { margin-top:10px;}
 
 select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input { margin-bottom:0px; margin-right:5px; }
 select { width: auto; }

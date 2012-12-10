@@ -19,7 +19,7 @@
     <!-- For non-Retina iPhone, iPod Touch, and Android 2.1+ devices: --><!-- Size should be 57 x 57 pixels -->
     <%= favicon_link_tag 'images/apple-touch-icon-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png' %>
     <!-- For all other devices --><!-- Size should be 32 x 32 pixels -->
-    <%= favicon_link_tag 'images/favicon.ico', :rel => 'shortcut icon' %>
+    <%= favicon_link_tag 'favicon.ico', :rel => 'shortcut icon' %>
   </head>
   <body>
 
@@ -36,7 +36,7 @@
             <ul class="nav">
               <% if solicitante_signed_in? or proveedor_signed_in? %>
               <li class="dropdown">
-                <a href="#" class="dropdown-toggle btn" data-toggle="dropdown">
+                <a href="#" class="dropdown-toggle btn btn-default stop" data-toggle="dropdown">
                 <% if solicitante_signed_in? %>
                   Hola, <b><%= current_solicitante.nombre %></b>
                 <% elsif proveedor_signed_in? %>
@@ -46,16 +46,33 @@
                 </a>
                 <ul class="dropdown-menu">
                 <% if solicitante_signed_in? %>
-                  <li><%= link_to('Cerrar sesión', destroy_solicitante_session_path, :method => :delete) %></li>
+                  <li><%= link_to('Cerrar sesión', destroy_solicitante_session_path, :class => 'go') %></li>
                 <% elsif proveedor_signed_in? %>
-                  <li><%= link_to('Cerrar sesión', destroy_proveedor_session_path, :method => :delete) %></li>
+                  <li><%= link_to('Cerrar sesión', destroy_proveedor_session_path, :class => 'go') %></li>
                 <% end %>
                 </ul>
               </li>
               <% else %>
-              <li>Ingresar como:</li>
-              <li><%= link_to('Solicitante', new_solicitante_session_path)  %></li>
-              <li><%= link_to('Proveedor', new_proveedor_session_path) %></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle btn btn-warning stop" data-toggle="dropdown">
+                  Iniciar sesión
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><%= link_to('Solicitante', new_solicitante_session_path, :class => 'go')  %></li>
+                  <li><%= link_to('Proveedor', new_proveedor_session_path, :class => 'go') %></li>
+                </ul>
+              </li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle btn btn-success stop" data-toggle="dropdown">
+                  Registrarme
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><%= link_to('Solicitante', new_solicitante_registration_path, :class => 'go')  %></li>
+                  <li><%= link_to('Proveedor', new_proveedor_registration_path, :class => 'go') %></li>
+                </ul>
+              </li>
               <% end %>
             </ul>
           </div><!--/.nav-collapse -->

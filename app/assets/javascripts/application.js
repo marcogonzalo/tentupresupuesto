@@ -13,5 +13,17 @@
 //= require jquery
 //= require jquery_ujs
 //= require modernizr
-//= require twitter/bootstrap
-//= require_tree .
+//= require twitter/bootstrap/bootstrap-collapse
+//= require twitter/bootstrap/bootstrap-dropdown
+
+/* HACK para que funcionen desplegables bootstrap en dispositivos tactiles */
+$('body').on('touchstart.dropdown', '.dropdown-menu', function (e) {
+    e.stopPropagation();
+});
+$('body').on('touchstart.dropdown-submenu', '.dropdown-menu a.stop', function (e) {
+    e.preventDefault();
+});
+$(document).on('click', '.dropdown-menu a.go', function () {
+    document.location = $(this).attr('href');
+});
+// FIN HACK DESPLEGABLES
