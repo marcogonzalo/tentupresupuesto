@@ -5,6 +5,7 @@ class Proveedor < ActiveRecord::Base
                   :direccion, :punto_referencia, :correo_electronico
   
   has_one :usuario, :as => :perfilable
+  has_many :trabajos
   
   validates :nombre_empresa, 
             :length => { :in => 5..50 }, 

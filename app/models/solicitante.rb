@@ -3,6 +3,7 @@ class Solicitante < ActiveRecord::Base
   attr_accessible :cedula, :calle_avenida, :casa_edificio, :numero_apto, :direccion, :punto_referencia
   
   has_one :usuario, :as => :perfilable
+  has_many :trabajos
   
   validates :cedula, 
             :length => { :in => 5..10 }, 
