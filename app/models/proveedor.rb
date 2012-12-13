@@ -6,6 +6,7 @@ class Proveedor < ActiveRecord::Base
   
   has_one :usuario, :as => :perfilable
   has_many :trabajos
+  has_many :presupuestos
   
   validates :nombre_empresa, 
             :length => { :in => 5..50 }, 

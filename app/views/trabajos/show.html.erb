@@ -26,8 +26,7 @@
               :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => '¿Está seguro de eliminar la oferta?')),
               :class => 'btn btn-danger' %>
 <% elsif proveedor_signed_in? %>
-  <% #= link_to t('.new', :default => "Ofrecer presupuesto"),
-     #         new_trabajo_presupuesto_path(@trabajo), :class => 'btn'  
-     %>
+  <%= link_to t('.new', :default => "Ofrecer presupuesto"),
+              new_trabajo_presupuesto_path(@trabajo), :class => 'btn btn-primary' %>
 <% end %>
 </footer>

@@ -274,6 +274,12 @@ es-VE:
         estatus: "Estatus del trabajo"
         precio_final: "Precio final"
         proposito: "Propósito"
+      presupuesto:
+        con_iva: "Incluye IVA"
+        precio_minimo: "Precio mínimo"
+        precio_maximo: "Precio máximo"
+        trabajo_id: "Solicitud"
+        resumen: "Resumen"
       usuario:
         email: "Correo electrónico"
         email_confirmation: "Confirmar correo electrónico"

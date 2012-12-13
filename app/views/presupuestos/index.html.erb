@@ -1,0 +1,54 @@
+<%- model_class = Presupuesto -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:id) %></th>
+      <th><%= model_class.human_attribute_name(:precio_minimo) %></th>
+      <th><%= model_class.human_attribute_name(:precio_maximo) %></th>
+      <th><%= model_class.human_attribute_name(:resumen) %></th>
+      <th><%= model_class.human_attribute_name(:con_iva) %></th>
+      <th><%= model_class.human_attribute_name(:visto) %></th>
+      <th><%= model_class.human_attribute_name(:aprobado) %></th>
+      <th><%= model_class.human_attribute_name(:rechazado) %></th>
+      <th><%= model_class.human_attribute_name(:motivo_rechazo) %></th>
+      <th><%= model_class.human_attribute_name(:trabajo_id) %></th>
+      <th><%= model_class.human_attribute_name(:proveedor_id) %></th>
+      <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @presupuestos.each do |presupuesto| %>
+      <tr>
+        <td><%= link_to presupuesto.id, presupuesto_path(presupuesto) %></td>
+        <td><%= presupuesto.precio_minimo %></td>
+        <td><%= presupuesto.precio_maximo %></td>
+        <td><%= presupuesto.resumen %></td>
+        <td><%= presupuesto.con_iva %></td>
+        <td><%= presupuesto.visto %></td>
+        <td><%= presupuesto.aprobado %></td>
+        <td><%= presupuesto.rechazado %></td>
+        <td><%= presupuesto.motivo_rechazo %></td>
+        <td><%= presupuesto.trabajo_id %></td>
+        <td><%= presupuesto.proveedor_id %></td>
+        <td><%=l presupuesto.created_at %></td>
+        <td>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_presupuesto_path(presupuesto), :class => 'btn btn-mini' %>
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      presupuesto_path(presupuesto),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-mini btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_presupuesto_path,
+            :class => 'btn btn-primary' %>

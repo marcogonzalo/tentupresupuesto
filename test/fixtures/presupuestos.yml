@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  precio_minimo: 1.5
+  precio_maximo: 1.5
+  resumen: MyText
+  con_iva: false
+  visto: false
+  aprobado: false
+  rechazado: false
+  motivo_rechazo: 
+
+two:
+  precio_minimo: 1.5
+  precio_maximo: 1.5
+  resumen: MyText
+  con_iva: false
+  visto: false
+  aprobado: false
+  rechazado: false
+  motivo_rechazo: 

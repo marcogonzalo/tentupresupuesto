@@ -1,3 +1,4 @@
+# coding: utf-8
 class TrabajosController < ApplicationController
   # GET /trabajos
   # GET /trabajos.json
@@ -55,9 +56,11 @@ class TrabajosController < ApplicationController
     respond_to do |format|
       @trabajo.solicitante_id = current_solicitante.perfilable_id
       if @trabajo.save
-        format.html { redirect_to @trabajo, notice: 'Trabajo was successfully created.' }
+        flash[:success] = "Solicitud publicada exitosamente"
+        format.html { redirect_to @trabajo }
         format.json { render json: @trabajo, status: :created, location: @trabajo }
       else
+        flash[:alert] = "Hubo un error en la publicación de la solicitud."
         format.html { render action: "new" }
         format.json { render json: @trabajo.errors, status: :unprocessable_entity }
       end
@@ -71,9 +74,11 @@ class TrabajosController < ApplicationController
 
     respond_to do |format|
       if @trabajo.update_attributes(params[:trabajo])
-        format.html { redirect_to @trabajo, notice: 'Trabajo was successfully updated.' }
+        flash[:success] = "Solicitud editada exitosamente"
+        format.html { redirect_to @trabajo }
         format.json { head :no_content }
       else
+        flash[:alert] = "Hubo un error editando la solicitud."
         format.html { render action: "edit" }
         format.json { render json: @trabajo.errors, status: :unprocessable_entity }
       end

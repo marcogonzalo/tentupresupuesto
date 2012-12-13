@@ -1,0 +1,32 @@
+<%= form_for  [@trabajo, @presupuesto] do |f| %>
+  <div class="control-group">
+    <%= f.label :precio_minimo, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :precio_minimo, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :precio_maximo, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :precio_maximo, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :con_iva, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.check_box :con_iva, :class => 'check_box' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :resumen, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_area :resumen, :class => 'text_area' %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                trabajo_presupuestos_path(@trabajo), :class => 'btn' %>
+  </div>
+<% end %>

@@ -1,5 +1,7 @@
+#encoding: utf-8
 class Trabajo < ActiveRecord::Base
   attr_accessible :descripcion, :direccion, :estatus, :precio_final, :proposito
+  
   has_many :presupuestos
   belongs_to :solicitante, :inverse_of => :trabajo
   belongs_to :contratado, :class_name => "Proveedor", :foreign_key => "contratado_id"
@@ -12,7 +14,8 @@ class Trabajo < ActiveRecord::Base
   validates :proposito, 
             :length => { :in => 10..100 }, 
             :presence => true
-  validates :proposito,
+  validates :descripcion,
+            :length => { :in => 10..500 }, 
             :presence => true
   validates_columns :estatus # Debe comentarse cuando se haga un rake db:migrate
   validates :direccion,
