@@ -13,9 +13,24 @@
   <section id="descripcion">
     <%= @trabajo.descripcion %>
   </section>
+  <% if @contratado %>
+  <section id="contratado">
+    <h2>Proveedor contratado</h2>
+    <div class="presupuesto">
+      <span class="proveedor-contratado"><%= @contratado.nombre_empresa %></span><%= row mostrar_reputacion(@contratado.reputacion, "general") %>
+    </div>
+  </section>
+  <% end %>
+  <% # No se muestra si el trabajo fue asignado y era el unico proveedor
+  unless cantidad_presupuestos <= 1 and @contratado %>
+  <section id="proveedores-interesados">
+    <h2>Proveedores interesados</h2>
+    <%= render(:partial => 'presupuestos/info_en_trabajo', :collection => @presupuestos, :as => :p, :locals => {:contratado => @contratado, :es_solicitante => @es_solicitante}) or 'No hay presupuestos presentados.' %>
+  </section>
+  <% end %>
 </article>
 <footer class="form-actions">
-<% if solicitante_signed_in? and current_solicitante.perfilable_id.eql?(@trabajo.solicitante_id) %>
+<% if @es_solicitante %>
   <%= link_to t('.back', :default => t("helpers.links.back")),
               trabajos_path, :class => 'btn' %>
   <%= link_to t('.edit', :default => t("helpers.links.edit")),
