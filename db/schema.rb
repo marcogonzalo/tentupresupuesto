@@ -11,7 +11,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121210014113) do
+ActiveRecord::Schema.define(:version => 20121215015719) do
+
+  create_table "mensajes", :force => true do |t|
+    t.string   "comentario",                                           :default => "",    :null => false
+    t.enum     "usuario",        :limit => [:solicitante, :proveedor]
+    t.boolean  "visto",                                                :default => false, :null => false
+    t.datetime "created_at",                                                              :null => false
+    t.datetime "updated_at",                                                              :null => false
+    t.integer  "presupuesto_id"
+  end
+
+  add_index "mensajes", ["presupuesto_id"], :name => "index_mensajes_on_presupuesto_id"
 
   create_table "presupuestos", :force => true do |t|
     t.float    "precio_minimo",                                                                                           :default => 0.0,   :null => false
@@ -116,6 +127,8 @@ ActiveRecord::Schema.define(:version => 20121210014113) do
   add_index "usuarios", ["confirmation_token"], :name => "index_usuarios_on_confirmation_token", :unique => true
   add_index "usuarios", ["email"], :name => "index_usuarios_on_email", :unique => true
   add_index "usuarios", ["reset_password_token"], :name => "index_usuarios_on_reset_password_token", :unique => true
+
+  add_foreign_key "mensajes", "presupuestos", :name => "mensajes_presupuesto_id_fk", :dependent => :delete
 
   add_foreign_key "presupuestos", "proveedores", :name => "presupuestos_proveedor_id_fk", :dependent => :delete
   add_foreign_key "presupuestos", "trabajos", :name => "presupuestos_trabajo_id_fk", :dependent => :delete

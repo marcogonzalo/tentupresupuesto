@@ -1,0 +1,23 @@
+# coding: utf-8
+class Mensaje < ActiveRecord::Base
+  attr_accessible :comentario, :usuario, :visto
+  
+  belongs_to :presupuesto
+  
+  validates :comentario,
+            :length => { :in => 2..255 },
+            :presence => true
+  
+  #ACCIONES
+  
+  def marcar_como_leido
+    unless self.visto
+      self.visto = true
+      self.save()
+    end
+  end
+  
+  def leido
+    self.visto ? "Leído" : "No leído"
+  end
+end

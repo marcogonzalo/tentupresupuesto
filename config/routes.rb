@@ -11,7 +11,9 @@ Ttp::Application.routes.draw do
   end
   
   resources :trabajos, :shallow => true do
-    resources :presupuestos
+    resources :presupuestos do
+      resources :mensajes # , :only => [:index, :create, :destroy]
+    end
   end
 
   # The priority is based upon order of creation:

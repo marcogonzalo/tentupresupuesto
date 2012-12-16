@@ -4,6 +4,7 @@ class Presupuesto < ActiveRecord::Base
   
   belongs_to :trabajo
   belongs_to :proveedor
+  has_many :mensajes
   
   validate  :rango_precio_valido
   validates :resumen, 

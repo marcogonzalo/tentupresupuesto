@@ -1,0 +1,8 @@
+<% unless m.new_record? %>
+<div class="mensaje mensaje-<%= m.usuario %>">
+  <span class="tipo-usuario"><b><%= (m.usuario.to_s == tipo_usuario ? "tú" : m.usuario.to_s).camelize %></b>:</span><br>
+  <p class="comentario"><%= m.comentario %></p>
+  <time><%= l m.created_at, :format => :abrev %></time>
+  <%= link_to "X", mensaje_path(m), :method => 'delete', :class => 'btn btn-danger' %>
+</div>
+<% end %>

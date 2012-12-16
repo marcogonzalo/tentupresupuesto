@@ -1,3 +1,4 @@
+# coding: utf-8
 class PresupuestosController < ApplicationController
   # GET /presupuestos
   # GET /presupuestos.json
@@ -14,9 +15,27 @@ class PresupuestosController < ApplicationController
   # GET /presupuestos/1.json
   def show
     @presupuesto = Presupuesto.find(params[:id])
-
+    @trabajo = Trabajo.find(@presupuesto.trabajo_id)
+    @mensajes = @presupuesto.mensajes
+    #Verificar si el trabajo existe y el usuario es el solicitante
+    @es_el_solicitante = false
+    if solicitante_signed_in?
+      @es_el_solicitante = @trabajo.solicitante_id.eql?(current_solicitante.prefilable_id)
+      @tipo_usuario = current_solicitante.perfilable_type
+    end
+    @es_el_proveedor = false
+    if proveedor_signed_in?
+      @es_el_solicitante = @presupuesto.proveedor_id.eql?(current_proveedor.perfilable_id)
+      @tipo_usuario = current_proveedor.perfilable_type
+    end
+    @mensaje = @presupuesto.mensajes.build(:usuario => @tipo_usuario)
+   
     respond_to do |format|
-      format.html # show.html.erb
+      if @es_el_solicitante or @es_el_proveedor
+        format.html # show.html.erb
+      else
+        format.html { redirect_to @trabajo, notice: 'No tienes permiso para ver la información del presupuesto.' }
+      end
       format.json { render json: @presupuesto }
     end
   end
