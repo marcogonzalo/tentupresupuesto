@@ -10,7 +10,7 @@
       <div class="controls"><%= f.select :tipo_proveedor, tipos_proveedor %></div>
     </div>
     
-    <div class="control-group"><%= f.label :rif %> <span class="informacion-campo">(Si no tiene, dejar en blanco)</span>
+    <div class="control-group"><%= f.label :rif %> <span class="informacion-campo">Ej.: X-########-# (Si no tiene, dejar en blanco)</span>
       <div class="controls"><%= f.text_field :rif %></div>
     </div>
     
@@ -39,7 +39,7 @@
     <legend>Datos de ubicaci&oacute;n</legend>
     (Si tienes local u oficina)
     <div class="control-group"><%= f.label :direccion %>
-      <div class="controls"><%= f.text_field :direccion %></div>
+      <div class="controls"><%= f.text_area :direccion %></div>
     </div>
     <div class="control-group"><%= f.label :punto_referencia %>
       <div class="controls"><%= f.text_field :punto_referencia %></div>

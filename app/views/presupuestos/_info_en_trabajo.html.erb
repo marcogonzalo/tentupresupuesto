@@ -1,6 +1,6 @@
 <% unless p.proveedor == contratado %>
 <div class="presupuesto">
-  <span class="proveedor-interesado"><%= p.proveedor.nombre_empresa %></span><%= raw mostrar_reputacion(p.proveedor.reputacion, "general") %>
+  <span class="proveedor-interesado"><%= p.proveedor.nombre_empresa %></span> <%= raw mostrar_reputacion(p.proveedor.reputacion, p.proveedor.valoraciones, "general") %>
   <% if es_el_solicitante %>
   <details>
     <p>Precio estimado: <%= number_to_currency(p.precio_minimo) %> a <%= number_to_currency(p.precio_maximo) %> (<%= p.incluye_iva%>)</p>

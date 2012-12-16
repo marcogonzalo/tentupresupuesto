@@ -8,13 +8,16 @@ class Proveedor < ActiveRecord::Base
   has_many :trabajos
   has_many :presupuestos
   
+  TIPO_EMPRESA = ["independiente", "cooperativa","empresa_produccion_social","empresa_privada"] 
+
   validates :nombre_empresa, 
-            :length => { :in => 5..50 }, 
-            :allow_blank => true
-  validates_columns :tipo_proveedor # Debe comentarse cuando se haga un rake db:migrate
+            :length => { :in => 3..50 }
+  validates :tipo_proveedor,
+            :inclusion => { :in => TIPO_EMPRESA },
+            :presence => true
   validates :rif,
             :format => { 
-                          :with => /^(((V|J)-([0-9]{8})-([0-9]{1}))|([0-9]{5,8}))$/,  #RIF o Cedula
+                          :with => /^((V|J)-([0-9]{8})-([0-9]{1}))$/,
                           :message => "no coincide con el formato (V-########-# ó J-########-#)" 
                        }, 
             :allow_blank => true

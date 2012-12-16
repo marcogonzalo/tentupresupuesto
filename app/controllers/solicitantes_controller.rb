@@ -49,7 +49,7 @@ class SolicitantesController < ApplicationController
           if @solicitante.save
             current_solicitante.update_attribute('perfilable_id', @solicitante.id)
             
-            flash[:success] = "Datos de proveedor registrados."
+            flash[:success] = "Datos de solicitante registrados."
             format.html { redirect_to @solicitante }
             format.json { render json: @solicitante, status: :created, location: @solicitante }
           else

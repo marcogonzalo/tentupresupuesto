@@ -6,6 +6,7 @@ class Trabajo < ActiveRecord::Base
   belongs_to :solicitante, :inverse_of => :trabajo
   belongs_to :contratado, :class_name => "Proveedor", :foreign_key => "contratado_id"
   
+  ESTATUS = ["buscando","ejecutando","finalizado","cancelado"]
   scope :estatus_buscando, where(:estatus => 'buscando')
   scope :estatus_ejecutando, where(:estatus => 'ejecutando')
   scope :estatus_finalizado, where(:estatus => 'finalizado')
@@ -17,7 +18,8 @@ class Trabajo < ActiveRecord::Base
   validates :descripcion,
             :length => { :in => 10..500 }, 
             :presence => true
-  validates_columns :estatus # Debe comentarse cuando se haga un rake db:migrate
+  validates :estatus,
+            :inclusion => { :in => ESTATUS }
   validates :direccion,
             :presence => true
   validates :precio_final, 

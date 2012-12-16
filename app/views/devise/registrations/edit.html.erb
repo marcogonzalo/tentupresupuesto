@@ -30,7 +30,7 @@
     </div>
     
     <div class="control-group"><%= f.label :sexo %>
-      <div class="controls"><%= f.enum_select :sexo %></div>
+      <div class="controls"><%= f.select(:sexo, Usuario::SEXO, {:prompt => 'Selecciona'}) %></div>
     </div>
   
     <div class="control-group"><%= f.label :fecha_nacimiento %>

@@ -6,6 +6,8 @@ class Presupuesto < ActiveRecord::Base
   belongs_to :proveedor
   has_many :mensajes
   
+  MOTIVO_RECHAZO = [:muy_caro, :muy_barato, :no_confiable, :pocos_detalles, :no_responde, :otro]
+  
   validate  :rango_precio_valido
   validates :resumen, 
             :length => {  :in => 10..500 },
@@ -20,6 +22,9 @@ class Presupuesto < ActiveRecord::Base
                                 :greater_than_or_equal_to => 0
                               },
             :presence => true
+  validates :motivo_rechazo,
+            :inclusion => { :in => MOTIVO_RECHAZO },
+            :allow_blank => true
   
   #ACCIONES
   def incluye_iva

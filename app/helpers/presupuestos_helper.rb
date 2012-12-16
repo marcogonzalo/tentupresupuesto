@@ -1,5 +1,5 @@
 module PresupuestosHelper
-  def mostrar_reputacion(cantidad, tipo = "general")
+  def mostrar_reputacion(reputacion, valoraciones, tipo = "general")
     case tipo
     when "trabajo"
       rep = "reputacion-trabajo rt"
@@ -8,10 +8,14 @@ module PresupuestosHelper
     else
       rep = "reputacion-proveedor rp"
     end
-    entero = cantidad.floor
-    decimal = (cantidad-entero>=0.5)?"_5":"_0"
-    borrar = ""
-    entero.times { |i| borrar += " * " }
-    return '<span class="'+rep+(entero.to_s)+decimal+'" title="'+(cantidad.to_s)+'"> '+borrar+'</span>'
+    if valoraciones > 0
+      entero = reputacion.floor
+      decimal = (reputacion-entero>=0.5)?"_5":"_0"
+      borrar = ""
+      entero.times { |i| borrar += " * " }
+      return '<span class="'+rep+(entero.to_s)+decimal+'" title="'+(reputacion.to_s)+'('+(valoraciones.to_s)+' evaluaciones)"> '+borrar+'</span>'
+    else
+      return '<span class="'+rep+'0_0" title="Sin-evaluar">Sin evaluar</span>'
+    end
   end
 end

@@ -4,8 +4,13 @@ class Mensaje < ActiveRecord::Base
   
   belongs_to :presupuesto
   
+  USUARIO = ["solicitante","proveedor"]
+  
   validates :comentario,
             :length => { :in => 2..255 },
+            :presence => true
+  validates :usuario,
+            :inclusion => { :in => USUARIO },
             :presence => true
   
   #ACCIONES

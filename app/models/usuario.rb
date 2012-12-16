@@ -1,7 +1,5 @@
 #encoding: utf-8
-class Usuario < ActiveRecord::Base
-  CAMPOS = ["email","nombre","apellido","sexo","fecha_nacimiento","telefono_fijo","telefono_movil","telefono_alt"]
-    
+class Usuario < ActiveRecord::Base    
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
@@ -13,6 +11,9 @@ class Usuario < ActiveRecord::Base
                   :perfilable_type, :perfilable_id, :nombre, :apellido, :sexo, :fecha_nacimiento,
                   :telefono_local, :telefono_movil, :telefono_alt, :acepta_terminos
 
+  SEXO = ["masculino", "femenino"] # Constante para valores de sexo
+  CAMPOS = ["email","nombre","apellido","sexo","fecha_nacimiento","telefono_fijo","telefono_movil","telefono_alt"]
+
   belongs_to :perfilable, :polymorphic => true
   
   validates :nombre, 
@@ -21,7 +22,9 @@ class Usuario < ActiveRecord::Base
   validates :apellido, 
             :length => { :in => 3..50 }, 
             :presence => true
-  validates_columns :sexo # Debe comentarse cuando se haga un rake db:migrate
+  validates :sexo,
+            :inclusion => { :in => SEXO},
+            :allow_blank => true 
   validates :fecha_nacimiento,
             :timeliness =>  {
                               :on_or_before => lambda { 16.years.ago },

@@ -14,11 +14,11 @@ class DeviseCreateUsuarios < ActiveRecord::Migration
       ## Atributos adicionales
       t.string    :nombre,            :limit => 50, :null => false, :default => ""
       t.string    :apellido,          :limit => 50, :null => false, :default => ""
-      t.enum      :sexo,              :limit => [:masculino, :femenino],  :default => nil
-      t.date      :fecha_nacimiento,                :null => true,   :default => '0000-00-00'
+      t.string    :sexo,              :limit => 10, :null => true,  :default => nil
+      t.date      :fecha_nacimiento,                :null => true,  :default => '0000-00-00'
       t.string    :telefono_local,    :limit => 20, :null => true,  :default => ""
       t.string    :telefono_movil,    :limit => 20, :null => true,  :default => ""
-      t.string    :telefono_alt,      :limit => 20, :null => true,   :default => ""
+      t.string    :telefono_alt,      :limit => 20, :null => true,  :default => ""
       t.boolean   :activo,                          :null => false, :default => true
       t.boolean   :acepta_terminos,                 :null => false, :default => false
       t.datetime  :ultimo_pago,                     :null => true
