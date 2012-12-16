@@ -7,9 +7,8 @@
     @trabajo.proposito
   end
 %>
-<% cantidad_presupuestos = @trabajo.presupuestos.nil? ? @trabajo.presupuestos.count : 0 %>
 <article id="solicitud-trabajo">
-<%= render :partial => 'trabajos/cabecera', :locals => {:trabajo => @trabajo, :cantidad_presupuestos => cantidad_presupuestos} %>
+<%= render :partial => 'trabajos/cabecera', :locals => {:trabajo => @trabajo, :cantidad_presupuestos => @presupuestos.size} %>
   <section id="descripcion">
     <%= @trabajo.descripcion %>
   </section>
@@ -22,15 +21,15 @@
   </section>
   <% end %>
   <% # No se muestra si el trabajo fue asignado y era el unico proveedor
-  unless cantidad_presupuestos <= 1 and @contratado %>
+  unless @presupuestos.size <= 1 and @contratado %>
   <section id="proveedores-interesados">
     <h2>Proveedores interesados</h2>
-    <%= render(:partial => 'presupuestos/info_en_trabajo', :collection => @presupuestos, :as => :p, :locals => {:contratado => @contratado, :es_solicitante => @es_solicitante}) or 'No hay presupuestos presentados.' %>
+    <%= render(:partial => 'presupuestos/info_en_trabajo', :collection => @presupuestos, :as => :p, :locals => {:contratado => @contratado, :es_el_solicitante => @es_el_solicitante}) or 'No hay presupuestos presentados.' %>
   </section>
   <% end %>
 </article>
 <footer class="form-actions">
-<% if @es_solicitante %>
+<% if @es_el_solicitante %>
   <%= link_to t('.back', :default => t("helpers.links.back")),
               trabajos_path, :class => 'btn' %>
   <%= link_to t('.edit', :default => t("helpers.links.edit")),
@@ -38,7 +37,7 @@
   <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
               trabajo_path(@trabajo),
               :method => 'delete',
-              :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => '¿Está seguro de eliminar la oferta?')),
+              :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => '¿Estás seguro de eliminar la oferta?')),
               :class => 'btn btn-danger' %>
 <% elsif proveedor_signed_in? %>
   <%= link_to t('.new', :default => "Ofrecer presupuesto"),

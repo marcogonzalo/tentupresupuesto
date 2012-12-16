@@ -17,7 +17,7 @@ class TrabajosController < ApplicationController
     @trabajo = Trabajo.find(params[:id])
     @presupuestos = @trabajo.presupuestos
     @contratado = @trabajo.contratado
-    @es_solicitante = solicitante_signed_in? and current_solicitante.perfilable_id.eql?(@trabajo.solicitante_id)
+    @es_el_solicitante = solicitante_signed_in? and current_solicitante.perfilable_id.eql?(@trabajo.solicitante_id)
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @trabajo }
