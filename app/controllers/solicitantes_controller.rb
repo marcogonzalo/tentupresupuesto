@@ -53,7 +53,7 @@ class SolicitantesController < ApplicationController
             format.html { redirect_to @solicitante }
             format.json { render json: @solicitante, status: :created, location: @solicitante }
           else
-            flash[:error] = "Error al procesar la información."
+            flash[:error] = "Ocurrió un error. Revisa el formulario."
             format.html { render action: "new" }
             format.json { render json: @solicitante.errors, status: :unprocessable_entity }
           end
@@ -77,9 +77,11 @@ class SolicitantesController < ApplicationController
 
     respond_to do |format|
       if @solicitante.update_attributes(params[:solicitante])
-        format.html { redirect_to @solicitante, notice: 'Datos actualizados.' }
+        flash[:success] = "Perfil actualizado."
+        format.html { redirect_to @solicitante }
         format.json { head :no_content }
       else
+        flash[:error] = "Ocurrió un error. Revisa el formulario."
         format.html { render action: "edit" }
         format.json { render json: @solicitante.errors, status: :unprocessable_entity }
       end
@@ -93,6 +95,7 @@ class SolicitantesController < ApplicationController
     @solicitante.destroy
 
     respond_to do |format|
+      flash[:success] = "Solicitante eliminado."
       format.html { redirect_to solicitantes_url }
       format.json { head :no_content }
     end

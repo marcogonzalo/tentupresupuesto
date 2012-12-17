@@ -60,7 +60,7 @@ class TrabajosController < ApplicationController
         format.html { redirect_to @trabajo }
         format.json { render json: @trabajo, status: :created, location: @trabajo }
       else
-        flash[:alert] = "Hubo un error en la publicación de la solicitud."
+        flash[:warning] = "Ocurrió un error. Revisa el formulario."
         format.html { render action: "new" }
         format.json { render json: @trabajo.errors, status: :unprocessable_entity }
       end
@@ -74,11 +74,11 @@ class TrabajosController < ApplicationController
 
     respond_to do |format|
       if @trabajo.update_attributes(params[:trabajo])
-        flash[:success] = "Solicitud editada exitosamente"
+        flash[:success] = "Solicitud actualizada."
         format.html { redirect_to @trabajo }
         format.json { head :no_content }
       else
-        flash[:alert] = "Hubo un error editando la solicitud."
+        flash[:warning] = "Ocurrió un error. Revisa el formulario."
         format.html { render action: "edit" }
         format.json { render json: @trabajo.errors, status: :unprocessable_entity }
       end
@@ -92,6 +92,7 @@ class TrabajosController < ApplicationController
     @trabajo.destroy
 
     respond_to do |format|
+      flash[:success] = "Solicitud eliminada."
       format.html { redirect_to trabajos_url }
       format.json { head :no_content }
     end

@@ -53,7 +53,7 @@ class ProveedoresController < ApplicationController
             format.html { redirect_to @proveedor }
             format.json { render json: @proveedor, status: :created, location: @proveedor }
           else
-            flash[:error] = "Error al procesar la información."
+            flash[:error] = "Ocurrió un error. Revisa el formulario."
             format.html { render action: "new" }
             format.json { render json: @proveedor.errors, status: :unprocessable_entity }
           end
@@ -77,9 +77,11 @@ class ProveedoresController < ApplicationController
 
     respond_to do |format|
       if @proveedor.update_attributes(params[:proveedor])
-        format.html { redirect_to @proveedor, notice: 'Proveedor was successfully updated.' }
+        flash[:success] = "Perfil actualizado."
+        format.html { redirect_to @proveedor }
         format.json { head :no_content }
       else
+        flash[:error] = "Ocurrió un error. Revisa el formulario."
         format.html { render action: "edit" }
         format.json { render json: @proveedor.errors, status: :unprocessable_entity }
       end
@@ -93,6 +95,7 @@ class ProveedoresController < ApplicationController
     @proveedor.destroy
 
     respond_to do |format|
+      flash[:success] = "Proveedor eliminado."
       format.html { redirect_to proveedores_url }
       format.json { head :no_content }
     end

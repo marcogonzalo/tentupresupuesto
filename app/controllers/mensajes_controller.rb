@@ -44,7 +44,7 @@ class MensajesController < ApplicationController
         format.html { redirect_to @presupuesto }
         format.json { render json: @mensaje, status: :created, location: @mensaje }
       else
-        flash[:alert] = "Hubo un error publicando el mensaje."
+        flash[:error] = "Ocurrió un error. Revisa el formulario."
         format.html { redirect_to @presupuesto }
         format.json { render json: @mensaje.errors, status: :unprocessable_entity }
       end

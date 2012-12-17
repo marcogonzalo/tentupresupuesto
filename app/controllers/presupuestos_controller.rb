@@ -34,7 +34,8 @@ class PresupuestosController < ApplicationController
       if @es_el_solicitante or @es_el_proveedor
         format.html # show.html.erb
       else
-        format.html { redirect_to @trabajo, notice: 'No tienes permiso para ver la información del presupuesto.' }
+        flash[:warning] = "No tienes permiso para ver la información del presupuesto."
+        format.html { redirect_to @trabajo }
       end
       format.json { render json: @presupuesto }
     end
@@ -70,7 +71,7 @@ class PresupuestosController < ApplicationController
         format.html { redirect_to @trabajo }
         format.json { render json: @presupuesto, status: :created, location: @presupuesto }
       else
-        flash[:alert] = "Hubo un error presentando presupuesto en la solicitud."
+        flash[:error] = "Ocurrió un error. Revisa el formulario."
         format.html { render action: "new" }
         format.json { render json: @presupuesto.errors, status: :unprocessable_entity }
       end
@@ -85,10 +86,10 @@ class PresupuestosController < ApplicationController
     respond_to do |format|
       if @presupuesto.update_attributes(params[:presupuesto])
         flash[:success] = "Presupuesto actualizado satisfactoriamente."
-        format.html { redirect_to @presupuesto, notice: 'Presupuesto was successfully updated.' }
+        format.html { redirect_to @presupuesto }
         format.json { head :no_content }
       else
-        flash[:alert] = "Hubo un error actualizando el presupuesto."
+        flash[:error] = "Ocurrió un error. Revisa el formulario."
         format.html { render action: "edit" }
         format.json { render json: @presupuesto.errors, status: :unprocessable_entity }
       end
@@ -102,6 +103,7 @@ class PresupuestosController < ApplicationController
     @presupuesto.destroy
 
     respond_to do |format|
+      flash[:success] = "Presupuesto eliminado."
       format.html { redirect_to presupuestos_url }
       format.json { head :no_content }
     end
