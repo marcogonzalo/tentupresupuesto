@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.8'
 
-gem 'mysql2'
+gem 'pg'
 
 gem 'foreigner'         # Soporte para Claves Foraneas en las migraciones
 gem 'timeliness'

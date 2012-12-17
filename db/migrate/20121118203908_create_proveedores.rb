@@ -1,6 +1,6 @@
 class CreateProveedores < ActiveRecord::Migration
   def change
-    create_table :proveedores, :options => 'ENGINE=InnoDB DEFAULT CHARSET=utf8' do |t|
+    create_table :proveedores do |t|
       t.string  :nombre_empresa,         :limit => 50, :null => false, :default => ""
       t.string  :tipo_proveedor,         :limit => 30, :null => false, :default=> :independiente
       t.string  :rif,                    :limit => 20, :null => true,  :default => ""

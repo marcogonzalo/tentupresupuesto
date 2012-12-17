@@ -1,6 +1,6 @@
 class CreatePresupuestos < ActiveRecord::Migration
   def change
-    create_table :presupuestos, :options => 'ENGINE=InnoDB DEFAULT CHARSET=utf8' do |t|
+    create_table :presupuestos do |t|
       t.float   :precio_minimo,   :null => false, :default => 0.0, :precision => 8, :scale => 2
       t.float   :precio_maximo,   :null => false, :default => 0.0, :precision => 8, :scale => 2
       t.text    :resumen,         :null => false, :default => ""

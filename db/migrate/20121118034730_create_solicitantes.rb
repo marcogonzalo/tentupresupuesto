@@ -1,6 +1,6 @@
 class CreateSolicitantes < ActiveRecord::Migration
   def change
-    create_table :solicitantes, :options => 'ENGINE=InnoDB DEFAULT CHARSET=utf8' do |t|
+    create_table :solicitantes do |t|
       t.string  :cedula,                   :limit => 20, :null => false, :default => ""
       t.string  :direccion,                :limit => 255, :null => true,  :default => ""
       t.string  :punto_referencia,         :limit => 50, :null => true,  :default => ""

@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(:version => 20121215015719) do
   create_table "presupuestos", :force => true do |t|
     t.float    "precio_minimo",                :default => 0.0,   :null => false
     t.float    "precio_maximo",                :default => 0.0,   :null => false
-    t.text     "resumen",                                         :null => false
+    t.text     "resumen",                      :default => "",    :null => false
     t.boolean  "con_iva",                      :default => true,  :null => false
     t.boolean  "visto",                        :default => false, :null => false
     t.boolean  "aprobado"
@@ -46,7 +46,7 @@ ActiveRecord::Schema.define(:version => 20121215015719) do
     t.string   "nombre_empresa",        :limit => 50, :default => "",              :null => false
     t.string   "tipo_proveedor",        :limit => 30, :default => "independiente", :null => false
     t.string   "rif",                   :limit => 20, :default => ""
-    t.text     "descripcion",                                                      :null => false
+    t.text     "descripcion",                         :default => "",              :null => false
     t.boolean  "verificado",                          :default => false,           :null => false
     t.string   "telefono_local",        :limit => 20, :default => "",              :null => false
     t.string   "telefono_movil",        :limit => 20, :default => "",              :null => false
@@ -77,9 +77,9 @@ ActiveRecord::Schema.define(:version => 20121215015719) do
 
   create_table "trabajos", :force => true do |t|
     t.string   "proposito",      :limit => 100,                               :default => "",         :null => false
-    t.text     "descripcion",                                                                         :null => false
+    t.text     "descripcion",                                                 :default => "",         :null => false
     t.string   "estatus",        :limit => 15,                                :default => "buscando", :null => false
-    t.text     "direccion",                                                                           :null => false
+    t.text     "direccion",                                                   :default => "",         :null => false
     t.decimal  "precio_final",                  :precision => 8, :scale => 2, :default => 0.0,        :null => false
     t.datetime "created_at",                                                                          :null => false
     t.datetime "updated_at",                                                                          :null => false

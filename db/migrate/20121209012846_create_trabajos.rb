@@ -1,6 +1,6 @@
 class CreateTrabajos < ActiveRecord::Migration
   def change
-    create_table :trabajos, :options => 'ENGINE=InnoDB DEFAULT CHARSET=utf8'  do |t|
+    create_table :trabajos  do |t|
       t.string  :proposito,      :limit => 100, :null => false, :default => ""
       t.text    :descripcion,                   :null => false, :default => ""
       t.string  :estatus,        :limit => 15,  :null => false, :default=>:buscando
