@@ -1,6 +1,6 @@
 # coding: utf-8
 class SolicitantesController < ApplicationController
-  before_filter :authenticate_solicitante, :except => [:index]
+  before_filter :authenticate_solicitante!, :except => [:index]
   # GET /solicitantes
   # GET /solicitantes.json
   def index
@@ -100,6 +100,12 @@ class SolicitantesController < ApplicationController
       format.html { redirect_to solicitantes_url }
       format.json { head :no_content }
     end
+  end
+  
+  def panel
+    @trabajos = current_solicitante.perfil.trabajos.includes(:presupuestos => [:mensajes, :proveedor])
+
+    render "panel"
   end
   
   def perfil

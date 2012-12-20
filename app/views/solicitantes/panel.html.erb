@@ -1,0 +1,47 @@
+<h1>Panel de solicitante</h1>
+<aside class="well">
+  <div class="nav">
+    <p class="nav-header"><i class="icon icon-user"></i> Opciones de perfil</p>
+    <ul class="nav nav-list">
+      <li><%= link_to "Perfil", solicitante_perfil_path %></li>
+      <li><%= link_to "Información de perfil", perfil_solicitante_path %></li>
+      <li>Intereses</li>
+      <li>Datos de ubicación</li>
+      <li>Información de contacto</li>
+    </ul>
+  </div>
+  <div class="nav">
+    <p class="nav-header"><i class="icon icon-list-alt"></i> Opciones administrativas</p>
+    <ul class="nav nav-list">
+      <li>Cambiar clave</li>
+      <li>Estadísticas</li>
+    </ul>
+  </div>
+</aside>
+<% if @trabajos.size > 0 %>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Trabajo</th>
+      <th>Presupuestos</th>
+      <th>Mensajes</th>
+      <th>Estado</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @trabajos.each do |trabajo| 
+      mensajes = Mensaje.joins(:presupuesto).where(:presupuesto_id => trabajo.presupuestos)
+  %>
+    <tr>
+      <td><%= trabajo.proposito %><br><%= link_to 'Ver solicitud', trabajo %></td>
+      <td><%= trabajo.presupuestos.size %><br><%= link_to 'Ver presupuestos', trabajo_presupuestos_path(trabajo) %></td>
+      <td><%= mensajes.count %> (<%= mensajes.where(:usuario => :proveedor, :visto => false).count %> sin leer)</td>
+      <td><%= trabajo.estatus.to_s.camelize %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+<% end %>
+
+  <%= link_to "Nueva solicitud de trabajo", new_trabajo_path,
+            :class => 'btn btn-primary' %>

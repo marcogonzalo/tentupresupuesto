@@ -7,7 +7,8 @@ Ttp::Application.routes.draw do
   resources :proveedores
 
   scope "/solicitante" do
-    get "perfil" => "solicitantes#perfil"
+    get 'panel' => "solicitantes#panel", :as => "panel_solicitante"
+    get 'perfil' => "solicitantes#perfil", :as => "perfil_solicitante"
   end
   
   resources :trabajos, :shallow => true do

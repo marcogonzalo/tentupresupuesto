@@ -47,7 +47,7 @@ class ApplicationController < ActionController::Base
       else
         case resource.perfilable_type
           when "solicitante"
-            return solicitantes_path
+            return panel_solicitante_path
           when "proveedor"
             return proveedores_path
           else
