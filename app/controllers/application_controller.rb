@@ -24,6 +24,14 @@ class ApplicationController < ActionController::Base
     end
   end
   
+  protected
+  def authenticate_any
+    unless solicitante_signed_in? or proveedor_signed_in?
+      redirect_to new_solicitante_session_path
+    end
+    return true
+  end
+  
   private
   def after_sign_in_path_for(resource)
     unless resource.confirmed_at.nil?

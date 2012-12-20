@@ -1,5 +1,7 @@
 # coding: utf-8
 class PresupuestosController < ApplicationController
+  before_filter :authenticate_proveedor!, :except => [:show, :index, :update]
+  before_filter :authenticate_any, :only => [:show, :index, :update]
   # GET /presupuestos
   # GET /presupuestos.json
   def index

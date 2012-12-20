@@ -1,5 +1,6 @@
 # coding: utf-8
 class TrabajosController < ApplicationController
+  before_filter :authenticate_solicitante!, :except => [:show, :index]
   # GET /trabajos
   # GET /trabajos.json
   def index

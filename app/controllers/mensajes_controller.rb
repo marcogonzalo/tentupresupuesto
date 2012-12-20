@@ -1,4 +1,5 @@
 class MensajesController < ApplicationController
+  before_filter :authenticate_any
   # GET /mensajes
   # GET /mensajes.json
   def index
