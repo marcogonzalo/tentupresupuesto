@@ -1,3 +1,4 @@
+# coding: utf-8
 class MensajesController < ApplicationController
   before_filter :authenticate_any
   # GET /mensajes
@@ -42,7 +43,7 @@ class MensajesController < ApplicationController
     respond_to do |format|
       if @mensaje.save
         flash[:success] = "Mensaje enviado satisfactoriamente."
-        format.html { redirect_to @presupuesto }
+        format.html { redirect_to presupuesto_path(@presupuesto,:anchor => "mensajes") }
         format.json { render json: @mensaje, status: :created, location: @mensaje }
       else
         flash[:error] = "Ocurrió un error. Revisa el formulario."

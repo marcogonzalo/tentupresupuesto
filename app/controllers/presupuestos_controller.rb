@@ -1,11 +1,13 @@
 # coding: utf-8
 class PresupuestosController < ApplicationController
+  before_filter :authenticate_solicitante!, :only => [:index]
   before_filter :authenticate_proveedor!, :except => [:show, :index, :update]
-  before_filter :authenticate_any, :only => [:show, :index, :update]
+  before_filter :authenticate_any, :only => [:show, :update]
   # GET /presupuestos
   # GET /presupuestos.json
   def index
-    @presupuestos = Presupuesto.all
+    @trabajo = Trabajo.find(params[:trabajo_id])
+    @presupuestos = @trabajo.presupuestos
 
     respond_to do |format|
       format.html # index.html.erb
@@ -18,20 +20,26 @@ class PresupuestosController < ApplicationController
   def show
     @presupuesto = Presupuesto.find(params[:id])
     @trabajo = Trabajo.find(@presupuesto.trabajo_id)
-    @mensajes = @presupuesto.mensajes
+    
     #Verificar si el trabajo existe y el usuario es el solicitante
     @es_el_solicitante = false
     if solicitante_signed_in?
-      @es_el_solicitante = @trabajo.solicitante_id.eql?(current_solicitante.prefilable_id)
+      @es_el_solicitante = @trabajo.solicitante_id.eql?(current_solicitante.perfilable_id)
       @tipo_usuario = current_solicitante.perfilable_type
+      m_u = 'proveedor'
     end
     @es_el_proveedor = false
     if proveedor_signed_in?
       @es_el_solicitante = @presupuesto.proveedor_id.eql?(current_proveedor.perfilable_id)
       @tipo_usuario = current_proveedor.perfilable_type
+      m_u = 'solicitante'
     end
-    @mensaje = @presupuesto.mensajes.build(:usuario => @tipo_usuario)
-   
+    
+    if @es_el_solicitante or @es_el_proveedor
+      @mensajes = @presupuesto.mensajes.order("created_at")
+      @mensajes.update_all({ :visto => true }, ['usuario = ?', m_u])
+      @mensaje = @presupuesto.mensajes.build(:usuario => @tipo_usuario)
+    end
     respond_to do |format|
       if @es_el_solicitante or @es_el_proveedor
         format.html # show.html.erb
