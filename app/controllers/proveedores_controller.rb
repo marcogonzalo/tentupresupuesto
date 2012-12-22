@@ -103,7 +103,7 @@ class ProveedoresController < ApplicationController
   end
 
   def panel
-    @presupuestos_presentados = Presupuesto.includes([:trabajo, :mensajes]).where(:proveedor_id => current_proveedor.perfilable_id)
+    @presupuestos_presentados = Presupuesto.includes([:trabajo, :mensajes]).where(:presupuestos => { :proveedor_id => current_proveedor.perfilable_id }, :trabajos => { :estatus => :buscando})
     render "panel"
   end
 end
