@@ -15,9 +15,7 @@ class TrabajosController < ApplicationController
   # GET /trabajos/1
   # GET /trabajos/1.json
   def show
-    @trabajo = Trabajo.find(params[:id])
-    @presupuestos = @trabajo.presupuestos
-    @contratado = @trabajo.contratado
+    @trabajo = Trabajo.includes(:presupuestos,:contratado).where(:trabajos => {:id => params[:id]}).first
     @es_el_solicitante = solicitante_signed_in? and current_solicitante.perfilable_id.eql?(@trabajo.solicitante_id)
     respond_to do |format|
       format.html # show.html.erb
