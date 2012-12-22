@@ -49,7 +49,7 @@ class ApplicationController < ActionController::Base
           when "solicitante"
             return panel_solicitante_path
           when "proveedor"
-            return proveedores_path
+            return panel_proveedor_path
           else
             root_path
           end

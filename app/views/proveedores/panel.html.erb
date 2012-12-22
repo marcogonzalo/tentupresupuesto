@@ -1,0 +1,57 @@
+<h1>Panel de proveedor</h1>
+<aside class="well">
+  <div class="nav">
+    <p class="nav-header"><i class="icon icon-user"></i> Opciones de perfil</p>
+    <ul class="nav nav-list">
+      <li><%= link_to "Perfil público", proveedor_path(current_proveedor.perfilable_id) %></li>
+      <li>Imagen de perfil</li>
+      <li>Información de perfil</li>
+    </ul>
+  </div>
+  <div class="nav">
+    <p class="nav-header"><i class="icon icon-book"></i> Opciones de profesión</p>
+    <ul class="nav nav-list">
+      <li>Categorías</li>
+      <li>Datos de ubicación</li>
+      <li>Información de contacto</li>
+      <li>Fotos de trabajos</li>
+      <li>Evaluaciones</li>
+    </ul>
+  </div>
+  <div class="nav">
+    <p class="nav-header"><i class="icon icon-list-alt"></i> Opciones administrativas</p>
+    <ul class="nav nav-list">
+      <li>Cambiar clave</li>
+      <li>Facturación</li>
+      <li>Estadísticas</li>
+    </ul>
+  </div>
+</aside>
+<% if @presupuestos_presentados.size > 0 %>
+<h2>Presupuestos presentados</h2>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Trabajo</th>
+      <th>Precio ofrecido</th>
+      <th>Mensajes</th>
+      <th>Estado</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @presupuestos_presentados.each do |p|
+        t = p.trabajo
+        m = p.mensajes
+  %>
+    <tr>
+      <td>
+        <%= link_to t.proposito, trabajo_path(t) %>
+      </td>
+      <td><%= link_to((number_to_currency(p.precio_minimo)+" a "+number_to_currency(p.precio_maximo)), p) %></td>
+      <td><%= m.size %> (<%= m.where(:usuario => :solicitante, :visto => false).size %> sin leer)</td>
+      <td><%= t.estatus.to_s.camelize %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+<% end %>

@@ -10,6 +10,10 @@ Ttp::Application.routes.draw do
     get 'panel' => "solicitantes#panel", :as => "panel_solicitante"
     get 'perfil' => "solicitantes#perfil", :as => "perfil_solicitante"
   end
+
+  scope "/proveedor" do
+    get 'panel' => "proveedores#panel", :as => "panel_proveedor"
+  end
   
   resources :trabajos, :shallow => true do
     resources :presupuestos do

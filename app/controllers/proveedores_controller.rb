@@ -1,6 +1,6 @@
 # coding: utf-8
 class ProveedoresController < ApplicationController
-  before_filter :authenticate_proveedor, :except => [:index]
+  before_filter :authenticate_proveedor!, :except => [:index]
   # GET /proveedores
   # GET /proveedores.json
   def index
@@ -100,5 +100,10 @@ class ProveedoresController < ApplicationController
       format.html { redirect_to proveedores_url }
       format.json { head :no_content }
     end
+  end
+
+  def panel
+    @presupuestos_presentados = Presupuesto.includes([:trabajo, :mensajes]).where(:proveedor_id => current_proveedor.perfilable_id)
+    render "panel"
   end
 end
