@@ -103,7 +103,7 @@ class SolicitantesController < ApplicationController
   end
   
   def panel
-    @trabajos = current_solicitante.perfil.trabajos.includes(:presupuestos => [:mensajes, :proveedor])
+    @trabajos = Trabajo.includes(:presupuestos).where(:solicitante_id => current_solicitante.perfilable_id)
 
     render "panel"
   end
