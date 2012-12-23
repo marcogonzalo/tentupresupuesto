@@ -17,7 +17,7 @@
         <td class="proveedor-interesado"><%= p.proveedor.nombre_empresa %></td>
         <td><%= raw mostrar_reputacion(p.proveedor.reputacion, p.proveedor.valoraciones, "general") %></td>
         <td><%= link_to((number_to_currency(p.precio_minimo)+" a "+number_to_currency(p.precio_maximo)), p) %> (<%= p.incluye_iva%>)</td>
-        <td><%= link_to(p.mensajes.count, presupuesto_path(p, :anchor => "mensajes"))  %> (<%= p.mensajes.where(:usuario => :proveedor, :visto => false).count %> sin leer)</td>
+        <td><%= link_to(p.mensajes.size, presupuesto_path(p, :anchor => "mensajes"))  %> (<%= p.mensajes.where(:usuario => :proveedor, :visto => false).size %> sin leer)</td>
     </tr>
     <% end %>
   </tbody>

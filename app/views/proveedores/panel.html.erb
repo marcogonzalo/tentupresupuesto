@@ -27,7 +27,7 @@
     </ul>
   </div>
 </aside>
-<% if @presupuestos_presentados.size > 0 %>
+<% if !@presupuestos_presentados.nil? and @presupuestos_presentados.size > 0 %>
 <h2>Presupuestos presentados</h2>
 <table class="table table-striped">
   <thead>
@@ -48,7 +48,35 @@
         <%= link_to t.proposito, trabajo_path(t) %>
       </td>
       <td><%= link_to((number_to_currency(p.precio_minimo)+" a "+number_to_currency(p.precio_maximo)), p) %></td>
-      <td><%= m.size %> (<%= m.where(:usuario => :solicitante, :visto => false).size %> sin leer)</td>
+      <td><%= link_to(m.size, presupuesto_path(p, :anchor => "mensajes")) %> (<%= m.where(:usuario => :solicitante, :visto => false).size %> sin leer)</td>
+      <td><%= t.estatus.to_s.camelize %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+<% end %>
+<% if !@trabajos_asignados.nil? and @trabajos_asignados.size > 0 %>
+<h2>Presupuestos asignados</h2>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Trabajo</th>
+      <th>Precio ofrecido</th>
+      <th>Mensajes</th>
+      <th>Estado</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @presupuestos_asignados.each do |p|
+        t = p.trabajo
+        m = p.mensajes
+  %>
+    <tr>
+      <td>
+        <%= link_to t.proposito, trabajo_path(t) %>
+      </td>
+      <td><%= link_to((number_to_currency(p.precio_minimo)+" a "+number_to_currency(p.precio_maximo)), p) %></td>
+      <td><%= link_to(m.size, presupuesto_path(p, :anchor => "mensajes")) %> (<%= m.where(:usuario => :solicitante, :visto => false).size %> sin leer)</td>
       <td><%= t.estatus.to_s.camelize %></td>
     </tr>
   <% end %>
