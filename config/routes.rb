@@ -18,9 +18,13 @@ Ttp::Application.routes.draw do
   resources :trabajos, :shallow => true do
     resources :presupuestos do
       resources :mensajes # , :only => [:index, :create, :destroy]
+      member do
+        put 'aceptar' => "presupuestos#aceptar_presupuesto"
+      end
     end
   end
 
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

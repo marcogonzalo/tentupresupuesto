@@ -1,7 +1,7 @@
 # coding: utf-8
 class PresupuestosController < ApplicationController
-  before_filter :authenticate_solicitante!, :only => [:index]
-  before_filter :authenticate_proveedor!, :except => [:show, :index, :update]
+  before_filter :authenticate_solicitante!, :only => [:index, :aceptar_presupuesto]
+  before_filter :authenticate_proveedor!, :except => [:show, :index, :update, :aceptar_presupuesto]
   before_filter :authenticate_any, :only => [:show, :update]
   # GET /presupuestos
   # GET /presupuestos.json
@@ -116,6 +116,26 @@ class PresupuestosController < ApplicationController
       flash[:success] = "Presupuesto eliminado."
       format.html { redirect_to presupuestos_url }
       format.json { head :no_content }
+    end
+  end
+  
+  def aceptar_presupuesto
+    @presupuesto = Presupuesto.find(params[:id])
+    es_el_solicitante = Trabajo.exists?(:id => @presupuesto.trabajo_id, :solicitante_id => current_solicitante.perfilable_id)
+    
+    respond_to do |format|
+      if es_el_solicitante
+        if @presupuesto.update_attribute('aprobado',true)
+          flash[:success] = "Presupuesto aceptado."
+          format.json { render :json => { presupuesto: @presupuesto, tipo_mensaje: :success, mensaje: flash[:success]}}
+        else
+          flash[:error] = "Ocurrió un error. No pudo aceptarse el presupuesto."
+          format.json { render :json => { presupuesto: @presupuesto.errors, tipo_mensaje: :error, mensaje: flash[:error]} }
+        end    
+      else
+        flash[:warning] = "Sólo el solicitante puede aprobar o rechazar el presupuesto."
+        format.json { render :json => {tipo_mensaje: :warning, mensaje: flash[:warning]} }
+      end
     end
   end
 end

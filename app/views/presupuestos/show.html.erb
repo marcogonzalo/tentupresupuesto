@@ -1,3 +1,6 @@
+<% content_for :foot do %>
+  <%= javascript_include_tag 'presupuestos' %>
+<% end %>
 <%- model_class = Presupuesto -%>
 <div class="page-header">
   <h1><%=t '.title', :default => model_class.model_name.human %></h1>
@@ -19,8 +22,9 @@
 <div class="form-actions">
   <% if @es_el_solicitante %>
     <%= link_to "Volver", trabajo_presupuestos_path(@trabajo), :class => 'btn' %>
-    <%= link_to "Aprobar", '#', :class => 'btn btn-success' %>
-    <%= link_to "Rechazar", '#', :class => 'btn btn-danger' %>
+    <%= link_to "Aprobar", aceptar_presupuesto_path(@presupuesto), :remote => true, :method => 'put', :id => 'aceptar-presupuesto', :class => 'btn btn-success' %>
+    <%= link_to "Rechazar", '#', :id => 'rechazar-presupuesto', :class => 'btn btn-danger' %>
+    <span id="loading" style="display:none;">Cargando</span>
   <% end %>
   <% if @es_el_proveedor %> 
   <%= link_to t('.edit', :default => t("helpers.links.edit")),

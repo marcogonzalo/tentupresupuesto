@@ -83,7 +83,7 @@
     <div class="container">
         <div class="row">
           <div class="span12">
-             <%= render "layouts/shared/errores" %>
+             <%= render "layouts/shared/mensajes" %>
              <%= yield %>
           </div>
         </div><!--/row-->
@@ -98,6 +98,6 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <%= javascript_include_tag "application" %>
-
+    <%= yield :foot %>
   </body>
 </html>

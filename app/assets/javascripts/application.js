@@ -15,6 +15,11 @@
 //= require modernizr
 //= require twitter/bootstrap/bootstrap-collapse
 //= require twitter/bootstrap/bootstrap-dropdown
+//= require presupuestos
+
+function mostrar_mensaje(id,tipo,mensaje) {
+  $(id).html(mensaje).attr('class',tipo).show();
+}
 
 /* HACK para que funcionen desplegables bootstrap en dispositivos tactiles */
 $('body').on('touchstart.dropdown', '.dropdown-menu', function (e) {
