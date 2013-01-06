@@ -15,20 +15,19 @@
 //= require modernizr
 //= require twitter/bootstrap/bootstrap-collapse
 //= require twitter/bootstrap/bootstrap-dropdown
+//= require twitter/bootstrap/bootstrap-modal
+//= require comun
 //= require presupuestos
-
-function mostrar_mensaje(id,tipo,mensaje) {
-  $(id).html(mensaje).attr('class',tipo).show();
-}
-
+jQuery(function($) {
 /* HACK para que funcionen desplegables bootstrap en dispositivos tactiles */
-$('body').on('touchstart.dropdown', '.dropdown-menu', function (e) {
-    e.stopPropagation();
-});
-$('body').on('touchstart.dropdown-submenu', '.dropdown-menu a.stop', function (e) {
-    e.preventDefault();
-});
-$(document).on('click', '.dropdown-menu a.go', function () {
-    document.location = $(this).attr('href');
-});
+  $('body').on('touchstart.dropdown', '.dropdown-menu', function (e) {
+      e.stopPropagation();
+  });
+  $('body').on('touchstart.dropdown-submenu', '.dropdown-menu a.stop', function (e) {
+      e.preventDefault();
+  });
+  $(document).on('click', '.dropdown-menu a.go', function () {
+      document.location = $(this).attr('href');
+  });
 // FIN HACK DESPLEGABLES
+});

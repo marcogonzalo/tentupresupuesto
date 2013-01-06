@@ -20,6 +20,7 @@ Ttp::Application.routes.draw do
       resources :mensajes # , :only => [:index, :create, :destroy]
       member do
         put 'aceptar' => "presupuestos#aceptar_presupuesto"
+        put 'rechazar' => "presupuestos#rechazar_presupuesto"
       end
     end
   end

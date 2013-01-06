@@ -1,13 +1,13 @@
 # coding: utf-8
 class PresupuestosController < ApplicationController
-  before_filter :authenticate_solicitante!, :only => [:index, :aceptar_presupuesto]
-  before_filter :authenticate_proveedor!, :except => [:show, :index, :update, :aceptar_presupuesto]
-  before_filter :authenticate_any, :only => [:show, :update]
+  before_filter :authenticate_solicitante!, :only => [:index, :aceptar_presupuesto, :rechazar_presupuesto]
+  before_filter :authenticate_proveedor!, :except => [:index, :show, :aceptar_presupuesto, :rechazar_presupuesto]
+  before_filter :authenticate_any, :only => [:show]
   # GET /presupuestos
   # GET /presupuestos.json
   def index
     @trabajo = Trabajo.find(params[:trabajo_id])
-    @presupuestos = @trabajo.presupuestos
+    @presupuestos = @trabajo.presupuestos.where(:rechazado => false)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -126,10 +126,34 @@ class PresupuestosController < ApplicationController
     respond_to do |format|
       if es_el_solicitante
         if @presupuesto.update_attribute('aprobado',true)
-          flash[:success] = "Presupuesto aceptado."
+          flash[:success] = "El presupuesto ha sido aceptado."
           format.json { render :json => { presupuesto: @presupuesto, tipo_mensaje: :success, mensaje: flash[:success]}}
         else
           flash[:error] = "Ocurrió un error. No pudo aceptarse el presupuesto."
+          format.json { render :json => { presupuesto: @presupuesto.errors, tipo_mensaje: :error, mensaje: flash[:error]} }
+        end    
+      else
+        flash[:warning] = "Sólo el solicitante puede aprobar o rechazar el presupuesto."
+        format.json { render :json => {tipo_mensaje: :warning, mensaje: flash[:warning]} }
+      end
+    end
+  end
+  
+  def rechazar_presupuesto
+    @presupuesto = Presupuesto.find(params[:id])
+    es_el_solicitante = Trabajo.exists?(:id => @presupuesto.trabajo_id, :solicitante_id => current_solicitante.perfilable_id)
+    if es_el_solicitante
+      @presupuesto.aprobado = false
+      @presupuesto.rechazado = true
+      @presupuesto.motivo_rechazo = params[:presupuesto][:motivo_rechazo].to_sym
+    end
+    respond_to do |format|
+      if es_el_solicitante
+        if @presupuesto.save
+          flash[:success] = "El presupuesto ha sido rechazado."
+          format.json { render :json => { presupuesto: @presupuesto, tipo_mensaje: :success, mensaje: flash[:success]}}
+        else
+          flash[:error] = "Ocurrió un error. No pudo rechazarse el presupuesto."
           format.json { render :json => { presupuesto: @presupuesto.errors, tipo_mensaje: :error, mensaje: flash[:error]} }
         end    
       else

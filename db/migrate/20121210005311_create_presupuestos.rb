@@ -7,7 +7,7 @@ class CreatePresupuestos < ActiveRecord::Migration
       t.boolean :con_iva,         :null => false, :default => true
       t.boolean :visto,           :null => false, :default => false
       t.boolean :aprobado,        :null => true, :default => nil
-      t.boolean :rechazado,       :null => true, :default => nil
+      t.boolean :rechazado,       :null => false, :default => false
       t.string  :motivo_rechazo,  :null => true, :limit => 20, :default => nil
 
       t.timestamps
