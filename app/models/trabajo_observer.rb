@@ -12,7 +12,7 @@ class TrabajoObserver < ActiveRecord::Observer
   # trabajos_realizados por un proveedor, cuando el trabajo finaliza
   def after_update(trabajo)
     # Si se cambia a estado de finalizado
-    if trabajo.status.eql?('Finalizado')
+    if trabajo.estatus.eql?('Finalizado')
       Solicitante.increment_counter(:trabajos_recibidos,trabajo.solicitante_id)
       Proveedor.increment_counter(:trabajos_realizados,trabajo.contratado_id)
     end

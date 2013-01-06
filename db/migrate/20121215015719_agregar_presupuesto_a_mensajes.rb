@@ -12,6 +12,5 @@ class AgregarPresupuestoAMensajes < ActiveRecord::Migration
       t.remove_foreign_key :presupuestos
     end
     remove_index :mensajes, :column => :presupuesto_id
-    remove_index :mensajes, :column => :soli
   end
 end

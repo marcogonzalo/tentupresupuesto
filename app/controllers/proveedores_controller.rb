@@ -1,6 +1,6 @@
 # coding: utf-8
 class ProveedoresController < ApplicationController
-  before_filter :authenticate_proveedor!, :except => [:index]
+  before_filter :authenticate_proveedor!, :except => [:index, :show]
   # GET /proveedores
   # GET /proveedores.json
   def index
@@ -16,6 +16,9 @@ class ProveedoresController < ApplicationController
   # GET /proveedores/1.json
   def show
     @proveedor = Proveedor.find(params[:id])
+    if request.path != proveedor_path(@proveedor)
+      redirect_to @proveedor, status: :moved_permanently
+    end
 
     respond_to do |format|
       format.html # show.html.erb

@@ -11,7 +11,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121215015719) do
+ActiveRecord::Schema.define(:version => 20130106233647) do
+
+  create_table "friendly_id_slugs", :force => true do |t|
+    t.string   "slug",                         :null => false
+    t.integer  "sluggable_id",                 :null => false
+    t.string   "sluggable_type", :limit => 40
+    t.datetime "created_at"
+  end
+
+  add_index "friendly_id_slugs", ["slug", "sluggable_type"], :name => "index_friendly_id_slugs_on_slug_and_sluggable_type", :unique => true
+  add_index "friendly_id_slugs", ["sluggable_id"], :name => "index_friendly_id_slugs_on_sluggable_id"
+  add_index "friendly_id_slugs", ["sluggable_type"], :name => "index_friendly_id_slugs_on_sluggable_type"
 
   create_table "mensajes", :force => true do |t|
     t.string   "comentario",                   :default => "",    :null => false
@@ -31,7 +42,7 @@ ActiveRecord::Schema.define(:version => 20121215015719) do
     t.boolean  "con_iva",                      :default => true,  :null => false
     t.boolean  "visto",                        :default => false, :null => false
     t.boolean  "aprobado"
-    t.boolean  "rechazado"
+    t.boolean  "rechazado",                    :default => false, :null => false
     t.string   "motivo_rechazo", :limit => 20
     t.datetime "created_at",                                      :null => false
     t.datetime "updated_at",                                      :null => false
@@ -59,9 +70,11 @@ ActiveRecord::Schema.define(:version => 20121215015719) do
     t.integer  "valoraciones",                        :default => 0,               :null => false
     t.datetime "created_at",                                                       :null => false
     t.datetime "updated_at",                                                       :null => false
+    t.string   "slug",                                :default => "",              :null => false
   end
 
   add_index "proveedores", ["rif"], :name => "index_proveedores_on_rif", :unique => true
+  add_index "proveedores", ["slug"], :name => "index_proveedores_on_slug", :unique => true
 
   create_table "solicitantes", :force => true do |t|
     t.string   "cedula",                 :limit => 20, :default => "", :null => false
@@ -85,10 +98,12 @@ ActiveRecord::Schema.define(:version => 20121215015719) do
     t.datetime "updated_at",                                                                          :null => false
     t.integer  "solicitante_id"
     t.integer  "contratado_id"
+    t.string   "slug",                                                        :default => "",         :null => false
   end
 
   add_index "trabajos", ["contratado_id"], :name => "index_trabajos_on_contratado_id"
   add_index "trabajos", ["estatus"], :name => "index_trabajos_on_estatus"
+  add_index "trabajos", ["slug"], :name => "index_trabajos_on_slug", :unique => true
   add_index "trabajos", ["solicitante_id"], :name => "index_trabajos_on_solicitante_id"
 
   create_table "usuarios", :force => true do |t|

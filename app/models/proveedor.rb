@@ -1,5 +1,8 @@
 #encoding: utf-8
 class Proveedor < ActiveRecord::Base
+  include FriendlyId
+  friendly_id :nombre_empresa, :use => [:slugged, :history]
+  
   attr_accessible :nombre_empresa, :tipo_proveedor, :rif, :descripcion,
                   :telefono_local, :telefono_movil, :telefono_alt,
                   :direccion, :punto_referencia, :correo_electronico
@@ -73,6 +76,7 @@ class Proveedor < ActiveRecord::Base
                                 :only_integer => true,
                                 :greater_than_or_equal_to => 0
                               }
+  validates :slug, :presence => true
   
   
   def translated_tipo_proveedor

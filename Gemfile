@@ -4,10 +4,13 @@ gem 'rails', '3.2.8'
 
 gem 'pg'
 
-gem 'foreigner'         # Soporte para Claves Foraneas en las migraciones
-gem 'timeliness'
-gem 'validates_timeliness', '~> 3.0'    # Validacion de fechas en el modelo
+# Asociados a modelos
+gem 'foreigner'                       # Soporte para Claves Foraneas en las migraciones
+gem 'timeliness'                      # Manejo de fechas
+gem 'validates_timeliness', '~> 3.0'  # Validacion de fechas en el modelo
+gem "friendly_id", '~> 4.0.1'         # Identificadores amigables para url
 
+# Sesiones
 gem 'devise'
 gem 'devise-encryptable'
 

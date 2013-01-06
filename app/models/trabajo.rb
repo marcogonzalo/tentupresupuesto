@@ -1,5 +1,8 @@
 #encoding: utf-8
 class Trabajo < ActiveRecord::Base
+  include FriendlyId
+  friendly_id :proposito, :use => [:slugged, :history]
+  
   attr_accessible :descripcion, :direccion, :estatus, :precio_final, :proposito
   
   has_many :presupuestos
@@ -24,4 +27,5 @@ class Trabajo < ActiveRecord::Base
             :presence => true
   validates :precio_final, 
             :numericality =>  { :greater_than_or_equal_to => 0 }
+  validates :slug, :presence => true
 end
