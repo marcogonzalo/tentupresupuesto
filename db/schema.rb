@@ -11,7 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130106233647) do
+ActiveRecord::Schema.define(:version => 20130109201227) do
+
+  create_table "categorias", :force => true do |t|
+    t.string  "nombre",      :limit => 50, :default => "", :null => false
+    t.string  "descripcion"
+    t.integer "padre_id",                  :default => 0
+    t.string  "slug",                      :default => "", :null => false
+  end
+
+  add_index "categorias", ["padre_id"], :name => "index_categorias_on_padre_id"
+  add_index "categorias", ["slug"], :name => "index_categorias_on_slug"
 
   create_table "friendly_id_slugs", :force => true do |t|
     t.string   "slug",                         :null => false

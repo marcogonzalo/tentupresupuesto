@@ -1,5 +1,4 @@
 Ttp::Application.routes.draw do
-
   devise_for :proveedor, :class_name => 'Usuario', :controllers => { :registrations => "usuario/registrations" }, :path_names => { :sign_in => 'iniciar_sesion', :sign_up => 'registro', :sign_out => 'cerrar_sesion', :password => 'clave', :confirmation => 'verificacion' }
   devise_for :solicitante, :class_name => 'Usuario', :controllers => { :registrations => "usuario/registrations" }, :path_names => { :sign_in => 'iniciar_sesion', :sign_up => 'registro', :sign_out => 'cerrar_sesion', :password => 'clave', :confirmation => 'verificacion' }
 
@@ -24,6 +23,8 @@ Ttp::Application.routes.draw do
       end
     end
   end
+  
+  resources :categorias
 
   
   # The priority is based upon order of creation:
