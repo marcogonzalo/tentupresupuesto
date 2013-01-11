@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130110212236) do
+ActiveRecord::Schema.define(:version => 20130111162657) do
 
   create_table "categorias", :force => true do |t|
     t.string  "nombre",      :limit => 50, :default => "", :null => false
@@ -29,6 +29,14 @@ ActiveRecord::Schema.define(:version => 20130110212236) do
   end
 
   add_index "categorias_proveedores", ["categoria_id", "proveedor_id"], :name => "index_categorias_proveedores_on_categoria_id_and_proveedor_id", :unique => true
+
+  create_table "categorias_trabajos", :id => false, :force => true do |t|
+    t.integer "categoria_id"
+    t.integer "trabajo_id"
+  end
+
+  add_index "categorias_trabajos", ["categoria_id", "trabajo_id"], :name => "index_categorias_trabajos_on_categoria_id_and_trabajo_id", :unique => true
+  add_index "categorias_trabajos", ["trabajo_id", "categoria_id"], :name => "index_categorias_trabajos_on_trabajo_id_and_categoria_id", :unique => true
 
   create_table "friendly_id_slugs", :force => true do |t|
     t.string   "slug",                         :null => false
@@ -116,8 +124,10 @@ ActiveRecord::Schema.define(:version => 20130110212236) do
     t.integer  "solicitante_id"
     t.integer  "contratado_id"
     t.string   "slug",                                                        :default => "",         :null => false
+    t.integer  "categoria_id"
   end
 
+  add_index "trabajos", ["categoria_id"], :name => "index_trabajos_on_categoria_id"
   add_index "trabajos", ["contratado_id"], :name => "index_trabajos_on_contratado_id"
   add_index "trabajos", ["estatus"], :name => "index_trabajos_on_estatus"
   add_index "trabajos", ["slug"], :name => "index_trabajos_on_slug", :unique => true
@@ -168,6 +178,7 @@ ActiveRecord::Schema.define(:version => 20130110212236) do
   add_foreign_key "presupuestos", "proveedores", :name => "presupuestos_proveedor_id_fk", :dependent => :delete
   add_foreign_key "presupuestos", "trabajos", :name => "presupuestos_trabajo_id_fk", :dependent => :delete
 
+  add_foreign_key "trabajos", "categorias", :name => "trabajos_categoria_id_fk"
   add_foreign_key "trabajos", "proveedores", :name => "trabajos_contratado_id_fk", :column => "contratado_id"
   add_foreign_key "trabajos", "solicitantes", :name => "trabajos_solicitante_id_fk"
 

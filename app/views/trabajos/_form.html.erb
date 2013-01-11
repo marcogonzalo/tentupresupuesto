@@ -17,7 +17,13 @@
       <%= f.text_area :direccion, :class => 'text_area' %>
     </div>
   </div>
-
+  <div class="control-group">
+    <%= f.label :categoria_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.select :categoria_id, Categoria.all.collect {|c| [ c.nombre, c.id ] } %>
+    </div>
+  </div>
+  
   <div class="form-actions">
     <%= f.submit nil, :class => 'btn btn-primary' %>
     <%= link_to t('.cancel', :default => t("helpers.links.cancel")),

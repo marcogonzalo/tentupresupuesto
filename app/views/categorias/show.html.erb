@@ -10,10 +10,12 @@
   <%= @categoria.descripcion %>
 </p>
 
+<% unless @categoria.categoria_padre.nil? %>
 <p>
   <b>Categoria:</b>
-  <%= @categoria.categoria_id %>
+  <%= @categoria.categoria_padre.nombre %>
 </p>
+<% end %>
 
 <p>
   <b>Slug:</b>

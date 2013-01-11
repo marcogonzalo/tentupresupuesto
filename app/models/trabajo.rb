@@ -3,11 +3,13 @@ class Trabajo < ActiveRecord::Base
   include FriendlyId
   friendly_id :proposito, :use => [:slugged, :history]
   
-  attr_accessible :descripcion, :direccion, :estatus, :precio_final, :proposito
+  attr_accessible :descripcion, :direccion, :estatus, :precio_final, :proposito,
+                  :categoria_id
   
   has_many :presupuestos
   belongs_to :solicitante, :inverse_of => :trabajo
   belongs_to :contratado, :class_name => "Proveedor", :foreign_key => "contratado_id"
+  belongs_to :categoria
   
   ESTATUS = ["buscando","ejecutando","finalizado","cancelado"]
   scope :estatus_buscando, where(:estatus => 'buscando')
