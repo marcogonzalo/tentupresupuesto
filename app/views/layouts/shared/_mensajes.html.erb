@@ -1,15 +1,15 @@
-<% if flash[:warning] and false %>
-  <p class="alert alert-warning"><%= flash[:notice] %></p>
-<% elsif flash[:error] and false  %>
-  <p class="alert alert-error"><%= flash[:error] %></p>
-<% elsif flash[:info] and false  %>
-  <p class="alert alert-info"><%= flash[:info] %></p>
-<% elsif flash[:success] and false  %>
-  <p class="alert alert-success"><%= flash[:success] %></p>
-<% elsif notice and false  %>
-  <p class="alert alert-warning"><%= notice %></p>
-<% elsif alert and false  %>
-  <p class="alert alert-error"><%= alert %></p>
-<% end %>
-
+<% if flash[:warning] %>
+  <p id="mensaje-ttp" class="alert alert-warning"><%= flash[:notice] %></p>
+<% elsif flash[:error]  %>
+  <p id="mensaje-ttp" class="alert alert-error"><%= flash[:error] %></p>
+<% elsif flash[:info]  %>
+  <p id="mensaje-ttp" class="alert alert-info"><%= flash[:info] %></p>
+<% elsif flash[:success]  %>
+  <p id="mensaje-ttp" class="alert alert-success"><%= flash[:success] %></p>
+<% elsif notice  %>
+  <p id="mensaje-ttp" class="alert alert-warning"><%= notice %></p>
+<% elsif alert  %>
+  <p id="mensaje-ttp" id="mensaje-ttp" class="alert alert-error"><%= alert %></p>
+<% else %>
 <p id="mensaje-ttp"></p>
+<% end %>
