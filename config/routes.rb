@@ -12,6 +12,7 @@ Ttp::Application.routes.draw do
 
   scope "/proveedor" do
     get 'panel' => "proveedores#panel", :as => "panel_proveedor"
+    get 'categorias' => "proveedores#categorias_de_proveedor", :as => "categorias_de_proveedor"
   end
   
   resources :trabajos, :shallow => true do

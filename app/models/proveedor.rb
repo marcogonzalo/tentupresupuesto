@@ -5,11 +5,13 @@ class Proveedor < ActiveRecord::Base
   
   attr_accessible :nombre_empresa, :tipo_proveedor, :rif, :descripcion,
                   :telefono_local, :telefono_movil, :telefono_alt,
-                  :direccion, :punto_referencia, :correo_electronico
+                  :direccion, :punto_referencia, :correo_electronico,
+                  :categoria_ids
   
   has_one :usuario, :as => :perfilable
   has_many :trabajos
   has_many :presupuestos
+  has_and_belongs_to_many :categorias
   
   TIPO_EMPRESA = ["independiente", "cooperativa","empresa_produccion_social","empresa_privada"] 
 
@@ -78,8 +80,18 @@ class Proveedor < ActiveRecord::Base
                               }
   validates :slug, :presence => true
   
+  validate :minimo_de_categorias
   
+  # ACCIONES
   def translated_tipo_proveedor
     I18n.t(tipo_proveedor, :scope => "activerecord.attributes.proveedor.tipos_proveedor")
+  end
+  
+  private
+  def minimo_de_categorias
+    unless categorias.size > 0 or new_record?
+      errors.add(:categorias, "debe asociarse al menos una categoría")
+      return false
+    end
   end
 end

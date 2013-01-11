@@ -78,9 +78,15 @@ class ProveedoresController < ApplicationController
   # PUT /proveedores/1.json
   def update
     @proveedor = Proveedor.find(params[:id])
-
+    no_param = false
+    if params[:proveedor].nil?
+      @proveedor.categorias.clear
+      params[:proveedor] ||= {}
+      no_param = true
+    end
+    @proveedor.categorias.clear if params[:proveedor][:categoria_ids].nil?
     respond_to do |format|
-      if @proveedor.update_attributes(params[:proveedor])
+      if no_param or @proveedor.update_attributes(params[:proveedor])
         flash[:success] = "Perfil actualizado."
         format.html { redirect_to @proveedor }
         format.json { head :no_content }
@@ -109,5 +115,10 @@ class ProveedoresController < ApplicationController
     @presupuestos_presentados = Presupuesto.includes([:trabajo, :mensajes]).where("presupuestos.proveedor_id = ? AND trabajos.estatus = 'buscando'", current_proveedor.perfilable_id).order("trabajos.updated_at DESC")
     @trabajos_asignados = Presupuesto.includes([:trabajo, :mensajes]).where("trabajos.contratado_id = ? AND trabajos.estatus = 'ejecutando'", current_proveedor.perfilable_id).order("trabajos.updated_at DESC")
     render "panel"
+  end
+  
+  def categorias_de_proveedor
+    @proveedor = Proveedor.find(current_proveedor.perfilable_id)
+    render "categorias"
   end
 end

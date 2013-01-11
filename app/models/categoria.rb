@@ -1,10 +1,14 @@
+#encoding: utf-8
 class Categoria < ActiveRecord::Base
   include FriendlyId
   friendly_id :slug_categoria, :use => :slugged
   
-  attr_accessible :padre_id, :descripcion, :nombre, :slug
+  attr_accessible :padre_id, :descripcion, :nombre, :slug, 
+                  :proveedor_ids
+                  
   has_many :categorias_hijas, :foreign_key => "padre_id", :class_name => 'Categoria'
   belongs_to :categoria_padre, :foreign_key => "padre_id", :class_name => 'Categoria' 
+  has_and_belongs_to_many :proveedores
   
   
   private
