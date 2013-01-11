@@ -124,7 +124,7 @@ class ProveedoresController < ApplicationController
       end
     end
     respond_to do |format|
-       if proveedor_signed_in?
+      if proveedor_signed_in?
         if params[:proveedor][:categoria_ids].nil?
           @proveedor.categorias.clear
           flash[:success] = "Categorías actualizadas."
