@@ -1,4 +1,4 @@
-<%= form_for(entidad) do |f| %>
+<%= form_for entidad , :url => url, :method => :put do |f| %>
   <% for cat in Categoria.find(:all) %>  
       <label>  
         <%= check_box_tag :categoria_ids,  

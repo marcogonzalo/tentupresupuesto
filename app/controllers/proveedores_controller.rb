@@ -78,15 +78,9 @@ class ProveedoresController < ApplicationController
   # PUT /proveedores/1.json
   def update
     @proveedor = Proveedor.find(params[:id])
-    no_param = false
-    if params[:proveedor].nil?
-      @proveedor.categorias.clear
-      params[:proveedor] ||= {}
-      no_param = true
-    end
-    @proveedor.categorias.clear if params[:proveedor][:categoria_ids].nil?
+    
     respond_to do |format|
-      if no_param or @proveedor.update_attributes(params[:proveedor])
+      if @proveedor.update_attributes(params[:proveedor])
         flash[:success] = "Perfil actualizado."
         format.html { redirect_to @proveedor }
         format.json { head :no_content }
@@ -120,5 +114,36 @@ class ProveedoresController < ApplicationController
   def categorias_de_proveedor
     @proveedor = Proveedor.find(current_proveedor.perfilable_id)
     render "categorias"
+  end
+  
+  def update_categorias_de_proveedor
+    if proveedor_signed_in?
+      @proveedor = Proveedor.find(current_proveedor.perfilable_id)
+      if params[:proveedor].nil?
+        params[:proveedor] ||= {}
+      end
+    end
+    respond_to do |format|
+       if proveedor_signed_in?
+        if params[:proveedor][:categoria_ids].nil?
+          @proveedor.categorias.clear
+          flash[:success] = "Categorías actualizadas."
+          format.html { redirect_to categorias_de_proveedor_path }
+          format.json { render :json => {tipo_mensaje: :success, mensaje: flash[:success]} }
+        elsif @proveedor.update_attributes(params[:proveedor])
+          flash[:success] = "Categorías actualizadas."
+          format.html { redirect_to categorias_de_proveedor_path }
+          format.json { render :json => {tipo_mensaje: :success, mensaje: flash[:success]} }
+        else
+          flash[:error] = "Ocurrió un error. Revisa el formulario."
+          format.html { render action: "categorias_de_proveedor" }
+          format.json { render :json => {tipo_mensaje: :danger, mensaje: flash[:error], errores: @proveedor.errors, status: :unprocessable_entity} }
+        end
+      else
+        flash[:info] = 'No ha iniciado sesión.'
+        format.html { redirect_to new_proveedor_session }
+        format.json { render :json => {tipo_mensaje: :info, mensaje: flash[:info]} }
+      end
+    end
   end
 end

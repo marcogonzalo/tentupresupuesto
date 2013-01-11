@@ -4,15 +4,16 @@ Ttp::Application.routes.draw do
 
   resources :solicitantes
   resources :proveedores
-
+  
+  get '/solicitante' => "solicitantes#panel", :as => "panel_solicitante"
   scope "/solicitante" do
-    get 'panel' => "solicitantes#panel", :as => "panel_solicitante"
     get 'perfil' => "solicitantes#perfil", :as => "perfil_solicitante"
   end
 
+  get '/proveedor' => "proveedores#panel", :as => "panel_proveedor"
   scope "/proveedor" do
-    get 'panel' => "proveedores#panel", :as => "panel_proveedor"
     get 'categorias' => "proveedores#categorias_de_proveedor", :as => "categorias_de_proveedor"
+    put 'categorias' => "proveedores#update_categorias_de_proveedor", :as => "update_categorias_de_proveedor"
   end
   
   resources :trabajos, :shallow => true do

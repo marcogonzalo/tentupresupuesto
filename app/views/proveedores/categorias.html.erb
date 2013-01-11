@@ -3,4 +3,4 @@
   <h1><%=t '.title', :default => t('helpers.titles.new', :model => model_class.model_name.human,
                                  :default => "Categorías de #{model_class.model_name.human}") %></h1>
 </div>
-<%= render :partial => 'categorias/form_categorias_de_entidad', :locals => {:entidad => @proveedor} %>
+<%= render :partial => 'categorias/form_categorias_de_entidad', :locals => {:entidad => @proveedor, :url => update_categorias_de_proveedor_path} %>
