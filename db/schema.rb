@@ -29,14 +29,7 @@ ActiveRecord::Schema.define(:version => 20130111162657) do
   end
 
   add_index "categorias_proveedores", ["categoria_id", "proveedor_id"], :name => "index_categorias_proveedores_on_categoria_id_and_proveedor_id", :unique => true
-
-  create_table "categorias_trabajos", :id => false, :force => true do |t|
-    t.integer "categoria_id"
-    t.integer "trabajo_id"
-  end
-
-  add_index "categorias_trabajos", ["categoria_id", "trabajo_id"], :name => "index_categorias_trabajos_on_categoria_id_and_trabajo_id", :unique => true
-  add_index "categorias_trabajos", ["trabajo_id", "categoria_id"], :name => "index_categorias_trabajos_on_trabajo_id_and_categoria_id", :unique => true
+  add_index "categorias_proveedores", ["proveedor_id", "categoria_id"], :name => "index_categorias_proveedores_on_proveedor_id_and_categoria_id", :unique => true
 
   create_table "friendly_id_slugs", :force => true do |t|
     t.string   "slug",                         :null => false
@@ -103,6 +96,9 @@ ActiveRecord::Schema.define(:version => 20130111162657) do
 
   create_table "solicitantes", :force => true do |t|
     t.string   "cedula",                 :limit => 20, :default => "", :null => false
+    t.string   "telefono_local",         :limit => 20, :default => ""
+    t.string   "telefono_movil",         :limit => 20, :default => ""
+    t.string   "telefono_alt",           :limit => 20, :default => ""
     t.string   "direccion",                            :default => ""
     t.string   "punto_referencia",       :limit => 50, :default => ""
     t.integer  "solicitudes_realizadas",               :default => 0,  :null => false
@@ -143,9 +139,6 @@ ActiveRecord::Schema.define(:version => 20130111162657) do
     t.string   "apellido",               :limit => 50, :default => "",    :null => false
     t.string   "sexo",                   :limit => 10
     t.date     "fecha_nacimiento"
-    t.string   "telefono_local",         :limit => 20, :default => ""
-    t.string   "telefono_movil",         :limit => 20, :default => ""
-    t.string   "telefono_alt",           :limit => 20, :default => ""
     t.boolean  "activo",                               :default => true,  :null => false
     t.boolean  "acepta_terminos",                      :default => false, :null => false
     t.datetime "ultimo_pago"

@@ -4,6 +4,22 @@
     <div class="controls"><%= f.number_field :cedula %></div>
   </div>
   <fieldset>
+    <legend>Datos de contacto</legend>
+    (Ser&aacute; entregado al proveedor al aprobar su presupuesto)
+    
+    <div class="control-group"><%= f.label :telefono_local %>
+      <div class="controls"><%= f.text_field :telefono_local %></div>
+    </div>
+    
+    <div class="control-group"><%= f.label :telefono_movil %>
+      <div class="controls"><%= f.text_field :telefono_movil %></div>
+    </div>
+    
+    <div class="control-group"><%= f.label :telefono_alt %>
+      <div class="controls"><%= f.text_field :telefono_alt %></div>
+    </div>
+  </fieldset>
+  <fieldset>
     <legend>Datos de ubicaci&oacute;n</legend>
     (Facilita la publicaci&oacute;n de solicitudes)
     <div class="control-group"><%= f.label :direccion %>

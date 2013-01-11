@@ -16,9 +16,6 @@ class DeviseCreateUsuarios < ActiveRecord::Migration
       t.string    :apellido,          :limit => 50, :null => false, :default => ""
       t.string    :sexo,              :limit => 10, :null => true,  :default => nil
       t.date      :fecha_nacimiento,                :null => true
-      t.string    :telefono_local,    :limit => 20, :null => true,  :default => ""
-      t.string    :telefono_movil,    :limit => 20, :null => true,  :default => ""
-      t.string    :telefono_alt,      :limit => 20, :null => true,  :default => ""
       t.boolean   :activo,                          :null => false, :default => true
       t.boolean   :acepta_terminos,                 :null => false, :default => false
       t.datetime  :ultimo_pago,                     :null => true

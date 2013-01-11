@@ -8,11 +8,10 @@ class Usuario < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :email_confirmation, :password, :password_confirmation, :remember_me,
-                  :perfilable_type, :perfilable_id, :nombre, :apellido, :sexo, :fecha_nacimiento,
-                  :telefono_local, :telefono_movil, :telefono_alt, :acepta_terminos
+                  :perfilable_type, :perfilable_id, :nombre, :apellido, :sexo, :fecha_nacimiento, :acepta_terminos
 
   SEXO = ["masculino", "femenino"] # Constante para valores de sexo
-  CAMPOS = ["email","nombre","apellido","sexo","fecha_nacimiento","telefono_fijo","telefono_movil","telefono_alt"]
+  CAMPOS = ["email","nombre","apellido","sexo","fecha_nacimiento"]
 
   belongs_to :perfilable, :polymorphic => true
   
@@ -31,33 +30,6 @@ class Usuario < ActiveRecord::Base
                               :type => :date,
                               :on_or_before_message => 'debe tener 16 años o más'
                             },
-            :allow_blank => true
-  validates :telefono_local, 
-            :presence => { 
-                          :message => "debe completarse si no posee teléfono móvil", 
-                          :if => "telefono_movil.blank?"
-                         },
-            :format => { 
-                          :with => /^(02)[0-9]{8,10}$/, 
-                          :message => "tiene un formato inválido", 
-                          :if => "!telefono_local.blank?" 
-                       } 
-  validates :telefono_movil, 
-            :presence => { 
-                          :message => "debe completarse si no posee teléfono local", 
-                          :if => "telefono_local.blank?"
-                         },
-            :format => { 
-                          :with => /^(04)(12|22|14|24|16|26)[0-9]{7,10}$/, 
-                          :message => "tiene un formato inválido", 
-                          :if => "!telefono_movil.blank?" 
-                       } 
-  validates :telefono_alt,
-            :format => { 
-                          :with => /^(((04)(12|22|14|24|16|26))|(02))[0-9]{7,10}$/, 
-                          :message => "tiene un formato inválido", 
-                          :if => "!telefono_alt.blank?"  
-                       },
             :allow_blank => true
   validates :email, 
             :confirmation => true,

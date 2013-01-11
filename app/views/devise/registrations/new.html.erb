@@ -41,18 +41,6 @@
     <div class="control-group"><%= f.label :fecha_nacimiento %>
       <div class="controls"><%= f.date_select :fecha_nacimiento, :start_year => Time.now.year - 85, :end_year => Time.now.year - 16, :class => 'date_field' %></div>
     </div>
-    
-    <div class="control-group"><%= f.label :telefono_local %>
-      <div class="controls"><%= f.text_field :telefono_local %></div>
-    </div>
-    
-    <div class="control-group"><%= f.label :telefono_movil %>
-      <div class="controls"><%= f.text_field :telefono_movil %></div>
-    </div>
-    
-    <div class="control-group"><%= f.label :telefono_alt %>
-      <div class="controls"><%= f.text_field :telefono_alt %></div>
-    </div>
   </fieldset>
   <div><%= f.check_box :acepta_terminos %><%= f.label :acepta_terminos %></div>
   
