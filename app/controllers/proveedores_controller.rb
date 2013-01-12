@@ -39,7 +39,7 @@ class ProveedoresController < ApplicationController
 
   # GET /proveedores/1/edit
   def edit
-    @proveedor = Proveedor.find(params[:id])
+    @proveedor = Proveedor.find(current_proveedor.perfilable_id)
   end
 
   # POST /proveedores
@@ -54,7 +54,7 @@ class ProveedoresController < ApplicationController
             current_proveedor.update_attribute('perfilable_id', @proveedor.id)
             
             flash[:success] = "Datos de proveedor registrados."
-            format.html { redirect_to @proveedor }
+            format.html { redirect_to panel_proveedor_path }
             format.json { render json: @proveedor, status: :created, location: @proveedor }
           else
             flash[:error] = "Ocurrió un error. Revisa el formulario."
@@ -77,12 +77,12 @@ class ProveedoresController < ApplicationController
   # PUT /proveedores/1
   # PUT /proveedores/1.json
   def update
-    @proveedor = Proveedor.find(params[:id])
+    @proveedor = Proveedor.find(current_proveedor.perfilable_id)
     
     respond_to do |format|
       if @proveedor.update_attributes(params[:proveedor])
         flash[:success] = "Perfil actualizado."
-        format.html { redirect_to @proveedor }
+        format.html { redirect_to panel_proveedor_path }
         format.json { head :no_content }
       else
         flash[:error] = "Ocurrió un error. Revisa el formulario."
@@ -100,7 +100,7 @@ class ProveedoresController < ApplicationController
 
     respond_to do |format|
       flash[:success] = "Proveedor eliminado."
-      format.html { redirect_to proveedores_url }
+      format.html { redirect_to root_path }
       format.json { head :no_content }
     end
   end

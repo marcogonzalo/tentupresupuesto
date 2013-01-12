@@ -1,28 +1,34 @@
 Ttp::Application.routes.draw do
-  devise_for :proveedor, :class_name => 'Usuario', :controllers => { :registrations => "usuario/registrations" }, :path_names => { :sign_in => 'iniciar_sesion', :sign_up => 'registro', :sign_out => 'cerrar_sesion', :password => 'clave', :confirmation => 'verificacion' }
-  devise_for :solicitante, :class_name => 'Usuario', :controllers => { :registrations => "usuario/registrations" }, :path_names => { :sign_in => 'iniciar_sesion', :sign_up => 'registro', :sign_out => 'cerrar_sesion', :password => 'clave', :confirmation => 'verificacion' }
+  devise_for :proveedor, :class_name => 'Usuario', :controllers => { :registrations => "usuario/registrations" }, :path_names => { :sign_in => 'iniciar_sesion', :sign_up => 'registro', :sign_out => 'cerrar_sesion', :password => 'clave', :confirmation => 'verificacion', :edit => 'editar' }
+  devise_for :solicitante, :class_name => 'Usuario', :controllers => { :registrations => "usuario/registrations" }, :path_names => { :sign_in => 'iniciar_sesion', :sign_up => 'registro', :sign_out => 'cerrar_sesion', :password => 'clave', :confirmation => 'verificacion', :edit => 'editar' }
 
-  resources :solicitantes
-  resources :proveedores
-  
-  get '/solicitante' => "solicitantes#panel", :as => "panel_solicitante"
   scope "/solicitante" do
-    get 'perfil' => "solicitantes#perfil", :as => "perfil_solicitante"
+    get     "/" => "solicitantes#panel", :as => "panel_solicitante"
+    get     "nuevo" => "solicitantes#new", :as => "new_solicitante"
+    get     "editar" => "solicitantes#edit", :as => "edit_solicitante"
+    post    "nuevo(.:id)" => "solicitantes#create", :as => "solicitantes"
+    put     "editar(.:id)" => "solicitantes#update", :as => "solicitante"
   end
 
-  get '/proveedor' => "proveedores#panel", :as => "panel_proveedor"
+  resources :proveedores, :only => [:index, :show]
   scope "/proveedor" do
-    get 'categorias' => "proveedores#categorias_de_proveedor", :as => "categorias_de_proveedor"
-    put 'categorias' => "proveedores#update_categorias_de_proveedor", :as => "update_categorias_de_proveedor"
+    get     "/" => "proveedores#panel", :as => "panel_proveedor"
+    get     "nuevo" => "proveedores#new", :as => "new_proveedor"
+    get     "editar" => "proveedores#edit", :as => "edit_proveedor"
+    post    "nuevo(.:id)" => "proveedores#create", :as => "proveedores"
+    put     "editar(.:id)" => "proveedores#update", :as => "proveedor"
+    get     'categorias' => "proveedores#categorias_de_proveedor", :as => "categorias_de_proveedor"
+    put     'categorias' => "proveedores#update_categorias_de_proveedor", :as => "update_categorias_de_proveedor"
+    get     "/:id" => "proveedores#perfil", :as => "perfil_proveedor"
   end
   
-  resources :trabajos, :shallow => true do
-    resources :presupuestos do
-      resources :mensajes # , :only => [:index, :create, :destroy]
+  resources :trabajos, :shallow => true, :path_names => {:new => "nuevo", :edit => "editar"} do
+    resources :presupuestos, :path_names => {:new => "nuevo", :edit => "editar"} do
       member do
         put 'aceptar' => "presupuestos#aceptar_presupuesto"
         put 'rechazar' => "presupuestos#rechazar_presupuesto"
       end
+      resources :mensajes # , :only => [:index, :create, :destroy]
     end
   end
   

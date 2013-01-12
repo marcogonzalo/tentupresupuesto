@@ -15,7 +15,7 @@ class SolicitantesController < ApplicationController
   # GET /solicitantes/1
   # GET /solicitantes/1.json
   def show
-    @solicitante = Solicitante.find(params[:id])
+    @solicitante = current_solicitante.datos_y_perfil
 
     respond_to do |format|
       format.html # show.html.erb
@@ -36,7 +36,7 @@ class SolicitantesController < ApplicationController
 
   # GET /solicitantes/1/edit
   def edit
-    @solicitante = Solicitante.find(params[:id])
+    @solicitante = Solicitante.find(current_solicitante.perfilable_id)
   end
 
   # POST /solicitantes
@@ -45,41 +45,35 @@ class SolicitantesController < ApplicationController
     @solicitante = Solicitante.new(params[:solicitante])
 
     respond_to do |format|
-      if solicitante_signed_in?
-        if current_solicitante.perfilable_id.nil? or current_solicitante.perfilable_id <= 0
-          if @solicitante.save
-            current_solicitante.update_attribute('perfilable_id', @solicitante.id)
-            
-            flash[:success] = "Datos de solicitante registrados."
-            format.html { redirect_to @solicitante }
-            format.json { render json: @solicitante, status: :created, location: @solicitante }
-          else
-            flash[:error] = "Ocurrió un error. Revisa el formulario."
-            format.html { render action: "new" }
-            format.json { render json: @solicitante.errors, status: :unprocessable_entity }
-          end
+      if current_solicitante.perfilable_id.nil? or current_solicitante.perfilable_id <= 0
+        if @solicitante.save
+          current_solicitante.update_attribute('perfilable_id', @solicitante.id)
+          
+          flash[:success] = "Datos de solicitante registrados."
+          format.html { redirect_to panel_solicitante_path }
+          format.json { render json: @solicitante, status: :created, location: @solicitante }
         else
-          flash[:warning] = 'Ya posee un perfil asociado.'
+          flash[:error] = "Ocurrió un error. Revisa el formulario."
           format.html { render action: "new" }
           format.json { render json: @solicitante.errors, status: :unprocessable_entity }
-        end  
+        end
       else
-        flash[:info] = 'No ha iniciado sesión.'
-        format.html { redirect_to new_solicitante_session }
-        format.json { render json: solicitante.errors, status: :unprocessable_entity }
-      end
+        flash[:warning] = 'Ya posee un perfil asociado.'
+        format.html { render action: "new" }
+        format.json { render json: @solicitante.errors, status: :unprocessable_entity }
+      end 
     end
   end
 
   # PUT /solicitantes/1
   # PUT /solicitantes/1.json
   def update
-    @solicitante = Solicitante.find(params[:id])
+    @solicitante = Solicitante.find(current_solicitante.perfilable_id)
 
     respond_to do |format|
       if @solicitante.update_attributes(params[:solicitante])
         flash[:success] = "Perfil actualizado."
-        format.html { redirect_to @solicitante }
+        format.html { redirect_to panel_solicitante_path }
         format.json { head :no_content }
       else
         flash[:error] = "Ocurrió un error. Revisa el formulario."
@@ -106,14 +100,5 @@ class SolicitantesController < ApplicationController
     @trabajos = Trabajo.includes(:presupuestos).where(:solicitante_id => current_solicitante.perfilable_id)
 
     render "panel"
-  end
-  
-  def perfil
-    @solicitante = current_solicitante.datos_y_perfil
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @solicitante }
-    end
   end
 end

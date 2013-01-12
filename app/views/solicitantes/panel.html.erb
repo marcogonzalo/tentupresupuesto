@@ -3,17 +3,13 @@
   <div class="nav">
     <p class="nav-header"><i class="icon icon-user"></i> Opciones de perfil</p>
     <ul class="nav nav-list">
-      <li><%= link_to "Perfil", perfil_solicitante_path %></li>
-      <li><%= link_to "Información de perfil", perfil_solicitante_path %></li>
-      <li>Intereses</li>
-      <li>Datos de ubicación</li>
-      <li>Información de contacto</li>
+      <li><%= link_to "Editar perfil", edit_solicitante_path %></li>
     </ul>
   </div>
   <div class="nav">
     <p class="nav-header"><i class="icon icon-list-alt"></i> Opciones administrativas</p>
     <ul class="nav nav-list">
-      <li>Cambiar clave</li>
+      <li><%= link_to "Editar cuenta", edit_solicitante_registration_path %></li>
       <li>Estadísticas</li>
     </ul>
   </div>

@@ -3,17 +3,10 @@
   <div class="nav">
     <p class="nav-header"><i class="icon icon-user"></i> Opciones de perfil</p>
     <ul class="nav nav-list">
-      <li><%= link_to "Perfil público", proveedor_path(current_proveedor.perfilable_id) %></li>
+      <li><%= link_to "Ver perfil público", perfil_proveedor_path(current_proveedor.perfil) %></li>
       <li>Imagen de perfil</li>
-      <li>Información de perfil</li>
-    </ul>
-  </div>
-  <div class="nav">
-    <p class="nav-header"><i class="icon icon-book"></i> Opciones de profesión</p>
-    <ul class="nav nav-list">
+      <li><%= link_to "Información de perfil", edit_proveedor_path %></li>
       <li><%= link_to "Categorías", categorias_de_proveedor_path %></li>
-      <li>Datos de ubicación</li>
-      <li>Información de contacto</li>
       <li>Fotos de trabajos</li>
       <li>Evaluaciones</li>
     </ul>
@@ -21,7 +14,7 @@
   <div class="nav">
     <p class="nav-header"><i class="icon icon-list-alt"></i> Opciones administrativas</p>
     <ul class="nav nav-list">
-      <li>Cambiar clave</li>
+      <li><%= link_to "Editar cuenta", edit_proveedor_registration_path %></li>
       <li>Facturación</li>
       <li>Estadísticas</li>
     </ul>
