@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Nombre:</b>
+  <%= @ubicacion_geografica.nombre %>
+</p>
+
+<p>
+  <b>Tipo:</b>
+  <%= @ubicacion_geografica.tipo %>
+</p>
+
+<p>
+  <b>Entidad:</b>
+  <%= @ubicacion_geografica.entidad %>
+</p>
+
+
+<%= link_to 'Edit', edit_ubicacion_geografica_path(@ubicacion_geografica) %> |
+<%= link_to 'Back', ubicaciones_geograficas_path %>

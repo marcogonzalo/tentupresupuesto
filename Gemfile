@@ -46,3 +46,4 @@ gem 'jquery-rails'
 # To use debugger
 # gem 'debugger'
 gem 'debugger', group: [:development, :test]
+gem "seedbank"  # Permite manejar distintos seed para llenar la base de datos https://github.com/james2m/seedbank

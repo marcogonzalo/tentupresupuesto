@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130111162657) do
+ActiveRecord::Schema.define(:version => 20130113162407) do
 
   create_table "categorias", :force => true do |t|
     t.string  "nombre",      :limit => 50, :default => "", :null => false
@@ -128,6 +128,15 @@ ActiveRecord::Schema.define(:version => 20130111162657) do
   add_index "trabajos", ["estatus"], :name => "index_trabajos_on_estatus"
   add_index "trabajos", ["slug"], :name => "index_trabajos_on_slug", :unique => true
   add_index "trabajos", ["solicitante_id"], :name => "index_trabajos_on_solicitante_id"
+
+  create_table "ubicaciones_geograficas", :force => true do |t|
+    t.string  "nombre",     :limit => 100,                     :null => false
+    t.string  "tipo",       :limit => 15,  :default => "pais", :null => false
+    t.integer "entidad_id"
+  end
+
+  add_index "ubicaciones_geograficas", ["entidad_id"], :name => "index_ubicaciones_geograficas_on_entidad_id"
+  add_index "ubicaciones_geograficas", ["nombre", "tipo", "entidad_id"], :name => "index_ubicaciones_geograficas_on_nombre_and_tipo_and_entidad_id", :unique => true
 
   create_table "usuarios", :force => true do |t|
     t.string   "email",                                :default => "",    :null => false
