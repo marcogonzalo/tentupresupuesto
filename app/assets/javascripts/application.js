@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require twitter/bootstrap
 //= require modernizr
 //= require twitter/bootstrap/bootstrap-collapse
 //= require twitter/bootstrap/bootstrap-dropdown
