@@ -1,10 +1,6 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    POpen4 (0.1.4)
-      Platform (>= 0.4.0)
-      open4
-    Platform (0.4.0)
     actionmailer (3.2.11)
       actionpack (= 3.2.11)
       mail (~> 2.4.4)
@@ -44,6 +40,7 @@ GEM
     coffee-script-source (1.4.0)
     columnize (0.3.6)
     commonjs (0.2.6)
+    cssminify (1.0.2)
     debugger (1.2.4)
       columnize (>= 0.3.1)
       debugger-linecache (~> 1.1.1)
@@ -84,7 +81,6 @@ GEM
     mime-types (1.19)
     modernizr-rails (2.6.1)
     multi_json (1.5.0)
-    open4 (1.3.0)
     orm_adapter (0.4.0)
     pg (0.14.1)
     polyglot (0.3.3)
@@ -139,18 +135,20 @@ GEM
       execjs
       railties (>= 3.1)
     tzinfo (0.3.35)
+    uglifier (1.3.0)
+      execjs (>= 0.3.0)
+      multi_json (~> 1.0, >= 1.0.2)
     validates_timeliness (3.0.14)
       timeliness (~> 0.3.6)
     warden (1.2.1)
       rack (>= 1.0)
-    yui-compressor (0.9.6)
-      POpen4 (>= 0.1.4)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   coffee-rails (~> 3.2.1)
+  cssminify
   debugger
   devise
   devise-encryptable
@@ -166,5 +164,5 @@ DEPENDENCIES
   therubyracer
   timeliness
   twitter-bootstrap-rails
+  uglifier (>= 1.0.3)
   validates_timeliness (~> 3.0)
-  yui-compressor

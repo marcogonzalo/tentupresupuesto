@@ -33,8 +33,8 @@ Ttp::Application.configure do
 
   # Do not compress assets
   config.assets.compress = true
-  config.assets.css_compressor = :yui
-  config.assets.js_compressor = :yui
+  config.assets.css_compressor = CSSminify.new
+  config.assets.js_compressor = :uglifier
 
   # Expands the lines which load the assets
   config.assets.debug = false
