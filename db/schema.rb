@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130113162407) do
+ActiveRecord::Schema.define(:version => 20130130012816) do
 
   create_table "categorias", :force => true do |t|
     t.string  "nombre",      :limit => 50, :default => "", :null => false
@@ -89,8 +89,16 @@ ActiveRecord::Schema.define(:version => 20130113162407) do
     t.datetime "created_at",                                                       :null => false
     t.datetime "updated_at",                                                       :null => false
     t.string   "slug",                                :default => "",              :null => false
+    t.integer  "pais_id"
+    t.integer  "estado_id"
+    t.integer  "municipio_id"
+    t.integer  "localidad_id"
   end
 
+  add_index "proveedores", ["estado_id"], :name => "index_proveedores_on_estado_id"
+  add_index "proveedores", ["localidad_id"], :name => "index_proveedores_on_localidad_id"
+  add_index "proveedores", ["municipio_id"], :name => "index_proveedores_on_municipio_id"
+  add_index "proveedores", ["pais_id"], :name => "index_proveedores_on_pais_id"
   add_index "proveedores", ["rif"], :name => "index_proveedores_on_rif", :unique => true
   add_index "proveedores", ["slug"], :name => "index_proveedores_on_slug", :unique => true
 
@@ -179,6 +187,11 @@ ActiveRecord::Schema.define(:version => 20130113162407) do
 
   add_foreign_key "presupuestos", "proveedores", :name => "presupuestos_proveedor_id_fk", :dependent => :delete
   add_foreign_key "presupuestos", "trabajos", :name => "presupuestos_trabajo_id_fk", :dependent => :delete
+
+  add_foreign_key "proveedores", "ubicaciones_geograficas", :name => "proveedores_estado_id_fk", :column => "estado_id"
+  add_foreign_key "proveedores", "ubicaciones_geograficas", :name => "proveedores_localidad_id_fk", :column => "localidad_id"
+  add_foreign_key "proveedores", "ubicaciones_geograficas", :name => "proveedores_municipio_id_fk", :column => "municipio_id"
+  add_foreign_key "proveedores", "ubicaciones_geograficas", :name => "proveedores_pais_id_fk", :column => "pais_id"
 
   add_foreign_key "trabajos", "categorias", :name => "trabajos_categoria_id_fk"
   add_foreign_key "trabajos", "proveedores", :name => "trabajos_contratado_id_fk", :column => "contratado_id"

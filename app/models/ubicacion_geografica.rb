@@ -2,10 +2,14 @@
 class UbicacionGeografica < ActiveRecord::Base
   attr_accessible :nombre, :tipo, :entidad_id
   
-  has_many :entidades, class_name: "UbicacionGeografica", foreign_key: "entidad_id"
-  belongs_to :entidad_superior, class_name: "UbicacionGeografica", foreign_key: "entidad_id"
+  has_many :entidades, :class_name => "UbicacionGeografica", :foreign_key => "entidad_id", :order => "nombre ASC"
+  belongs_to :entidad_superior, :class_name => "UbicacionGeografica", :foreign_key => "entidad_id"
+  has_many :proveedores_de_pais, :class_name => "Proveedor", :foreign_key => "pais_id"
+  has_many :proveedores_de_estado, :class_name => "Proveedor", :foreign_key => "estado_id"
+  has_many :proveedores_de_municipio, :class_name => "Proveedor", :foreign_key => "municipio_id"
+  has_many :proveedores_de_localidad, :class_name => "Proveedor", :foreign_key => "localidad_id"
   
-  TIPO_UBICACION = ["pais","estado","municipio","parroquia","localidad"]
+  TIPO_UBICACION = ["pais","estado","municipio","localidad"]
   
   validates :nombre,
             :presence => true

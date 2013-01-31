@@ -6,12 +6,16 @@ class Proveedor < ActiveRecord::Base
   attr_accessible :nombre_empresa, :tipo_proveedor, :rif, :descripcion,
                   :telefono_local, :telefono_movil, :telefono_alt,
                   :direccion, :punto_referencia, :correo_electronico,
-                  :categoria_ids
+                  :categoria_ids, :pais_id, :estado_id, :municipio_id, :localidad_id
   
   has_one :usuario, :as => :perfilable
   has_many :trabajos
   has_many :presupuestos
   has_and_belongs_to_many :categorias
+  belongs_to :pais, :class_name => "UbicacionGeografica", :foreign_key => "pais_id", :conditions => "tipo = 'pais'"
+  belongs_to :estado, :class_name => "UbicacionGeografica", :foreign_key => "estado_id", :conditions => "tipo = 'estado'"
+  belongs_to :municipio, :class_name => "UbicacionGeografica", :foreign_key => "municipio_id", :conditions => "tipo = 'municipio'"
+  belongs_to :localidad, :class_name => "UbicacionGeografica", :foreign_key => "localidad_id", :conditions => "tipo = 'localidad'"
   
   TIPO_EMPRESA = ["independiente", "cooperativa","empresa_produccion_social","empresa_privada"] 
 
