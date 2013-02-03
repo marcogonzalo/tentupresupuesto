@@ -40,21 +40,16 @@ class ProveedoresController < ApplicationController
   # GET /proveedores/1/edit
   def edit
     @proveedor = Proveedor.find(current_proveedor.perfilable_id)
-    @localidad = @proveedor.localidad.nombre
+    @localidad = @proveedor.localidad ? @proveedor.localidad.nombre : ""
   end
 
   # POST /proveedores
   # POST /proveedores.json
   def create
     params[:proveedor][:pais_id] = 1 # Venezuela
+    @localidad = ""
     unless params[:proveedor][:localidad_id].empty?
-      localidad = params[:proveedor][:localidad_id].split(' ').map {|w| w.capitalize }.join(' ')
-      ug = UbicacionGeografica.where(:nombre => localidad, :tipo => 'localidad', :entidad_id => params[:proveedor][:municipio_id]).first()
-      if ug.nil? or ug.id <= 0
-        ug = UbicacionGeografica.new(:nombre => localidad, :tipo => 'localidad', :entidad_id => params[:proveedor][:municipio_id])
-        ug.save
-      end
-      params[:proveedor][:localidad_id] = ug.id
+      params[:proveedor][:localidad_id] = UbicacionGeografica.buscar_o_crear_id_de_entidad(params[:proveedor][:localidad_id],'localidad',params[:proveedor][:municipio_id])
     end
     @proveedor = Proveedor.new(params[:proveedor])
     
@@ -91,14 +86,10 @@ class ProveedoresController < ApplicationController
     @proveedor = Proveedor.find(current_proveedor.perfilable_id)
     
     params[:proveedor][:pais_id] = 1 # Venezuela
+    @localidad = ""
     unless params[:proveedor][:localidad_id].empty?
-      localidad = params[:proveedor][:localidad_id].split(' ').map {|w| w.capitalize }.join(' ')
-      ug = UbicacionGeografica.where(:nombre => localidad, :tipo => 'localidad', :entidad_id => params[:proveedor][:municipio_id]).first()
-      if ug.nil? or ug.id <= 0
-        ug = UbicacionGeografica.new(:nombre => localidad, :tipo => 'localidad', :entidad_id => params[:proveedor][:municipio_id])
-        ug.save
-      end
-      params[:proveedor][:localidad_id] = ug.id
+      @localidad = params[:proveedor][:localidad_id]
+      params[:proveedor][:localidad_id] = UbicacionGeografica.buscar_o_crear_id_de_entidad(params[:proveedor][:localidad_id],'localidad',params[:proveedor][:municipio_id])
     end
     
     respond_to do |format|

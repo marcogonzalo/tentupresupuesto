@@ -27,7 +27,7 @@ class SolicitantesController < ApplicationController
   # GET /solicitantes/new.json
   def new
     @solicitante = Solicitante.new
-
+    @localidad = ""
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @solicitante }
@@ -37,13 +37,21 @@ class SolicitantesController < ApplicationController
   # GET /solicitantes/1/edit
   def edit
     @solicitante = Solicitante.find(current_solicitante.perfilable_id)
+    @localidad = @solicitante.localidad ? @solicitante.localidad.nombre : ""
   end
 
   # POST /solicitantes
   # POST /solicitantes.json
   def create
+    params[:solicitante][:pais_id] = 1 # Venezuela
+    @localidad = ""
+    unless params[:solicitante][:localidad_id].empty?
+      @localidad = params[:solicitante][:localidad_id]
+      params[:solicitante][:localidad_id] = UbicacionGeografica.buscar_o_crear_id_de_entidad(params[:solicitante][:localidad_id],'localidad',params[:solicitante][:municipio_id])
+    end
+    
     @solicitante = Solicitante.new(params[:solicitante])
-
+    
     respond_to do |format|
       if current_solicitante.perfilable_id.nil? or current_solicitante.perfilable_id <= 0
         if @solicitante.save
@@ -70,6 +78,13 @@ class SolicitantesController < ApplicationController
   def update
     @solicitante = Solicitante.find(current_solicitante.perfilable_id)
 
+    params[:solicitante][:pais_id] = 1 # Venezuela
+    @localidad = ""
+    unless params[:solicitante][:localidad_id].empty?
+      @localidad = params[:solicitante][:localidad_id]
+      params[:solicitante][:localidad_id] = UbicacionGeografica.buscar_o_crear_id_de_entidad(params[:solicitante][:localidad_id],'localidad',params[:solicitante][:municipio_id])
+    end
+    
     respond_to do |format|
       if @solicitante.update_attributes(params[:solicitante])
         flash[:success] = "Perfil actualizado."

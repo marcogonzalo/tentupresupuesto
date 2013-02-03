@@ -57,6 +57,30 @@ class Proveedor < ActiveRecord::Base
                           :if => "!telefono_alt.blank?" 
                        },
             :allow_blank => true
+  validates :pais_id, 
+            :numericality =>  {
+                                :only_integer => true,
+                                :greater_than => 0
+                              }, 
+            :presence => true
+  validates :estado_id, 
+            :numericality =>  {
+                                :only_integer => true,
+                                :greater_than => 0
+                              }, 
+            :presence => true
+  validates :municipio_id, 
+            :numericality =>  {
+                                :only_integer => true,
+                                :greater_than => 0
+                              }, 
+            :presence => true
+  validates :localidad_id, 
+            :numericality =>  {
+                                :only_integer => true,
+                                :greater_than => 0
+                              }, 
+            :presence => true
   validates :direccion, 
             :length => { :in => 10..255 }, 
             :allow_blank => true

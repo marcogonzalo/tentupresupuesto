@@ -16,4 +16,15 @@ class UbicacionGeografica < ActiveRecord::Base
   validates :tipo,
             :inclusion => { :in => TIPO_UBICACION },
             :presence => true
+  
+  # ACCIONES    
+  def self.buscar_o_crear_id_de_entidad(nombre,tipo,entidad_superior)
+    nombre_entidad = nombre.split(' ').map {|w| w.capitalize }.join(' ')
+    ug = UbicacionGeografica.where(:nombre => nombre_entidad, :tipo => tipo, :entidad_id => entidad_superior).first()
+    if ug.nil? or ug.id <= 0
+      ug = UbicacionGeografica.new(:nombre => nombre_entidad, :tipo => tipo, :entidad_id => entidad_superior)
+      ug.save
+    end
+    return ug.id
+  end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130130012816) do
+ActiveRecord::Schema.define(:version => 20130203031015) do
 
   create_table "categorias", :force => true do |t|
     t.string  "nombre",      :limit => 50, :default => "", :null => false
@@ -113,9 +113,17 @@ ActiveRecord::Schema.define(:version => 20130130012816) do
     t.integer  "trabajos_recibidos",                   :default => 0,  :null => false
     t.datetime "created_at",                                           :null => false
     t.datetime "updated_at",                                           :null => false
+    t.integer  "pais_id"
+    t.integer  "estado_id"
+    t.integer  "municipio_id"
+    t.integer  "localidad_id"
   end
 
   add_index "solicitantes", ["cedula"], :name => "index_solicitantes_on_cedula", :unique => true
+  add_index "solicitantes", ["estado_id"], :name => "index_solicitantes_on_estado_id"
+  add_index "solicitantes", ["localidad_id"], :name => "index_solicitantes_on_localidad_id"
+  add_index "solicitantes", ["municipio_id"], :name => "index_solicitantes_on_municipio_id"
+  add_index "solicitantes", ["pais_id"], :name => "index_solicitantes_on_pais_id"
 
   create_table "trabajos", :force => true do |t|
     t.string   "proposito",      :limit => 100,                               :default => "",         :null => false
@@ -192,6 +200,11 @@ ActiveRecord::Schema.define(:version => 20130130012816) do
   add_foreign_key "proveedores", "ubicaciones_geograficas", :name => "proveedores_localidad_id_fk", :column => "localidad_id"
   add_foreign_key "proveedores", "ubicaciones_geograficas", :name => "proveedores_municipio_id_fk", :column => "municipio_id"
   add_foreign_key "proveedores", "ubicaciones_geograficas", :name => "proveedores_pais_id_fk", :column => "pais_id"
+
+  add_foreign_key "solicitantes", "ubicaciones_geograficas", :name => "solicitantes_estado_id_fk", :column => "estado_id"
+  add_foreign_key "solicitantes", "ubicaciones_geograficas", :name => "solicitantes_localidad_id_fk", :column => "localidad_id"
+  add_foreign_key "solicitantes", "ubicaciones_geograficas", :name => "solicitantes_municipio_id_fk", :column => "municipio_id"
+  add_foreign_key "solicitantes", "ubicaciones_geograficas", :name => "solicitantes_pais_id_fk", :column => "pais_id"
 
   add_foreign_key "trabajos", "categorias", :name => "trabajos_categoria_id_fk"
   add_foreign_key "trabajos", "proveedores", :name => "trabajos_contratado_id_fk", :column => "contratado_id"

@@ -1,3 +1,7 @@
+<% content_for :foot do %>
+  <%= javascript_include_tag 'ubicaciones_geograficas' %>
+  <%= javascript_include_tag 'proveedores' %>
+<% end %>
 <%- model_class = Proveedor -%>
 <div class="page-header">
   <h1><%=t '.title', :default => t('helpers.titles.new', :model => model_class.model_name.human,

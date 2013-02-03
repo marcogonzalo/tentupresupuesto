@@ -1,5 +1,4 @@
 var cargar_entidades = function(modelo,entidad,entidad_superior) {
-  $("#"+modelo+"_"+entidad+"_id").html("");
   mostrar_cargando("#loading"+entidad)
   $.ajax({
     url: "/ubicacion_geografica/get_lista_entidades.json",
@@ -11,12 +10,9 @@ var cargar_entidades = function(modelo,entidad,entidad_superior) {
     dataType: "json",
     timeout:10000,
     error: function(XMLHttpRequest, textStatus, errorThrown){
-      //showErrorMessageRegister('error_register', 'error_register p', 'Error de comunicaci&oacute;n con el servidor. Por favor, vuelve a intentarlo');
-      //$('#loader_'+element).fadeOut();
       ocultar_cargando("#loading"+entidad)
     },
     success: function(data, status, xhr){
-      $("#"+modelo+"_localidad_id").val("");
       if(entidad == 'localidad') {
         $("#"+modelo+"_"+entidad+"_id").removeAttr("data-source");
         $(".typeahead").remove();
@@ -33,6 +29,7 @@ var cargar_entidades = function(modelo,entidad,entidad_superior) {
       }
       else 
       {
+        $("#"+modelo+"_"+entidad+"_id").html("");
         if (data.lista_entidades.length > 0){    
           var options = '<option value="" selected="selected">--Selecciona--</option>';
           $.each(data.lista_entidades, function(i, item){
@@ -44,23 +41,4 @@ var cargar_entidades = function(modelo,entidad,entidad_superior) {
       }
     }
   });
-  ocultar_cargando("#loading"+tipo_entidad)
 };
-
-$('#proveedor_pais_id').change(function(){
-
-    cargar_entidades('proveedor','estado','pais');
-
-});
-
-$('#proveedor_estado_id').change(function(){
-  
-    cargar_entidades('proveedor','municipio','estado');
-
-});
-
-$('#proveedor_municipio_id').change(function(){
-
-    cargar_entidades('proveedor','localidad','municipio');
-
-});

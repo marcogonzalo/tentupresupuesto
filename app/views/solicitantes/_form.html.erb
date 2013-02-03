@@ -22,6 +22,23 @@
   <fieldset>
     <legend>Datos de ubicaci&oacute;n</legend>
     (Facilita la publicaci&oacute;n de solicitudes)
+    
+    <div class="control-group"><%= f.label :pais_id, "País" %>
+      <div class="controls"><%= select_entidad(:solicitante,:pais_id,nil,"pais") %></div>
+    </div>
+    
+    <div class="control-group"><%= f.label :estado_id, "Estado" %>
+      <div class="controls"><%= select_entidad(:solicitante,:estado_id,1,"estado") %><%= image_tag "cargando.gif", {:class => "cargando", :id => "loadingestado"} %></div>
+    </div>
+    
+    <div class="control-group"><%= f.label :municipio_id, "Municipio" %>
+      <div class="controls"><%= select_entidad(:solicitante,:municipio_id,@solicitante.estado_id,"municipio") %><%= image_tag "cargando.gif", {:class => "cargando", :id => "loadingmunicipio"} %></div>
+    </div>
+    
+    <div class="control-group"><%= f.label :localidad_id, "Localidad" %>
+      <div class="controls"><%= text_entidad(:solicitante,:localidad_id,@localidad) %><%= image_tag "cargando.gif", {:class => "cargando", :id => "loadinglocalidad"} %></div>
+    </div>
+    
     <div class="control-group"><%= f.label :direccion %>
       <div class="controls"><%= f.text_area :direccion %></div>
     </div>
