@@ -80,4 +80,11 @@ class UbicacionesGeograficasController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  def get_lista_entidades
+    @ubicacion_geografica = UbicacionGeografica.where(:tipo=>params[:tipo_entidad], :entidad_id => params[:entidad_superior_id]).select("id, nombre")
+    respond_to do |format|
+      format.json { render :json => {lista_entidades: @ubicacion_geografica} }
+    end
+  end
 end

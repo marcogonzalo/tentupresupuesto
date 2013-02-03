@@ -38,6 +38,23 @@
   <fieldset>
     <legend>Datos de ubicaci&oacute;n</legend>
     (Si tienes local u oficina)
+    
+    <div class="control-group"><%= f.label :pais_id, "País" %>
+      <div class="controls"><%= select_entidad(:proveedor,:pais_id,nil,"pais") %></div>
+    </div>
+    
+    <div class="control-group"><%= f.label :estado_id, "Estado" %>
+      <div class="controls"><%= select_entidad(:proveedor,:estado_id,1,"estado") %></div>
+    </div>
+    
+    <div class="control-group"><%= f.label :municipio_id, "Municipio" %>
+      <div class="controls"><%= select_entidad(:proveedor,:municipio_id,@proveedor.estado_id,"municipio") %></div>
+    </div>
+    
+    <div class="control-group"><%= f.label :localidad_id, "Localidad" %>
+      <div class="controls"><%= text_entidad(:proveedor,:localidad_id,@localidad) %></div>
+    </div>
+    
     <div class="control-group"><%= f.label :direccion %>
       <div class="controls"><%= f.text_area :direccion %></div>
     </div>

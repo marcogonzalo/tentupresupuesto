@@ -17,7 +17,9 @@
 //= require twitter/bootstrap/bootstrap-collapse
 //= require twitter/bootstrap/bootstrap-dropdown
 //= require twitter/bootstrap/bootstrap-modal
+//= require twitter/bootstrap/bootstrap-typeahead
 //= require comun
+//= require ubicaciones_geograficas
 //= require presupuestos
 jQuery(function($) {
 /* HACK para que funcionen desplegables bootstrap en dispositivos tactiles */

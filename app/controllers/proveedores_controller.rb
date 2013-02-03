@@ -30,7 +30,7 @@ class ProveedoresController < ApplicationController
   # GET /proveedores/new.json
   def new
     @proveedor = Proveedor.new
-
+    @localidad = ""
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @proveedor }
@@ -40,13 +40,24 @@ class ProveedoresController < ApplicationController
   # GET /proveedores/1/edit
   def edit
     @proveedor = Proveedor.find(current_proveedor.perfilable_id)
+    @localidad = @proveedor.localidad.nombre
   end
 
   # POST /proveedores
   # POST /proveedores.json
   def create
+    params[:proveedor][:pais_id] = 1 # Venezuela
+    unless params[:proveedor][:localidad_id].empty?
+      localidad = params[:proveedor][:localidad_id].split(' ').map {|w| w.capitalize }.join(' ')
+      ug = UbicacionGeografica.where(:nombre => localidad, :tipo => 'localidad', :entidad_id => params[:proveedor][:municipio_id]).first()
+      if ug.nil? or ug.id <= 0
+        ug = UbicacionGeografica.new(:nombre => localidad, :tipo => 'localidad', :entidad_id => params[:proveedor][:municipio_id])
+        ug.save
+      end
+      params[:proveedor][:localidad_id] = ug.id
+    end
     @proveedor = Proveedor.new(params[:proveedor])
-
+    
     respond_to do |format|
       if proveedor_signed_in?
         if current_proveedor.perfilable_id.nil? or current_proveedor.perfilable_id <= 0
@@ -78,6 +89,17 @@ class ProveedoresController < ApplicationController
   # PUT /proveedores/1.json
   def update
     @proveedor = Proveedor.find(current_proveedor.perfilable_id)
+    
+    params[:proveedor][:pais_id] = 1 # Venezuela
+    unless params[:proveedor][:localidad_id].empty?
+      localidad = params[:proveedor][:localidad_id].split(' ').map {|w| w.capitalize }.join(' ')
+      ug = UbicacionGeografica.where(:nombre => localidad, :tipo => 'localidad', :entidad_id => params[:proveedor][:municipio_id]).first()
+      if ug.nil? or ug.id <= 0
+        ug = UbicacionGeografica.new(:nombre => localidad, :tipo => 'localidad', :entidad_id => params[:proveedor][:municipio_id])
+        ug.save
+      end
+      params[:proveedor][:localidad_id] = ug.id
+    end
     
     respond_to do |format|
       if @proveedor.update_attributes(params[:proveedor])

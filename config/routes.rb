@@ -35,6 +35,8 @@ Ttp::Application.routes.draw do
   end
   
   resources :categorias
+  
+  get "/ubicacion_geografica/get_lista_entidades" => "ubicaciones_geograficas#get_lista_entidades"
 
   
   # The priority is based upon order of creation:
