@@ -4,12 +4,16 @@ class Trabajo < ActiveRecord::Base
   friendly_id :proposito, :use => [:slugged, :history]
   
   attr_accessible :descripcion, :direccion, :estatus, :precio_final, :proposito,
-                  :categoria_id
+                  :categoria_id, :pais_id, :estado_id, :municipio_id, :localidad_id
   
   has_many :presupuestos
   belongs_to :solicitante, :inverse_of => :trabajo
   belongs_to :contratado, :class_name => "Proveedor", :foreign_key => "contratado_id"
   belongs_to :categoria
+  belongs_to :pais, :class_name => "UbicacionGeografica", :foreign_key => "pais_id", :conditions => "tipo = 'pais'"
+  belongs_to :estado, :class_name => "UbicacionGeografica", :foreign_key => "estado_id", :conditions => "tipo = 'estado'"
+  belongs_to :municipio, :class_name => "UbicacionGeografica", :foreign_key => "municipio_id", :conditions => "tipo = 'municipio'"
+  belongs_to :localidad, :class_name => "UbicacionGeografica", :foreign_key => "localidad_id", :conditions => "tipo = 'localidad'"
   
   ESTATUS = ["buscando","ejecutando","finalizado","cancelado"]
   scope :estatus_buscando, where(:estatus => 'buscando')
@@ -25,6 +29,30 @@ class Trabajo < ActiveRecord::Base
             :presence => true
   validates :estatus,
             :inclusion => { :in => ESTATUS }
+  validates :pais_id, 
+            :numericality =>  {
+                                :only_integer => true,
+                                :greater_than => 0
+                              }, 
+            :presence => true
+  validates :estado_id, 
+            :numericality =>  {
+                                :only_integer => true,
+                                :greater_than => 0
+                              }, 
+            :presence => true
+  validates :municipio_id, 
+            :numericality =>  {
+                                :only_integer => true,
+                                :greater_than => 0
+                              }, 
+            :presence => true
+  validates :localidad_id, 
+            :numericality =>  {
+                                :only_integer => true,
+                                :greater_than => 0
+                              }, 
+            :presence => true
   validates :direccion,
             :presence => true
   validates :precio_final, 

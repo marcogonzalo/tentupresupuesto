@@ -31,13 +31,20 @@ class TrabajosController < ApplicationController
   def new
     perfil = current_solicitante.perfil
     
-    if perfil.direccion.empty?
-      @trabajo = Trabajo.new
-    else
+    @trabajo = Trabajo.new
+    
+    @trabajo.pais_id = perfil.pais_id unless perfil.pais_id.nil?
+    @trabajo.estado_id = perfil.estado_id unless perfil.estado_id.nil?
+    @trabajo.municipio_id = perfil.municipio_id unless perfil.municipio_id.nil?
+    @trabajo.localidad_id = perfil.localidad_id unless perfil.localidad_id.nil?
+    @localidad = @trabajo.localidad ? @trabajo.localidad.nombre : ""
+    
+    unless perfil.direccion.empty?
       direccion = perfil.direccion
-      pto_ref = perfil.punto_referencia.nil? ? "" : ". Punto de referencia: "+perfil.punto_referencia
-      @trabajo = Trabajo.new(:direccion => direccion+pto_ref)
+      pto_ref = perfil.punto_referencia.empty? ? "" : ". Punto de referencia: "+perfil.punto_referencia
+      @trabajo.direccion = direccion+pto_ref
     end
+
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @trabajo }
@@ -47,11 +54,17 @@ class TrabajosController < ApplicationController
   # GET /trabajos/1/edit
   def edit
     @trabajo = Trabajo.find(params[:id])
+    @localidad = @trabajo.localidad ? @trabajo.localidad.nombre : ""
   end
 
   # POST /trabajos
   # POST /trabajos.json
   def create
+    params[:trabajo][:pais_id] = 1 # Venezuela
+    @localidad = ""
+    unless params[:trabajo][:localidad_id].empty?
+      params[:trabajo][:localidad_id] = UbicacionGeografica.buscar_o_crear_id_de_entidad(params[:trabajo][:localidad_id],'localidad',params[:trabajo][:municipio_id])
+    end
     
     @trabajo = Trabajo.new(params[:trabajo])
 
@@ -73,6 +86,12 @@ class TrabajosController < ApplicationController
   # PUT /trabajos/1.json
   def update
     @trabajo = Trabajo.find(params[:id])
+    
+    params[:trabajo][:pais_id] = 1 # Venezuela
+    @localidad = ""
+    unless params[:trabajo][:localidad_id].empty?
+      params[:trabajo][:localidad_id] = UbicacionGeografica.buscar_o_crear_id_de_entidad(params[:trabajo][:localidad_id],'localidad',params[:trabajo][:municipio_id])
+    end
 
     respond_to do |format|
       if @trabajo.update_attributes(params[:trabajo])

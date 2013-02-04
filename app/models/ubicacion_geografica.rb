@@ -8,6 +8,14 @@ class UbicacionGeografica < ActiveRecord::Base
   has_many :proveedores_de_estado, :class_name => "Proveedor", :foreign_key => "estado_id"
   has_many :proveedores_de_municipio, :class_name => "Proveedor", :foreign_key => "municipio_id"
   has_many :proveedores_de_localidad, :class_name => "Proveedor", :foreign_key => "localidad_id"
+  has_many :solicitantes_de_pais, :class_name => "Solicitante", :foreign_key => "pais_id"
+  has_many :solicitantes_de_estado, :class_name => "Solicitante", :foreign_key => "estado_id"
+  has_many :solicitantes_de_municipio, :class_name => "Solicitante", :foreign_key => "municipio_id"
+  has_many :solicitantes_de_localidad, :class_name => "Solicitante", :foreign_key => "localidad_id"
+  has_many :trabajos_de_pais, :class_name => "Trabajo", :foreign_key => "pais_id"
+  has_many :trabajos_de_estado, :class_name => "Trabajo", :foreign_key => "estado_id"
+  has_many :trabajos_de_municipio, :class_name => "Trabajo", :foreign_key => "municipio_id"
+  has_many :trabajos_de_localidad, :class_name => "Trabajo", :foreign_key => "localidad_id"
   
   TIPO_UBICACION = ["pais","estado","municipio","localidad"]
   

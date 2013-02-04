@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130203031015) do
+ActiveRecord::Schema.define(:version => 20130204025539) do
 
   create_table "categorias", :force => true do |t|
     t.string  "nombre",      :limit => 50, :default => "", :null => false
@@ -137,11 +137,19 @@ ActiveRecord::Schema.define(:version => 20130203031015) do
     t.integer  "contratado_id"
     t.string   "slug",                                                        :default => "",         :null => false
     t.integer  "categoria_id"
+    t.integer  "pais_id"
+    t.integer  "estado_id"
+    t.integer  "municipio_id"
+    t.integer  "localidad_id"
   end
 
   add_index "trabajos", ["categoria_id"], :name => "index_trabajos_on_categoria_id"
   add_index "trabajos", ["contratado_id"], :name => "index_trabajos_on_contratado_id"
+  add_index "trabajos", ["estado_id"], :name => "index_trabajos_on_estado_id"
   add_index "trabajos", ["estatus"], :name => "index_trabajos_on_estatus"
+  add_index "trabajos", ["localidad_id"], :name => "index_trabajos_on_localidad_id"
+  add_index "trabajos", ["municipio_id"], :name => "index_trabajos_on_municipio_id"
+  add_index "trabajos", ["pais_id"], :name => "index_trabajos_on_pais_id"
   add_index "trabajos", ["slug"], :name => "index_trabajos_on_slug", :unique => true
   add_index "trabajos", ["solicitante_id"], :name => "index_trabajos_on_solicitante_id"
 
@@ -209,5 +217,9 @@ ActiveRecord::Schema.define(:version => 20130203031015) do
   add_foreign_key "trabajos", "categorias", :name => "trabajos_categoria_id_fk"
   add_foreign_key "trabajos", "proveedores", :name => "trabajos_contratado_id_fk", :column => "contratado_id"
   add_foreign_key "trabajos", "solicitantes", :name => "trabajos_solicitante_id_fk"
+  add_foreign_key "trabajos", "ubicaciones_geograficas", :name => "trabajos_estado_id_fk", :column => "estado_id"
+  add_foreign_key "trabajos", "ubicaciones_geograficas", :name => "trabajos_localidad_id_fk", :column => "localidad_id"
+  add_foreign_key "trabajos", "ubicaciones_geograficas", :name => "trabajos_municipio_id_fk", :column => "municipio_id"
+  add_foreign_key "trabajos", "ubicaciones_geograficas", :name => "trabajos_pais_id_fk", :column => "pais_id"
 
 end
