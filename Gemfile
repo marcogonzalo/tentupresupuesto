@@ -14,9 +14,11 @@ gem "friendly_id", '~> 4.0.1'         # Identificadores amigables para url
 gem 'devise'
 gem 'devise-encryptable'
 
+gem 'jquery-rails'
+gem 'modernizr-rails'
+
 # Gems used only for assets and not required
 # in production environments by default.
-gem 'modernizr-rails'
 group :assets do
   gem 'less-rails',   '~> 2.2.3'
   gem 'sass-rails',   '~> 3.2.3'
@@ -30,8 +32,6 @@ group :assets do
   gem 'twitter-bootstrap-rails'
 end
 
-gem 'jquery-rails'
-
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
@@ -42,7 +42,7 @@ gem 'jquery-rails'
 # gem 'unicorn'
 
 # Deploy with Capistrano
-# gem 'capistrano'
+gem 'capistrano'
 
 # To use debugger
 # gem 'debugger'
