@@ -1,22 +1,19 @@
 set :application, "TenTuPresupuesto"
-set :repository,  "git@bitbucket.org:marcogonzalo/ttp.git"
-set :branch, 'desarrollo'
-
-set :scm, :git # You can set :scm explicitly or Capistrano will make an intelligent guess based on known version control directory names
-# Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
-
-set :deploy_to, "/home/agapito/html/tetepe/"
-
 role :web, "tentupresupuesto.com.ve"                          # Your HTTP server, Apache/etc
 role :app, "tentupresupuesto.com.ve"                          # This may be the same as your `Web` server
 role :db,  "tentupresupuesto.com.ve", :primary => true        # This is where Rails migrations will run
-# role :db,  "your slave db-server here"
 
+set :deploy_to, "/home/agapito/html/tetepe/"
 set :user, "agapito"                                          # SSH user
 set :password, "str4d1.v4r1us"                                # SSH user password
 set :port, "2411"                                             # SSH port
-set :scm_username, "marcogonzalo"                             # Bitbucket user
 set :use_sudo, false                                          # Is server user a sudoer?
+# role :db,  "your slave db-server here"
+
+set :scm, :git 
+set :repository,  "git@bitbucket.org:marcogonzalo/ttp.git"
+set :scm_username, "marcogonzalo"                             # Bitbucket user
+set :branch, 'desarrollo'
 
 # if you want to clean up old releases on each deploy uncomment this:
 # after "deploy:restart", "deploy:cleanup"
@@ -32,3 +29,12 @@ set :use_sudo, false                                          # Is server user a
 #     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
 #   end
 # end
+
+namespace :passenger do
+  desc "Restart Application"  
+  task :restart do  
+    run "touch #{current_path}/tmp/restart.txt"  
+  end
+end
+
+after :deploy, "passenger:restart"
