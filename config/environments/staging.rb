@@ -52,8 +52,10 @@ Ttp::Application.configure do
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
   config.assets.precompile += %w(ubicaciones_geograficas.js proveedores.js solicitantes.js presupuestos.js trabajos.js)
 
-  # Disable delivery errors, bad email addresses will be ignored
-  # config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.default_url_options = { :host => 'tentupresupuesto.com.ve' }
+
+  # Don't care if the mailer can't send
+  config.action_mailer.raise_delivery_errors = true
 
   # Enable threaded mode
   # config.threadsafe!
