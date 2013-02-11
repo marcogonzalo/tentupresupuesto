@@ -89,5 +89,5 @@ end
 after "deploy:setup", "deploy:prepare_shared"
 after "deploy:setup", "deploy:upload_database_yml"
 after "deploy:finalize_update", "deploy:finish"
-after "deploy:finish", "deploy:create_symlink"
+after "deploy:finish", "deploy:create_symlink", "deploy:cleanup"
 after "deploy:finish", "deploy:restart"
