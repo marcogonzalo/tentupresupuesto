@@ -2,7 +2,7 @@ set :stages, %w(production staging)
 set :default_stage, "staging"
 require 'capistrano/ext/multistage'
 
-set :application, "TenTuPresupuesto"
+set :application, "Ttp"
 role :web, "tentupresupuesto.com.ve"                          # Your HTTP server, Apache/etc
 role :app, "tentupresupuesto.com.ve"                          # This may be the same as your `Web` server
 role :db,  "tentupresupuesto.com.ve", :primary => true        # This is where Rails migrations will run
@@ -12,7 +12,7 @@ set :user, "agapito"                                          # SSH user
 set :password, "str4d1.v4r1us"                                # SSH user password
 set :port, "2411"                                             # SSH port
 set :use_sudo, false                                          # Is server user a sudoer?
-set :deploy_via, :remote_cache                                # Keep a local git repo on the server and simply run a fetch from that
+# set :deploy_via, :remote_cache                                # Keep a local git repo on the server and simply run a fetch from that
 set :keep_releases, 3                                         # Number of old releases to keep
 # role :db,  "your slave db-server here"
 
