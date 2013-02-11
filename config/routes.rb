@@ -1,8 +1,8 @@
 Ttp::Application.routes.draw do
   resources :ubicaciones_geograficas
 
-  devise_for :proveedor, :class_name => 'Usuario', :controllers => { :registrations => "usuario/registrations" }, :path_names => { :sign_in => 'iniciar_sesion', :sign_up => 'registro', :sign_out => 'cerrar_sesion', :password => 'clave', :confirmation => 'verificacion', :edit => 'editar' }
-  devise_for :solicitante, :class_name => 'Usuario', :controllers => { :registrations => "usuario/registrations" }, :path_names => { :sign_in => 'iniciar_sesion', :sign_up => 'registro', :sign_out => 'cerrar_sesion', :password => 'clave', :confirmation => 'verificacion', :edit => 'editar' }
+  devise_for :proveedor, :class_name => 'Usuario', :controllers => { :registrations => "devise/registrations" }, :path_names => { :sign_in => 'iniciar_sesion', :sign_up => 'registro', :sign_out => 'cerrar_sesion', :password => 'clave', :confirmation => 'verificacion', :edit => 'editar' }
+  devise_for :solicitante, :class_name => 'Usuario', :controllers => { :registrations => "devise/registrations" }, :path_names => { :sign_in => 'iniciar_sesion', :sign_up => 'registro', :sign_out => 'cerrar_sesion', :password => 'clave', :confirmation => 'verificacion', :edit => 'editar' }
 
   scope "/solicitante" do
     get     "/" => "solicitantes#panel", :as => "panel_solicitante"
