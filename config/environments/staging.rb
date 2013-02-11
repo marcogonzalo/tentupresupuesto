@@ -52,7 +52,7 @@ Ttp::Application.configure do
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
   config.assets.precompile += %w(ubicaciones_geograficas.js proveedores.js solicitantes.js presupuestos.js trabajos.js)
 
-  config.action_mailer.default_url_options = { :host => 'tentupresupuesto.com.ve' }
+  config.action_mailer.default_url_options = { :host => '127.0.0.1' }
 
   # Don't care if the mailer can't send
   config.action_mailer.raise_delivery_errors = true
