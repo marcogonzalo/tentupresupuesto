@@ -35,7 +35,7 @@
     </div>
     
     <div class="control-group"><%= f.label :sexo %>
-      <div class="controls"><%= f.select(:sexo, Usuario::SEXO, {:prompt => 'Selecciona'}) %></div>
+      <div class="controls"><%= f.select(:sexo, %w[masculino femenino], {:prompt => 'Selecciona'}) %></div>
     </div>
   
     <div class="control-group"><%= f.label :fecha_nacimiento %>
