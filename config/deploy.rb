@@ -1,11 +1,13 @@
-set :stages, %w(production staging)
+# Available stages
+set :stages, Dir["config/deploy/*.rb"].map{|t| File.basename(t, ".rb")}
 set :default_stage, "staging"
 require 'capistrano/ext/multistage'
 
 set :application, "Ttp"
-role :web, "tentupresupuesto.com.ve"                          # Your HTTP server, Apache/etc
-role :app, "tentupresupuesto.com.ve"                          # This may be the same as your `Web` server
-role :db,  "tentupresupuesto.com.ve", :primary => true        # This is where Rails migrations will run
+set :domain, "tentupresupuesto.com.ve" 
+role :web, domain                                             # Your HTTP server, Apache/etc
+role :app, domain                                             # This may be the same as your `Web` server
+role :db,  domain, :primary => true                           # This is where Rails migrations will run
 
 set :deploy_to, "/home/agapito/html/tetepe/"
 set :user, "agapito"                                          # SSH user
@@ -29,23 +31,75 @@ set :branch, 'capistrano'
 
 # If you are using Passenger mod_rails uncomment this:
 namespace :deploy do
-#   task :start do ; end
-#   task :stop do ; end
-#   task :restart, :roles => :app, :except => { :no_release => true } do
-#     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
-#   end
+  desc "Restart Passenger application"
+  task :restart, :roles => :app, :except => { :no_release => true } do
+    run "touch #{current_path}/tmp/restart.txt"
+  end
 
-  desc "Symlinks the database.yml"
-  task :symlink_db, :roles => :app do
-    run "ln -nfs #{deploy_to}/shared/config/database.yml #{release_path}/config/database.yml"
+  [:start, :stop].each do |t|
+    desc "#{t.inspect} task is a no-op with Passenger"
+    task t, :roles => :app do
+      # Do nothing
+    end
+  end
+  
+  desc "Prepare shared directories"
+  task :prepare_shared do
+    run "mkdir -p #{shared_path}/config"
+    run "mkdir -p #{shared_path}/db"
+  end
+  
+  desc "Upload config/database.yml to server's shared directory"
+  task :upload_database_yml do
+    put File.read("config/database.yml"), "#{shared_path}/config/database.yml", :mode => 0664
+  end
+  
+  desc "Finish update"
+  task :finish do
+    # Gems
+    run "cd #{release_path} && (bundle check --path=../../shared/gems || bundle --without=development:test --path=../../shared/gems)"
+
+    # Database
+    source = "#{shared_path}/config/database.yml"
+    target = "#{release_path}/config/database.yml"
+    begin
+      run %{if test ! -f #{source}; then exit 1; fi}
+      run %{ln -nsf #{source} #{target}}
+    rescue Exception => e
+      puts <<-HERE
+ERROR!  You must have a file on your server with the database configuration.
+        This file must contain absolute paths if you're using SQLite.
+        You will need to upload your completed file to your server at:
+            #{source}
+      HERE
+      raise e
+    end
+  end
+
+  task :build_gems, :roles => :app do
+    desc "Building gems"
+    run "cd #{current_path} && bundle install"
+  end
+  
+  task :seeds do
+    desc "Inserting data from seeds"
+    run "cd #{current_path} && rake db:seed"
+  end
+
+  desc "Restarting passenger with restart.txt"
+  task :restart, :roles => :app, :except => { :no_release => true } do
+    run "touch #{current_path}/tmp/restart.txt"
   end
 end
 
-namespace :passenger do
-  desc "Restart Application"  
-  task :restart do  
-    run "touch #{current_path}/tmp/restart.txt"  
-  end
-end
+#after "deploy:update_code", "deploy:build_gems", "deploy:migrate", "deploy:cleanup"
 
-after :deploy, 'deploy:symlink_db', "passenger:restart"
+#after :deploy, "deploy:create_symlink", "passenger:restart"
+
+
+# Hooks
+after "deploy:setup", "deploy:prepare_shared"
+after "deploy:setup", "deploy:upload_secrets_yml"
+after "deploy:finalize_update", "deploy:finish"
+after "deploy:symlink", "deploy:clear_cache"
+after "deploy:finish","deploy:migrate", "deploy:seeds"
