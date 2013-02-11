@@ -41,10 +41,6 @@ namespace :deploy do
   end
 end
 
-task :uname do
-  run "uname -a"
-end
-
 namespace :passenger do
   desc "Restart Application"  
   task :restart do  
