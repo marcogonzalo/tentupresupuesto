@@ -1,7 +1,3 @@
-set :stages, %w(production staging)
-set :default_stage, "staging"
-require 'capistrano/ext/multistage'
-
 set :application, "TenTuPresupuesto"
 role :web, "tentupresupuesto.com.ve"                          # Your HTTP server, Apache/etc
 role :app, "tentupresupuesto.com.ve"                          # This may be the same as your `Web` server
@@ -19,7 +15,7 @@ set :keep_releases, 3                                         # Number of old re
 set :scm, :git 
 set :repository,  "git@bitbucket.org:marcogonzalo/ttp.git"
 set :scm_username, "tentupresupuesto"                         # Bitbucket user
-set :branch, 'capistrano'
+set :branch, 'master'
 
 # if you want to clean up old releases on each deploy uncomment this:
 # after "deploy:restart", "deploy:cleanup"
@@ -39,10 +35,6 @@ namespace :deploy do
   task :symlink_db, :roles => :app do
     run "ln -nfs #{deploy_to}/shared/config/database.yml #{release_path}/config/database.yml"
   end
-end
-
-task :uname do
-  run "uname -a"
 end
 
 namespace :passenger do
