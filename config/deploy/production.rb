@@ -3,11 +3,16 @@ set :keep_releases, 3                                         # Number of old re
 
 set :branch, 'master'
 
-namespace :production do
-  desc "Clear the application's cache"
-  task :clear_cache do
-    run "(cd #{current_path} && rake RAILS_ENV=production clear)"
+namespace :to_production do
+  task :migrations do
+    desc "Migrating database"
+    run "cd #{release_path} && rake db:migrate RAILS_ENV=production"
+  end
+  
+  task :seeds do
+    desc "Inserting data from seeds"
+    run "cd #{release_path} && rake db:seed RAILS_ENV=production"
   end
 end
 
-after "deploy:symlink", "production:clear_cache"
+after "deploy:finish", "to_production:migrations", "to_production:seeds"

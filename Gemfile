@@ -32,6 +32,8 @@ group :assets do
   gem 'twitter-bootstrap-rails'
 end
 
+gem "seedbank"  # Permite manejar distintos seed para llenar la base de datos https://github.com/james2m/seedbank
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
@@ -47,4 +49,3 @@ gem 'capistrano'
 # To use debugger
 # gem 'debugger'
 gem 'debugger', group: [:development, :test]
-gem "seedbank"  # Permite manejar distintos seed para llenar la base de datos https://github.com/james2m/seedbank

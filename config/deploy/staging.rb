@@ -6,11 +6,16 @@ set :branch, 'capistrano'
 set :rails_env,      "staging"
 set :migrate_env,    "staging"
 
-namespace :staging do
-  desc "Clear the application's cache"
-  task :clear_cache do
-    run "(cd #{current_path} && rake RAILS_ENV=staging clear)"
+namespace :to_staging do
+  task :migrations do
+    desc "Migrating database"
+    run "cd #{release_path} && rake db:migrate RAILS_ENV=staging"
+  end
+  
+  task :seeds do
+    desc "Inserting data from seeds"
+    run "cd #{release_path} && rake db:seed RAILS_ENV=staging"
   end
 end
 
-after "deploy:symlink", "staging:clear_cache"
+after "deploy:finish", "to_staging:migrations", "to_staging:seeds"

@@ -14,7 +14,7 @@ set :user, "agapito"                                          # SSH user
 set :password, "str4d1.v4r1us"                                # SSH user password
 set :port, "2411"                                             # SSH port
 set :use_sudo, false                                          # Is server user a sudoer?
-# set :deploy_via, :remote_cache                                # Keep a local git repo on the server and simply run a fetch from that
+set :deploy_via, :remote_cache                                # Keep a local git repo on the server and simply run a fetch from that
 set :keep_releases, 3                                         # Number of old releases to keep
 # role :db,  "your slave db-server here"
 
@@ -28,8 +28,6 @@ set :branch, 'capistrano'
 
 # if you're still using the script/reaper helper you will need
 # these http://github.com/rails/irs_process_scripts
-
-# If you are using Passenger mod_rails uncomment this:
 namespace :deploy do
   desc "Restart Passenger application"
   task :restart, :roles => :app, :except => { :no_release => true } do
@@ -78,17 +76,7 @@ ERROR!  You must have a file on your server with the database configuration.
 
   task :build_gems, :roles => :app do
     desc "Building gems"
-    run "cd #{current_path} && bundle install"
-  end
-  
-  task :seeds do
-    desc "Inserting data from seeds"
-    run "cd #{current_path} && rake db:seed"
-  end
-
-  desc "Restarting passenger with restart.txt"
-  task :restart, :roles => :app, :except => { :no_release => true } do
-    run "touch #{current_path}/tmp/restart.txt"
+    run "cd #{release_path} && bundle install --without development test"
   end
 end
 
@@ -99,7 +87,7 @@ end
 
 # Hooks
 after "deploy:setup", "deploy:prepare_shared"
-after "deploy:setup", "deploy:upload_secrets_yml"
+after "deploy:setup", "deploy:upload_database_yml"
 after "deploy:finalize_update", "deploy:finish"
-after "deploy:symlink", "deploy:clear_cache"
-after "deploy:finish","deploy:migrate", "deploy:seeds"
+after "deploy:finish", "deploy:create_symlink"
+after "deploy:finish", "deploy:restart"
