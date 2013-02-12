@@ -1,7 +1,7 @@
 set :deploy_to, "/home/agapito/html/desarrollo/"
 set :keep_releases, 5                                         # Number of old releases to keep
 
-set :branch, 'capistrano'
+set :branch, 'desarrollo'
 
 set :rails_env,      "staging"
 set :migrate_env,    "staging"
