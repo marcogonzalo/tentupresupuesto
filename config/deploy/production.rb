@@ -11,7 +11,7 @@ namespace :to_production do
   
   task :seeds do
     desc "Inserting data from seeds"
-    run "cd #{release_path} && rake db:seed RAILS_ENV=production"
+    run "cd #{current_path} && rake db:seed RAILS_ENV=production"
   end
 end
 
