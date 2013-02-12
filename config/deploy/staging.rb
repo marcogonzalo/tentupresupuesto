@@ -14,8 +14,8 @@ namespace :to_staging do
   
   task :seeds do
     desc "Inserting data from seeds"
-    run "cd #{release_path} && rake db:seed RAILS_ENV=staging"
+    run "cd #{current_path} && rake db:seed RAILS_ENV=staging"
   end
 end
 
-after "deploy:finish", "to_staging:migrations", "to_staging:seeds"
+after "deploy:finish", "to_staging:migrations"

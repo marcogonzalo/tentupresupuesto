@@ -1,5 +1,5 @@
 set :deploy_to, "/home/agapito/html/tetepe/"
-set :keep_releases, 3                                         # Number of old releases to keep
+set :keep_releases, 2                                         # Number of old releases to keep
 
 set :branch, 'master'
 
@@ -15,4 +15,4 @@ namespace :to_production do
   end
 end
 
-after "deploy:finish", "to_production:migrations", "to_production:seeds"
+after "deploy:finish", "to_production:migrations"
