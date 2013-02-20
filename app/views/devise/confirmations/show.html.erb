@@ -1,7 +1,7 @@
 <h2>&iexcl;Casi listo!</h2> 
 <p>Ahora crea una clave segura para tu cuenta.</p>
 <div>
-<%= form_for(resource, :as => resource_name, :url => send(:"#{resource_name}_confirmation_path")) do |f| %>
+<%= form_for(resource, :as => resource_name, :url => send(:"#{resource_name}_confirm_path")) do |f| %>
   <% if resource.errors.any? %>
     <div class="alert alert-error">
       Ocurri&oacute; un error. Revisa el formulario.
