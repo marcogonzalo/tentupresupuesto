@@ -1,9 +1,14 @@
 Ttp::Application.routes.draw do
   resources :ubicaciones_geograficas
 
-  devise_for :proveedor, :class_name => 'Usuario', :controllers => { :registrations => "devise/registrations" }, :path_names => { :sign_in => 'iniciar_sesion', :sign_up => 'registro', :sign_out => 'cerrar_sesion', :password => 'clave', :confirmation => 'verificacion', :edit => 'editar' }
-  devise_for :solicitante, :class_name => 'Usuario', :controllers => { :registrations => "devise/registrations" }, :path_names => { :sign_in => 'iniciar_sesion', :sign_up => 'registro', :sign_out => 'cerrar_sesion', :password => 'clave', :confirmation => 'verificacion', :edit => 'editar' }
-
+  devise_for :proveedor, :class_name => 'Usuario', :controllers => { :registrations => "devise/registrations", :confirmations => "confirmations" }, :path_names => { :sign_in => 'iniciar_sesion', :sign_up => 'registro', :sign_out => 'cerrar_sesion', :password => 'clave', :confirmation => 'verificacion', :edit => 'editar' }
+  devise_for :solicitante, :class_name => 'Usuario', :controllers => { :registrations => "devise/registrations", :confirmations => "confirmations" }, :path_names => { :sign_in => 'iniciar_sesion', :sign_up => 'registro', :sign_out => 'cerrar_sesion', :password => 'clave', :confirmation => 'verificacion', :edit => 'editar' }
+  devise_scope :solicitante do
+    put "/solicitante/verificacion" => "confirmations#confirm", :as => :solicitante_confirm
+  end
+  devise_scope :proveedor do
+    put "/proveedor/verificacion" => "confirmations#confirm", :as => :proveedor_confirm
+  end
   scope "/solicitante" do
     get     "/" => "solicitantes#panel", :as => "panel_solicitante"
     get     "nuevo" => "solicitantes#new", :as => "new_solicitante"

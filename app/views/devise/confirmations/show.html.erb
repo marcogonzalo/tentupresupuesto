@@ -1,0 +1,21 @@
+<h2>&iexcl;Casi listo!</h2> 
+<p>Ahora crea una clave segura para tu cuenta.</p>
+<div>
+<%= form_for(resource, :as => resource_name, :url => send(:"#{resource_name}_confirmation_path")) do |f| %>
+  <% if resource.errors.any? %>
+    <div class="alert alert-error">
+      Ocurri&oacute; un error. Revisa el formulario.
+    </div>
+  <% end %>
+  <div class="control-group"><%= f.label :password %>
+    <div class="controls"><%= f.password_field :password, :input_html => {:autofocus => true} %></div>
+  </div>
+  <div class="control-group"><%= f.label :password_confirmation %>
+    <div class="controls"><%= f.password_field :password_confirmation %></div>
+  </div>
+  <%= f.hidden_field :confirmation_token, :as => :hidden %>
+  
+  <div class="form-actions">
+    <%= f.submit 'Continuar', :class => 'btn btn-primary' %>
+  </div>
+<% end %>

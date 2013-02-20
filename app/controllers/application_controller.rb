@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   FLASH_NOTICE_KEYS = [:error, :warning, :info, :success] # Tipos de notificaciones bootstrap
-
+  
   def flash_messages
     return unless messages = flash.keys.select{|k| FLASH_NOTICE_KEYS.include?(k)}
     formatted_messages = messages.map do |type|      
