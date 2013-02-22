@@ -12,14 +12,35 @@
  *= require_self
  */
 
-.error-campo {
-  color: red;
-  display: inline;
-}
+#piedepagina { background: #ddd url('tentu/generales/fondopie.png') repeat-x; background-position: left top; height:225px; width:100%; }
+#piedepagina #pie { background: url('tentu/generales/footer.png') no-repeat center top; height:180px; margin:0 auto; max-width:1060px; position:relative; top:-22px; }
+#piedepagina #mapa-sitio { position:relative; top:7%; }
+#piedepagina #mapa-sitio div { display:inline-table; margin-left:5%; max-width:25%; position:relative; top:0px; }
+#piedepagina #mapa-sitio h3 { margin:0px; padding:0px; }
+#piedepagina #mapa-sitio ul { list-style:none; margin-left:1em;  overflow:hidden; }
+#piedepagina #mapa-sitio ul li { display:inline-table; }
+.doble li  { width:45%;}
+.triple li  { width:33.333%; }
+#piedepagina #logo-pie { display:none; background: url('tentu/generales/logo_tentupresupuesto_pie.png') no-repeat; height:100%; max-height:91px; max-width:244px; position:relative; top:15%; width:100%; }
 
-.informacion-campo {
-  font-size:0.8em;
-  display:inline;
-}
+#piedepagina ul#botones-sociales { clear:both; height:48px; list-style:none; margin:0px auto; max-width: 225px; }
+#piedepagina ul#botones-sociales li { background:url('tentu/generales/botonessociales1.png') repeat-x top left; cursor:pointer; display:inline-block; height:48px; margin:1px 2px; width:48px; }
+#piedepagina ul#botones-sociales li span { display:none; }
+#piedepagina ul#botones-sociales li#youtube { background-position:-0px -0px;}
+#piedepagina ul#botones-sociales li#facebook { background-position:-58px -0px;}
+#piedepagina ul#botones-sociales li#twitter { background-position:-116px -0px;}
+#piedepagina ul#botones-sociales li#blog { background-position:-174px -0px;}
+#piedepagina ul#botones-sociales li#google { background-position:-231px -0px;}
+#piedepagina ul#botones-sociales li#youtube:hover { background-position:-0px -56px;}
+#piedepagina ul#botones-sociales li#facebook:hover { background-position:-58px -56px;}
+#piedepagina ul#botones-sociales li#twitter:hover { background-position:-116px -56px;}
+#piedepagina ul#botones-sociales li#blog:hover { background-position:-174px -56px;}
+#piedepagina ul#botones-sociales li#google:hover { background-position:-231px -56px;}
 
 img.cargando { display:none; width: 16px; height: 16px;}
+
+.al-centro { margin-left:auto; margin-right:auto; }
+.centrado { text-align:center; }
+.error-campo { color: red; display: inline; }
+.informacion-campo { font-size:0.8em; display:inline; }
+.sobre-color { color:white; text-shadow:0 2px 5px #333; }

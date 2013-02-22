@@ -44,15 +44,15 @@
     </div>
     
     <div class="control-group"><%= f.label :estado_id, "Estado" %>
-      <div class="controls"><%= select_entidad(:proveedor,:estado_id,1,"estado") %><%= image_tag "cargando.gif", {:class => "cargando", :id => "loadingestado"} %></div>
+      <div class="controls"><%= select_entidad(:proveedor,:estado_id,1,"estado") %><%= image_tag "tentu/generales/cargando.gif", {:class => "cargando", :id => "loadingestado"} %></div>
     </div>
     
     <div class="control-group"><%= f.label :municipio_id, "Municipio" %>
-      <div class="controls"><%= select_entidad(:proveedor,:municipio_id,@proveedor.estado_id,"municipio") %><%= image_tag "cargando.gif", {:class => "cargando", :id => "loadingmunicipio"} %></div>
+      <div class="controls"><%= select_entidad(:proveedor,:municipio_id,@proveedor.estado_id,"municipio") %><%= image_tag "tentu/generales/cargando.gif", {:class => "cargando", :id => "loadingmunicipio"} %></div>
     </div>
     
     <div class="control-group"><%= f.label :localidad_id, "Localidad" %>
-      <div class="controls"><%= text_entidad(:proveedor,:localidad_id,@localidad) %><%= image_tag "cargando.gif", {:class => "cargando", :id => "loadinglocalidad"} %></div>
+      <div class="controls"><%= text_entidad(:proveedor,:localidad_id,@localidad) %><%= image_tag "tentu/generales/cargando.gif", {:class => "cargando", :id => "loadinglocalidad"} %></div>
     </div>
     
     <div class="control-group"><%= f.label :direccion %>

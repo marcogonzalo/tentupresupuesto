@@ -310,5 +310,6 @@ es-VE:
         fecha_nacimiento: "Fecha de nacimiento"
         password: "Clave"
         password_confirmation: "Confirmar clave"
+        remember_me: 'Recordarme'
     errors:
       <<: *errors

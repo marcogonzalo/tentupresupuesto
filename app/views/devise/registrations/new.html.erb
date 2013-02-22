@@ -1,3 +1,8 @@
+<% 
+  content_for :title do 
+    "Registro de #{resource_name}"
+  end
+%>
 <h2>Registro de <%= resource_name %></h2>
 
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>

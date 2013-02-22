@@ -1,8 +1,4 @@
 @import "twitter/bootstrap/bootstrap";
-
-body { /* Solo si cabecera va fija padding-top: 80px; */ } 
-#container { margin:0 auto;}
-
 @import "twitter/bootstrap/responsive";
 
 // Set the correct sprite paths
@@ -12,14 +8,35 @@ body { /* Solo si cabecera va fija padding-top: 80px; */ }
 // Set the Font Awesome (Font Awesome is default. You can disable by commenting below lines)
 // Note: If you use asset_path() here, your compiled bootstrap_and_overrides.css will not
 //       have the proper paths. So for now we use the absolute path.
-@fontAwesomeEotPath: asset-path("fontawesome-webfont.eot");
-@fontAwesomeEotPath_iefix: asset-path("fontawesome-webfont.eot#iefix");
-@fontAwesomeWoffPath: asset-path("fontawesome-webfont.woff");
-@fontAwesomeTtfPath: asset-path("fontawesome-webfont.ttf");
-@fontAwesomeSvgPath: asset-path("fontawesome-webfont.svg");
+// @fontAwesomeEotPath: asset-path("fontawesome-webfont.eot");
+// @fontAwesomeEotPath_iefix: asset-path("fontawesome-webfont.eot#iefix");
+// @fontAwesomeWoffPath: asset-path("fontawesome-webfont.woff");
+// @fontAwesomeTtfPath: asset-path("fontawesome-webfont.ttf");
+// @fontAwesomeSvgPath: asset-path("fontawesome-webfont.svg");
 
 // Font Awesome
-@import "fontawesome";
+//@import "fontawesome";
+
+@font-face {
+  font-family: 'Chango';
+  src:url('Chango-Regular.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'MyriadProBold';
+  src:url('MyriadPro-Bold.otf');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'MyriadPro';
+  src:url('MyriadPro-Regular.otf');
+  font-weight: normal;
+  font-style: normal;
+}
 
 // Glyphicons
 @import "twitter/bootstrap/sprites.less";
@@ -34,22 +51,29 @@ body { /* Solo si cabecera va fija padding-top: 80px; */ }
 //
 // Example:
 // @linkColor: #ff0000;
-//@gridColumns: 12px;
-//@gridColumnWidth
-//@gridGutterWidth
-//@gridColumnWidth768
-@gridGutterWidth768:10px;
-//@gridColumnWidth1200
-@gridGutterWidth1200:10px;
+@gridColumns: 24;
+@gridColumnWidth:36px;
+@gridGutterWidth:5px;
+@gridColumnWidth768:27px;
+@gridGutterWidth768:5px;
+@gridColumnWidth1200:40px;
+@gridGutterWidth1200:5px;
 
-.navbar .brand { padding-top:0px; padding-bottom:0px; }
+body { background-color:#adeb6e; padding:0; }
+h1, h2, h3, h4, h5, h6 { color:#333; font-family:'Chango'; font-weight:normal; margin:0px; }
+h1 { font-size:2em;}
+h2 { font-size:1.8em; }
+h3 { font-size:1.6em; }
+h4, h5, h6 { color:white; text-shadow:0 2px 3px #666;}
+select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input { border-radius:10px; font-size:1em; margin-bottom:0px; margin-right:5px; max-width:350px; width:100%; }
+select { width: auto; }
+textarea { height:10em; }
+label { font-family:'MyriadPro'; line-height:2em; margin-bottom:0px; vertical-align: middle;}
+
+.alert { margin:1em auto; max-width:700px; }
+.btn { font-family: 'MyriadPro'; padding-top: 0.5em;}
+/* .navbar .brand { padding-top:0px; padding-bottom:0px; }
 .btn:hover { background-position: 0 0; transition: none; }
 .navbar .nav > li > a.btn {color:white; text-shadow: 0 1px 0 gray;}
 .navbar .nav > li > a.btn-default {color:#777; text-shadow: 0 1px 0 white;}
-.navbar-inner .nav { margin-top:10px;}
-
-select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input { margin-bottom:0px; margin-right:5px; }
-select { width: auto; }
-textarea { height:100px;}
-.label {font-size:0.6em; vertical-align: middle;}
-
+.navbar-inner .nav { margin-top:10px;} */

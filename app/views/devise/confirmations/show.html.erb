@@ -1,21 +1,30 @@
-<h2>&iexcl;Casi listo!</h2> 
-<p>Ahora crea una clave segura para tu cuenta.</p>
-<div>
-<%= form_for(resource, :as => resource_name, :url => send(:"#{resource_name}_confirm_path")) do |f| %>
+<% 
+  content_for :title do 
+    "Establecer clave de cuenta"
+  end
+%>
+<h1>&iexcl;Tu cuenta est&aacute; casi lista!</h1> 
+<p class="centrado">
+  Ahora crea una clave segura para tu cuenta. <br> Esta clave la utilizar&aacute;s para iniciar sesi&oacute;n en TenTuPresupuesto.<br>
+</p>
   <% if resource.errors.any? %>
     <div class="alert alert-error">
-      Ocurri&oacute; un error. Revisa el formulario.
+      Algo pas&oacute;. Revisa el formulario para verificar errores.
     </div>
   <% end %>
-  <div class="control-group"><%= f.label :password %>
-    <div class="controls"><%= f.password_field :password, :input_html => {:autofocus => true} %></div>
+  <div class="formulario-pendon al-centro">
+    <div class="titulo-pendon span11"><h2 class="sobre-color">Clave de usuario</h2></div>
+    <div class="cuerpo-pendon span11">
+  <%= form_for(resource, :as => resource_name, :url => send(:"#{resource_name}_confirm_path")) do |f| %>
+      <div class="control-group"><%= f.label :password %>
+        <div class="controls"><%= f.password_field :password, :input_html => {:autofocus => true} %></div>
+      </div>
+      <div class="control-group"><%= f.label :password_confirmation %>
+        <div class="controls"><%= f.password_field :password_confirmation %></div>
+      </div>
+      <%= f.hidden_field :confirmation_token, :as => :hidden %>
+      
+      <%= f.submit 'Continuar', :class => 'btn btn-warning' %>
+  <% end %>
+    </div>
   </div>
-  <div class="control-group"><%= f.label :password_confirmation %>
-    <div class="controls"><%= f.password_field :password_confirmation %></div>
-  </div>
-  <%= f.hidden_field :confirmation_token, :as => :hidden %>
-  
-  <div class="form-actions">
-    <%= f.submit 'Continuar', :class => 'btn btn-primary' %>
-  </div>
-<% end %>

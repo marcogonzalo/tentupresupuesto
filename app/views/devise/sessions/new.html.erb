@@ -1,25 +1,37 @@
-<h2>Iniciar sesi&oacute;n</h2>
-
-<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+<% 
+  content_for :title do 
+    "Iniciar sesión"
+  end
+%>
+<h1>Iniciar sesi&oacute;n</h1>
   <% if resource.errors.any? %>
     <div id="error_explanation">
-      Ocurri&oacute; un error. No se pudo procesar la solicitud.
+      Algo pas&oacute;. Revisa el formulario para verificar errores.
     </div>
   <% end %>
-  <div class="control-group"><%= f.label :email %>
-    <div class="controls"><%= f.email_field :email %></div>
+  <div id="iniciar-sesion" class="formulario-pendon offset1 span12">
+    <div class="titulo-pendon"><h2 class="sobre-color">Como <%= resource_name %></h2></div>
+    <div class="cuerpo-pendon">
+<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+    <div class="control-group"><%= f.label :email %>
+      <div class="controls"><%= f.email_field :email %></div>
+    </div>
+  
+    <div class="control-group"><%= f.label :password %>
+      <div class="controls"><%= f.password_field :password %></div>
+    </div>
+
+    <% if devise_mapping.rememberable? -%>
+    <label for="<%= resource_name %>_remember_me" class="checkbox">
+      <%= f.check_box :remember_me %> Recordarme
+    </label>
+    <% end -%>
+    
+    <%= f.submit "Iniciar sesión", :class => 'btn btn-warning' %>
+<% end %>
+    </div>
   </div>
 
-  <div class="control-group"><%= f.label :password %>
-    <div class="controls"><%= f.password_field :password %></div>
-  </div>
-
-  <% if devise_mapping.rememberable? -%>
-    <div><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
-  <% end -%>
-
-  <div class="form-actions">
-    <p><%= f.submit "Iniciar sesión", :class => 'btn btn-primary' %></p>
+  <div id="caracteristicas" class="offset1 span7">
     <%= render "devise/shared/links" %>
   </div>
-<% end %>
