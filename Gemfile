@@ -50,4 +50,7 @@ gem 'capistrano'
 
 # To use debugger
 # gem 'debugger'
-gem 'debugger', group: [:development, :test]
+group :development do
+  gem 'debugger'
+  gem 'ruby-debug-ide'
+end

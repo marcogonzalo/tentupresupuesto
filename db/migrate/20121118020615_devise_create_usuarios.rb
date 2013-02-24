@@ -13,7 +13,6 @@ class DeviseCreateUsuarios < ActiveRecord::Migration
       
       ## Atributos adicionales
       t.string    :nombre,            :limit => 50, :null => false, :default => ""
-      t.string    :apellido,          :limit => 50, :null => false, :default => ""
       t.string    :sexo,              :limit => 10, :null => true,  :default => nil
       t.date      :fecha_nacimiento,                :null => true
       t.boolean   :activo,                          :null => false, :default => true

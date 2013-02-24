@@ -308,6 +308,7 @@ es-VE:
         email: "Correo electrónico"
         email_confirmation: "Confirmar correo electrónico"
         fecha_nacimiento: "Fecha de nacimiento"
+        nombre: "Nombre y Apellido"
         password: "Clave"
         password_confirmation: "Confirmar clave"
         remember_me: 'Recordarme'

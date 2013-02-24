@@ -124,6 +124,8 @@ GEM
     rdoc (3.12.1)
       json (~> 1.4)
     ref (1.0.2)
+    ruby-debug-ide (0.4.16)
+      rake (>= 0.8.1)
     sass (3.2.5)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
@@ -174,6 +176,7 @@ DEPENDENCIES
   modernizr-rails
   pg
   rails (= 3.2.11)
+  ruby-debug-ide
   sass-rails (~> 3.2.3)
   seedbank
   therubyracer

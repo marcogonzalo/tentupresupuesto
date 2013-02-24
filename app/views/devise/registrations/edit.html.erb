@@ -1,55 +1,64 @@
-<h2>Editar datos de usuario</h2>
+<% 
+  content_for :title do 
+    "Editar datos de usuario"
+  end
 
+  if resource.errors.any? %>
+  <div class="alert alert-error">
+    <%= resource.errors.messages %>
+    Algo pas&oacute;. Revisa el formulario para verificar errores.
+  </div>
+<% end %>
+<h1>Editar datos de usuario</h1>
+  <div id="registro" class="formulario-pendon span12 al-centro">
+    <div class="titulo-pendon"><h2 class="sobre-color">Editar mis datos</h2></div>
+    <div class="cuerpo-pendon">
 <%= form_for(@usuario, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
-  <% if @usuario.errors.any? %>
-    <div class="alert alert-error">
-      Ocurri&oacute; un error. Revisa el formulario.
-    </div>
-  <% end %>
-  <fieldset>
-    <legend>Datos de la cuenta</legend>
-    (Complétalos sólo si deseas cambiar tu cuenta de correo o tu clave)
     <div class="control-group"><%= f.label :email %>
-      <div class="controls"><%= f.email_field :email %></div>
+      <div class="controls"><%= f.email_field :email, {:readonly => true} %></div>
     </div>
-  
-    <div class="control-group"><%= f.label :email_confirmation %>
-      <div class="controls"><%= f.email_field :email_confirmation %></div>
-    </div>
-  
-    <div class="control-group"><%= f.label :password %>
-      <div class="controls"><%= f.password_field :password %></div>
-    </div>
-  
-    <div class="control-group"><%= f.label :password_confirmation %>
-      <div class="controls"><%= f.password_field :password_confirmation %></div>
-    </div>
-  </fieldset>
-  <fieldset>
-    <legend>Datos personales</legend>
+
     <div class="control-group"><%= f.label :nombre %>
       <div class="controls"><%= f.text_field :nombre %></div>
-    </div>
-    
-    <div class="control-group"><%= f.label :apellido %>
-      <div class="controls"><%= f.text_field :apellido %></div>
-    </div>
-    
-    <div class="control-group"><%= f.label :sexo %>
-      <div class="controls"><%= f.select(:sexo, Usuario::SEXO, {:prompt => 'Selecciona'}) %></div>
     </div>
   
     <div class="control-group"><%= f.label :fecha_nacimiento %>
       <div class="controls"><%= f.date_select :fecha_nacimiento, :start_year => Time.now.year - 85, :end_year => Time.now.year - 16, :class => 'date_field' %></div>
     </div>
-  </fieldset>
-  
-  <div>
-    <p><%= f.submit "Actualizar datos", :class => 'btn btn-primary' %></p>
-  </div>
+    
+    <div class="control-group"><%= f.label :sexo %>
+      <div class="controls"><%= f.select(:sexo, Usuario::SEXO, {:prompt => 'Selecciona'}) %></div>
+    </div>
+    
+    <%= f.submit "Cambiar datos", :class => 'btn btn-warning' %>
 <% end %>
+    </div>
+  </div>
 
-<h3>Cancelar mi cuenta</h3>
-<p>&iquest;No te satisface el servicio? <%= link_to "Cancelar mi cuenta", registration_path(resource_name), :data => { :confirm => "&iquest;De verdad deseas cancelar tu cuenta?" }, :method => :delete %>.</p>
+  <div id="cambiar-clave" class="formulario-pendon al-centro span12">
+    <div class="titulo-pendon"><h2 class="sobre-color">Cambiar clave</h2></div>
+    <div class="cuerpo-pendon">
+<%= form_for(@usuario, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
+    <%= f.hidden_field :email %>
+  
+    <div class="control-group"><%= f.label :current_password, "Clave actual" %>
+      <div class="controls"><%= f.password_field :current_password %></div>
+    </div>
+    <hr>
+    <div class="control-group"><%= f.label :password, "Nueva clave" %>
+      <div class="controls"><%= f.password_field :password %></div>
+    </div>
+  
+    <div class="control-group"><%= f.label :password_confirmation, "Confirma la nueva clave" %>
+      <div class="controls"><%= f.password_field :password_confirmation %></div>
+    </div>
+    
+    <%= f.submit "Cambiar clave", :class => 'btn btn-warning' %>
+<% end %>
+    </div>
+  </div>
+<div class="span10 al-centro centrado">
+<h2>Cancelar mi cuenta</h2>
+<p>&iquest;No te satisface el servicio? <br><%= link_to "Cancelar mi cuenta", registration_path(resource_name), :class => "btn btn-danger",  :data => { :confirm => "&iquest;De verdad deseas cancelar tu cuenta?" }, :method => :delete %></p>
+</div>
 
-<%= link_to "Volver", :back %>

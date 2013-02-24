@@ -1,15 +1,27 @@
-<h2>Confirmaci&oacute;n de correo electr&oacute;nico</h2>
+<% 
+  content_for :title do 
+    "Confirmación de cuenta"
+  end
 
-<p>Un correo de confirmaci&oacute;n te ha sido enviado para validar la direcci&oacute;n de correo electr&oacute;nico que ingresaste. Por favor, sigue las instrucciones que all&iacute; te indicamos.</p>
-<p>Si no recibiste el mensaje ingresa la direcci&oacute;n de correo electr&oacute;nico con el que te registraste y lo enviaremos de nuevo.</p>
+  if resource.errors.any? %>
+  <div class="alert alert-error">
+    Algo pas&oacute;. Revisa el formulario para verificar errores.
+  </div>
+<% end %>
+<h1>Confirmaci&oacute;n de correo electr&oacute;nico</h1>
 
+<p class="centrado">Un correo de confirmaci&oacute;n te ha sido enviado para validar la direcci&oacute;n de correo electr&oacute;nico que ingresaste. <br> Si no recibiste el mensaje ingresa la direcci&oacute;n de correo con la que te registraste y lo enviaremos de nuevo.</p>
+<div class="formulario-general offset2 span11">
 <%= form_for(resource, :as => resource_name, :url => confirmation_path(resource_name), :html => { :method => :post }) do |f| %>
   <div class="control-group"><%= f.label :email %>
     <div class="controls"><%= f.email_field :email %></div>
   </div>
 
-  <div class="form-actions">
-    <p><%= f.submit "Enviar instrucciones", :class => 'btn btn-primary' %></p>
+  <%= f.submit "Enviar instrucciones", :class => 'btn btn-warning' %>
+  
+<% end %>
+</div>
+
+  <div id="caracteristicas" class="offset1 span7">
     <%= render "devise/shared/links" %>
   </div>
-<% end %>

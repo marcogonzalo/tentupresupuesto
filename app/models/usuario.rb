@@ -7,7 +7,7 @@ class Usuario < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :token_authenticatable, :encryptable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :email_confirmation, :password, :password_confirmation, :remember_me,
+  attr_accessible :email,:password, :password_confirmation, :remember_me,
                   :perfilable_type, :perfilable_id, :nombre, :apellido, :sexo, :fecha_nacimiento, :acepta_terminos
 
   SEXO = ["masculino", "femenino"] # Constante para valores de sexo
@@ -16,9 +16,6 @@ class Usuario < ActiveRecord::Base
   belongs_to :perfilable, :polymorphic => true
   
   validates :nombre, 
-            :length => { :in => 3..50 }, 
-            :presence => true
-  validates :apellido, 
             :length => { :in => 3..50 }, 
             :presence => true
   validates :sexo,
@@ -31,8 +28,7 @@ class Usuario < ActiveRecord::Base
                               :on_or_before_message => 'debe tener 16 años o más'
                             },
             :allow_blank => true
-  validates :email, 
-            :confirmation => true,
+  validates :email,
             :uniqueness => { :case_sensitive => false }
   validates :acepta_terminos, :acceptance  => { :accept => true, :message => "es obligatorio" }
   validates :perfilable_id, 

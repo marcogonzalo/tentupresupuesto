@@ -19,6 +19,18 @@
         <div class="navbar">
           <div class="offset1 span22">
             <a class="brand" href="/"><%= image_tag "tentu/generales/logo_tentupresupuesto.png", {:title => "TenTuPresupuesto", :alt => "TenTuPresupuesto"} %></a>
+            
+            <div class="enlaces_usuario">
+            <% if solicitante_signed_in? or proveedor_signed_in? %>
+              <% if solicitante_signed_in? %>
+                <%= link_to 'Panel', panel_solicitante_path %>
+                <%= link_to 'Salir', destroy_solicitante_session_path %>
+              <% elsif proveedor_signed_in? %>
+                <%= link_to "Panel", panel_proveedor_path %>
+                <%= link_to 'Salir', destroy_proveedor_session_path %>
+              <% end %>
+            <% end %>
+            </div><!--/.nav-collapse -->
           </div>
         </div>
       </header>
@@ -26,7 +38,6 @@
     <div class="container">
       <div id="cuerpo" class="span24">
         <div class="container">
-          <%= render "layouts/shared/mensajes" %>
           <%= yield %>
         </div> <!-- /container -->
        </div>
