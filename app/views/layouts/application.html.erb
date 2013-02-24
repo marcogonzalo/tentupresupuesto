@@ -17,33 +17,19 @@
     <div class="container">
       <header id="cabecera" class="span24">
         <div class="navbar">
-          <% 
-            if solicitante_signed_in?
-              home = "/solicitante"
-            elsif proveedor_signed_in?
-              home = "/proveedor"
-            else
-              home = "/"
-            end 
-          %>
           <div class="offset1 span22">
-            <a class="brand" href="<%= home %>"><%= image_tag "tentu/generales/logo_tentupresupuesto.png", {:title => "TenTuPresupuesto", :alt => "TenTuPresupuesto"} %></a>
-            <a class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse">
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </a>
-            <div class="container nav-collapse enlaces_usuario">
+            <a class="brand" href="/"><%= image_tag "tentu/generales/logo_tentupresupuesto.png", {:title => "TenTuPresupuesto", :alt => "TenTuPresupuesto"} %></a>
+            <div class="enlaces_usuario">
             <% if solicitante_signed_in? or proveedor_signed_in? %>
               <% if solicitante_signed_in? %>
                 <%= link_to 'Panel', panel_solicitante_path %>
-                <%= link_to 'Cerrar sesión', destroy_solicitante_session_path %>
+                <%= link_to 'Salir', destroy_solicitante_session_path %>
               <% elsif proveedor_signed_in? %>
                 <%= link_to "Panel", panel_proveedor_path %>
-                <%= link_to 'Cerrar sesión', destroy_proveedor_session_path %>
+                <%= link_to 'Salir', destroy_proveedor_session_path %>
               <% end %>
             <% end %>
-            </div><!--/.nav-collapse -->
+            </div>
           </div>
         </div>
       </header>
