@@ -19,7 +19,6 @@
         <div class="navbar">
           <div class="offset1 span22">
             <a class="brand" href="/"><%= image_tag "tentu/generales/logo_tentupresupuesto.png", {:title => "TenTuPresupuesto", :alt => "TenTuPresupuesto"} %></a>
-            
             <div class="enlaces_usuario">
             <% if solicitante_signed_in? or proveedor_signed_in? %>
               <% if solicitante_signed_in? %>
@@ -30,7 +29,7 @@
                 <%= link_to 'Salir', destroy_proveedor_session_path %>
               <% end %>
             <% end %>
-            </div><!--/.nav-collapse -->
+            </div>
           </div>
         </div>
       </header>
