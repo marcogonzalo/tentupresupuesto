@@ -15,13 +15,13 @@ body { background-color:#adeb6e; padding:0; }
 h1, h2, h3, h4, h5, h6 { color:#333; font-family:'Chango'; font-weight:normal; margin:0px; }
 h1 { font-size:2em; text-align:center; }
 h2 { font-size:1.8em; }
-h3 { font-size:1.6em; }
-h4, h5, h6 { color:white; text-shadow:0 2px 3px #666;}
-select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input { border-radius:0.75em; font-size:1em; margin-bottom:0px; margin-right:5px; max-width:350px; width:100%; }
+h3 { font-size:1.5em; }
+h4, h5, h6 { color:#333; font-size:1.25em;}
+select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input { font-size:1em; margin-bottom:0px; margin-right:5px; max-width:350px; width:100%; }
 select { width: auto; }
 textarea { height:10em; }
 label { color:white; font-family:'MyriadPro'; font-weight:bold; line-height:1em; margin-bottom:0px; vertical-align: middle;}
-
+label.checkbox {line-height:2em; margin-bottom:-10px;}
 .formulario-general { background:#1B80C1; margin-bottom:1em; margin-top:1em; max-width:465px; overflow:hidden; padding:1.25em; width:100%; 
 -o-border-radius:20px;
 -moz-border-radius:20px;
@@ -44,21 +44,22 @@ box-shadow:  inset 0 0 10em #2B598F;
 #piedepagina #mapa-sitio ul { list-style:none; margin-left:1em;  overflow:hidden; }
 #piedepagina #mapa-sitio ul li { display:inline-table; }
 #piedepagina #mapa-sitio .doble li  { width:45%;}
-#piedepagina #mapa-sitio .triple li  { width:33.333%; }
+#piedepagina #mapa-sitio .triple li  { width:30%; }
 #piedepagina #logo-pie { display:none; background: url('tentu/generales/logo_tentupresupuesto_pie.png') no-repeat; height:100%; max-height:91px; max-width:244px; position:relative; top:15%; width:100%; }
-#piedepagina ul#botones-sociales { clear:both; height:48px; list-style:none; margin:0px auto; max-width: 225px; }
-#piedepagina ul#botones-sociales li { background:url('tentu/generales/botonessociales1.png') repeat-x top left; cursor:pointer; display:inline-block; height:48px; margin:1px 2px; width:48px; }
+#piedepagina ul#botones-sociales { clear:both; height:50px; list-style:none; margin:0px auto; max-width: 225px; }
+#piedepagina ul#botones-sociales li { background:url('tentu/generales/botonessociales.png') repeat-x top left; cursor:pointer; display:inline-block; height:48px; margin:1px 2px; width:48px; }
+#piedepagina ul#botones-sociales li a { display:block; height:50px; text-decoration:none; width:50px; }
 #piedepagina ul#botones-sociales li span { display:none; }
 #piedepagina ul#botones-sociales li#youtube { background-position:-0px -0px;}
 #piedepagina ul#botones-sociales li#facebook { background-position:-58px -0px;}
 #piedepagina ul#botones-sociales li#twitter { background-position:-116px -0px;}
 #piedepagina ul#botones-sociales li#blog { background-position:-174px -0px;}
-#piedepagina ul#botones-sociales li#google { background-position:-231px -0px;}
+#piedepagina ul#botones-sociales li#google { background-position:-233px -0px;}
 #piedepagina ul#botones-sociales li#youtube:hover { background-position:-0px -56px;}
 #piedepagina ul#botones-sociales li#facebook:hover { background-position:-58px -56px;}
 #piedepagina ul#botones-sociales li#twitter:hover { background-position:-116px -56px;}
 #piedepagina ul#botones-sociales li#blog:hover { background-position:-174px -56px;}
-#piedepagina ul#botones-sociales li#google:hover { background-position:-231px -56px;}
+#piedepagina ul#botones-sociales li#google:hover { background-position:-233px -56px;}
 
 img.cargando { display:none; width: 16px; height: 16px;}
 

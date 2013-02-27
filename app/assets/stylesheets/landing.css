@@ -1,0 +1,101 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require base_ttp
+ *= require_self
+ */
+
+input[type="text"], input[type="password"], input[type="email"] { height:3em; width:85%;}
+
+#cabecera { background:#71C03A url('tentu/landing/fondo-cabecera.png') no-repeat center bottom; height:auto; max-height:450px; max-width:1060px; overflow:hidden; width:100%; }
+#cabecera #logo-texto { position:relative; top:25px; z-index:5; }
+#cabecera #logo-texto img { width:100%; }
+#cabecera #slogan { margin-top:2em; margin-left:0.5em; }
+#cabecera #enlace-registro { background:url('tentu/landing/pestana.png') no-repeat center bottom; left:15px; margin:0px auto; min-height:90px; max-height:135px; max-width:197px; position:relative; text-align:center; top:0px; z-index:10; }
+#cabecera #enlace-registro a {color:white; display:block; font-family:'Chango'; font-size:125%; padding:1em 0.5em 50px 0.5em;}
+#cabecera #personaje { position:relative; top:25px; z-index:5; }
+#cabecera #personaje img { width:100%; }
+#cabecera #texto { background-color:rgba(43,56,43,0.4); bottom:135px; color:white; font-family:"MyriadPro"; left:35px; padding:0em; position:relative; z-index:0;
+-o-border-radius:0.5em;
+-moz-border-radius:0.5em;
+-webkit-border-radius:0.5em;
+-khtml-border-radius:0.5em;
+border-radius:0.5em;
+}
+#cabecera #texto p { font-size:1.25em; line-height:1.5em; margin:0px; padding:1.5em; width:65%; }
+#cabecera .navbar .btn-navbar { background:#ccc;}
+#cabecera .navbar .enlaces_usuario { float:right; margin:2em 4em 0.5em 0.5em; }
+#cabecera .navbar .enlaces_usuario a { background-color:#4b9112; font-family:'Chango'; font-size:1.25em; padding:5px; color:white; text-decoration:none; 
+-o-border-radius:0.25em;
+-moz-border-radius:0.25em;
+-webkit-border-radius:0.25em;
+-khtml-border-radius:0.25em;
+border-radius:0.25em;
+}
+#cabecera .navbar .enlaces_usuario a:hover { background-color:#5ca224; }
+
+#liston { background: url('tentu/landing/tira.png') no-repeat center center; height:10em; margin-left:-7px; width:100%;}
+#liston form { margin:1.5em auto 0 auto; }
+#liston form .btn { margin:0.85em auto; }
+#liston a { color:white; }
+#cuerpo { background-color:#eee; clear:both; margin: 0px auto; max-width:1060px; overflow:hidden; padding-bottom:3em; position:relative; top:-13px; }
+#cuerpo .pendon { background: url('tentu/landing/pendon.png') no-repeat center bottom; display:inline-block; float:left; height:auto; max-height:405px; min-height:390px; overflow:hidden; width:33.3%; }
+#cuerpo .contenido-pendon { margin:2em 0px; padding:1% 10%; text-align:center; }
+#cuerpo .contenido-pendon h2 { margin-bottom:0.5em; }
+#cuerpo .contenido-pendon .imagen { display:table-cell; margin:1.5em auto 0em auto ; height:140px; width:60%; vertical-align: bottom; }
+
+/* Dejar siempre debajo para sobreescribir en dispositivos */
+/* Large desktop */
+@media screen and (min-width: 1200px) { 
+  #cabecera { margin: 0px auto; }
+  #cabecera .navbar, #cuerpo .container, #pie .container { padding:0px 3%; }
+  #liston .container, #cuerpo .container { max-width:995px; }
+}
+/* Short desktop */
+@media screen and (min-width: 980px) and (max-width: 1199px) { 
+  #cabecera { margin: 0px auto; }
+  #cabecera #slogan { margin-top:1em; margin-left:0.5em; }
+  #cabecera .navbar, #cuerpo .container, #pie .container { padding:0 2%; }
+  #liston { margin:0px auto; max-width:980px; }
+  #liston .container, #cuerpo .container { max-width:940px; }
+}
+/* Portrait tablet to landscape and desktop */
+@media screen and (min-width: 768px) and (max-width: 979px) { 
+  #cabecera { margin: 0px auto; max-height:400px; }
+  #cabecera #slogan { margin-top:1em; margin-left:0.5em; }
+  #cabecera #texto { margin-top:2em; }
+  #cabecera .navbar, #cuerpo .container, #pie .container { padding:0px; }
+  #liston { margin:0px auto; max-width:763px; }
+  #liston .container, #cuerpo .container { max-width:748px; }
+}
+/* Landscape phone to portrait tablet */
+@media screen and (max-width: 767px) { 
+  input[type="text"], input[type="password"], input[type="email"] { height:3em; width:75%;}
+  .control-group { float:left; width:50%; }
+  #cabecera { margin: 0px auto; }
+  #cabecera #logo-texto { text-align:center; z-index:2;}
+  #cabecera #logo-texto img { width:50%; }
+  #cabecera #slogan { display:none; margin-top:1em; margin-left:0.5em; text-align:center; }
+  #cabecera #enlace-registro { left:0; margin:10px auto; z-index:1;}
+  #cabecera #enlace-registro a { margin:0px auto; }
+  #liston { background-color:#1077BC; background-position-y: top; height:15em; margin:0px auto; max-width:100%; }
+  #liston .container, #cuerpo .container, #pie .container { padding:0px; } 
+  #liston form { margin:1em 0.25em 0.25em 0.25em; }
+  #liston  { text-align:center; }
+  #liston .container, #cuerpo .container { max-width:100%; }
+  #cuerpo .contenido-pendon { margin:0px; }
+  #cuerpo .contenido-pendon h2 { margin-bottom:0px; }
+}
+/* Landscape phones and down */
+@media screen and (max-width: 480px) { 
+  #cabecera #logo-texto img { width:90%; }
+  #cuerpo .pendon { display:block; float:none; min-height:350px; width:100%; }
+  #cuerpo .contenido-pendon { margin:0px; padding:0px 20% }
+} 

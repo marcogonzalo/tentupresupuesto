@@ -38,9 +38,25 @@
     <%= f.submit "Registrarme", :class => 'btn btn-warning' %>
 <% end %>
     </div>
+  <%- if controller_name != 'sessions'  
+      mensaje = "Iniciar sesión como "+resource_name.to_s
+    %>
+    <p><%= link_to mensaje, new_session_path(resource_name) %></p>
+  <% end -%>
   </div>
 
-  <div id="caracteristicas" class="offset1 span8">
+  <div id="caracteristicas" class="offset1 span8 registro">
+  <%- if devise_mapping.registerable? && controller_name == 'registrations'
+      # Enlace para registrarse como otro tipo de usuario
+      mensaje = "¿Quieres registrarte como "
+      mensaje += resource_name.to_s == 'solicitante' ? "proveedor" : "solicitante"
+      mensaje += "?"
+      path = resource_name.to_s == 'solicitante' ? new_proveedor_registration_path : new_solicitante_registration_path
+    %>
+    <p><%= link_to mensaje, path, :class => "btn btn-success btn-large" %></p>
+  <% end -%>
+  <hr>
+  <h4>Beneficios como <%= resource_name.to_s %></h4>
   <% if resource_name.to_s == 'solicitante' %>
     <div><p class="titulo">Solicita</p><p class="texto">Dile a todos los proveedores qué es lo que necesitas.</p></div>
     <div><p class="titulo">Compara</p><p class="texto">Recibe las propuestas de los proveedores de la categoría del trabajo, conoce su trayectoria y compara sus ofertas.</p></div>
@@ -50,19 +66,5 @@
     <div><p class="titulo">Accede a nuevos clientes</p><p class="texto">Ten acceso a todas las solicitudes publicadas en las categorías en las que prestas servicios.</p></div>
     <div><p class="titulo">Incrementa tus contrataciones</p><p class="texto">Presenta las mejores ofertas, presta el mejor servicio, y gana reputación.</p></div>
   <% end%>
-  <p>&nbsp;</p>
   <hr>
-  <%- if devise_mapping.registerable? && controller_name == 'registrations'
-      # Enlace para registrarse como otro tipo de usuario
-      mensaje = "Registrarse como "
-      mensaje += resource_name.to_s == 'solicitante' ? "proveedor" : "solicitante"
-      path = resource_name.to_s == 'solicitante' ? new_proveedor_registration_path : new_solicitante_registration_path
-    %>
-    <p><%= link_to mensaje, path, :class => "btn btn-primary" %></p>
-  <% end -%>
-  <%- if controller_name != 'sessions'  
-      mensaje = "Iniciar sesión como "+resource_name.to_s
-    %>
-    <p><%= link_to mensaje, new_session_path(resource_name) %></p>
-  <% end -%>
   </div>

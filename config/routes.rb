@@ -1,5 +1,5 @@
 Ttp::Application.routes.draw do
-  resources :ubicaciones_geograficas
+  get "general/home"
 
   devise_for :proveedor, :class_name => 'Usuario', :controllers => { :registrations => "registrations", :confirmations => "confirmations" }, :path_names => { :sign_in => 'iniciar_sesion', :sign_up => 'registro', :sign_out => 'cerrar_sesion', :password => 'clave', :confirmation => 'verificacion', :edit => 'editar' }
   devise_for :solicitante, :class_name => 'Usuario', :controllers => { :registrations => "registrations", :confirmations => "confirmations" }, :path_names => { :sign_in => 'iniciar_sesion', :sign_up => 'registro', :sign_out => 'cerrar_sesion', :password => 'clave', :confirmation => 'verificacion', :edit => 'editar' }
@@ -9,6 +9,7 @@ Ttp::Application.routes.draw do
   devise_scope :proveedor do
     put "/proveedor/verificacion" => "confirmations#confirm", :as => :proveedor_confirm
   end
+  
   scope "/solicitante" do
     get     "/" => "solicitantes#panel", :as => "panel_solicitante"
     get     "nuevo" => "solicitantes#new", :as => "new_solicitante"
@@ -40,9 +41,12 @@ Ttp::Application.routes.draw do
   end
   
   resources :categorias
-  
-  get "/ubicacion_geografica/get_lista_entidades" => "ubicaciones_geograficas#get_lista_entidades"
 
+  resources :ubicaciones_geograficas do
+    member do
+      get "get_lista_entidades" => "ubicaciones_geograficas#get_lista_entidades"
+    end
+  end
   
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -93,7 +97,7 @@ Ttp::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => 'welcome#index'
+  root :to => 'general#home'
 
   # See how all your routes lay out with "rake routes"
 
