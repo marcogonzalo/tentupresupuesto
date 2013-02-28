@@ -30,29 +30,29 @@ class Trabajo < ActiveRecord::Base
   validates :estatus,
             :inclusion => { :in => ESTATUS }
   validates :pais_id, 
-            :numericality =>  {
-                                :only_integer => true,
-                                :greater_than => 0
-                              }, 
             :presence => true
+#            :numericality =>  {
+#                                :only_integer => true,
+#                                :greater_than => 0
+#                              }
   validates :estado_id, 
-            :numericality =>  {
-                                :only_integer => true,
-                                :greater_than => 0
-                              }, 
             :presence => true
+#            :numericality =>  {
+#                                :only_integer => true,
+#                                :greater_than => 0
+#                              }
   validates :municipio_id, 
-            :numericality =>  {
-                                :only_integer => true,
-                                :greater_than => 0
-                              }, 
             :presence => true
-  validates :localidad_id, 
-            :numericality =>  {
-                                :only_integer => true,
-                                :greater_than => 0
-                              }, 
+#            :numericality =>  {
+#                                :only_integer => true,
+#                                :greater_than => 0
+#                              }
+  validates :localidad_id,
             :presence => true
+#            :numericality =>  {
+#                                :only_integer => true,
+#                                :greater_than => 0
+#                              }
   validates :direccion,
             :presence => true
   validates :precio_final, 

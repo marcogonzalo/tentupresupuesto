@@ -58,29 +58,29 @@ class Proveedor < ActiveRecord::Base
                        },
             :allow_blank => true
   validates :pais_id, 
-            :numericality =>  {
-                                :only_integer => true,
-                                :greater_than => 0
-                              }, 
             :presence => true
+#            :numericality =>  {
+#                                :only_integer => true,
+#                                :greater_than => 0
+#                              }
   validates :estado_id, 
-            :numericality =>  {
-                                :only_integer => true,
-                                :greater_than => 0
-                              }, 
             :presence => true
+#            :numericality =>  {
+#                                :only_integer => true,
+#                                :greater_than => 0
+#                              }
   validates :municipio_id, 
-            :numericality =>  {
-                                :only_integer => true,
-                                :greater_than => 0
-                              }, 
             :presence => true
-  validates :localidad_id, 
-            :numericality =>  {
-                                :only_integer => true,
-                                :greater_than => 0
-                              }, 
+#            :numericality =>  {
+#                                :only_integer => true,
+#                                :greater_than => 0
+#                              }
+  validates :localidad_id,
             :presence => true
+#            :numericality =>  {
+#                                :only_integer => true,
+#                                :greater_than => 0
+#                              }
   validates :direccion, 
             :length => { :in => 10..255 }, 
             :allow_blank => true

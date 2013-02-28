@@ -44,6 +44,30 @@ class Solicitante < ActiveRecord::Base
                           :if => "!telefono_alt.blank?"  
                        },
             :allow_blank => true
+  validates :pais_id, 
+            :presence => true
+#            :numericality =>  {
+#                                :only_integer => true,
+#                                :greater_than => 0
+#                              }
+  validates :estado_id, 
+            :presence => true
+#            :numericality =>  {
+#                                :only_integer => true,
+#                                :greater_than => 0
+#                              }
+  validates :municipio_id, 
+            :presence => true
+#            :numericality =>  {
+#                                :only_integer => true,
+#                                :greater_than => 0
+#                              }
+  validates :localidad_id,
+            :presence => true
+#            :numericality =>  {
+#                                :only_integer => true,
+#                                :greater_than => 0
+#                              }
   validates :direccion, 
             :length => { :in => 10..255 }, 
             :allow_blank => true
