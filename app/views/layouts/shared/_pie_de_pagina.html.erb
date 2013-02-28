@@ -6,8 +6,14 @@
               <div>
                 <h3 class="sobre-color">Sitio</h3>
                 <ul class="doble">
-                  <li>Inicio</li>
-                  <li>Registro</li>
+                  <li><%= link_to "Inicio", root_path %></li>
+                <% if solicitante_signed_in? %>
+                  <li><%= link_to 'Panel', panel_solicitante_path %></li>
+                <% elsif proveedor_signed_in? %>
+                  <li><%= link_to 'Panel', panel_proveedor_path %></li>
+                <% else %>
+                  <li><%= link_to "Registro", new_registration_path("solicitante") %></li>
+                <% end %>
                   <li>Proveedores</li>
                   <li>Trabajos</li>
                   <li>Contacto</li>
