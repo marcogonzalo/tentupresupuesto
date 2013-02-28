@@ -1,7 +1,7 @@
 var cargar_entidades = function(modelo,entidad,entidad_superior) {
   mostrar_cargando("#loading"+entidad)
   $.ajax({
-    url: "/ubicacion_geografica/get_lista_entidades.json",
+    url: "/ubicaciones_geograficas/get_lista_entidades.json",
     data:{
       tipo_entidad: entidad,
       entidad_superior_id: $("#"+modelo+"_"+entidad_superior+"_id").val()

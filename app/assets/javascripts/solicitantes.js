@@ -3,14 +3,14 @@ $(document).ready(function($) { // Carga de lista inicial de localidades en muni
 });
 
 $('#solicitante_pais_id').change(function(){
-    cargar_entidades('solicitante','estado','pais');
+  if($('#solicitante_pais_id').val() != "") { cargar_entidades('solicitante','estado','pais'); }
 });
 
 $('#solicitante_estado_id').change(function(){
-    cargar_entidades('solicitante','municipio','estado');
+  if($('#solicitante_estado_id').val() != "") { cargar_entidades('solicitante','municipio','estado'); }
 });
 
 $('#solicitante_municipio_id').change(function(){
   $("#solicitante_localidad_id").val("");
-  cargar_entidades('solicitante','localidad','municipio');
+  if($('#solicitante_municipio_id').val() != "") { cargar_entidades('solicitante','localidad','municipio'); }
 });

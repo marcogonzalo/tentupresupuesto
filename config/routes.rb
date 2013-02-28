@@ -42,11 +42,10 @@ Ttp::Application.routes.draw do
   
   resources :categorias
 
-  resources :ubicaciones_geograficas do
-    member do
-      get "get_lista_entidades" => "ubicaciones_geograficas#get_lista_entidades"
-    end
+  scope "/ubicaciones_geograficas" do
+    get "get_lista_entidades" => "ubicaciones_geograficas#get_lista_entidades"
   end
+  resources :ubicaciones_geograficas
   
   # The priority is based upon order of creation:
   # first created -> highest priority.
