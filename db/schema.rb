@@ -14,10 +14,13 @@
 ActiveRecord::Schema.define(:version => 20130204025539) do
 
   create_table "categorias", :force => true do |t|
-    t.string  "nombre",      :limit => 50, :default => "", :null => false
+    t.string  "nombre",                :limit => 50, :default => "",   :null => false
     t.string  "descripcion"
-    t.integer "padre_id",                  :default => 0
-    t.string  "slug",                      :default => "", :null => false
+    t.integer "padre_id",                            :default => 0
+    t.string  "slug",                                :default => "",   :null => false
+    t.integer "proveedores_asociados",               :default => 0,    :null => false
+    t.integer "trabajos_asociados",                  :default => 0,    :null => false
+    t.boolean "visible",                             :default => true, :null => false
   end
 
   add_index "categorias", ["padre_id"], :name => "index_categorias_on_padre_id"
@@ -169,7 +172,6 @@ ActiveRecord::Schema.define(:version => 20130204025539) do
     t.string   "perfilable_type"
     t.string   "password_salt"
     t.string   "nombre",                 :limit => 50, :default => "",    :null => false
-    t.string   "apellido",               :limit => 50, :default => "",    :null => false
     t.string   "sexo",                   :limit => 10
     t.date     "fecha_nacimiento"
     t.boolean  "activo",                               :default => true,  :null => false
@@ -197,6 +199,8 @@ ActiveRecord::Schema.define(:version => 20130204025539) do
   add_index "usuarios", ["authentication_token"], :name => "index_usuarios_on_authentication_token", :unique => true
   add_index "usuarios", ["confirmation_token"], :name => "index_usuarios_on_confirmation_token", :unique => true
   add_index "usuarios", ["email"], :name => "index_usuarios_on_email", :unique => true
+  add_index "usuarios", ["perfilable_id"], :name => "index_usuarios_on_perfilable_id"
+  add_index "usuarios", ["perfilable_type"], :name => "index_usuarios_on_perfilable_type"
   add_index "usuarios", ["reset_password_token"], :name => "index_usuarios_on_reset_password_token", :unique => true
 
   add_foreign_key "mensajes", "presupuestos", :name => "mensajes_presupuesto_id_fk", :dependent => :delete
