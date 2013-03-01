@@ -1,6 +1,6 @@
 # coding: utf-8
 class SolicitantesController < ApplicationController
-  before_filter :authenticate_solicitante!, :except => [:index]
+  before_filter :no_authenticated, :only => [:new, :create]
   # GET /solicitantes
   # GET /solicitantes.json
   def index

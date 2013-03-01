@@ -1,6 +1,7 @@
 # coding: utf-8
 class ProveedoresController < ApplicationController
   before_filter :authenticate_proveedor!, :except => [:index, :show]
+  before_filter :no_authenticated, :only => [:new, :create]
   # GET /proveedores
   # GET /proveedores.json
   def index

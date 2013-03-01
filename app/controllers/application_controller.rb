@@ -32,6 +32,17 @@ class ApplicationController < ActionController::Base
     return true
   end
   
+  def no_authenticated
+    if solicitante_signed_in?
+      return true if current_solicitante.perfilable_id.nil? or current_solicitante.perfilable_id < 1
+      redirect_to panel_solicitante_path
+    elsif proveedor_signed_in?
+      return true if current_proveedor.perfilable_id.nil? or current_proveedor.perfilable_id < 1
+      redirect_to panel_proveedor_path
+    end
+    return true
+  end
+  
   private
   def after_sign_in_path_for(resource)
     unless resource.confirmed_at.nil?

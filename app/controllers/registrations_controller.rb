@@ -1,5 +1,6 @@
 # coding: utf-8
 class RegistrationsController < Devise::RegistrationsController
+  before_filter :no_authenticated, :only => [:new, :create]
   def edit
     if solicitante_signed_in? or proveedor_signed_in?
       if solicitante_signed_in?
