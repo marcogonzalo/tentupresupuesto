@@ -53,7 +53,7 @@
       mensaje += "?"
       path = resource_name.to_s == 'solicitante' ? new_proveedor_registration_path : new_solicitante_registration_path
     %>
-    <p><%= link_to mensaje, path, :class => "btn btn-success btn-large" %></p>
+    <p><%= link_to mensaje, path, :class => "btn btn-success btn-large btn-block" %></p>
   <% end -%>
   <hr>
   <h4>Beneficios como <%= resource_name.to_s %></h4>

@@ -24,6 +24,8 @@ fieldset legend { color:white; font-family:'Chango'; font-size:1.25em; margin-bo
 label { color:white; font-family:'MyriadPro'; font-weight:bold; line-height:1em; margin-bottom:1px; vertical-align: middle;}
 label.checkbox {line-height:2em; margin-bottom:-10px;}
 
+.formulario-general .help-block { color:white; }
+
 #piedepagina { background: #ddd url('tentu/generales/fondopie.png') repeat-x left top; clear:both; max-height:300px; min-height:225px; width:100%; }
 #piedepagina #pie { background: url('tentu/generales/footer.png') no-repeat center top; height:180px; margin:0 auto; max-width:1060px; position:relative; top:-22px; }
 #piedepagina #mapa-sitio { position:relative; top:7%; }

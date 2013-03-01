@@ -63,6 +63,7 @@ class TrabajosController < ApplicationController
     params[:trabajo][:pais_id] = 1 # Venezuela
     @localidad = ""
     unless params[:trabajo][:localidad_id].empty?
+      @localidad = params[:trabajo][:localidad_id]
       params[:trabajo][:localidad_id] = UbicacionGeografica.buscar_o_crear_id_de_entidad(params[:trabajo][:localidad_id],'localidad',params[:trabajo][:municipio_id])
     end
     
@@ -75,7 +76,7 @@ class TrabajosController < ApplicationController
         format.html { redirect_to @trabajo }
         format.json { render json: @trabajo, status: :created, location: @trabajo }
       else
-        flash[:warning] = "Ocurrió un error. Revisa el formulario."
+        flash[:error] = "Ocurrió un error. Revisa el formulario."
         format.html { render action: "new" }
         format.json { render json: @trabajo.errors, status: :unprocessable_entity }
       end

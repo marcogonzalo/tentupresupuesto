@@ -9,6 +9,6 @@ ActionView::Base.field_error_proc = Proc.new do |html_tag, instance|
   if html_tag =~ /<(label)/
     html_tag
   else
-    %(#{html_tag} <span class="label label-important">#{errors}</span> ).html_safe
+    %(#{html_tag} <span class="help-block label label-important">#{errors}</span> ).html_safe
   end
 end

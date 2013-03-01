@@ -25,7 +25,7 @@ class Trabajo < ActiveRecord::Base
             :length => { :in => 10..100 }, 
             :presence => true
   validates :descripcion,
-            :length => { :in => 10..500 }, 
+            :length => { :in => 25..500 }, 
             :presence => true
   validates :estatus,
             :inclusion => { :in => ESTATUS }
@@ -53,7 +53,10 @@ class Trabajo < ActiveRecord::Base
 #                                :only_integer => true,
 #                                :greater_than => 0
 #                              }
+  validates :categoria_id,
+            :presence => true
   validates :direccion,
+            :length => { :in => 10..100 }, 
             :presence => true
   validates :precio_final, 
             :numericality =>  { :greater_than_or_equal_to => 0 }
