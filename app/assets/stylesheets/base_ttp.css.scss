@@ -21,7 +21,7 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
 select { width: auto; }
 textarea { height:5em; }
 fieldset legend { color:white; font-family:'Chango'; font-size:1.25em; margin-bottom:0.5em; }
-label { color:white; font-family:'MyriadPro'; font-weight:bold; line-height:1em; margin-bottom:0px; vertical-align: middle;}
+label { color:white; font-family:'MyriadPro'; font-weight:bold; line-height:1em; margin-bottom:1px; vertical-align: middle;}
 label.checkbox {line-height:2em; margin-bottom:-10px;}
 
 #piedepagina { background: #ddd url('tentu/generales/fondopie.png') repeat-x left top; clear:both; max-height:300px; min-height:225px; width:100%; }

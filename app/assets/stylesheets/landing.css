@@ -45,7 +45,7 @@ border-radius:0.25em;
 #liston form { margin:1.5em auto 0 auto; }
 #liston form .btn { margin:0.85em auto; }
 #liston a { color:white; }
-#cuerpo { background-color:#eee; clear:both; margin: 0px auto; max-width:1060px; overflow:hidden; padding-bottom:3em; position:relative; top:-13px; }
+#cuerpo { background-color:#eee; clear:both; margin: 0px auto; margin-bottom:-13px; max-width:1060px; overflow:hidden; padding-bottom:3em; position:relative; top:-13px; }
 #cuerpo .pendon { background: url('tentu/landing/pendon.png') no-repeat center bottom; display:inline-block; float:left; height:auto; max-height:405px; min-height:390px; overflow:hidden; width:33.3%; }
 #cuerpo .contenido-pendon { margin:2em 0px; padding:1% 10%; text-align:center; }
 #cuerpo .contenido-pendon h2 { margin-bottom:0.5em; }

@@ -13,7 +13,7 @@
  *= require_self
  */
 #cabecera { background-color:white; min-height:160px; max-width:1060px; }
-#cabecera .navbar { background: url('tentu/generales/head.png') no-repeat center top; min-height:170px; overflow:hidden; position:relative; top:-19px; }
+#cabecera .navbar { background: url('tentu/generales/head.png') no-repeat center top; margin-bottom:5px; min-height:170px; overflow:hidden; position:relative; top:-19px; }
 #cabecera .navbar .brand { margin:0px; padding:0px; margin-top:1%; }
 #cabecera .navbar .brand img { width:100%; }
 #cabecera .navbar .btn-navbar { background:#ccc;}
