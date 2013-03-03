@@ -3,8 +3,8 @@ class Categoria < ActiveRecord::Base
   include FriendlyId
   friendly_id :slug_categoria, :use => :slugged
   
-  attr_accessible :padre_id, :descripcion, :nombre, :slug, 
-                  :proveedor_ids, :trabajo_ids
+  attr_accessible :padre_id, :descripcion, :nombre, :clase_css, 
+                  :proveedor_ids, :trabajo_ids, :slug
                   
   has_many :categorias_hijas, :foreign_key => "padre_id", :class_name => 'Categoria'
   belongs_to :categoria_padre, :foreign_key => "padre_id", :class_name => 'Categoria'

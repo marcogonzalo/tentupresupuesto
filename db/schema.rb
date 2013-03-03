@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(:version => 20130204025539) do
     t.integer "proveedores_asociados",               :default => 0,    :null => false
     t.integer "trabajos_asociados",                  :default => 0,    :null => false
     t.boolean "visible",                             :default => true, :null => false
+    t.string  "clase_css",                           :default => "",   :null => false
   end
 
   add_index "categorias", ["padre_id"], :name => "index_categorias_on_padre_id"
@@ -160,10 +161,12 @@ ActiveRecord::Schema.define(:version => 20130204025539) do
     t.string  "nombre",     :limit => 100,                     :null => false
     t.string  "tipo",       :limit => 15,  :default => "pais", :null => false
     t.integer "entidad_id"
+    t.string  "slug",                      :default => "",     :null => false
   end
 
   add_index "ubicaciones_geograficas", ["entidad_id"], :name => "index_ubicaciones_geograficas_on_entidad_id"
   add_index "ubicaciones_geograficas", ["nombre", "tipo", "entidad_id"], :name => "index_ubicaciones_geograficas_on_nombre_and_tipo_and_entidad_id", :unique => true
+  add_index "ubicaciones_geograficas", ["slug"], :name => "index_ubicaciones_geograficas_on_slug", :unique => true
 
   create_table "usuarios", :force => true do |t|
     t.string   "email",                                :default => "",    :null => false

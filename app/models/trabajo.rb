@@ -56,7 +56,7 @@ class Trabajo < ActiveRecord::Base
   validates :categoria_id,
             :presence => true
   validates :direccion,
-            :length => { :in => 10..100 }, 
+            :length => { :in => 10..250 }, 
             :presence => true
   validates :precio_final, 
             :numericality =>  { :greater_than_or_equal_to => 0 }

@@ -1,6 +1,9 @@
 #encoding: utf-8
 class UbicacionGeografica < ActiveRecord::Base
-  attr_accessible :nombre, :tipo, :entidad_id
+  include FriendlyId
+  friendly_id :slug_ubicacion, :use => :slugged
+  
+  attr_accessible :nombre, :tipo, :entidad_id, :slug
   
   has_many :entidades, :class_name => "UbicacionGeografica", :foreign_key => "entidad_id", :order => "nombre ASC"
   belongs_to :entidad_superior, :class_name => "UbicacionGeografica", :foreign_key => "entidad_id"
@@ -34,5 +37,14 @@ class UbicacionGeografica < ActiveRecord::Base
       ug.save
     end
     return ug.id
+  end
+  
+  
+  private
+  def slug_ubicacion
+    unless self.entidad_id.nil? or self.entidad_superior.nil?
+      return self.entidad_superior.friendly_id+"_"+self.nombre
+    end
+    return self.nombre
   end
 end

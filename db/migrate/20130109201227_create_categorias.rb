@@ -8,6 +8,7 @@ class CreateCategorias < ActiveRecord::Migration
       t.integer :proveedores_asociados,   :null => false, :default => 0
       t.integer :trabajos_asociados,      :null => false, :default => 0
       t.boolean :visible,                 :null => false, :default => true
+      t.string :clase_css,                :null => false, :default => ""
     end
     add_index :categorias, :padre_id
     add_index :categorias, :slug
