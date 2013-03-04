@@ -13,6 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require modernizr
-//= require twitter/bootstrap/bootstrap-modal
+//= require twitter/bootstrap
 //= require twitter/bootstrap/bootstrap-typeahead
 //= require comun

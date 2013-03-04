@@ -23,8 +23,10 @@
   <div class="control-group"><%= f.label :password_confirmation, "Confirma la nueva clave" %>
     <div class="controls"><%= f.password_field :password_confirmation %></div>
   </div>
-
-  <%= f.submit "Cambiar mi clave", :class => 'btn btn-warning' %>
+  
+  <div class="botones">
+    <%= f.submit "Cambiar mi clave", :class => 'btn btn-warning' %>
+  </div>
 <% end %>
     </div>
   </div>
