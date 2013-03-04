@@ -12,7 +12,7 @@
  *= require_self
  */
 body { background-color:#adeb6e; padding:0; }
-h1, h2, h3, h4, h5, h6 { color:#333; font-family:'Chango'; font-weight:normal; margin:0px; }
+h1, h2, h3, h4, h5, h6 { color:#333; font-family:'Chango'; font-weight:normal; line-height:1.25em; margin:0px; }
 h1 { font-size:2em; text-align:center; }
 h2 { font-size:1.8em; }
 h3 { font-size:1.5em; }
@@ -79,7 +79,7 @@ img.cargando { display:none; width: 16px; height: 16px;}
 .error-campo { color: red; display: inline; }
 .informacion-campo { font-size:0.8em; display:inline; }
 .sobre-color { color:white; text-shadow:0 2px 5px #333; }
-
+.micro-nota { font-size:xx-small;}
 @media screen and (min-width: 768px) and (max-width: 979px) { 
   .formulario-general { margin-left: 0; }
 }

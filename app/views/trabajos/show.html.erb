@@ -37,11 +37,11 @@ end
     <%= link_to t('.new', :default => "Ofrece un presupuesto para esta solicitud"),
                 new_trabajo_presupuesto_path(@trabajo), :class => 'btn btn-success btn-large' %>
   <% else %>
-    <%= link_to t('.new', :default => "Para ofertar presupuestos o publicar solicitudes como esta, reg"),
+    <%= link_to t('.new', :default => "Para ofertar presupuestos o publicar solicitudes como esta, regístrate aquí"),
                 new_registration_path("solicitante"), :class => 'btn btn-success btn-large' %>
   <% end %>
   </div>
-  <div class="clearfix">Ref: <%= @trabajo.id %></div>
+  <div class="clearfix micro-nota">Ref: <%= @trabajo.id %></div>
 
   <% if @trabajo.contratado %>
   <section id="contratado">

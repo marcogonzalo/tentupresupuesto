@@ -203,11 +203,14 @@ class PresupuestosController < ApplicationController
   
   private
   def resolve_layout
-    case action_name
-    when "show"
-      "interna-liston"
-    else
-      "application"
-    end
+    #case action_name
+    #when "show"
+    #  "interna-liston"
+    #when "show"
+    #  "interna-liston"
+    #else
+    #  "application"
+    #end
+    return "interna-liston"
   end
 end

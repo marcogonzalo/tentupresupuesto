@@ -58,7 +58,9 @@ border-radius:0.25em;
 
 @media screen and (max-width: 767px) { 
   #cabecera { margin: 20px auto -20px auto; }
-  #cabecera .navbar, #cuerpo .container, #pie .container { padding:0 5px; } 
+  #cabecera .navbar, #cuerpo .container, #pie .container { padding:0 5px; }
+  #cabecera .navbar .enlaces_usuario { float:none; margin:0px; text-align:center;}
   #cuerpo .container { max-width:480px; }
   #caracteristicas { margin-top:0; }
+  
 }

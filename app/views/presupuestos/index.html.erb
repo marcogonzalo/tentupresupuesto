@@ -1,7 +1,22 @@
-<div class="page-header">
-  <h1>Presupuesto</h1>
-  <h2><%=t @trabajo.proposito %></h2>
-</div>
+<%- model_class = Presupuesto -%>
+<% 
+content_for :head do
+  stylesheet_link_tag 'presupuestos'
+end
+
+content_for :title do 
+  "Presupuesto para: "+@trabajo.proposito
+end
+
+content_for :liston do 
+  render :partial => 'trabajos/cabecera', :locals => {:trabajo => @trabajo, :cantidad_presupuestos => @trabajo.presupuestos.size, :color => "b"}
+end
+
+content_for :foot do
+  javascript_include_tag 'presupuestos'
+end
+%>
+<h2>Presupuestos presentados</h2>
 <table class="table table-striped">
   <thead>
     <tr>
