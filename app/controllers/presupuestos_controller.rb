@@ -1,5 +1,6 @@
 # coding: utf-8
 class PresupuestosController < ApplicationController
+  layout :resolve_layout
   before_filter :authenticate_solicitante!, :only => [:index, :aceptar_presupuesto, :rechazar_presupuesto]
   before_filter :authenticate_proveedor!, :except => [:index, :show, :aceptar_presupuesto, :rechazar_presupuesto]
   before_filter :authenticate_any, :only => [:show]
@@ -18,8 +19,8 @@ class PresupuestosController < ApplicationController
   # GET /presupuestos/1
   # GET /presupuestos/1.json
   def show
-    @presupuesto = Presupuesto.find(params[:id])
-    @trabajo = Trabajo.find(@presupuesto.trabajo_id)
+    @presupuesto = Presupuesto.includes(:proveedor).find(params[:id])
+    @trabajo = Trabajo.includes(:presupuestos,:contratado).find(@presupuesto.trabajo_id)
     
     #Verificar si el trabajo existe y el usuario es el solicitante
     @es_el_solicitante = false
@@ -30,24 +31,24 @@ class PresupuestosController < ApplicationController
     end
     @es_el_proveedor = false
     if proveedor_signed_in?
-      @es_el_solicitante = @presupuesto.proveedor_id.eql?(current_proveedor.perfilable_id)
+      @es_el_proveedor = @presupuesto.proveedor_id.eql?(current_proveedor.perfilable_id)
       @tipo_usuario = current_proveedor.perfilable_type
       m_u = 'solicitante'
     end
     
     if @es_el_solicitante or @es_el_proveedor
-      @mensajes = @presupuesto.mensajes.order("created_at")
+      @mensajes = @presupuesto.mensajes
       @mensajes.update_all({ :visto => true }, ['usuario = ?', m_u])
       @mensaje = @presupuesto.mensajes.build(:usuario => @tipo_usuario)
     end
     respond_to do |format|
       if @es_el_solicitante or @es_el_proveedor
         format.html # show.html.erb
+        format.json { render json: @presupuesto }
       else
         flash[:warning] = "No tienes permiso para ver la información del presupuesto."
         format.html { redirect_to @trabajo }
       end
-      format.json { render json: @presupuesto }
     end
   end
 
@@ -66,6 +67,21 @@ class PresupuestosController < ApplicationController
   # GET /presupuestos/1/edit
   def edit
     @presupuesto = Presupuesto.find(params[:id])
+    @trabajo = Trabajo.find(@presupuesto.trabajo_id)
+
+    @es_el_proveedor = false
+    if proveedor_signed_in?
+      @es_el_proveedor = @presupuesto.proveedor_id.eql?(current_proveedor.perfilable_id)
+    end
+    respond_to do |format|
+      if @es_el_proveedor
+        format.html # show.html.erb
+        format.json { render json: @presupuesto }
+      else
+        flash[:warning] = "No tienes permiso para editar la información del presupuesto."
+        format.html { redirect_to @presupuesto }
+      end
+    end
   end
 
   # POST /presupuestos
@@ -75,6 +91,10 @@ class PresupuestosController < ApplicationController
     @presupuesto = @trabajo.presupuestos.build(params[:presupuesto])
     @presupuesto.proveedor_id = current_proveedor.perfilable_id
 
+    @es_el_proveedor = false
+    if proveedor_signed_in?
+      @es_el_proveedor = @presupuesto.proveedor_id.eql?(current_proveedor.perfilable_id)
+    end
     respond_to do |format|
       if @presupuesto.save
         flash[:success] = "Presupuesto enviado satisfactoriamente."
@@ -93,15 +113,24 @@ class PresupuestosController < ApplicationController
   def update
     @presupuesto = Presupuesto.find(params[:id])
 
+    es_el_proveedor = false
+    if proveedor_signed_in?
+      es_el_proveedor = @presupuesto.proveedor_id.eql?(current_proveedor.perfilable_id)
+    end
     respond_to do |format|
-      if @presupuesto.update_attributes(params[:presupuesto])
-        flash[:success] = "Presupuesto actualizado satisfactoriamente."
-        format.html { redirect_to @presupuesto }
-        format.json { head :no_content }
+      if es_el_proveedor
+        if @presupuesto.update_attributes(params[:presupuesto])
+          flash[:success] = "Presupuesto actualizado satisfactoriamente."
+          format.html { redirect_to @presupuesto }
+          format.json { head :no_content }
+        else
+          flash[:error] = "Ocurrió un error. Revisa el formulario."
+          format.html { render action: "edit" }
+          format.json { render json: @presupuesto.errors, status: :unprocessable_entity }
+        end
       else
-        flash[:error] = "Ocurrió un error. Revisa el formulario."
-        format.html { render action: "edit" }
-        format.json { render json: @presupuesto.errors, status: :unprocessable_entity }
+        flash[:warning] = "No tienes permiso para editar la información del presupuesto."
+        format.html { redirect_to @presupuesto }
       end
     end
   end
@@ -112,10 +141,19 @@ class PresupuestosController < ApplicationController
     @presupuesto = Presupuesto.find(params[:id])
     @presupuesto.destroy
 
+    es_el_proveedor = false
+    if proveedor_signed_in?
+      es_el_proveedor = @presupuesto.proveedor_id.eql?(current_proveedor.perfilable_id)
+    end
     respond_to do |format|
-      flash[:success] = "Presupuesto eliminado."
-      format.html { redirect_to presupuestos_url }
-      format.json { head :no_content }
+      if es_el_proveedor
+        flash[:success] = "Presupuesto eliminado."
+        format.html { redirect_to presupuestos_url }
+        format.json { head :no_content }
+      else
+        flash[:warning] = "No tienes permiso para gestionar el presupuesto."
+        format.html { redirect_to @presupuesto }
+      end
     end
   end
   
@@ -160,6 +198,16 @@ class PresupuestosController < ApplicationController
         flash[:warning] = "Sólo el solicitante puede aprobar o rechazar el presupuesto."
         format.json { render :json => {tipo_mensaje: :warning, mensaje: flash[:warning]} }
       end
+    end
+  end
+  
+  private
+  def resolve_layout
+    case action_name
+    when "show"
+      "interna-liston"
+    else
+      "application"
     end
   end
 end

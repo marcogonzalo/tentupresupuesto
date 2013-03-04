@@ -1,5 +1,6 @@
 # coding: utf-8
 class TrabajosController < ApplicationController
+  layout :resolve_layout
   before_filter :authenticate_solicitante!, :except => [:show, :index]
   # GET /trabajos
   # GET /trabajos.json
@@ -117,6 +118,16 @@ class TrabajosController < ApplicationController
       flash[:success] = "Solicitud eliminada."
       format.html { redirect_to trabajos_url }
       format.json { head :no_content }
+    end
+  end
+  
+  private
+  def resolve_layout
+    case action_name
+    when "show"
+      "interna-liston"
+    else
+      "application"
     end
   end
 end

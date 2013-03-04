@@ -6,6 +6,8 @@ class Presupuesto < ActiveRecord::Base
   belongs_to :proveedor
   has_many :mensajes
   
+  default_scope order('created_at')
+  
   MOTIVO_RECHAZO = [:da_pocos_detalles, :muy_barato, :muy_caro, :no_confiable, :no_responde, :otro]
   
   validate  :rango_precio_valido

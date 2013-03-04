@@ -1,17 +1,28 @@
-<% content_for :foot do %>
-  <%= javascript_include_tag 'presupuestos' %>
-<% end %>
 <%- model_class = Presupuesto -%>
-<div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human %></h1>
-  <h2><%= @trabajo.proposito %></h2>
-</div>
+<% 
+content_for :head do
+  stylesheet_link_tag 'trabajos'
+end
+
+content_for :title do 
+  "Presupuesto para: "+@trabajo.proposito
+end
+
+content_for :liston do 
+  render :partial => 'trabajos/cabecera', :locals => {:trabajo => @trabajo, :cantidad_presupuestos => @trabajo.presupuestos.size, :color => "b"}
+end
+
+content_for :foot do
+  javascript_include_tag 'presupuestos'
+end
+%>
+<h2><%=t '.title', :default => model_class.model_name.human %></h2>
 
 <dl class="dl-horizontal">
   <dt><strong><%= model_class.human_attribute_name(:precio_minimo) %>:</strong></dt>
-  <dd><%= @presupuesto.precio_minimo %></dd>
+  <dd><%= number_to_currency(@presupuesto.precio_minimo) %></dd>
   <dt><strong><%= model_class.human_attribute_name(:precio_maximo) %>:</strong></dt>
-  <dd><%= @presupuesto.precio_maximo %></dd>
+  <dd><%= number_to_currency(@presupuesto.precio_maximo) %></dd>
   <dt><strong><%= model_class.human_attribute_name(:resumen) %>:</strong></dt>
   <dd><%= @presupuesto.resumen %></dd>
   <dt><strong><%= model_class.human_attribute_name(:con_iva) %>:</strong></dt>
