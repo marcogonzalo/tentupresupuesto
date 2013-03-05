@@ -24,27 +24,6 @@ box-shadow: 1px 1px 5px #666;
 -webkit-box-shadow: inset 0 0 10em #fc3;
 box-shadow:  inset 0 0 10em #fc3;*/
 }
-.presupuesto div { margin:1em; }
 .presupuesto .proveedor-interesado { display:block;}
-.presupuesto .reputacion { background-color:#666; display:table; margin:1em auto;
--o-border-radius:5px;
--moz-border-radius:5px;
--webkit-border-radius:5px;
--khtml-border-radius:5px;
-border-radius:5px;
-}
-.presupuesto .reputacion span { background:url('tentu/internas/estrellas-p.png') repeat left top; background-position-y:1px; display:block; height:24px; max-width:120px; }
-.presupuesto .reputacion span i {display:none;}
-.presupuesto .rep-proveedor { background:url('tentu/internas/estrellas-p.png') repeat center bottom; height:24px; margin:0 auto; width:120px;}
-.presupuesto .rep-proveedor .rep0_0 { width:0px; }
-.presupuesto .rep-proveedor .rep0_5 { width:12px; }
-.presupuesto .rep-proveedor .rep1_0 { width:24px; }
-.presupuesto .rep-proveedor .rep1_5 { width:36px; }
-.presupuesto .rep-proveedor .rep2_0 { width:48px; }
-.presupuesto .rep-proveedor .rep2_5 { width:60px; }
-.presupuesto .rep-proveedor .rep3_0 { width:72px; }
-.presupuesto .rep-proveedor .rep3_5 { width:84px; }
-.presupuesto .rep-proveedor .rep4_0 { width:96px; }
-.presupuesto .rep-proveedor .rep4_5 { width:108px; }
-.presupuesto .rep-proveedor .rep5_0 { width:120px; }
-.presupuesto .botones { }
+
+.separar-alrededor, .botones { margin:1em; }

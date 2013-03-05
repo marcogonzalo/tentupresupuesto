@@ -1,5 +1,6 @@
 class GeneralController < ApplicationController
   layout :resolve_layout
+  before_filter :no_authenticated, :only => [:home]
   
   def home
   end

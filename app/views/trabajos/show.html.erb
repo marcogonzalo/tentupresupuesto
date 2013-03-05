@@ -1,22 +1,25 @@
 <%- model_class = Trabajo -%>
 <% 
 content_for :head do
-  stylesheet_link_tag 'trabajos'
+  stylesheet_link_tag 'reputacion', 'trabajos', 'categorias'
 end
 
 content_for :foot do
   javascript_include_tag 'trabajos_show'
 end
 
-content_for :title do 
+content_for :title do
   @trabajo.proposito
 end
 
-content_for :liston do 
+content_for :article_tag_id do
+  "solicitud-trabajo"
+end
+
+content_for :liston do
   render :partial => 'trabajos/cabecera', :locals => {:trabajo => @trabajo, :cantidad_presupuestos => @trabajo.presupuestos.size, :color => "b"}
 end
 %>
-<div id="solicitud-trabajo">
   <section id="descripcion" class="offset1 span20">
     <h3>Descripci&oacute;n del trabajo solicitado</h3>
     <%= @trabajo.descripcion %>
@@ -58,4 +61,3 @@ end
     <%= render(:partial => 'presupuestos/info_en_trabajo', :collection => @trabajo.presupuestos, :as => :p, :locals => {:contratado => @trabajo.contratado, :es_el_solicitante => @es_el_solicitante}) or 'No hay presupuestos presentados.' %>
   </section>
   <% end %>
-</div>

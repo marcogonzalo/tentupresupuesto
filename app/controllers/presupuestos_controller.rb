@@ -1,9 +1,9 @@
 # coding: utf-8
 class PresupuestosController < ApplicationController
   layout :resolve_layout
-  before_filter :authenticate_solicitante!, :only => [:index, :aceptar_presupuesto, :rechazar_presupuesto]
-  before_filter :authenticate_proveedor!, :except => [:index, :show, :aceptar_presupuesto, :rechazar_presupuesto]
-  before_filter :authenticate_any, :only => [:show]
+  before_filter :authenticated_solicitante, :only => [:index, :aceptar_presupuesto, :rechazar_presupuesto]
+  before_filter :authenticated_proveedor, :except => [:index, :show, :aceptar_presupuesto, :rechazar_presupuesto]
+  before_filter :authenticated_any, :only => [:show]
   # GET /presupuestos
   # GET /presupuestos.json
   def index
@@ -25,14 +25,14 @@ class PresupuestosController < ApplicationController
     #Verificar si el trabajo existe y el usuario es el solicitante
     @es_el_solicitante = false
     if solicitante_signed_in?
-      @es_el_solicitante = @trabajo.solicitante_id.eql?(current_solicitante.perfilable_id)
-      @tipo_usuario = current_solicitante.perfilable_type
+      @es_el_solicitante = @trabajo.solicitante_id.eql?(current_user.perfilable_id)
+      @tipo_usuario = current_user.perfilable_type
       m_u = 'proveedor'
     end
     @es_el_proveedor = false
     if proveedor_signed_in?
-      @es_el_proveedor = @presupuesto.proveedor_id.eql?(current_proveedor.perfilable_id)
-      @tipo_usuario = current_proveedor.perfilable_type
+      @es_el_proveedor = @presupuesto.proveedor_id.eql?(current_user.perfilable_id)
+      @tipo_usuario = current_user.perfilable_type
       m_u = 'solicitante'
     end
     
@@ -57,7 +57,7 @@ class PresupuestosController < ApplicationController
   def new
     @trabajo = Trabajo.find(params[:trabajo_id])
     @presupuesto = @trabajo.presupuestos.build
-
+    @path = [@trabajo, @presupuesto]
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @presupuesto }
@@ -68,6 +68,7 @@ class PresupuestosController < ApplicationController
   def edit
     @presupuesto = Presupuesto.find(params[:id])
     @trabajo = Trabajo.find(@presupuesto.trabajo_id)
+    @path = @presupuesto
 
     @es_el_proveedor = false
     if proveedor_signed_in?
