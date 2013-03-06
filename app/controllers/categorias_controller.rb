@@ -1,5 +1,6 @@
 # coding: utf-8
 class CategoriasController < ApplicationController
+  add_breadcrumb :index, :categorias_path
   # GET /categorias
   # GET /categorias.json
   def index

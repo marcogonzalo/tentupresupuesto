@@ -30,11 +30,13 @@
             </div>
           </div>
         </div>
+        <%= render "layouts/shared/breadcrumbs" %>
       </header>
     </div>
     <div class="container">
       <div id="cuerpo" class="span24">
         <div class="container">
+          <%= render "layouts/shared/mensajes" %>
           <%= yield %>
         </div> <!-- /container -->
        </div>

@@ -15,8 +15,8 @@
  */
 select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input { font-size:1em; margin-bottom:0px; margin-right:5px; width:90%; }
 
-#cabecera { background-color:white; min-height:160px; max-width:1060px; }
-#cabecera .navbar { background: url('tentu/generales/head.png') no-repeat center top; margin-bottom:5px; min-height:170px; overflow:hidden; position:relative; top:-19px; }
+#cabecera { background-color:white; min-height:180px; margin:25px auto -10px auto; max-width:1060px; }
+#cabecera .navbar { background: url('tentu/generales/head.png') no-repeat center top; margin-bottom:0px; min-height:170px; overflow:hidden; position:relative; top:-19px; }
 #cabecera .navbar .brand { margin:0px; padding:0px; margin-top:1%; }
 #cabecera .navbar .brand img { width:100%; }
 #cabecera .navbar .btn-navbar { background:#ccc;}
@@ -39,25 +39,24 @@ border-radius:0.25em;
 
 /* Dejar siempre debajo para sobreescribir en dispositivos */
 @media screen and (min-width: 1200px) { 
-  #cabecera { margin:25px auto -25px auto; }
   #cabecera .navbar, #cuerpo .container, #pie .container { padding:0px 3%; }
   #cuerpo .container { max-width:995px; }
 }
 
 @media screen and (min-width: 980px) and (max-width: 1199px) { 
-  #cabecera { margin: 20px auto -20px auto; }
+  #cabecera { margin-top: 20px; }
   #cabecera .navbar, #cuerpo .container, #pie .container { padding:0 2%; }
   #cuerpo .container { max-width:940px; }
 }
 
 @media screen and (min-width: 768px) and (max-width: 979px) { 
-  #cabecera { margin: 20px auto -20px auto; margin-left: 0; }
+  #cabecera { margin-top: 20px; margin-left: 0; }
   #cabecera .navbar, #cuerpo .container, #pie .container { padding:0 1%; }
   #cuerpo .container { max-width:748px; }
 }
 
 @media screen and (max-width: 767px) { 
-  #cabecera { margin: 20px auto -20px auto; }
+  #cabecera { margin-top: 20px; }
   #cabecera .navbar, #cuerpo .container, #pie .container { padding:0 5px; }
   #cabecera .navbar .enlaces_usuario { float:none; margin:0px; text-align:center;}
   #cuerpo .container { max-width:480px; }

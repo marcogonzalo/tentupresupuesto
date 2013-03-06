@@ -17,7 +17,9 @@ class SolicitantesController < ApplicationController
   # GET /solicitantes/1.json
   def show
     @solicitante = current_solicitante.datos_y_perfil
-
+    
+    add_breadcrumb :panel, panel_solicitante_path
+    add_breadcrumb :show
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @solicitante }
@@ -29,6 +31,9 @@ class SolicitantesController < ApplicationController
   def new
     @solicitante = Solicitante.new
     @localidad = ""
+    
+    add_breadcrumb :panel, panel_solicitante_path
+    add_breadcrumb :new
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @solicitante }
@@ -39,6 +44,13 @@ class SolicitantesController < ApplicationController
   def edit
     @solicitante = Solicitante.find(current_solicitante.perfilable_id)
     @localidad = @solicitante.localidad ? @solicitante.localidad.nombre : ""
+    
+    add_breadcrumb :panel, panel_solicitante_path
+    add_breadcrumb :edit
+    respond_to do |format|
+      format.html # new.html.erb
+      format.json { render json: @solicitante }
+    end
   end
 
   # POST /solicitantes

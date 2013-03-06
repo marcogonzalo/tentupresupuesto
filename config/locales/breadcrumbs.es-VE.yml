@@ -1,0 +1,23 @@
+es-VE:
+  breadcrumbs:
+    application:
+      index: "Inicio"
+    presupuestos:
+      edit: "Editar presupuesto"
+      index: "Presupuestos"
+      new: "Presentar presupuesto"
+      show: "Ver presupuesto"
+    proveedores:
+      edit: "Editar perfil"
+      new: "Crear perfil"
+      panel: "Panel"
+      show: "Perfil"
+    solicitantes:
+      edit: "Editar perfil"
+      new: "Crear perfil"
+      panel: "Panel"
+    trabajos:
+      edit: "Editar solicitud"
+      index: "Trabajos"
+      show: "Ver solicitud"
+      new: "Presentar solicitud"

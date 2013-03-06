@@ -1,7 +1,8 @@
 # coding: utf-8
 class TrabajosController < ApplicationController
-  layout :resolve_layout
   before_filter :authenticated_solicitante, :except => [:show, :index]
+  layout :resolve_layout
+  add_breadcrumb :index, :trabajos_path
   # GET /trabajos
   # GET /trabajos.json
   def index
@@ -21,6 +22,7 @@ class TrabajosController < ApplicationController
       redirect_to @trabajo, status: :moved_permanently
     end
     @es_el_solicitante = solicitante_signed_in? and current_solicitante.perfilable_id.eql?(@trabajo.solicitante_id)
+    add_breadcrumb @trabajo.proposito
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @trabajo }
@@ -39,13 +41,13 @@ class TrabajosController < ApplicationController
     @trabajo.municipio_id = perfil.municipio_id unless perfil.municipio_id.nil?
     @trabajo.localidad_id = perfil.localidad_id unless perfil.localidad_id.nil?
     @localidad = @trabajo.localidad ? @trabajo.localidad.nombre : ""
-    
     unless perfil.direccion.empty?
       direccion = perfil.direccion
       pto_ref = perfil.punto_referencia.empty? ? "" : ". Punto de referencia: "+perfil.punto_referencia
       @trabajo.direccion = direccion+pto_ref
     end
 
+    add_breadcrumb :new
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @trabajo }
@@ -56,6 +58,12 @@ class TrabajosController < ApplicationController
   def edit
     @trabajo = Trabajo.find(params[:id])
     @localidad = @trabajo.localidad ? @trabajo.localidad.nombre : ""
+
+    add_breadcrumb :edit
+    respond_to do |format|
+      format.html # new.html.erb
+      format.json { render json: @trabajo }
+    end
   end
 
   # POST /trabajos

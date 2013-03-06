@@ -4,12 +4,15 @@ class PresupuestosController < ApplicationController
   before_filter :authenticated_solicitante, :only => [:index, :aceptar_presupuesto, :rechazar_presupuesto]
   before_filter :authenticated_proveedor, :except => [:index, :show, :aceptar_presupuesto, :rechazar_presupuesto]
   before_filter :authenticated_any, :only => [:show]
+  add_breadcrumb "Trabajos", :trabajos_path
   # GET /presupuestos
   # GET /presupuestos.json
   def index
     @trabajo = Trabajo.find(params[:trabajo_id])
     @presupuestos = @trabajo.presupuestos.where(:rechazado => false)
 
+    add_breadcrumb @trabajo.proposito, trabajo_path(@trabajo)
+    add_breadcrumb "Presupuestos"
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @presupuestos }
@@ -38,9 +41,14 @@ class PresupuestosController < ApplicationController
     
     if @es_el_solicitante or @es_el_proveedor
       @mensajes = @presupuesto.mensajes
+      # Actualiza como "visto" los mensajes del otro usuario
       @mensajes.update_all({ :visto => true }, ['usuario = ?', m_u])
       @mensaje = @presupuesto.mensajes.build(:usuario => @tipo_usuario)
     end
+    
+    add_breadcrumb @trabajo.proposito, trabajo_path(@trabajo)
+    add_breadcrumb :index, trabajo_presupuestos_path(@trabajo)
+    add_breadcrumb :show
     respond_to do |format|
       if @es_el_solicitante or @es_el_proveedor
         format.html # show.html.erb
@@ -58,6 +66,8 @@ class PresupuestosController < ApplicationController
     @trabajo = Trabajo.find(params[:trabajo_id])
     @presupuesto = @trabajo.presupuestos.build
     @path = [@trabajo, @presupuesto]
+    add_breadcrumb @trabajo.proposito, trabajo_path(@trabajo)
+    add_breadcrumb :new
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @presupuesto }
@@ -74,6 +84,8 @@ class PresupuestosController < ApplicationController
     if proveedor_signed_in?
       @es_el_proveedor = @presupuesto.proveedor_id.eql?(current_proveedor.perfilable_id)
     end
+    add_breadcrumb @trabajo.proposito, trabajo_path(@trabajo)
+    add_breadcrumb :edit
     respond_to do |format|
       if @es_el_proveedor
         format.html # show.html.erb

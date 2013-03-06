@@ -20,7 +20,7 @@ content_for :foot do
   javascript_include_tag 'presupuestos'
 end
 %>
-
+  <%= (link_to "Volver al listado de presupuestos", trabajo_presupuestos_path(@trabajo), :class => 'btn btn-link') if @es_el_solicitante %>
   <h2 class="offset1"><%=t '.title', :default => model_class.model_name.human %></h2>
   <section id="descripcion" class="offset1 span20">
    <% if @es_el_solicitante %>
@@ -33,13 +33,15 @@ end
       <dd><%= @presupuesto.resumen %></dd>
     </dl>
     <p><%= @presupuesto.fue_visto if @es_el_proveedor %></p>
+    
   </section>
   <div class="clearfix"></div>
   <div class="form-actions">
-    <%= link_to "Ver solicitud", trabajo_presupuestos_path(@trabajo), :class => 'btn' %>
+    <%= link_to "Ver solicitud", trabajo_path(@trabajo), :class => 'btn btn-large' %>
   <% if @es_el_solicitante %>
-    <%= link_to "Contratar proveedor", aceptar_presupuesto_path(@presupuesto), :remote => true, :method => 'put', :id => 'aceptar-presupuesto', :class => 'btn btn-success' %>
-    <%= link_to "Rechazar presupuesto", '#modal-rechazo', :id => 'rechazar-presupuesto', :class => 'btn btn-danger', "data-toggle"=>"modal", "data-backdrop"=>"static" %>
+    <%= link_to "Ver perfil", perfil_proveedor_path(@presupuesto.proveedor), :class => 'btn btn-warning btn-large' %>
+    <%= link_to "Contratar proveedor", aceptar_presupuesto_path(@presupuesto), :remote => true, :method => 'put', :id => 'aceptar-presupuesto', :class => 'btn btn-success btn-large' %>
+    <%= link_to "Rechazar presupuesto", '#modal-rechazo', :id => 'rechazar-presupuesto', :class => 'btn btn-danger btn-large', "data-toggle"=>"modal", "data-backdrop"=>"static" %>
     <%= render 'presupuestos/form_rechazo' %>  
     <span id="loading" style="display:none;">Cargando</span>
   <% 

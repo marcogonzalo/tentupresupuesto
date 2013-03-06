@@ -1,7 +1,7 @@
 <%- model_class = Trabajo -%>
 <% 
 content_for :head do
-  stylesheet_link_tag 'reputacion', 'trabajos', 'categorias'
+  stylesheet_link_tag 'reputacion', 'categorias', 'trabajos'
 end
 
 content_for :foot do
@@ -20,6 +20,7 @@ content_for :liston do
   render :partial => 'trabajos/cabecera', :locals => {:trabajo => @trabajo, :cantidad_presupuestos => @trabajo.presupuestos.size, :color => "b"}
 end
 %>
+  <%= (link_to "Listado de Trabajos", trabajo_path, :class => 'btn btn-link') %>
   <section id="descripcion" class="offset1 span20">
     <h3>Descripci&oacute;n del trabajo solicitado</h3>
     <%= @trabajo.descripcion %>

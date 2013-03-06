@@ -2,7 +2,17 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 textarea { height:10em; max-width:90%;}
+/* Estilos vista de lista de presupuestos a solicitud */
+#lista-presupuestos .presupuesto {background-color:#eee; border:1px solid #ccc; line-height:2em; margin:0.5em auto; padding:0.25em 0; vertical-align:center;}
+#lista-presupuestos .presupuesto div {}
+
+/* Estilos vista de presupuesto */
 #presupuesto-trabajo header { padding:1%;}
 #presupuesto-trabajo header p { font-size:0.9em; margin-bottom:0.45em;}
 #presupuesto-trabajo #descripcion { }
 #presupuesto-trabajo .form-actions { text-align:center; }
+
+@media screen and (max-width: 767px) { 
+  #lista-presupuestos .presupuesto { text-align:center;}
+  .reputacion { margin:auto;}
+}

@@ -6,11 +6,14 @@ class RegistrationsController < Devise::RegistrationsController
       if solicitante_signed_in?
         parametros = params[:solicitante]
         current_usuario = current_solicitante
+        add_breadcrumb "Panel", panel_solicitante_path
       elsif proveedor_signed_in?
         parametros = params[:proveedor]
         current_usuario = current_proveedor
+        add_breadcrumb "Panel", panel_proveedor_path
       end
       @usuario = Usuario.find(current_usuario.id)
+      add_breadcrumb "Editar datos de cuenta"
     end
   end
   

@@ -13,50 +13,51 @@
   <div id="registro" class="formulario-pendon span12 al-centro">
     <div class="titulo-pendon"><h2 class="sobre-color">Editar mis datos</h2></div>
     <div class="cuerpo-pendon">
-    <%= form_for(@usuario, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
-      <div class="control-group"><%= f.label :email %>
-        <div class="controls"><%= f.email_field :email, {:readonly => true} %></div>
-      </div>
-  
-      <div class="control-group"><%= f.label :nombre %>
-        <div class="controls"><%= f.text_field :nombre %></div>
-      </div>
+      <%= form_for(@usuario, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
+        <div class="control-group"><%= f.label :email %>
+          <div class="controls"><%= f.email_field :email, {:readonly => true} %></div>
+        </div>
     
-      <div class="control-group"><%= f.label :fecha_nacimiento %>
-        <div class="controls"><%= f.date_select :fecha_nacimiento, :start_year => Time.now.year - 85, :end_year => Time.now.year - 16, :class => 'date_field' %></div>
-      </div>
+        <div class="control-group"><%= f.label :nombre %>
+          <div class="controls"><%= f.text_field :nombre %></div>
+        </div>
       
-      <div class="control-group"><%= f.label :sexo %>
-        <div class="controls"><%= f.select(:sexo, Usuario::SEXO, {:prompt => 'Selecciona'}) %></div>
-      </div>
-      
-      <div class="botones">
-        <%= f.submit "Cambiar datos", :class => 'btn btn-warning' %>
-      </div>
-    <% end %>
+        <div class="control-group"><%= f.label :fecha_nacimiento %>
+          <div class="controls"><%= f.date_select :fecha_nacimiento, :start_year => Time.now.year - 85, :end_year => Time.now.year - 16, :class => 'date_field' %></div>
+        </div>
+        
+        <div class="control-group"><%= f.label :sexo %>
+          <div class="controls"><%= f.select(:sexo, Usuario::SEXO, {:prompt => 'Selecciona'}) %></div>
+        </div>
+        
+        <div class="botones">
+          <%= f.submit "Cambiar datos", :class => 'btn btn-warning' %>
+        </div>
+      <% end %>
     </div>
   </div>
 
   <div id="cambiar-clave" class="formulario-pendon al-centro span12">
     <div class="titulo-pendon"><h2 class="sobre-color">Cambiar clave</h2></div>
     <div class="cuerpo-pendon">
-<%= form_for(@usuario, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
-    <%= f.hidden_field :email %>
-  
-    <div class="control-group"><%= f.label :current_password, "Clave actual" %>
-      <div class="controls"><%= f.password_field :current_password %></div>
-    </div>
-    <hr>
-    <div class="control-group"><%= f.label :password, "Nueva clave" %>
-      <div class="controls"><%= f.password_field :password %></div>
-    </div>
-  
-    <div class="control-group"><%= f.label :password_confirmation, "Confirma la nueva clave" %>
-      <div class="controls"><%= f.password_field :password_confirmation %></div>
-    </div>
-    
-    <%= f.submit "Cambiar clave", :class => 'btn btn-warning' %>
-<% end %>
+      <%= form_for(@usuario, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
+        <%= f.hidden_field :email %>
+      
+        <div class="control-group"><%= f.label :current_password, "Clave actual" %>
+          <div class="controls"><%= f.password_field :current_password %></div>
+        </div>
+        <hr>
+        <div class="control-group"><%= f.label :password, "Nueva clave" %>
+          <div class="controls"><%= f.password_field :password %></div>
+        </div>
+      
+        <div class="control-group"><%= f.label :password_confirmation, "Confirma la nueva clave" %>
+          <div class="controls"><%= f.password_field :password_confirmation %></div>
+        </div>
+        <div class="botones">
+          <%= f.submit "Cambiar clave", :class => 'btn btn-warning' %>
+        </div>
+      <% end %>
     </div>
   </div>
 <div class="span10 al-centro centrado">

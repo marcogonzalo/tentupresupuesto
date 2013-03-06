@@ -6,7 +6,7 @@ class ProveedoresController < ApplicationController
   # GET /proveedores.json
   def index
     @proveedores = Proveedor.all
-
+    add_breadcrumb :index, :proveedores_path
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @proveedores }
@@ -20,7 +20,9 @@ class ProveedoresController < ApplicationController
     if request.path != proveedor_path(@proveedor)
       redirect_to @proveedor, status: :moved_permanently
     end
-
+    
+    add_breadcrumb :index, :proveedores_path
+    add_breadcrumn @proveedor.nombre_empresa
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @proveedor }
