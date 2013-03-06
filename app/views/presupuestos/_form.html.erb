@@ -1,7 +1,24 @@
+<% 
+content_for :head do
+  stylesheet_link_tag 'trabajos'
+end
+
+content_for :title do 
+  "Presupuesto para: "+@trabajo.proposito
+end
+
+content_for :liston do 
+  render :partial => 'trabajos/cabecera', :locals => {:trabajo => @trabajo, :cantidad_presupuestos => @trabajo.presupuestos.size, :color => "b"}
+end
+
+content_for :foot do
+  javascript_include_tag 'presupuestos'
+end
+%>
 <div id="registro" class="formulario-pendon offset1 span12">
   <div class="titulo-pendon"><h2 class="sobre-color">Presupuesto</h2></div>
   <div class="cuerpo-pendon">
-<%= form_for  [@trabajo, @presupuesto] do |f| %>
+<%= form_for @path do |f| %>
   <div class="row">
     <div class="control-group span4">
       <%= f.label :precio_minimo, :class => 'control-label' %>
@@ -29,7 +46,7 @@
   </div>
   <div class="botones">
     <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                trabajo_presupuestos_path(@trabajo), :class => 'btn' %>
+                trabajo_path(@trabajo), :class => 'btn' %>
     <%= f.submit nil, :class => 'btn btn-warning' %>
   </div>
 <% end %>

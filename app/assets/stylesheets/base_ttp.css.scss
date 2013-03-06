@@ -84,3 +84,7 @@ img.cargando { display:none; width: 16px; height: 16px;}
 @media screen and (min-width: 768px) and (max-width: 979px) { 
   .formulario-general { margin-left: 0; }
 }
+
+@media screen and (max-width: 468px) { 
+  .form-actions .btn { display:block; margin:1em; }
+}

@@ -1,6 +1,8 @@
 // Place all the styles related to the Presupuestos controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-#solicitud-trabajo header { padding:1%;}
-#solicitud-trabajo header p { font-size:0.9em; margin-bottom:0.45em;}
-#solicitud-trabajo #descripcion { }
+textarea { height:10em; max-width:90%;}
+#presupuesto-trabajo header { padding:1%;}
+#presupuesto-trabajo header p { font-size:0.9em; margin-bottom:0.45em;}
+#presupuesto-trabajo #descripcion { }
+#presupuesto-trabajo .form-actions { text-align:center; }

@@ -31,7 +31,13 @@ class Presupuesto < ActiveRecord::Base
     if con_iva then "IVA incluído"
     else "IVA no incluído"
     end
-  end 
+  end
+  
+  def fue_visto
+    if visto then "El cliente ha visto el presupuesto"
+    else "El cliente aún no ha visto el presupuesto"
+    end
+  end
   
   def rango_precio_valido
     unless precio_minimo < precio_maximo

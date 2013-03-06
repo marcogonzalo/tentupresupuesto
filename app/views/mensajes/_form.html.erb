@@ -1,4 +1,6 @@
-<%= form_for [@presupuesto, @mensaje], :html => { :class => 'form-horizontal' } do |f| %>
+<div class=" clearfix"></div>
+<div class="formulario-general">
+<%= form_for [@presupuesto, @mensaje] do |f| %>
   <div class="control-group">
     <%= f.label :comentario, :class => 'control-label' %>
     <div class="controls">
@@ -7,10 +9,7 @@
   </div>
   <%= f.hidden_field :usuario, :value => @tipo_usuario %>
 
+  <%= f.submit nil, :class => 'btn btn-warning' %>
 
-  <div class="form-actions">
-    <%= f.submit nil, :class => 'btn btn-primary' %>
-    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                presupuesto_mensajes_path(@presupuesto), :class => 'btn' %>
-  </div>
 <% end %>
+</div>
