@@ -9,6 +9,7 @@ es-VE:
       show: "Ver presupuesto"
     proveedores:
       edit: "Editar perfil"
+      index: "Proveedores"
       new: "Crear perfil"
       panel: "Panel"
       show: "Perfil"

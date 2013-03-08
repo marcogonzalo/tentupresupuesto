@@ -17,17 +17,20 @@ Ttp::Application.routes.draw do
     post    "nuevo(.:id)" => "solicitantes#create", :as => "solicitantes"
     put     "editar(.:id)" => "solicitantes#update", :as => "solicitante"
   end
-
-  resources :proveedores, :only => [:index, :show]
+  
   scope "/proveedor" do
     get     "/" => "proveedores#panel", :as => "panel_proveedor"
     get     "nuevo" => "proveedores#new", :as => "new_proveedor"
     get     "editar" => "proveedores#edit", :as => "edit_proveedor"
     post    "nuevo(.:id)" => "proveedores#create", :as => "proveedores"
-    put     "editar(.:id)" => "proveedores#update", :as => "proveedor"
+    put     "editar(.:id)" => "proveedores#update", :as => "proveedores"
     get     'categorias' => "proveedores#categorias_de_proveedor", :as => "categorias_de_proveedor"
     put     'categorias' => "proveedores#update_categorias_de_proveedor", :as => "update_categorias_de_proveedor"
-    get     "/:id" => "proveedores#perfil", :as => "perfil_proveedor"
+  end
+
+  resources :proveedores, :only => [:index, :show]
+  scope :proveedores do
+    get     ":id" => "proveedores#show", :as => "perfil_proveedor"
   end
   
   resources :trabajos, :shallow => true, :path_names => {:new => "nuevo", :edit => "editar"} do

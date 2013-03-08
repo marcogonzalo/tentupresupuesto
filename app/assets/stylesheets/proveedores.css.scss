@@ -1,3 +1,31 @@
 // Place all the styles related to the proveedores controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+aside#perfil-proveedor { background:url('tentu/internas/terminacionperfilabajo.png') no-repeat center bottom; margin-left:0px; max-width:233px; }
+#ficha-proveedor {background:#0080C4 url('tentu/internas/fondotituloperfil.png') repeat-x top left; color:white; margin-bottom:55px; padding:4px; padding-top:3em; text-align:center; width:225px;}
+#ficha-proveedor #imagen-proveedor {background:white url('tentu/internas/imagendefault.png') no-repeat center center; margin:1em auto; height:150px; width:175px; text-align:center;}
+#ficha-proveedor .reputacion { margin:0.1em auto;}
+#ficha-proveedor ul { list-style:none; margin:1em 0px 0px 0px;}
+#ficha-proveedor ul li a { color:white; display:block; font-family:'MyriadProBold'; font-size:1.25em; line-height:2em;  text-align:left; }
+#ficha-proveedor ul li a:hover {background:#0080C4 url('tentu/internas/fondotituloperfil.png') repeat-x top left; cursor:pointer; text-decoration:none; }
+#ficha-proveedor ul li#boton-informacion a i {background:url('tentu/internas/informacion.png') no-repeat left center; background-position:5px 5px; display:inline-block; height:35px; width:40px;}
+#ficha-proveedor ul li#boton-previos a i {background:url('tentu/internas/trabajosprevios.png') no-repeat left center; background-position:2px 5px; display:inline-block; height:35px; width:40px;}
+#titulo-pestana {background:url('tentu/internas/terminaciontituloperfil.png') no-repeat bottom left; padding:0px; padding-left:30px; }
+#titulo-pestana h3 {background:#0080C4 url('tentu/internas/fondotituloperfil.png') repeat-x top left; line-height:1.85em; margin:0px; min-height:2.2em; text-align:center;}
+div#informacion { padding-top:1em;}
+div#trabajos-previos { padding-top:1em;display:none;}
+div#evaluaciones { padding-top:1em;display:none;}
+
+@media screen and (min-width: 768px) and (max-width: 979px) { 
+  aside#perfil-proveedor{ width:200px; } 
+  #ficha-proveedor { width:192px;}
+  #imagen-proveedor { width: 150px; }
+}
+
+@media screen and (max-width: 767px) { 
+  aside#perfil-proveedor {background:#0080C4;}
+  aside#perfil-proveedor,#ficha-proveedor { max-width:100%; width:100%;}
+  #ficha-proveedor { padding-left:0px; padding-right:0px; } 
+  #imagen-proveedor { width: 150px; }
+  #titulo-pestana { background:url('tentu/internas/fondotituloperfil.png'); margin-top:1em; padding:0px; width:100%;}
+}

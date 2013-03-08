@@ -1,47 +1,75 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag 'categorias','reputacion','proveedores' %>
+<% end %>
+<% content_for :foot do %>
+<% end %>
 <%- model_class = Proveedor -%>
-<div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human %></h1>
+<h1>Ficha de proveedor</h1>
+<br>
+<div class="row">
+  <aside id="perfil-proveedor" class="span6 pull-right">
+    <div id="ficha-proveedor">
+      <div id="imagen-proveedor" class="img-rounded"></div>
+      <h4 class="sobre-color"><%= @proveedor.nombre_empresa %></h4>
+      <p>
+        <%= t('activerecord.attributes.proveedor.tipos_proveedor.'+@proveedor.tipo_proveedor) %> 
+        <% if @proveedor.verificado %><span class="badge badge-warning" title="Proveedor verificado"><i class="icon-ok icon-white"></i></span><% end %>
+      </p>
+      <%= raw mostrar_reputacion(@proveedor.reputacion, @proveedor.valoraciones, "general") %>
+      <ul>
+        <li id="boton-informacion"><a><i>&nbsp;</i>Información</a></li>
+        <li id="boton-previos"><a><i>&nbsp;</i>Trabajos previos</a></li>
+      </ul>
+    </div>
+  </aside>
+  <div id="titulo-pestana" class="span16 pull-right"><h3 class="sobre-color">Información del proveedor</h3></div>
+  <div id="informacion" class="offset1 span15 pull-right">
+    <h4 class="con-myriad-bold">Descripción</h4>
+    <p><%= @proveedor.descripcion %></p>
+    <% unless @proveedor.rif.empty? %>
+    <dl class="dl-horizontal">
+      <dt><strong><abbr title="Registro de Información Fiscal">RIF</abbr>:</strong></dt>
+      <dd><%= @proveedor.rif %></dd>
+    </dl>
+    <% end %>
+    <dl class="dl-horizontal">
+      <h4 class="con-myriad-bold">Datos de contacto</h4>
+    <% unless @proveedor.telefono_local.empty? %>
+      <dt><strong><%= model_class.human_attribute_name(:telefono_local) %>:</strong></dt>
+      <dd><%= @proveedor.telefono_local %></dd>
+    <% end %>
+    <% unless @proveedor.telefono_movil.empty? %>
+      <dt><strong><%= model_class.human_attribute_name(:telefono_movil) %>:</strong></dt>
+      <dd><%= @proveedor.telefono_movil %></dd>
+    <% end %>
+    <% unless @proveedor.telefono_alt.empty? %>
+      <dt><strong><%= model_class.human_attribute_name(:telefono_alt) %>:</strong></dt>
+      <dd><%= @proveedor.telefono_alt %></dd>
+    <% end %>
+    </dl>
+    <dl class="dl-horizontal">
+      <h4 class="con-myriad-bold">Actividad</h4>
+      <dt><strong>Solicitudes atendidas:</strong></dt>
+      <dd><%= @proveedor.solicitudes_atendidas %></dd>
+      <dt><strong>Trabajos realizados:</strong></dt>
+      <dd><%= @proveedor.trabajos_realizados %></dd>
+      <% if false %>
+      <dt ><strong>Actividad en TTP:</strong></dt>
+      <dd>
+        <%= t('activerecord.attributes.proveedor.solicitudes_atendidas', :count => @proveedor.solicitudes_atendidas) %><br>
+        <%= t('activerecord.attributes.proveedor.trabajos_realizados', :count => @proveedor.trabajos_realizados) %>
+      </dd>
+      <% end %>
+    </dl>
+    <% unless @proveedor.tipo_proveedor.eql?("independiente") %>
+    <h4 class="con-myriad-bold">Ubicación</h4>
+    <dl class="dl-horizontal">
+      <dt><strong><%= model_class.human_attribute_name(:direccion) %>:</strong></dt>
+      <dd><%= @proveedor.direccion %><%= ". Punto de referencia: "+@proveedor.punto_referencia unless @proveedor.punto_referencia.empty?  %></dd>
+    </dl>
+    <% end %>
+  </div>
+  <div id="trabajos-previos" class="span16 pull-right"></div>
+  <div id="evaluaciones" class="span16 pull-right"></div>
 </div>
 
-<dl class="dl-horizontal">
-  <dt><strong><%= model_class.human_attribute_name(:nombre_empresa) %>:</strong></dt>
-  <dd><%= @proveedor.nombre_empresa %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:tipo_proveedor) %>:</strong></dt>
-  <dd><%= @proveedor.tipo_proveedor %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:rif) %>:</strong></dt>
-  <dd><%= @proveedor.rif %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:descripcion) %>:</strong></dt>
-  <dd><%= @proveedor.descripcion %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:verificado) %>:</strong></dt>
-  <dd><%= @proveedor.verificado %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:telefono_local) %>:</strong></dt>
-  <dd><%= @proveedor.telefono_local %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:telefono_movil) %>:</strong></dt>
-  <dd><%= @proveedor.telefono_movil %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:telefono_alt) %>:</strong></dt>
-  <dd><%= @proveedor.telefono_alt %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:direccion) %>:</strong></dt>
-  <dd><%= @proveedor.direccion %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:punto_referencia) %>:</strong></dt>
-  <dd><%= @proveedor.punto_referencia %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:solicitudes_atendidas) %>:</strong></dt>
-  <dd><%= @proveedor.solicitudes_atendidas %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:trabajos_realizados) %>:</strong></dt>
-  <dd><%= @proveedor.trabajos_realizados %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:reputacion) %>:</strong></dt>
-  <dd><%= @proveedor.reputacion %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:valoraciones) %>:</strong></dt>
-  <dd><%= @proveedor.valoraciones %></dd>
-</dl>
-
-<div class="form-actions">
-  <%= link_to t('.back', :default => t("helpers.links.back")),
-              proveedores_path, :class => 'btn'  %>
-  <%= link_to t('.edit', :default => t("helpers.links.edit")),
-              edit_proveedor_path(@proveedor), :class => 'btn' %>
-  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-              proveedor_path(@proveedor),
-              :method => 'delete',
-              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-              :class => 'btn btn-danger' %>
-</div>

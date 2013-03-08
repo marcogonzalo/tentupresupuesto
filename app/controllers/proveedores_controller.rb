@@ -19,13 +19,13 @@ class ProveedoresController < ApplicationController
     @proveedor = Proveedor.find(params[:id])
     if request.path != proveedor_path(@proveedor)
       redirect_to @proveedor, status: :moved_permanently
-    end
-    
-    add_breadcrumb :index, :proveedores_path
-    add_breadcrumn @proveedor.nombre_empresa
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @proveedor }
+    else
+      add_breadcrumb :index, :proveedores_path
+      add_breadcrumb @proveedor.nombre_empresa
+      respond_to do |format|
+        format.html # show.html.erb
+        format.json { render json: @proveedor }
+      end
     end
   end
 

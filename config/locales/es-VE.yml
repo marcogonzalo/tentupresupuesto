@@ -259,6 +259,14 @@ es-VE:
         punto_referencia: "Punto de referencia"
         reputacion: "Reputación"
         rif: "RIF"
+        solicitudes_atendidas:
+          zero: "No ha atendido solicitudes"
+          one: "1 solicitud antendida"
+          other: "%{count} solicitudes atendidas"
+        trabajos_realizados:
+          zero: "No ha sido contratado"
+          one: "1 trabajo realizado"
+          other: "%{count} trabajos realizados"
         telefono_alt: "Teléfono alternativo"
         telefono_fijo: "Teléfono fijo"
         telefono_movil: "Teléfono móvil"

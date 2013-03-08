@@ -6,7 +6,11 @@ module ApplicationHelper
       decimal = (reputacion-entero>=0.5)?"_5":"_0"
       estrellas = ""
       entero.times { |i| estrellas += " * " }
-      return '<div class="reputacion"><div class="'+rep+'" title="'+(reputacion.to_s)+'('+(valoraciones.to_s)+' evaluaciones)"><span class="rep'+(entero.to_s)+decimal+'"><i>'+estrellas+'</i></span></div></div>'
+      if tipo == "general" or tipo == "proveedor"
+        return '<div class="reputacion"><div class="'+rep+'" title="'+(reputacion.to_s)+'('+(valoraciones.to_s)+' evaluaciones)"><span class="rep'+(entero.to_s)+decimal+'"><i>'+estrellas+'</i></span></div></div>'
+      else
+        return '<div class="reputacion"><div class="'+rep+'" title="'+(reputacion.to_s)+'"><span class="rep'+(entero.to_s)+decimal+'"><i>'+estrellas+'</i></span></div></div>'
+      end
     else
       return '<div class="reputacion"><div class="'+rep+'" title="Sin-evaluar"><span class="rep0_0"><i>Sin evaluar</i></span></div></div>'
     end
