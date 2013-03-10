@@ -1,6 +1,13 @@
 // Place all the styles related to the proveedores controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+/* PANEL */
+aside#menu-panel .affix { top:26px;}
+aside#menu-panel ul li { font-size:0.9em; line-height:1.25em; }
+aside#menu-panel ul li i { opacity:.25; }
+
+/* PERFIL DE PROVEEDOR */
 aside#perfil-proveedor { background:url('tentu/internas/terminacionperfilabajo.png') no-repeat center bottom; margin-left:0px; max-width:233px; }
 #ficha-proveedor {background:#0080C4 url('tentu/internas/fondotituloperfil.png') repeat-x top left; color:white; margin-bottom:55px; padding:4px; padding-top:3em; text-align:center; width:225px;}
 #ficha-proveedor #imagen-proveedor {background:white url('tentu/internas/imagendefault.png') no-repeat center center; margin:1em auto; height:150px; width:175px; text-align:center;}
@@ -23,6 +30,8 @@ div#evaluaciones { padding-top:1em;display:none;}
 }
 
 @media screen and (max-width: 767px) { 
+  aside#menu-panel { margin-bottom:15px; }
+  aside#menu-panel .affix {position:relative; top:auto;}
   aside#perfil-proveedor {background:#0080C4;}
   aside#perfil-proveedor,#ficha-proveedor { max-width:100%; width:100%;}
   #ficha-proveedor { padding-left:0px; padding-right:0px; } 

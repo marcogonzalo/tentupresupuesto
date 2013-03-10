@@ -1,3 +1,11 @@
 // Place all the styles related to the solicitantes controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+aside#menu-panel .affix { top:26px;}
+aside#menu-panel ul li { font-size:0.9em; line-height:1.25em; }
+aside#menu-panel ul li i { opacity:.25; }
+
+@media screen and (max-width: 767px) {
+  aside#menu-panel { margin-bottom:15px; }
+  aside#menu-panel .affix {position:relative; top:auto;}
+} 

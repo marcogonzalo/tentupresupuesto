@@ -125,7 +125,9 @@ class SolicitantesController < ApplicationController
   end
   
   def panel
-    @trabajos = Trabajo.includes(:presupuestos).where(:solicitante_id => current_solicitante.perfilable_id)
+    @solicitudes = Trabajo.includes(:presupuestos).where(:solicitante_id => current_solicitante.perfilable_id).estatus_buscando
+    @en_ejecucion = Trabajo.includes(:presupuestos).where(:solicitante_id => current_solicitante.perfilable_id).estatus_ejecutando
+    @por_evaluar = Trabajo.includes(:presupuestos).where(:solicitante_id => current_solicitante.perfilable_id).estatus_finalizado
 
     render "panel"
   end

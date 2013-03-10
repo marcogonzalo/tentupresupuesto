@@ -30,7 +30,7 @@ Ttp::Application.routes.draw do
 
   resources :proveedores, :only => [:index, :show]
   scope :proveedores do
-    get     ":id" => "proveedores#show", :as => "perfil_proveedor"
+    get     "proveedores/:id" => "proveedores#show", :as => "perfil_proveedor"
   end
   
   resources :trabajos, :shallow => true, :path_names => {:new => "nuevo", :edit => "editar"} do

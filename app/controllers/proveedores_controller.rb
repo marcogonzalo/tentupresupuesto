@@ -123,7 +123,9 @@ class ProveedoresController < ApplicationController
 
   def panel
     @presupuestos_presentados = Presupuesto.includes([:trabajo, :mensajes]).where("presupuestos.proveedor_id = ? AND trabajos.estatus = 'buscando'", current_proveedor.perfilable_id).order("trabajos.updated_at DESC")
-    @trabajos_asignados = Presupuesto.includes([:trabajo, :mensajes]).where("trabajos.contratado_id = ? AND trabajos.estatus = 'ejecutando'", current_proveedor.perfilable_id).order("trabajos.updated_at DESC")
+    @en_ejecucion = Trabajo.includes(:presupuestos).where(:contratado_id => current_proveedor.perfilable_id).estatus_ejecutando
+    @por_evaluar = Trabajo.includes(:presupuestos).where(:contratado_id => current_proveedor.perfilable_id).estatus_finalizado
+
     render "panel"
   end
   
@@ -132,6 +134,7 @@ class ProveedoresController < ApplicationController
     render "categorias"
   end
   
+  # SERVICIOS
   def update_categorias_de_proveedor
     if proveedor_signed_in?
       @proveedor = Proveedor.find(current_proveedor.perfilable_id)

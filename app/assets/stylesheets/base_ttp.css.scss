@@ -25,6 +25,21 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
 select { width: auto; }
 textarea { height:5em; }
 
+#cabecera-interna { background-color:white; min-height:180px; max-width:1060px; }
+#cabecera-interna .navbar { background: url('tentu/generales/head.png') no-repeat center top; margin-bottom:0px; min-height:170px; overflow:hidden; position:relative; top:-19px; }
+#cabecera-interna .navbar .brand { margin:0px; padding:0px; margin-top:1%; }
+#cabecera-interna .navbar .brand img { width:100%; }
+#cabecera-interna .navbar .btn-navbar { background:#ccc;}
+#cabecera-interna .navbar .enlaces_usuario { float:right; margin:2em 4em 0.5em 0.5em;min-height: 5em; }
+#cabecera-interna .navbar .enlaces_usuario a { background-color:#4b9112; font-family:'Chango'; font-size:1.25em; padding:5px; color:white; text-decoration:none; 
+-o-border-radius:0.25em;
+-moz-border-radius:0.25em;
+-webkit-border-radius:0.25em;
+-khtml-border-radius:0.25em;
+border-radius:0.25em;
+}
+#cabecera-interna .navbar .enlaces_usuario a:hover { background-color:#5ca224; }
+
 #breadcrumbs { margin-top:-10px;overflow: hidden;}
 #breadcrumbs .breadcrumb { margin-bottom:10px;}
 
@@ -87,10 +102,33 @@ img.cargando { display:none; width: 16px; height: 16px;}
 .informacion-campo { font-size:0.8em; display:inline; }
 .micro-nota { font-size:xx-small;}
 .sobre-color { color:white; text-shadow:0 2px 5px #333; }
+
+/* Dejar siempre debajo para sobreescribir en dispositivos */
+@media screen and (min-width: 1200px) { 
+  #cabecera-interna { margin:25px auto 0px auto; }
+  #cabecera-interna .navbar { padding:0px 3%; }
+}
+
+@media screen and (min-width: 980px) and (max-width: 1199px) { 
+  #cabecera-interna { margin: 20px auto 0px auto; }
+  #cabecera-interna .navbar { padding:0 2%; }
+}
+
 @media screen and (min-width: 768px) and (max-width: 979px) { 
-  .formulario-general { margin-left: 0; }
+  #cabecera-interna { margin: 20px auto 0px auto; }
+  #cabecera-interna .navbar { padding:0 1%; }
+  #cabecera-interna .navbar .enlaces_usuario {margin:2em 0em; }
+  #cabecera-interna, .formulario-general { margin-left: 0; }
+}
+
+@media screen and (max-width: 767px) { 
+  #cabecera-interna { margin: 20px auto 0px auto; }
+  #cabecera-interna .navbar { padding:0 5px; }
+  #cabecera-interna .navbar .brand {float:none; margin:0px auto; max-width:420px; }
+  #cabecera-interna .navbar .enlaces_usuario {clear:both; float:none; margin:0px; text-align:center;}
 }
 
 @media screen and (max-width: 468px) { 
+  #cabecera-interna .navbar .enlaces_usuario {display:block; clear:both; float:none; margin:0px; text-align:center;}
   .form-actions .btn { display:block; margin:1em; }
 }
