@@ -47,6 +47,13 @@ div.formulario-general #categorias {
 /*  -webkit-column-rule:3px outset #ff00ff; /* Safari and Chrome */
 /*  column-rule:3px outset #ff00ff; */
 }
-div.formulario-general #categorias label {
-  margin:0.5em;
+div.formulario-general #categorias label {margin:0.5em;}
+
+@media screen and (max-width: 767px) { 
+  div.formulario-general #categorias {
+    -moz-column-count:1; /* Firefox */
+    -webkit-column-count:1; /* Safari and Chrome */
+    column-count:1;
+  }
+  div.formulario-general #categorias label { margin:0.05em;}
 }

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130204025539) do
+ActiveRecord::Schema.define(:version => 20130310235349) do
 
   create_table "categorias", :force => true do |t|
     t.string  "nombre",                :limit => 50, :default => "",   :null => false
@@ -97,8 +97,10 @@ ActiveRecord::Schema.define(:version => 20130204025539) do
     t.integer  "estado_id"
     t.integer  "municipio_id"
     t.integer  "localidad_id"
+    t.string   "avatar"
   end
 
+  add_index "proveedores", ["avatar"], :name => "index_proveedores_on_avatar"
   add_index "proveedores", ["estado_id"], :name => "index_proveedores_on_estado_id"
   add_index "proveedores", ["localidad_id"], :name => "index_proveedores_on_localidad_id"
   add_index "proveedores", ["municipio_id"], :name => "index_proveedores_on_municipio_id"

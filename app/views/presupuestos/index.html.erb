@@ -22,6 +22,7 @@ end
     <% @presupuestos.each do |p| %>
       <div class="presupuesto row">
         <div class="span11">
+          <%= image_tag(p.proveedor.avatar.micro.url) if p.proveedor.avatar? %>
           <%= p.proveedor.nombre_empresa %><br>
           <%= raw mostrar_reputacion(p.proveedor.reputacion, p.proveedor.valoraciones, "proveedor") %>
         </div>

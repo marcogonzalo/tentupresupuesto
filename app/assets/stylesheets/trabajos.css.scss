@@ -27,3 +27,7 @@ box-shadow:  inset 0 0 10em #fc3;*/
 .presupuesto .proveedor-interesado { display:block;}
 .presupuesto .reputacion {background-color:#666;margin:1em auto;}
 .separar-alrededor, .botones { margin:1em; }
+
+@media screen and (max-width: 767px) { 
+  .presupuesto { clear:both; display:block; float:none; margin:.75em auto; padding:0.25em; width:98%;}
+}

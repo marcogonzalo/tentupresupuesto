@@ -1,15 +1,23 @@
-<% content_for :head do %>
-  <%= stylesheet_link_tag 'categorias','reputacion','proveedores' %>
-<% end %>
-<% content_for :foot do %>
-<% end %>
 <%- model_class = Proveedor -%>
+<% 
+content_for :head do
+  stylesheet_link_tag 'categorias','reputacion','proveedores'
+end
+
+content_for :foot do
+  #javascript_include_tag 'trabajos_show'
+end
+
+content_for :title do
+   "Perfil de: "+@proveedor.nombre_empresa
+end
+%>
 <h1>Ficha de proveedor</h1>
 <br>
 <div class="row">
   <aside id="perfil-proveedor" class="span6 pull-right">
     <div id="ficha-proveedor">
-      <div id="imagen-proveedor" class="img-rounded"></div>
+      <div id="imagen-proveedor" class="img-rounded"><%= image_tag(@proveedor.avatar.url) if @proveedor.avatar? %></div>
       <h4 class="sobre-color"><%= @proveedor.nombre_empresa %></h4>
       <p>
         <%= t('activerecord.attributes.proveedor.tipos_proveedor.'+@proveedor.tipo_proveedor) %> 

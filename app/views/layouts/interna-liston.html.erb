@@ -25,12 +25,12 @@
           </div>
         </div>
         <%= render "layouts/shared/breadcrumbs" %>
+        <%= render "layouts/shared/mensajes" %>
       </header>
     </div>
     <article id="<%= yield :article_tag_id %>">
       <div id="liston" class="clearfix">
         <div class="container">
-          <%= render "layouts/shared/mensajes" %>
           <%= yield :liston %>
         </div>
       </div>

@@ -16,9 +16,10 @@ end
   <ul class="nav nav-list" data-spy="affix" data-offset-top="275" data-offset-bottom="200">
     <li class="nav-header"><i class="icon icon-user"></i> Opciones de usuario</li>
     <li><%= link_to "Ver perfil público", perfil_proveedor_path(current_proveedor.perfil) %></li>
-    <li><%= link_to "Editar perfil", edit_proveedor_path %></li>
+    <li><%= link_to "Categorías de servicios", categorias_de_proveedor_path %></li>
     <li><%= link_to "Editar cuenta", edit_proveedor_registration_path %></li>
-    <li><%= link_to "Categorías", categorias_de_proveedor_path %></li>
+    <li><%= link_to "Editar perfil", edit_proveedor_path %></li>
+    <li><%= link_to "Imagen de perfil", imagen_proveedor_path %></li>
     <li class="disabled">Fotos de trabajos</li>
     <li class="nav-header"><i class="icon icon-list-alt"></i> Opciones administrativas</li>
     <li><a href="#presupuestos-presentados">Presupuestos presentados <i class="icon-chevron-right"></i></a></li>

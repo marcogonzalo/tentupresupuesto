@@ -6,9 +6,6 @@ Ttp::Application.routes.draw do
   devise_scope :solicitante do
     put "/solicitante/verificacion" => "confirmations#confirm", :as => :solicitante_confirm
   end
-  devise_scope :proveedor do
-    put "/proveedor/verificacion" => "confirmations#confirm", :as => :proveedor_confirm
-  end
   
   scope "/solicitante" do
     get     "/" => "solicitantes#panel", :as => "panel_solicitante"
@@ -18,17 +15,23 @@ Ttp::Application.routes.draw do
     put     "editar(.:id)" => "solicitantes#update", :as => "solicitante"
   end
   
+  devise_scope :proveedor do
+    put "/proveedor/verificacion" => "confirmations#confirm", :as => :proveedor_confirm
+  end
+  
   scope "/proveedor" do
     get     "/" => "proveedores#panel", :as => "panel_proveedor"
-    get     "nuevo" => "proveedores#new", :as => "new_proveedor"
-    get     "editar" => "proveedores#edit", :as => "edit_proveedor"
-    post    "nuevo(.:id)" => "proveedores#create", :as => "proveedores"
-    put     "editar(.:id)" => "proveedores#update", :as => "proveedores"
     get     'categorias' => "proveedores#categorias_de_proveedor", :as => "categorias_de_proveedor"
     put     'categorias' => "proveedores#update_categorias_de_proveedor", :as => "update_categorias_de_proveedor"
+    get     "editar" => "proveedores#edit", :as => "edit_proveedor"
+    put     "editar(.:id)" => "proveedores#update", :as => "proveedores"
+    get     "imagen" => "proveedores#imagen", :as => "imagen_proveedor"
+    put     "imagen/:id" => "proveedores#cambiar_imagen", :as => "cambiar_imagen_proveedor"
+    get     "nuevo" => "proveedores#new", :as => "new_proveedor"
+    post    "nuevo(.:id)" => "proveedores#create", :as => "proveedores"
   end
 
-  resources :proveedores, :only => [:index, :show]
+  resources :proveedores, :only => [:index, :show, :create, :update]
   scope :proveedores do
     get     "proveedores/:id" => "proveedores#show", :as => "perfil_proveedor"
   end
