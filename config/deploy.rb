@@ -78,16 +78,52 @@ ERROR!  You must have a file on your server with the database configuration.
     desc "Building gems"
     run "cd #{release_path} && bundle install --without development test"
   end
+  
+  
+  # Hooks
+  after "deploy:setup", "deploy:prepare_shared"
+  after "deploy:prepare_shared", "deploy:upload_database_yml"
+#  after "deploy:prepare_shared", "uploads:setup"
+  after "deploy:prepare_shared", "uploads"
+  after "deploy:finalize_update", "deploy:finish"
+  after "deploy:finish", "deploy:create_symlink", "deploy:cleanup"
+  after "deploy:finish", "deploy:restart"  
+end
+
+namespace :uploads do
+  # http://www.simonecarletti.com/blog/2009/02/capistrano-uploads-folder/
+  desc <<-EOD
+    Creates the upload folders unless they exist
+    and sets the proper upload permissions.
+  EOD
+  task :setup, :except => { :no_release => true } do
+    dirs = uploads_dirs.map { |d| File.join(shared_path, d) }
+    run "mkdir -p #{dirs.join(' ')} && #{try_sudo} chmod 0777 #{dirs.join(' ')}" # && #{try_sudo} chmod g+w #{dirs.join(' ')}"
+  end
+
+  desc <<-EOD
+    [internal] Creates the symlink to uploads shared folder
+    for the most recently deployed version.
+  EOD
+  task :symlink, :except => { :no_release => true } do
+    run "rm -rf #{release_path}/public/uploads"
+    run "ln -nfs #{shared_path}/uploads #{release_path}/public/uploads"
+  end
+
+  desc <<-EOD
+    [internal] Computes uploads directory paths
+    and registers them in Capistrano environment.
+  EOD
+  task :register_dirs do
+    set :uploads_dirs,    %w(uploads)
+    set :shared_children, fetch(:shared_children) + fetch(:uploads_dirs)
+  end
+
+  after       "deploy:finalize_update", "uploads:symlink"
+  on :start,  "uploads:register_dirs"
+
 end
 
 #after "deploy:update_code", "deploy:build_gems", "deploy:migrate", "deploy:cleanup"
 
 #after :deploy, "deploy:create_symlink", "passenger:restart"
-
-
-# Hooks
-after "deploy:setup", "deploy:prepare_shared"
-after "deploy:setup", "deploy:upload_database_yml"
-after "deploy:finalize_update", "deploy:finish"
-after "deploy:finish", "deploy:create_symlink", "deploy:cleanup"
-after "deploy:finish", "deploy:restart"

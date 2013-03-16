@@ -11,6 +11,7 @@ class Categoria < ActiveRecord::Base
   has_and_belongs_to_many :proveedores
   has_many :trabajos
   
+  default_scope order('nombre ASC')
   private
   def slug_categoria
     unless self.padre_id == 0 or self.categoria_padre.nil?

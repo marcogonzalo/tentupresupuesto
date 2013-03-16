@@ -5,6 +5,8 @@ class UbicacionGeografica < ActiveRecord::Base
   
   attr_accessible :nombre, :tipo, :entidad_id, :slug
   
+  default_scope order('nombre ASC')
+  
   has_many :entidades, :class_name => "UbicacionGeografica", :foreign_key => "entidad_id", :order => "nombre ASC"
   belongs_to :entidad_superior, :class_name => "UbicacionGeografica", :foreign_key => "entidad_id"
   has_many :proveedores_de_pais, :class_name => "Proveedor", :foreign_key => "pais_id"

@@ -4,7 +4,7 @@
 textarea { height:10em; max-width:90%;}
 /* Estilos vista de lista de presupuestos a solicitud */
 #lista-presupuestos .presupuesto {background-color:#eee; border:1px solid #ccc; line-height:2em; margin:0.5em auto; padding:0.25em 0; vertical-align:center;}
-#lista-presupuestos .presupuesto div {}
+#lista-presupuestos .presupuesto img { float:left; margin-right:5px;}
 .reputacion {background-color:#666;}
 
 /* Estilos vista de presupuesto */
@@ -15,5 +15,6 @@ textarea { height:10em; max-width:90%;}
 
 @media screen and (max-width: 767px) { 
   #lista-presupuestos .presupuesto { text-align:center;}
+  #lista-presupuestos .presupuesto img { display:block; float:none; margin:5px auto;}
   .reputacion { margin:auto;}
 }

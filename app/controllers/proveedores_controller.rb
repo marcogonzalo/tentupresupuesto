@@ -2,6 +2,11 @@
 class ProveedoresController < ApplicationController
   before_filter :no_authenticated, :only => [:new, :create]
   before_filter :authenticated_proveedor, :except => [:index, :show]
+
+################  
+######## VISTAS
+################
+
   # GET /proveedores
   # GET /proveedores.json
   def index
@@ -29,7 +34,7 @@ class ProveedoresController < ApplicationController
     end
   end
 
-  # GET /proveedores/new
+  # GET /proveedor/nuevo
   # GET /proveedores/new.json
   def new
     @proveedor = Proveedor.new
@@ -40,11 +45,36 @@ class ProveedoresController < ApplicationController
     end
   end
 
-  # GET /proveedores/1/edit
+  # GET /proveedor/editar
   def edit
     @proveedor = Proveedor.find(current_proveedor.perfilable_id)
     @localidad = @proveedor.localidad ? @proveedor.localidad.nombre : ""
   end
+
+  # GET /proveedor/cambiar-imagen
+  def imagen
+    @proveedor = Proveedor.find(current_proveedor.perfilable_id)
+    @localidad = @proveedor.localidad ? @proveedor.localidad.nombre : ""
+  end
+
+  # GET /proveedor
+  def panel
+    @presupuestos_presentados = Presupuesto.includes([:trabajo, :mensajes]).where("presupuestos.proveedor_id = ? AND trabajos.estatus = 'buscando'", current_proveedor.perfilable_id).order("trabajos.updated_at DESC")
+    @en_ejecucion = Trabajo.includes(:presupuestos).where(:contratado_id => current_proveedor.perfilable_id).estatus_ejecutando
+    @por_evaluar = Trabajo.includes(:presupuestos).where(:contratado_id => current_proveedor.perfilable_id).estatus_finalizado
+
+    render "panel"
+  end
+  
+  # GET /proveedor/categorias
+  def categorias_de_proveedor
+    @proveedor = Proveedor.find(current_proveedor.perfilable_id)
+    render "categorias"
+  end
+
+################  
+######## ACCIONES
+################
 
   # POST /proveedores
   # POST /proveedores.json
@@ -121,20 +151,39 @@ class ProveedoresController < ApplicationController
     end
   end
 
-  def panel
-    @presupuestos_presentados = Presupuesto.includes([:trabajo, :mensajes]).where("presupuestos.proveedor_id = ? AND trabajos.estatus = 'buscando'", current_proveedor.perfilable_id).order("trabajos.updated_at DESC")
-    @en_ejecucion = Trabajo.includes(:presupuestos).where(:contratado_id => current_proveedor.perfilable_id).estatus_ejecutando
-    @por_evaluar = Trabajo.includes(:presupuestos).where(:contratado_id => current_proveedor.perfilable_id).estatus_finalizado
+  def cambiar_imagen
+    @proveedor = Proveedor.find(params[:id])
+    @proveedor.avatar = params[:proveedor][:avatar]
+    #@proveedor.avatar = File.open('somewhere')
+    #@proveedor.avatar.url # => '/url/to/file.png'
+    #@proveedor.avatar.current_path # => 'path/to/file.png'
+    #@proveedor.avatar.identifier # => 'file.png'
+    respond_to do |format|
+      if proveedor_signed_in?
+        unless current_proveedor.perfilable_id.nil? or current_proveedor.perfilable_id <= 0
+          if @proveedor.save
+            flash[:success] = "Imagen de perfil modificada."
+            format.html { render action: "imagen" }
+            format.json { render json: @proveedor, status: :created, location: @proveedor }
+          else
+            flash[:error] = "Ocurrió un error al modificar la imagen."
+            format.html { render action: "imagen" }
+            format.json { render json: @proveedor.errors, status: :unprocessable_entity }
+          end
+        else
+          flash[:warning] = 'No posees un perfil asociado.'
+          format.html { redirect_to new_proveedor_session }
+          format.json { render json: @solicitante.errors, status: :unprocessable_entity }
+        end 
+      else
+        flash[:info] = 'No has iniciado sesión.'
+        format.html { redirect_to new_proveedor_session }
+        format.json { render json: @proveedor.errors, status: :unprocessable_entity }
+      end
+    end
+  end
 
-    render "panel"
-  end
-  
-  def categorias_de_proveedor
-    @proveedor = Proveedor.find(current_proveedor.perfilable_id)
-    render "categorias"
-  end
-  
-  # SERVICIOS
+  # PUT /proveedor/categorias
   def update_categorias_de_proveedor
     if proveedor_signed_in?
       @proveedor = Proveedor.find(current_proveedor.perfilable_id)

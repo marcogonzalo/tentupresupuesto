@@ -10,8 +10,11 @@ gem 'timeliness'                      # Manejo de fechas
 gem 'validates_timeliness', '~> 3.0'  # Validacion de fechas en el modelo
 gem "friendly_id", '~> 4.0.1'         # Identificadores amigables para url
 
-gem "seedbank"                        # Permite manejar distintos seed para llenar la base de datos 
-# https://github.com/james2m/seedbank
+gem "seedbank"                        # Gestor de seeds para llenar la BD - https://github.com/james2m/seedbank
+
+# Manejo de imagenes
+gem "mini_magick"                     # A ruby wrapper for ImageMagick command line - https://github.com/minimagick/minimagick
+gem 'carrierwave'                     # Gestionar imágenes - https://github.com/jnicklas/carrierwave
 
 # Sesiones
 gem 'devise'

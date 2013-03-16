@@ -35,3 +35,25 @@
 .cat-m-b.ventan, .cat-m-n.ventan { background-position: -463px -159px; }
 .cat-p-b { background: url('tentu/generales/categorias-p-blanco.png') no-repeat top left;}
 .cat-p-n { background: url('tentu/generales/categorias-p-negro.png') no-repeat top left;}
+
+div.formulario-general #categorias {
+  -moz-column-count:3; /* Firefox */
+  -webkit-column-count:3; /* Safari and Chrome */
+  column-count:3;
+  -moz-column-gap:40px; /* Firefox */
+  -webkit-column-gap:40px; /* Safari and Chrome */
+  column-gap:40px;
+/*  -moz-column-rule:3px outset #ff00ff; /* Firefox */
+/*  -webkit-column-rule:3px outset #ff00ff; /* Safari and Chrome */
+/*  column-rule:3px outset #ff00ff; */
+}
+div.formulario-general #categorias label {margin:0.5em;}
+
+@media screen and (max-width: 767px) { 
+  div.formulario-general #categorias {
+    -moz-column-count:1; /* Firefox */
+    -webkit-column-count:1; /* Safari and Chrome */
+    column-count:1;
+  }
+  div.formulario-general #categorias label { margin:0.05em;}
+}

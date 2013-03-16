@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130204025539) do
+ActiveRecord::Schema.define(:version => 20130310235349) do
 
   create_table "categorias", :force => true do |t|
     t.string  "nombre",                :limit => 50, :default => "",   :null => false
@@ -66,6 +66,7 @@ ActiveRecord::Schema.define(:version => 20130204025539) do
     t.boolean  "aprobado"
     t.boolean  "rechazado",                    :default => false, :null => false
     t.string   "motivo_rechazo", :limit => 20
+    t.integer  "cant_mensajes",                :default => 0,     :null => false
     t.datetime "created_at",                                      :null => false
     t.datetime "updated_at",                                      :null => false
     t.integer  "trabajo_id"
@@ -97,8 +98,10 @@ ActiveRecord::Schema.define(:version => 20130204025539) do
     t.integer  "estado_id"
     t.integer  "municipio_id"
     t.integer  "localidad_id"
+    t.string   "avatar"
   end
 
+  add_index "proveedores", ["avatar"], :name => "index_proveedores_on_avatar"
   add_index "proveedores", ["estado_id"], :name => "index_proveedores_on_estado_id"
   add_index "proveedores", ["localidad_id"], :name => "index_proveedores_on_localidad_id"
   add_index "proveedores", ["municipio_id"], :name => "index_proveedores_on_municipio_id"
@@ -130,16 +133,17 @@ ActiveRecord::Schema.define(:version => 20130204025539) do
   add_index "solicitantes", ["pais_id"], :name => "index_solicitantes_on_pais_id"
 
   create_table "trabajos", :force => true do |t|
-    t.string   "proposito",      :limit => 100,                               :default => "",         :null => false
-    t.text     "descripcion",                                                 :default => "",         :null => false
-    t.string   "estatus",        :limit => 15,                                :default => "buscando", :null => false
-    t.text     "direccion",                                                   :default => "",         :null => false
-    t.decimal  "precio_final",                  :precision => 8, :scale => 2, :default => 0.0,        :null => false
-    t.datetime "created_at",                                                                          :null => false
-    t.datetime "updated_at",                                                                          :null => false
+    t.string   "proposito",         :limit => 100,                               :default => "",         :null => false
+    t.text     "descripcion",                                                    :default => "",         :null => false
+    t.string   "estatus",           :limit => 15,                                :default => "buscando", :null => false
+    t.text     "direccion",                                                      :default => "",         :null => false
+    t.decimal  "precio_final",                     :precision => 8, :scale => 2, :default => 0.0,        :null => false
+    t.integer  "cant_presupuestos",                                              :default => 0,          :null => false
+    t.datetime "created_at",                                                                             :null => false
+    t.datetime "updated_at",                                                                             :null => false
     t.integer  "solicitante_id"
     t.integer  "contratado_id"
-    t.string   "slug",                                                        :default => "",         :null => false
+    t.string   "slug",                                                           :default => "",         :null => false
     t.integer  "categoria_id"
     t.integer  "pais_id"
     t.integer  "estado_id"

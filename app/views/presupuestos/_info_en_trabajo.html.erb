@@ -1,6 +1,7 @@
 <% unless p.proveedor == contratado %>
-<div class="span5 presupuesto">
+<div class="span4 presupuesto">
   <div class="separar-alrededor">
+    <%= image_tag(p.proveedor.avatar.mini.url) if p.proveedor.avatar? %>
     <span class="proveedor-interesado"><b><%= p.proveedor.nombre_empresa %></b></span> 
     <%= raw mostrar_reputacion(p.proveedor.reputacion, p.proveedor.valoraciones, "proveedor") %>
     </div>

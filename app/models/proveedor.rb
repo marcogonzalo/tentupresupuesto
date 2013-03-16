@@ -3,6 +3,8 @@ class Proveedor < ActiveRecord::Base
   include FriendlyId
   friendly_id :nombre_empresa, :use => [:slugged, :history]
   
+  mount_uploader :avatar, AvatarUploader
+  
   attr_accessible :nombre_empresa, :tipo_proveedor, :rif, :descripcion,
                   :telefono_local, :telefono_movil, :telefono_alt,
                   :direccion, :punto_referencia, :correo_electronico,
