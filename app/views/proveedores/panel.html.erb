@@ -13,7 +13,8 @@ end
 %>
 <h1 class="page-header">Panel de proveedor</h1>
 <aside id="menu-panel" class="span5">
-  <ul class="nav nav-list" data-spy="affix" data-offset-top="275" data-offset-bottom="200">
+	<%= image_tag current_proveedor.perfil.avatar.mini.url if current_proveedor.perfil.avatar? %>
+  <ul class="nav nav-list" data-spy="affix" data-offset-top="350" data-offset-bottom="200">
     <li class="nav-header"><i class="icon icon-user"></i> Opciones de usuario</li>
     <li><%= link_to "Ver perfil público", perfil_proveedor_path(current_proveedor.perfil) %></li>
     <li><%= link_to "Categorías de servicios", categorias_de_proveedor_path %></li>
@@ -31,8 +32,8 @@ end
     <li class="disabled">Facturación</li>
   </ul>
 </aside>
-<div class="span17">
-  <section id="presupeustos-presentados">
+<div class="offset1 span16">
+  <section id="presupuestos-presentados">
     <h2>Presupuestos presentados</h2>
     <% if !@presupuestos_presentados.nil? and @presupuestos_presentados.size > 0 %>
     <table class="table table-striped">

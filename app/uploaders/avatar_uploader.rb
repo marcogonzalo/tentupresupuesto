@@ -24,8 +24,7 @@ class AvatarUploader < CarrierWave::Uploader::Base
     if Rails.env.development? or Rails.env.test?
       "uploads/#{model.class.to_s.underscore}/#{mounted_as}"
     else
-      # stores in either "production/..." or "test/..." folders
-      "public/uploads/images/#{model.id}"
+      "public/uploads/imagenes/#{model.class.to_s.underscore}/#{mounted_as}"
     end
   end
 

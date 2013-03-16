@@ -79,6 +79,15 @@ ERROR!  You must have a file on your server with the database configuration.
     run "cd #{release_path} && bundle install --without development test"
   end
   
+  
+  # Hooks
+  after "deploy:setup", "deploy:prepare_shared"
+  after "deploy:prepare_shared", "deploy:upload_database_yml"
+#  after "deploy:prepare_shared", "uploads:setup"
+  after "deploy:prepare_shared", "uploads"
+  after "deploy:finalize_update", "deploy:finish"
+  after "deploy:finish", "deploy:create_symlink", "deploy:cleanup"
+  after "deploy:finish", "deploy:restart"  
 end
 
 namespace :uploads do
@@ -89,7 +98,7 @@ namespace :uploads do
   EOD
   task :setup, :except => { :no_release => true } do
     dirs = uploads_dirs.map { |d| File.join(shared_path, d) }
-    run "#{try_sudo} mkdir -p #{dirs.join(' ')} && #{try_sudo} chmod g+w #{dirs.join(' ')}"
+    run "mkdir -p #{dirs.join(' ')} && #{try_sudo} chmod 0777 #{dirs.join(' ')}" # && #{try_sudo} chmod g+w #{dirs.join(' ')}"
   end
 
   desc <<-EOD
@@ -106,7 +115,7 @@ namespace :uploads do
     and registers them in Capistrano environment.
   EOD
   task :register_dirs do
-    set :uploads_dirs,    %w(uploads uploads/partners)
+    set :uploads_dirs,    %w(uploads)
     set :shared_children, fetch(:shared_children) + fetch(:uploads_dirs)
   end
 
@@ -118,13 +127,3 @@ end
 #after "deploy:update_code", "deploy:build_gems", "deploy:migrate", "deploy:cleanup"
 
 #after :deploy, "deploy:create_symlink", "passenger:restart"
-
-
-  # Hooks
-  after "deploy:setup", "deploy:prepare_shared"
-  after "deploy:prepare_shared", "deploy:upload_database_yml"
-#  after "deploy:prepare_shared", "uploads:setup"
-  after "deploy:prepare_shared", "uploads"
-  after "deploy:finalize_update", "deploy:finish"
-  after "deploy:finish", "deploy:create_symlink", "deploy:cleanup"
-  after "deploy:finish", "deploy:restart"

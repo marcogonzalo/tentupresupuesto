@@ -18,7 +18,7 @@ end
   <aside id="perfil-proveedor" class="span6 pull-right">
     <div id="ficha-proveedor">
       <div id="imagen-proveedor" class="img-rounded"><%= image_tag(@proveedor.avatar.url) if @proveedor.avatar? %></div>
-      <h4 class="sobre-color"><%= @proveedor.nombre_empresa %></h4>
+      <h4 class="con-chango sobre-color"><%= @proveedor.nombre_empresa %></h4>
       <p>
         <%= t('activerecord.attributes.proveedor.tipos_proveedor.'+@proveedor.tipo_proveedor) %> 
         <% if @proveedor.verificado %><span class="badge badge-warning" title="Proveedor verificado"><i class="icon-ok icon-white"></i></span><% end %>
@@ -30,7 +30,7 @@ end
       </ul>
     </div>
   </aside>
-  <div id="titulo-pestana" class="span16 pull-right"><h3 class="sobre-color">Información del proveedor</h3></div>
+  <div id="titulo-pestana" class="span16 pull-right"><h3 class="con-chango sobre-color">Información del proveedor</h3></div>
   <div id="informacion" class="offset1 span15 pull-right">
     <h4 class="con-myriad-bold">Descripción</h4>
     <p><%= @proveedor.descripcion %></p>
