@@ -5,7 +5,7 @@ class Proveedor < ActiveRecord::Base
   
   mount_uploader :avatar, AvatarUploader
   
-  attr_accessible :nombre_empresa, :tipo_proveedor, :rif, :descripcion, :avatar,
+  attr_accessible :nombre_empresa, :tipo_proveedor, :rif, :descripcion,
                   :telefono_local, :telefono_movil, :telefono_alt,
                   :direccion, :punto_referencia, :correo_electronico,
                   :categoria_ids, :pais_id, :estado_id, :municipio_id, :localidad_id

@@ -66,6 +66,7 @@ ActiveRecord::Schema.define(:version => 20130310235349) do
     t.boolean  "aprobado"
     t.boolean  "rechazado",                    :default => false, :null => false
     t.string   "motivo_rechazo", :limit => 20
+    t.integer  "cant_mensajes",                :default => 0,     :null => false
     t.datetime "created_at",                                      :null => false
     t.datetime "updated_at",                                      :null => false
     t.integer  "trabajo_id"
@@ -132,16 +133,17 @@ ActiveRecord::Schema.define(:version => 20130310235349) do
   add_index "solicitantes", ["pais_id"], :name => "index_solicitantes_on_pais_id"
 
   create_table "trabajos", :force => true do |t|
-    t.string   "proposito",      :limit => 100,                               :default => "",         :null => false
-    t.text     "descripcion",                                                 :default => "",         :null => false
-    t.string   "estatus",        :limit => 15,                                :default => "buscando", :null => false
-    t.text     "direccion",                                                   :default => "",         :null => false
-    t.decimal  "precio_final",                  :precision => 8, :scale => 2, :default => 0.0,        :null => false
-    t.datetime "created_at",                                                                          :null => false
-    t.datetime "updated_at",                                                                          :null => false
+    t.string   "proposito",         :limit => 100,                               :default => "",         :null => false
+    t.text     "descripcion",                                                    :default => "",         :null => false
+    t.string   "estatus",           :limit => 15,                                :default => "buscando", :null => false
+    t.text     "direccion",                                                      :default => "",         :null => false
+    t.decimal  "precio_final",                     :precision => 8, :scale => 2, :default => 0.0,        :null => false
+    t.integer  "cant_presupuestos",                                              :default => 0,          :null => false
+    t.datetime "created_at",                                                                             :null => false
+    t.datetime "updated_at",                                                                             :null => false
     t.integer  "solicitante_id"
     t.integer  "contratado_id"
-    t.string   "slug",                                                        :default => "",         :null => false
+    t.string   "slug",                                                           :default => "",         :null => false
     t.integer  "categoria_id"
     t.integer  "pais_id"
     t.integer  "estado_id"
