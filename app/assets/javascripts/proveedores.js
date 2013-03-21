@@ -1,3 +1,4 @@
+// Registro de proveedor
 $(document).ready(function($) { // Carga de lista inicial de localidades en municipio seleccionado
   cargar_entidades('proveedor','localidad','municipio');
 });

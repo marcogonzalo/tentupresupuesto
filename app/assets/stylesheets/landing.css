@@ -17,7 +17,7 @@ input[type="text"], input[type="password"], input[type="email"] { height:3em; wi
 #cabecera { background:#71C03A url('tentu/landing/fondo-cabecera.png') no-repeat center bottom; height:auto; max-height:450px; max-width:1060px; overflow:hidden; width:100%; }
 #cabecera #logo-texto { position:relative; top:25px; z-index:5; }
 #cabecera #logo-texto img { width:100%; }
-#cabecera #slogan { margin-top:2em; margin-left:0.5em; }
+#cabecera #slogan { font-family:'Chango','Trebuschet MS', sans-serif; margin-top:2em; margin-left:0.5em; }
 #cabecera #enlace-registro { background:url('tentu/landing/pestana.png') no-repeat center bottom; left:15px; margin:0px auto; min-height:90px; max-height:135px; max-width:197px; position:relative; text-align:center; top:0px; z-index:10; }
 #cabecera #enlace-registro a {color:white; display:block; font-family:'Chango'; font-size:125%; padding:1em 0.5em 50px 0.5em;}
 #cabecera #personaje { position:relative; top:25px; z-index:5; }
@@ -52,7 +52,7 @@ border-radius:0.25em;
 #cuerpo { background-color:#eee; clear:both; margin: 0px auto; margin-bottom:-13px; max-width:1060px; overflow:hidden; padding-bottom:3em; position:relative; top:-13px; }
 #cuerpo .pendon { background: url('tentu/landing/pendon.png') no-repeat center bottom; display:inline-block; float:left; height:auto; max-height:405px; min-height:390px; overflow:hidden; width:33.3%; }
 #cuerpo .contenido-pendon { margin:2em 0px; padding:1% 10%; text-align:center; }
-#cuerpo .contenido-pendon h2 { margin-bottom:0.5em; }
+#cuerpo .contenido-pendon h2 { font-family:'Chango','Trebuschet MS', sans-serif; margin-bottom:0.5em; }
 #cuerpo .contenido-pendon .imagen { display:table-cell; margin:1.5em auto 0em auto ; height:140px; width:60%; vertical-align: bottom; }
 
 /* Dejar siempre debajo para sobreescribir en dispositivos */

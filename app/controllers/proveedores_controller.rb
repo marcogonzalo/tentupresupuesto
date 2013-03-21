@@ -22,6 +22,7 @@ class ProveedoresController < ApplicationController
   # GET /proveedores/1.json
   def show
     @proveedor = Proveedor.find(params[:id])
+    @imagenes = @proveedor.imagenes
     if request.path != proveedor_path(@proveedor)
       redirect_to @proveedor, status: :moved_permanently
     else
@@ -54,7 +55,7 @@ class ProveedoresController < ApplicationController
   # GET /proveedor/cambiar-imagen
   def imagen
     @proveedor = Proveedor.find(current_proveedor.perfilable_id)
-    @localidad = @proveedor.localidad ? @proveedor.localidad.nombre : ""
+    render "imagen_perfil"
   end
 
   # GET /proveedor
@@ -103,7 +104,7 @@ class ProveedoresController < ApplicationController
         else
           flash[:warning] = 'Ya posee un perfil asociado.'
           format.html { render action: "new"  }
-          format.json { render json: @solicitante.errors, status: :unprocessable_entity }
+          format.json { render json: @proveedor.errors, status: :unprocessable_entity }
         end 
       else
         flash[:info] = 'No ha iniciado sesión.'
@@ -152,7 +153,7 @@ class ProveedoresController < ApplicationController
   end
 
   def cambiar_imagen
-    @proveedor = Proveedor.find(params[:id])
+    @proveedor = Proveedor.find(current_proveedor.perfilable_id)
     @proveedor.avatar = params[:proveedor][:avatar]
     #@proveedor.avatar = File.open('somewhere')
     #@proveedor.avatar.url # => '/url/to/file.png'
@@ -163,11 +164,11 @@ class ProveedoresController < ApplicationController
         unless current_proveedor.perfilable_id.nil? or current_proveedor.perfilable_id <= 0
           if @proveedor.save
             flash[:success] = "Imagen de perfil modificada."
-            format.html { render action: "imagen" }
+            format.html { render action: "imagen_perfil" }
             format.json { render json: @proveedor, status: :created, location: @proveedor }
           else
             flash[:error] = "Ocurrió un error al modificar la imagen."
-            format.html { render action: "imagen" }
+            format.html { render action: "imagen_perfil" }
             format.json { render json: @proveedor.errors, status: :unprocessable_entity }
           end
         else
