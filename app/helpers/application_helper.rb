@@ -19,7 +19,11 @@ module ApplicationHelper
   #Reescritura de helpers _signed_in?
   def solicitante_signed_in?
     if !!current_solicitante and current_solicitante.perfilable_type == "solicitante"
-      !!current_solicitante
+      if !current_solicitante.perfilable_id.nil? and current_solicitante.perfilable_id > 0
+        !!current_solicitante
+      else
+        redirect_to new_solicitante_path
+      end
     else
       nil
     end
@@ -27,7 +31,11 @@ module ApplicationHelper
   
   def proveedor_signed_in?
     if !!current_proveedor and current_proveedor.perfilable_type == "proveedor"
-      !!current_proveedor
+      if !current_proveedor.perfilable_id.nil? and current_proveedor.perfilable_id > 0
+        !!current_proveedor
+      else
+        redirect_to new_proveedor_path
+      end
     else
       nil
     end
