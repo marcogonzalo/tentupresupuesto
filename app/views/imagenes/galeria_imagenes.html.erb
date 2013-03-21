@@ -1,0 +1,43 @@
+<%- model_class = Proveedor -%>
+<% 
+content_for :head do
+  stylesheet_link_tag 'proveedores'
+end
+
+content_for :foot do
+  javascript_include_tag 'proveedores'
+end
+
+content_for :title do
+  "Editar galería de imágenes"
+end
+%>
+  <h1 class="page-header">Editar galería de imágenes</h1>
+
+<% if @proveedor.imagenes.size < 5%>
+<div class="formulario-general offset5 span12">
+  <%= form_for @proveedor, :url => editar_galeria_proveedor_path, :html => {:multipart => true} do |f| %>
+	<% f.fields_for :imagenes do |builder| %>
+		<label>Seleccionar magen de trabajo anterior</label>
+	      <%= builder.file_field :imagen %>
+	      <%= builder.hidden_field :imagen_cache %>
+	    <div class="botones"><%= f.submit "Guardar imagen", :class => 'btn btn-warning' %></div>
+	<% end %>
+  <% end %>
+</div>
+<% else %>
+<div class="alert alert-info">Para subir nuevas imágenes deben borarrse algunas de las ya existentes.</div>
+<% end %>
+  <div id="imagenes-trabajos" class="offset4 span15">
+	<h2 class="centrado">Imágenes mostradas actualmente</h2>
+  	<% @imagenes.each do |img| %>
+		<div class="imagen">
+			<%= image_tag(img.archivo.mini.url) if img.archivo? %>
+			<%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      borrar_galeria_proveedor_path(img),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => '¿Borrar esta imagen?')) },
+                      :class => 'btn btn-mini btn-danger' %>
+		</div>
+	<% end %>
+  </div>

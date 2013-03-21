@@ -1,7 +1,8 @@
 # encoding: utf-8
 
-class AvatarUploader < CarrierWave::Uploader::Base
-
+class ImagenUploader < CarrierWave::Uploader::Base
+  before :store, :remember_cache_id
+  after :store, :delete_tmp_dir
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
   include CarrierWave::MiniMagick
@@ -22,9 +23,10 @@ class AvatarUploader < CarrierWave::Uploader::Base
   
   def store_dir
     if Rails.env.development? or Rails.env.test?
-      "uploads/#{model.class.to_s.underscore}/#{model.id.to_s}/#{mounted_as}"
+      #"uploads/#{model.class.to_s.underscore}/#{model.owner.id.to_s}/galeria"
+      "uploads/#{model.imagenable.class.to_s.underscore}/#{model.imagenable.id.to_s}/#{model.proposito.underscore}"
     else
-      "public/uploads/imagenes/#{model.class.to_s.underscore}/#{model.id.to_s}/#{mounted_as}"
+      "public/uploads/imagenes/#{model.imagenable.class.to_s.underscore}/#{model.imagenable.id.to_s}/#{model.proposito.underscore}"
     end
   end
 
@@ -37,7 +39,7 @@ class AvatarUploader < CarrierWave::Uploader::Base
   # end
 
   # Process files as they are uploaded:
-  process :resize_to_fit => [200,150]
+  process :resize_to_fit => [400,300]
   # process :scale => [200, 300]
   #
   # def scale(width, height)
@@ -45,9 +47,14 @@ class AvatarUploader < CarrierWave::Uploader::Base
   # end
 
   # Create different versions of your uploaded files:
-  version :mini do
-    process :resize_to_fit => [120,90]
+  version :grande do
+    process :resize_to_fit => [800,600]
   end
+  
+  version :mini do
+    process :resize_to_fit => [200,150]
+  end
+  
   version :micro do
     process :resize_to_fit => [80,60]
   end
@@ -61,7 +68,21 @@ class AvatarUploader < CarrierWave::Uploader::Base
   # Override the filename of the uploaded files:
   # Avoid using model.id or version_name here, see uploader/store.rb for details.
   def filename
-   "#{model.friendly_id}.#{file.extension}" if original_filename
+    if original_filename
+      md5 = Digest::MD5.hexdigest("#{model.imagenable.friendly_id}_#{Time.now}")
+      "#{md5}.#{file.extension}"
+    end
   end
-
+  
+  # store! nil's the cache_id after it finishes so we need to remember it for deletion
+  def remember_cache_id(new_file)
+    @cache_id_was = cache_id
+  end
+  
+  def delete_tmp_dir(new_file)
+    # make sure we don't delete other things accidentally by checking the name pattern
+    if @cache_id_was.present? && @cache_id_was =~ /\A[\d]{8}\-[\d]{4}\-[\d]+\-[\d]{4}\z/
+      FileUtils.rm_rf(File.join(root, cache_dir, @cache_id_was))
+    end
+  end
 end

@@ -7,6 +7,7 @@
 
 .cat-m-b { background: url('tentu/generales/categorias-m-blanco.png') no-repeat top left;}
 .cat-m-n { background: url('tentu/generales/categorias-m-negro.png') no-repeat top left;}
+.cat-m-b img.trasparente, .cat-m-n img.transparente { height:auto; width:100%;}
 .cat-m-b, .cat-m-n { float:left; height:75px; width:80px; }
 .cat-m-b.aa, .cat-m-n.aa { background-position: 0px 0px; }
 .cat-m-b.deco, .cat-m-n.deco { background-position: -310px 0px; }

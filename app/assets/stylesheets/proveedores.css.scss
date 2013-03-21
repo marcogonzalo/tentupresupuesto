@@ -19,16 +19,22 @@ aside#perfil-proveedor { background:url('tentu/internas/terminacionperfilabajo.p
 #ficha-proveedor ul li a:hover {background:#0080C4 url('tentu/internas/fondotituloperfil.png') repeat-x top left; cursor:pointer; text-decoration:none; }
 #ficha-proveedor ul li#boton-informacion a i {background:url('tentu/internas/informacion.png') no-repeat left center; background-position:5px 5px; display:inline-block; height:35px; width:40px;}
 #ficha-proveedor ul li#boton-previos a i {background:url('tentu/internas/trabajosprevios.png') no-repeat left center; background-position:2px 5px; display:inline-block; height:35px; width:40px;}
-#titulo-pestana {background:url('tentu/internas/terminaciontituloperfil.png') no-repeat bottom left; padding:0px; padding-left:30px; }
-#titulo-pestana h3 {background:#0080C4 url('tentu/internas/fondotituloperfil.png') repeat-x top left; line-height:1.85em; margin:0px; min-height:2.2em; text-align:center;}
-div#informacion { padding-top:1em;}
-div#trabajos-previos { padding-top:1em;display:none;}
-div#evaluaciones { padding-top:1em;display:none;}
+div#perfil #titulo-pestana {background:url('tentu/internas/terminaciontituloperfil.png') no-repeat bottom left; padding:0px; padding-left:30px; }
+div#perfil #titulo-pestana h3 {background:#0080C4 url('tentu/internas/fondotituloperfil.png') repeat-x top left; line-height:1.85em; margin:0px; min-height:2.2em; text-align:center;}
+
+div#perfil div#informacion { padding-top:1em;}
+div#perfil div#informacion #iconos-categorias { border:1px solid silver; border-radius:15px; margin-top:15px; overflow:hidden;}
+
+div#perfil div#trabajos, div#imagenes-trabajos { padding-top:1em; text-align:center; }
+div#perfil div#trabajos .imagen, div#imagenes-trabajos .imagen  {display:inline-block; height:150px; margin:1em auto; text-align:center; width:200px;}
+div#imagenes-trabajos .imagen .btn  {margin-top: -55px; margin-right: -135px; }
+div#perfil div#evaluaciones { padding-top:1em;display:none;}
 
 @media screen and (min-width: 768px) and (max-width: 979px) { 
   aside#perfil-proveedor{ width:200px; } 
   #ficha-proveedor { width:192px;}
   #ficha-proveedor #imagen-proveedor { height:135px; width:180px; }
+  div#informacion #datos-ubicacion .dl-horizontal dd {margin-left:auto; margin-right:1em; text-align:right;}
 }
 
 @media screen and (max-width: 767px) { 
@@ -37,6 +43,6 @@ div#evaluaciones { padding-top:1em;display:none;}
   aside#perfil-proveedor {background:#0080C4;}
   aside#perfil-proveedor,#ficha-proveedor { max-width:100%; width:100%;}
   #ficha-proveedor { padding-left:0px; padding-right:0px; } 
-  #imagen-proveedor { width: 150px; }
-  #titulo-pestana { background:url('tentu/internas/fondotituloperfil.png'); margin-top:1em; padding:0px; width:100%;}
+  #ficha-proveedor #imagen-proveedor { width: 150px; }
+  div#perfil #titulo-pestana { background:url('tentu/internas/fondotituloperfil.png'); margin-top:1em; padding:0px; width:100%;}
 }
