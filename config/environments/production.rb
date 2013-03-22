@@ -47,7 +47,7 @@ Ttp::Application.configure do
   # config.cache_store = :mem_cache_store
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
-  config.action_controller.asset_host = "http://www.tentupresupuesto.com.ve"
+  # config.action_controller.asset_host = "http://www.tentupresupuesto.com.ve"
 
   # Add the fonts path
   config.assets.paths << Rails.root.join('app', 'assets', 'fonts')
@@ -59,6 +59,7 @@ Ttp::Application.configure do
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
   # config.assets.precompile += %w(ubicaciones_geograficas.js proveedores.js solicitantes.js presupuestos.js trabajos.js)
 
+  config.action_mailer.asset_host = "http://trapichito.tentupresupuesto.com.ve"
   config.action_mailer.default_url_options = { 
     :host => 'www.tentupresupuesto.com.ve',
     :only_path            => false
