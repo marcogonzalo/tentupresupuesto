@@ -14,9 +14,9 @@
                 <% else %>
                   <li><%= link_to "Registro", new_registration_path("solicitante") %></li>
                 <% end %>
-                  <li>Proveedores</li>
-                  <li>Trabajos</li>
-                  <li>Contacto</li>
+                  <li><%= link_to "Proveedores", proveedores_path %></li>
+                  <li><%= link_to "Trabajos", trabajos_path %></li>
+                  <li><%= link_to "Contacto", general_contacto_path %></li>
                 </ul>
               </div>
             </div>

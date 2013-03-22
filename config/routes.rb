@@ -1,59 +1,66 @@
 Ttp::Application.routes.draw do
-  get "general/home"
-
-  devise_for :proveedor, :class_name => 'Usuario', :controllers => { :registrations => "registrations", :confirmations => "confirmations" }, :path_names => { :sign_in => 'iniciar_sesion', :sign_up => 'registro', :sign_out => 'cerrar_sesion', :password => 'clave', :confirmation => 'verificacion', :edit => 'editar' }
-  devise_for :solicitante, :class_name => 'Usuario', :controllers => { :registrations => "registrations", :confirmations => "confirmations" }, :path_names => { :sign_in => 'iniciar_sesion', :sign_up => 'registro', :sign_out => 'cerrar_sesion', :password => 'clave', :confirmation => 'verificacion', :edit => 'editar' }
-  devise_scope :solicitante do
-    put "/solicitante/verificacion" => "confirmations#confirm", :as => :solicitante_confirm
-  end
-  
-  scope "/solicitante" do
-    get     "/" => "solicitantes#panel", :as => "panel_solicitante"
-    get     "nuevo" => "solicitantes#new", :as => "new_solicitante"
-    get     "editar" => "solicitantes#edit", :as => "edit_solicitante"
-    post    "nuevo(.:id)" => "solicitantes#create", :as => "solicitantes"
-    put     "editar(.:id)" => "solicitantes#update", :as => "solicitante"
-  end
-  
-  devise_scope :proveedor do
-    put "/proveedor/verificacion" => "confirmations#confirm", :as => :proveedor_confirm
-  end
-  
-  scope "/proveedor" do
-    get     "/" => "proveedores#panel", :as => "panel_proveedor"
-    get     'categorias' => "proveedores#categorias_de_proveedor", :as => "categorias_de_proveedor"
-    put     'categorias(/:id)' => "proveedores#update_categorias_de_proveedor", :as => "update_categorias_de_proveedor"
-    get     "editar" => "proveedores#edit", :as => "edit_proveedor"
-    put     "editar(.:id)" => "proveedores#update", :as => "proveedores"
-    get     "imagenes_galeria" => "imagenes#galeria", :as => "galeria_proveedor"
-    put     "imagenes_galeria(/:id)" => "imagenes#editar_galeria", :as => "editar_galeria_proveedor"
-    delete  "imagenes_galeria(/:id)" => "imagenes#borrar_galeria", :as => "borrar_galeria_proveedor"
-    get     "imagen" => "proveedores#imagen", :as => "imagen_proveedor"
-    get     "nuevo" => "proveedores#new", :as => "new_proveedor"
-    post    "nuevo(.:id)" => "proveedores#create", :as => "proveedores"
-  end
-  resources :proveedores, :only => [:index, :show, :create, :update]
-  scope :proveedores do
-    get     "proveedores/:id" => "proveedores#show", :as => "perfil_proveedor"
-  end
-  
-  resources :trabajos, :shallow => true, :path_names => {:new => "nuevo", :edit => "editar"} do
-    resources :presupuestos, :path_names => {:new => "nuevo", :edit => "editar"} do
-      member do
-        put 'aceptar' => "presupuestos#aceptar_presupuesto"
-        put 'rechazar' => "presupuestos#rechazar_presupuesto"
-      end
-      resources :mensajes # , :only => [:index, :create, :destroy]
+  scope :path_names => { :new => "nuevo", :edit => "editar" } do
+    devise_for :proveedor, :class_name => 'Usuario', :controllers => { :registrations => "registrations", :confirmations => "confirmations" }, :path_names => { :sign_in => 'iniciar_sesion', :sign_up => 'registro', :sign_out => 'cerrar_sesion', :password => 'clave', :confirmation => 'verificacion', :edit => 'editar' }
+    devise_for :solicitante, :class_name => 'Usuario', :controllers => { :registrations => "registrations", :confirmations => "confirmations" }, :path_names => { :sign_in => 'iniciar_sesion', :sign_up => 'registro', :sign_out => 'cerrar_sesion', :password => 'clave', :confirmation => 'verificacion', :edit => 'editar' }
+    
+    devise_scope :solicitante do
+      put "/solicitante/verificacion" => "confirmations#confirm", :as => :solicitante_confirm
     end
-  end
-  
-  resources :categorias
+      devise_scope :proveedor do
+      put "/proveedor/verificacion" => "confirmations#confirm", :as => :proveedor_confirm
+    end
 
-  scope "/ubicaciones_geograficas" do
-    get "get_lista_entidades" => "ubicaciones_geograficas#get_lista_entidades"
-  end
-  resources :ubicaciones_geograficas
+    scope "/solicitante" do
+      get     "/" => "solicitantes#panel", :as => "panel_solicitante"
+      get     "nuevo-perfil" => "solicitantes#new", :as => "new_solicitante"
+      get     "editar-perfil" => "solicitantes#edit", :as => "edit_solicitante"
+      post    "nuevo-perfil(.:id)" => "solicitantes#create", :as => "solicitantes"
+      put     "editar-perfil(.:id)" => "solicitantes#update", :as => "solicitante"
+    end
+    
+    scope "/proveedor" do
+      get     "/" => "proveedores#panel", :as => "panel_proveedor"
+      get     'categorias' => "proveedores#categorias_de_proveedor", :as => "categorias_de_proveedor"
+      put     'categorias(/:id)' => "proveedores#update_categorias_de_proveedor", :as => "update_categorias_de_proveedor"
+      get     "editar-perfil" => "proveedores#edit", :as => "edit_proveedor"
+      # put     "editar-perfil(.:id)" => "proveedores#update", :as => "proveedores"
+      get     "imagenes_galeria" => "imagenes#galeria", :as => "galeria_proveedor"
+      put     "imagenes_galeria(/:id)" => "imagenes#editar_galeria", :as => "editar_galeria_proveedor"
+      delete  "imagenes_galeria(/:id)" => "imagenes#borrar_galeria", :as => "borrar_galeria_proveedor"
+      get     "imagen" => "proveedores#imagen", :as => "imagen_proveedor"
+      get     "nuevo-perfil" => "proveedores#new", :as => "new_proveedor"
+      # post    "nuevo-perfil(.:id)" => "proveedores#create", :as => "proveedores"
+    end
+    resources :proveedores, :only => [:index, :show, :create, :update]
+    scope :proveedores do
+      get     "proveedores/:id" => "proveedores#show", :as => "perfil_proveedor"
+    end
+    
+    resources :trabajos, :shallow => true, :path_names => {:new => "nuevo", :edit => "editar"} do
+      resources :presupuestos, :path_names => {:new => "nuevo", :edit => "editar"} do
+        member do
+          put 'aceptar' => "presupuestos#aceptar_presupuesto"
+          put 'rechazar' => "presupuestos#rechazar_presupuesto"
+        end
+        resources :mensajes # , :only => [:index, :create, :destroy]
+      end
+    end
+    
+    resources :categorias
   
+    scope "/ubicaciones_geograficas" do
+      get "get_lista_entidades" => "ubicaciones_geograficas#get_lista_entidades"
+    end
+    resources :ubicaciones_geograficas
+    
+    scope "/general" do
+      get "contacto" => "general#home", :as => "general_contacto"
+      get "home" => "general#home", :as => "general_home"
+      get "terminos-y-condiciones" => "general#home", :as => "general_terminos"
+    end
+   
+    # rest of your routes
+  end
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
