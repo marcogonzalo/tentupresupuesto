@@ -22,7 +22,7 @@ module ApplicationHelper
       if !current_solicitante.perfilable_id.nil? and current_solicitante.perfilable_id > 0
         !!current_solicitante
       else
-        redirect_to new_solicitante_path
+        new_solicitante_url
       end
     else
       nil
@@ -34,7 +34,7 @@ module ApplicationHelper
       if !current_proveedor.perfilable_id.nil? and current_proveedor.perfilable_id > 0
         !!current_proveedor
       else
-        redirect_to new_proveedor_path
+        new_proveedor_path
       end
     else
       nil

@@ -1,3 +1,8 @@
+<% 
+  content_for :title do 
+    "¡Tu cuenta está bloqueada!"
+  end
+%>
 <p>&iexcl;Hola, <%= @resource.nombre %>!</p>
 
 <p>Tu cuenta ha sido bloqueada por repetidos intentos fallidos de ingreso.</p>
@@ -6,7 +11,3 @@
   Para desbloquearla, ingresa en el siguiente enlace:
   <%= link_to 'Unlock my account', unlock_url(@resource, :unlock_token => @resource.unlock_token) %>
 </p>
-
-<p>Gracias por utilizar nuestros servicios.</p>
-
-<p>Equipo de TenTuPresupuesto.</p>

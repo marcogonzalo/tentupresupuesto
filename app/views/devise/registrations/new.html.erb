@@ -29,8 +29,8 @@
           <div class="controls"><%= f.select(:sexo, Usuario::SEXO, {:prompt => 'Selecciona'}) %></div>
         </div>
         
-        <label for="<%= resource_name %>_acepta_terminos">
-          <%= f.check_box :acepta_terminos %> Acepto los Términos y Condiciones
+        <label for="<%= resource_name %>_acepta_terminos" class="checkbox">
+          <%= f.check_box :acepta_terminos %> Acepto los <%= link_to "Términos y Condiciones", general_terminos_path %></a>
         </label>
       
         <%= f.hidden_field :perfilable_type, :value => resource_name %>

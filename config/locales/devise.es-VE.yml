@@ -10,7 +10,6 @@ es-VE:
       not_saved:
         one: "1 error prohibió que se ejecutara el proceso" #%{resource}:"
         other: "%{count} errores prohibieron que se ejecutara el proceso" #%{resource}:"
-
   devise:
     failure:
       already_authenticated: 'Ya has iniciado sesión.'
@@ -21,6 +20,10 @@ es-VE:
       invalid_token: 'Token de autenticación inválido.'
       timeout: 'La sesión expiró. Inicia sesión nuevamente.'
       inactive: 'La cuenta no ha sido activada.'
+      proveedor:
+        not_found_in_database: "No se encontró en la base de datos"
+      solicitante:
+        not_found_in_database: "No se encontró en la base de datos"
     sessions:
       signed_in: 'Inicio de sesión satisfactorio.'
       signed_out: 'Cierre de sesión satisfactorio.'
