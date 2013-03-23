@@ -1,34 +1,41 @@
 <%- model_class = Presupuesto -%>
-<% 
-content_for :head do
-  stylesheet_link_tag 'categorias', 'reputacion', 'presupuestos'
-end
+<%
+ content_for :head do
+    stylesheet_link_tag 'categorias', 'reputacion', 'presupuestos'
+  end
 
-content_for :title do 
-  "Presupuesto para: "+@trabajo.proposito
-end
+  content_for :title do
+    "Presupuesto para: "+@trabajo.proposito
+  end
 
-content_for :liston do 
-  render :partial => 'trabajos/cabecera', :locals => {:trabajo => @trabajo, :cantidad_presupuestos => @trabajo.presupuestos.size, :color => "b"}
-end
+  content_for :article_tag_id do
+    "presupuesto-trabajo"
+  end
 
-content_for :foot do
-  javascript_include_tag 'presupuestos'
-end
+  content_for :liston do
+    render :partial => 'trabajos/cabecera', :locals => {:trabajo => @trabajo, :cantidad_presupuestos => @trabajo.presupuestos.size, :color => "b"}
+  end
+
+  content_for :foot do
+    javascript_include_tag 'presupuestos'
+  end
 %>
-<%= link_to "Volver al panel", panel_proveedor_path, :class => 'btn btn-link' %>
+<%= link_to "Volver al panel", panel_solicitante_path, :class => 'btn btn-link' %>
 <h2>Presupuestos presentados</h2>
-  <div id="lista-presupuestos" class="offset1 span20">
-    <% @presupuestos.each do |p| %>
-      <div class="presupuesto row">
-        <div class="span11">
-          <%= image_tag(p.proveedor.avatar.micro.url) if p.proveedor.avatar? %>
-          <%= p.proveedor.nombre_empresa %><br>
-          <%= raw mostrar_reputacion(p.proveedor.reputacion, p.proveedor.valoraciones, "proveedor") %>
-        </div>
-        <div class="span8"><%= link_to((number_to_currency(p.precio_minimo)+" a "+number_to_currency(p.precio_maximo)), p) %> (<%= p.incluye_iva%>)<br>
-          <%= link_to("Mensajes: "+p.mensajes.size.to_s, presupuesto_path(p, :anchor => "mensajes"))  %> (<%= p.mensajes.where(:usuario => :proveedor, :visto => false).size %> sin leer)
-        </div>
-      </div>
-    <% end %>
-  </div>
+<div id="lista-presupuestos" class="offset1 span20">
+	<% @presupuestos.each do |p| %>
+	<div class="presupuesto row">
+		<div class="span11">
+			<%= image_tag(p.proveedor.avatar.micro.url) if p.proveedor.avatar? %>
+			<%= p.proveedor.nombre_empresa %>
+			<br>
+			<%= raw mostrar_reputacion(p.proveedor.reputacion, p.proveedor.valoraciones, "proveedor") %>
+		</div>
+		<div class="span8">
+			<%= link_to((number_to_currency(p.precio_minimo)+" a "+number_to_currency(p.precio_maximo)), p) %> (<%= p.incluye_iva%>)
+			<br>
+			<%= link_to("Mensajes: "+p.mensajes.size.to_s, presupuesto_path(p, :anchor => "mensajes"))  %> (<%= p.mensajes.where(:usuario => :proveedor, :visto => false).size %> sin leer)
+		</div>
+	</div>
+	<% end %>
+</div>

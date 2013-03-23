@@ -7,6 +7,10 @@ content_for :title do
   "Presupuesto para: "+@trabajo.proposito
 end
 
+content_for :article_tag_id do
+  "solicitud-trabajo"
+end
+
 content_for :liston do 
   render :partial => 'trabajos/cabecera', :locals => {:trabajo => @trabajo, :cantidad_presupuestos => @trabajo.presupuestos.size, :color => "b"}
 end
@@ -48,7 +52,7 @@ end
   <div class="botones">
     <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
                 trabajo_path(@trabajo), :class => 'btn' %>
-    <%= f.submit nil, :class => 'btn btn-warning' %>
+    <%= f.submit 'Enviar presupuesto', :class => 'btn btn-warning' %>
   </div>
 <% end %>
   </div>

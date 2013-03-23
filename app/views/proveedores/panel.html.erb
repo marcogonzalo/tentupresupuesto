@@ -12,7 +12,7 @@ content_for :title do
 end
 %>
 <h1 class="page-header">Panel de proveedor</h1>
-<aside id="menu-panel" class="span5">
+<aside id="menu-panel" class="span6">
 	<%= image_tag current_proveedor.perfil.avatar.mini.url if current_proveedor.perfil.avatar? %>
   <ul class="nav nav-list" data-spy="affix" data-offset-top="350" data-offset-bottom="200">
     <li class="nav-header"><i class="icon icon-user"></i> Opciones de usuario</li>
@@ -32,9 +32,13 @@ end
     <li class="disabled">Facturación</li>
   </ul>
 </aside>
-<div class="offset1 span16">
+<div class="span16">
   <section id="presupuestos-presentados">
-    <h2>Presupuestos presentados</h2>
+	<div class="row">
+		<%= link_to "Buscar trabajos", trabajos_path, :class => 'btn btn-warning pull-right'%>
+		<h2 class="page-header">Mis trabajos</h2>
+	</div>
+    <h3>Presupuestos presentados</h3>
     <% if !@presupuestos_presentados.nil? and @presupuestos_presentados.size > 0 %>
     <table class="table table-striped">
       <thead>
@@ -60,11 +64,11 @@ end
       </tbody>
     </table>
   <% else%>
-    <p class="alert alert-info">No has presentado presupuestos. Revisa el listado ¡de seguro hay un trabajo para ti!</p>
+    <p class="text-info">No has presentado presupuestos. Revisa el listado ¡de seguro hay un trabajo para ti!</p>
   <% end %>
   </section>
   <section id="trabajos-ejecutando">
-    <h2>Trabajos en ejecución</h2>
+    <h3>Trabajos en ejecución</h3>
     <% if !@trabajos_asignados.nil? and @trabajos_asignados.size > 0 %>
     <table class="table table-striped">
       <thead>
@@ -90,11 +94,11 @@ end
       </tbody>
     </table>
   <% else%>
-    <p class="alert alert-info">No tienes trabajos asignados. ¡Interactúa con tus futuros clientes! Eso te ayuda a ganar su confianza.</p>
+    <p class="text-info">No tienes trabajos asignados. ¡Interactúa con tus futuros clientes! Eso te ayuda a ganar su confianza.</p>
   <% end %>
   </section>
   <section id="trabajos-pendientes">
-    <h2>Trabajos por evaluar</h2>
+    <h3>Trabajos por evaluar</h3>
   <% if @por_evaluar.size > 0 %>
     <table class="table table-striped">
       <thead>
@@ -119,7 +123,7 @@ end
       </tbody>
     </table>
   <% else%>
-    <p class="alert alert-info">¡Excelente! No tienes trabajos sin evaluar</p>
+    <p class="text-info">¡Excelente! No tienes trabajos sin evaluar</p>
   <% end %>
   </section>
 </div>

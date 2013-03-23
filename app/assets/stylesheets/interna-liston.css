@@ -18,6 +18,11 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
 #liston h1 { color:white; font-size:1.5em; line-height:1.5em; text-align:left; text-shadow:0 2px 5px #333;  }
 #liston a { color:white; font-weight:bold; }
 
+#solicitud-trabajo header { padding:1%;}
+#solicitud-trabajo header p { font-size:0.9em; margin-bottom:0.45em;}
+#solicitud-trabajo #descripcion { }
+#solicitud-trabajo .form-actions { text-align:center; }
+
 #cuerpo { background-color:white; clear:both; margin: 0px auto; margin-bottom:-13px; max-width:1060px; overflow:hidden; padding-bottom:3em; padding-top:1em; position:relative; top:-13px; }
 
 .formulario-general { background:#1B80C1; color:white; margin-bottom:1em; margin-top:1em; overflow:hidden; padding:1.25em; 

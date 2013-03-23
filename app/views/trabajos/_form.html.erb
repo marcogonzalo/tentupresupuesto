@@ -2,7 +2,7 @@
   <h2 class="sobre-color">Crear solicitud</h2>
 <%= form_for @trabajo do |f| %>
   <fieldset>
-    <legend>Sobre el trabajo</legend>
+    <legend>Detalles del trabajo</legend>
     <div class="row">
       <div class="control-group span9">
         <%= f.label :proposito, "¿Qué necesitas?", :class => 'control-label' %>
@@ -25,7 +25,7 @@
     </div>
   </fieldset>
   <fieldset>
-    <legend>Sobre la ubicación</legend>
+    <legend>Detalles de la ubicación</legend>
     <div class="span9">
       <div class="control-group hide"><%= f.label :pais_id %>
         <div class="controls"><%= select_entidad(:trabajo,:pais_id,nil,"pais") %></div>
@@ -52,6 +52,8 @@
     </div>
   </fieldset>
   <div class="botones">
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                panel_solicitante_path(@trabajo), :class => 'btn' %>
     <%= f.submit nil, :class => 'btn btn-warning' %>
   </div>
 <% end %>

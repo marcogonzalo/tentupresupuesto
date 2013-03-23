@@ -1,111 +1,149 @@
-<% 
+<%
 content_for :head do
-  stylesheet_link_tag 'solicitantes'
+stylesheet_link_tag 'solicitantes'
 end
 
 content_for :foot do
-  #javascript_include_tag 'trabajos_show'
+#javascript_include_tag 'trabajos_show'
 end
 
 content_for :title do
-  "Panel de Solicitante"
+"Panel de Solicitante"
 end
 %>
 <h1 class="page-header">Panel de solicitante</h1>
-<aside id="menu-panel" class="span5">
-  <ul class="nav nav-list" data-spy="affix" data-offset-top="275" data-offset-bottom="300">
-    <li class="nav-header"><i class="icon icon-user"></i> Opciones de usuario</li>
-    <li><%= link_to "Editar cuenta", edit_solicitante_registration_path %></li>
-    <li><%= link_to "Editar perfil", edit_solicitante_path %></li>
-    <li class="divider"></li>
-    <li class="nav-header"><i class="icon icon-list-alt"></i> Opciones administrativas</li>
-    <li><a href="#solicitudes-abiertas">Solicitudes abiertas <i class="icon-chevron-right"></i></a></li>
-    <li><a href="#trabajos-ejecutando">Trabajos ejecutándose <i class="icon-chevron-right"></i></a></li>
-    <li><a href="#trabajos-pendientes">Trabajos por evaluar <i class="icon-chevron-right"></i></a></li>
-    <li class="disabled">Estadísticas</li>
-  </ul>
+<aside id="menu-panel" class="span6">
+	<ul class="nav nav-list" data-spy="affix" data-offset-top="275" data-offset-bottom="300">
+		<li class="nav-header">
+			<i class="icon icon-user"></i> Opciones de usuario
+		</li>
+		<li>
+			<%= link_to "Editar cuenta", edit_solicitante_registration_path %>
+		</li>
+		<li>
+			<%= link_to "Editar perfil", edit_solicitante_path %>
+		</li>
+		<li class="divider"></li>
+		<li class="nav-header">
+			<i class="icon icon-list-alt"></i> Opciones administrativas
+		</li>
+		<li>
+			<a href="#solicitudes-abiertas">Solicitudes abiertas <i class="icon-chevron-right"></i></a>
+		</li>
+		<li>
+			<a href="#trabajos-ejecutando">Trabajos ejecutándose <i class="icon-chevron-right"></i></a>
+		</li>
+		<li>
+			<a href="#trabajos-pendientes">Trabajos por evaluar <i class="icon-chevron-right"></i></a>
+		</li>
+		<li class="disabled">
+			Estadísticas
+		</li>
+	</ul>
 </aside>
-<div class="span17">
-  <section id="solicitudes-abiertas">
-    <h2>Solicitudes abiertas</h2>
-  <% if @solicitudes.size > 0 %>
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>Trabajo</th>
-          <th>Presupuestos</th>
-          <th>Mensajes</th>
-        </tr>
-      </thead>
-      <tbody>
-      <% @solicitudes.each do |trabajo| 
-          mensajes = Mensaje.where(:presupuesto_id => trabajo.presupuestos)
-      %>
-        <tr>
-          <td><%= trabajo.proposito %><br><%= link_to 'Ver solicitud', trabajo %></td>
-          <td><%= trabajo.presupuestos.size %><br><%= link_to 'Ver presupuestos', trabajo_presupuestos_path(trabajo) %></td>
-          <td><%= mensajes.size %> (<%= mensajes.where(:usuario => :proveedor, :visto => false).size %> sin leer)</td>
-        </tr>
-      <% end %>
-      </tbody>
-    </table>
-  <% else%>
-    <p class="alert alert-info">No tienes solicitudes esperando presupuestos.</p>
-  <% end %>
-  </section>
-  <section id="trabajos-ejecutando">
-    <h2>Trabajos en ejecución</h2>
-  <% if @en_ejecucion.size > 0 %>
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>Trabajo</th>
-          <th>Presupuestos</th>
-          <th>Mensajes</th>
-        </tr>
-      </thead>
-      <tbody>
-      <% @en_ejecucion.each do |trabajo| 
-          mensajes = Mensaje.where(:presupuesto_id => trabajo.presupuestos)
-      %>
-        <tr>
-          <td><%= trabajo.proposito %><br><%= link_to 'Ver solicitud', trabajo %></td>
-          <td><%= trabajo.presupuestos.size %><br><%= link_to 'Ver presupuestos', trabajo_presupuestos_path(trabajo) %></td>
-          <td><%= mensajes.size %> (<%= mensajes.where(:usuario => :proveedor, :visto => false).size %> sin leer)</td>
-        </tr>
-      <% end %>
-      </tbody>
-    </table>
-  <% else%>
-    <p class="alert alert-info">No tienes trabajos en ejecución.</p>
-  <% end %>
-  </section>
-  
-  <section id="trabajos-pendientes">
-    <h2>Trabajos por evaluar</h2>
-  <% if @por_evaluar.size > 0 %>
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>Trabajo</th>
-          <th>Presupuestos</th>
-          <th>Mensajes</th>
-        </tr>
-      </thead>
-      <tbody>
-      <% @por_evaluar.each do |trabajo| 
-          mensajes = Mensaje.where(:presupuesto_id => trabajo.presupuestos)
-      %>
-        <tr>
-          <td><%= trabajo.proposito %><br><%= link_to 'Ver solicitud', trabajo %></td>
-          <td><%= trabajo.presupuestos.size %><br><%= link_to 'Ver presupuestos', trabajo_presupuestos_path(trabajo) %></td>
-          <td><%= mensajes.size %> (<%= mensajes.where(:usuario => :proveedor, :visto => false).size %> sin leer)</td>
-        </tr>
-      <% end %>
-      </tbody>
-    </table>
-  <% else%>
-    <p class="alert alert-info">¡Excelente! No tienes trabajos sin evaluar.</p>
-  <% end %>
-  </section>
+<div class="span16">
+	<div class="row">
+		<%= link_to "Nueva solicitud", new_trabajo_path, :class => 'btn btn-warning pull-right'%>
+		<h2 class="page-header">Mis solicitudes</h2>
+	</div>
+	<section id="solicitudes-abiertas">
+		<h3>Solicitudes abiertas</h3>
+		<% if @solicitudes.size > 0 %>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Trabajo</th>
+					<th>Presupuestos</th>
+					<th>Mensajes</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% @solicitudes.each do |trabajo|
+					mensajes = Mensaje.where(:presupuesto_id => trabajo.presupuestos)
+				%>
+				<tr>
+					<td><%= trabajo.proposito %>
+					<br>
+					<%= link_to 'Ver solicitud', trabajo %></td>
+					<td><%= trabajo.presupuestos.size %>
+					<br>
+					<%= link_to 'Ver presupuestos', trabajo_presupuestos_path(trabajo) %></td>
+					<td><%= mensajes.size %> (<%= mensajes.where(:usuario => :proveedor, :visto => false).size %> sin leer)</td>
+				</tr>
+				<% end %>
+			</tbody>
+		</table>
+		<% else%>
+		<p class="text-info">
+			No tienes solicitudes esperando presupuestos.
+		</p>
+		<% end %>
+	</section>
+	<section id="trabajos-ejecutando">
+		<h3>Trabajos en ejecución</h3>
+		<% if @en_ejecucion.size > 0 %>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Trabajo</th>
+					<th>Presupuestos</th>
+					<th>Mensajes</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% @en_ejecucion.each do |trabajo|
+				mensajes = Mensaje.where(:presupuesto_id => trabajo.presupuestos)
+				%>
+				<tr>
+					<td><%= trabajo.proposito %>
+					<br>
+					<%= link_to 'Ver solicitud', trabajo %></td>
+					<td><%= trabajo.presupuestos.size %>
+					<br>
+					<%= link_to 'Ver presupuestos', trabajo_presupuestos_path(trabajo) %></td>
+					<td><%= mensajes.size %> (<%= mensajes.where(:usuario => :proveedor, :visto => false).size %> sin leer)</td>
+				</tr>
+				<% end %>
+			</tbody>
+		</table>
+		<% else%>
+		<p class="text-info">
+			No tienes trabajos en ejecución.
+		</p>
+		<% end %>
+	</section>
+
+	<section id="trabajos-pendientes">
+		<h3>Trabajos por evaluar</h3>
+		<% if @por_evaluar.size > 0 %>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Trabajo</th>
+					<th>Presupuestos</th>
+					<th>Mensajes</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% @por_evaluar.each do |trabajo|
+				mensajes = Mensaje.where(:presupuesto_id => trabajo.presupuestos)
+				%>
+				<tr>
+					<td><%= trabajo.proposito %>
+					<br>
+					<%= link_to 'Ver solicitud', trabajo %></td>
+					<td><%= trabajo.presupuestos.size %>
+					<br>
+					<%= link_to 'Ver presupuestos', trabajo_presupuestos_path(trabajo) %></td>
+					<td><%= mensajes.size %> (<%= mensajes.where(:usuario => :proveedor, :visto => false).size %> sin leer)</td>
+				</tr>
+				<% end %>
+			</tbody>
+		</table>
+		<% else%>
+		<p class="text-info">
+			¡Excelente! No tienes trabajos sin evaluar.
+		</p>
+		<% end %>
+	</section>
 </div>
