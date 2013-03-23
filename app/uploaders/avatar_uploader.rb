@@ -24,7 +24,7 @@ class AvatarUploader < CarrierWave::Uploader::Base
     if Rails.env.development? or Rails.env.test?
       "uploads/#{model.class.to_s.underscore}/#{model.id.to_s}/#{mounted_as}"
     else
-      "public/uploads/imagenes/#{model.class.to_s.underscore}/#{model.id.to_s}/#{mounted_as}"
+      "uploads/imagenes/#{model.class.to_s.underscore}/#{model.id.to_s}/#{mounted_as}"
     end
   end
 

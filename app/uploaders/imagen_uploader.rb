@@ -2,7 +2,7 @@
 
 class ImagenUploader < CarrierWave::Uploader::Base
   before :store, :remember_cache_id
-  after :store, :delete_tmp_dir
+  after :retrieve_from_store, :delete_tmp_dir
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
   include CarrierWave::MiniMagick
@@ -26,7 +26,7 @@ class ImagenUploader < CarrierWave::Uploader::Base
       #"uploads/#{model.class.to_s.underscore}/#{model.owner.id.to_s}/galeria"
       "uploads/#{model.imagenable.class.to_s.underscore}/#{model.imagenable.id.to_s}/#{model.proposito.underscore}"
     else
-      "public/uploads/imagenes/#{model.imagenable.class.to_s.underscore}/#{model.imagenable.id.to_s}/#{model.proposito.underscore}"
+      "uploads/imagenes/#{model.imagenable.class.to_s.underscore}/#{model.imagenable.id.to_s}/#{model.proposito.underscore}"
     end
   end
 
@@ -39,7 +39,7 @@ class ImagenUploader < CarrierWave::Uploader::Base
   # end
 
   # Process files as they are uploaded:
-  process :resize_to_fit => [400,300]
+  process :resize_to_fit => [800,600]
   # process :scale => [200, 300]
   #
   # def scale(width, height)
@@ -47,15 +47,15 @@ class ImagenUploader < CarrierWave::Uploader::Base
   # end
 
   # Create different versions of your uploaded files:
-  version :grande do
-    process :resize_to_fit => [800,600]
+  version :mediana do
+    process :resize_to_fit => [400,300]
   end
   
-  version :mini do
+  version :mini, :from_version => :mediana do
     process :resize_to_fit => [200,150]
   end
   
-  version :micro do
+  version :micro, :from_version => :mediana do
     process :resize_to_fit => [80,60]
   end
 

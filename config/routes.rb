@@ -23,13 +23,14 @@ Ttp::Application.routes.draw do
       get     'categorias' => "proveedores#categorias_de_proveedor", :as => "categorias_de_proveedor"
       put     'categorias(/:id)' => "proveedores#update_categorias_de_proveedor", :as => "update_categorias_de_proveedor"
       get     "editar-perfil" => "proveedores#edit", :as => "edit_proveedor"
-      # put     "editar-perfil(.:id)" => "proveedores#update", :as => "proveedores"
+      put     "editar-perfil(.:id)" => "proveedores#update", :as => "proveedores"
+      get     "imagen" => "proveedores#imagen", :as => "imagen_proveedor"
+      put     "imagen(/:id)" => "proveedores#cambiar_imagen", :as => "cambiar_imagen_proveedor"
       get     "imagenes_galeria" => "imagenes#galeria", :as => "galeria_proveedor"
       put     "imagenes_galeria(/:id)" => "imagenes#editar_galeria", :as => "editar_galeria_proveedor"
       delete  "imagenes_galeria(/:id)" => "imagenes#borrar_galeria", :as => "borrar_galeria_proveedor"
-      get     "imagen" => "proveedores#imagen", :as => "imagen_proveedor"
       get     "nuevo-perfil" => "proveedores#new", :as => "new_proveedor"
-      # post    "nuevo-perfil(.:id)" => "proveedores#create", :as => "proveedores"
+      post    "nuevo-perfil(.:id)" => "proveedores#create", :as => "proveedores"
     end
     resources :proveedores, :only => [:index, :show, :create, :update]
     scope :proveedores do
