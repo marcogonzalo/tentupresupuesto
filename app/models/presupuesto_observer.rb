@@ -6,6 +6,9 @@ class PresupuestoObserver < ActiveRecord::Observer
     if presupuesto.proveedor_id.present?
       Proveedor.increment_counter(:solicitudes_atendidas,presupuesto.proveedor_id)
     end
+    if presupuesto.proveedor_id.present?
+      Trabajo.increment_counter(:cant_presupuestos,presupuesto.trabajo_id)
+    end
   end
   
   def after_update(presupuesto)
@@ -24,6 +27,9 @@ class PresupuestoObserver < ActiveRecord::Observer
   def after_destroy(presupuesto)
     if presupuesto.proveedor_id.present?
       Proveedor.decrement_counter(:solicitudes_atendidas,presupuesto.proveedor_id)
+    end
+    if presupuesto.proveedor_id.present?
+      Trabajo.decrement_counter(:cant_presupuestos,presupuesto.trabajo_id)
     end
   end
 end
