@@ -6,8 +6,37 @@ class TrabajosController < ApplicationController
   # GET /trabajos
   # GET /trabajos.json
   def index
-    @trabajos = Trabajo.all
-
+    unless params[:filtro].nil?
+      @trabajos = []
+      if FiltroListaTrabajos::FILTROS.include?(params[:filtro]) and not params[:id].nil?
+        case params[:filtro]
+        when "categoria"
+          @categoria = Categoria.find(params[:id])
+          @trabajos =  @categoria.nil? ? [] : @categoria.trabajos
+        when "estatus"
+          existe_estatus = Trabajo::ESTATUS.include?(params[:id])
+          @estatus = Trabajo::ESTATUS.include?(params[:id]) ? params[:id].to_s.camelize : nil
+          @trabajos = existe_estatus ? Trabajo.where(:estatus => params[:id]) : []
+        when "ubicacion"
+          @ubicacion = UbicacionGeografica.find(params[:id])
+          unless @ubicacion.nil?
+            case @ubicacion.tipo
+            when 'pais'
+              @trabajos = @ubicacion.trabajos_de_pais
+            when 'estado'
+              @trabajos = @ubicacion.trabajos_de_estado
+            when 'municipio'
+              @trabajos = @ubicacion.trabajos_de_municipio
+            when 'localidad'
+              @trabajos = @ubicacion.trabajos_de_localidad
+            end
+          end
+        end
+      end
+    else
+      @trabajos = Trabajo.all
+    end
+    @cant_resultados = @trabajos.size
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @trabajos }

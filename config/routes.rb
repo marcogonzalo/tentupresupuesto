@@ -1,3 +1,11 @@
+
+class FiltroListaTrabajos
+  FILTROS = %w[categoria estatus ubicacion] # Tambien definido en trabajos#index
+  def self.matches?(request)
+    FILTROS.include? request.params[:filtro]
+  end
+end
+
 Ttp::Application.routes.draw do
   scope :path_names => { :new => "nuevo", :edit => "editar" } do
     devise_for :proveedor, :class_name => 'Usuario', :controllers => { :registrations => "registrations", :confirmations => "confirmations" }, :path_names => { :sign_in => 'iniciar_sesion', :sign_up => 'registro', :sign_out => 'cerrar_sesion', :password => 'clave', :confirmation => 'verificacion', :edit => 'editar' }
@@ -14,9 +22,10 @@ Ttp::Application.routes.draw do
       get     "/" => "solicitantes#panel", :as => "panel_solicitante"
       get     "nuevo-perfil" => "solicitantes#new", :as => "new_solicitante"
       get     "editar-perfil" => "solicitantes#edit", :as => "edit_solicitante"
-      post    "nuevo-perfil(.:id)" => "solicitantes#create", :as => "solicitantes"
-      put     "editar-perfil(.:id)" => "solicitantes#update", :as => "solicitante"
+#      post    "nuevo-perfil(.:id)" => "solicitantes#create", :as => "solicitantes"
+#      put     "editar-perfil(.:id)" => "solicitantes#update", :as => "solicitante"
     end
+    resources :solicitantes, :only => [:create, :update]
     
     scope "/proveedor" do
       get     "/" => "proveedores#panel", :as => "panel_proveedor"
@@ -32,11 +41,15 @@ Ttp::Application.routes.draw do
       get     "nuevo-perfil" => "proveedores#new", :as => "new_proveedor"
 #      post    "nuevo-perfil(.:id)" => "proveedores#create", :as => "proveedores"
     end
-    resources :proveedores, :only => [:index, :show, :create, :update]
     scope :proveedores do
       get     "proveedores/:id" => "proveedores#show", :as => "perfil_proveedor"
     end
+    resources :proveedores, :only => [:index, :show, :create, :update]
     
+    scope :trabajos do
+      filt = "%w[categoria estatus ubicacion]"
+      get '/trabajos/:filtro(/:id)' => "trabajos#index", :as => "listar_trabajos", :constraints => FiltroListaTrabajos
+    end
     resources :trabajos, :shallow => true, :path_names => {:new => "nuevo", :edit => "editar"} do
       resources :presupuestos, :path_names => {:new => "nuevo", :edit => "editar"} do
         member do
@@ -60,7 +73,6 @@ Ttp::Application.routes.draw do
       get "terminos-y-condiciones" => "general#home", :as => "general_terminos"
     end
    
-    # rest of your routes
   end
   # The priority is based upon order of creation:
   # first created -> highest priority.

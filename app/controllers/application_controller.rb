@@ -2,6 +2,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   FLASH_NOTICE_KEYS = [:error, :warning, :info, :success] # Tipos de notificaciones bootstrap
   
+  add_breadcrumb "TTP", :root_path
+  
   def current_user
     return current_solicitante ? current_solicitante : current_proveedor
   end
