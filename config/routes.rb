@@ -1,6 +1,11 @@
-
+class FiltroListaProveedores
+  FILTROS = %w[categoria tipo ubicacion]
+  def self.matches?(request)
+    FILTROS.include? request.params[:filtro]
+  end
+end
 class FiltroListaTrabajos
-  FILTROS = %w[categoria estatus ubicacion] # Tambien definido en trabajos#index
+  FILTROS = %w[categoria estatus ubicacion]
   def self.matches?(request)
     FILTROS.include? request.params[:filtro]
   end
@@ -42,13 +47,13 @@ Ttp::Application.routes.draw do
 #      post    "nuevo-perfil(.:id)" => "proveedores#create", :as => "proveedores"
     end
     scope :proveedores do
+      get     'proveedores/:filtro/:valor' => "proveedores#index", :as => "listar_proveedores", :constraints => FiltroListaProveedores
       get     "proveedores/:id" => "proveedores#show", :as => "perfil_proveedor"
     end
     resources :proveedores, :only => [:index, :show, :create, :update]
     
     scope :trabajos do
-      filt = "%w[categoria estatus ubicacion]"
-      get '/trabajos/:filtro(/:id)' => "trabajos#index", :as => "listar_trabajos", :constraints => FiltroListaTrabajos
+      get     'trabajos/:filtro/:valor' => "trabajos#index", :as => "listar_trabajos", :constraints => FiltroListaTrabajos
     end
     resources :trabajos, :shallow => true, :path_names => {:new => "nuevo", :edit => "editar"} do
       resources :presupuestos, :path_names => {:new => "nuevo", :edit => "editar"} do

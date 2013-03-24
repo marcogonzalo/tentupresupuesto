@@ -8,17 +8,17 @@ class TrabajosController < ApplicationController
   def index
     unless params[:filtro].nil?
       @trabajos = []
-      if FiltroListaTrabajos::FILTROS.include?(params[:filtro]) and not params[:id].nil?
+      if FiltroListaTrabajos::FILTROS.include?(params[:filtro]) and not params[:valor].nil?
         case params[:filtro]
         when "categoria"
-          @categoria = Categoria.find(params[:id])
+          @categoria = Categoria.find(params[:valor])
           @trabajos =  @categoria.nil? ? [] : @categoria.trabajos
         when "estatus"
-          existe_estatus = Trabajo::ESTATUS.include?(params[:id])
-          @estatus = Trabajo::ESTATUS.include?(params[:id]) ? params[:id].to_s.camelize : nil
-          @trabajos = existe_estatus ? Trabajo.where(:estatus => params[:id]) : []
+          existe_estatus = Trabajo::ESTATUS.include?(params[:valor])
+          @estatus = Trabajo::ESTATUS.include?(params[:valor]) ? params[:valor].to_s.humanize : nil
+          @trabajos = existe_estatus ? Trabajo.where(:estatus => params[:valor]) : []
         when "ubicacion"
-          @ubicacion = UbicacionGeografica.find(params[:id])
+          @ubicacion = UbicacionGeografica.find(params[:valor])
           unless @ubicacion.nil?
             case @ubicacion.tipo
             when 'pais'

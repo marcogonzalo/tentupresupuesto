@@ -8,6 +8,21 @@ aside#menu-panel img {margin:0.5em 2.5em;}
 aside#menu-panel ul li { font-size:0.9em; line-height:1.25em; }
 aside#menu-panel ul li i { opacity:.25; }
 
+/* LISTA DE PROVEEDORES */
+#filtros.well {background:#1B80C1;
+-moz-box-shadow: inset 0 0 10em #2B598F;
+-webkit-box-shadow: inset 0 0 10em #2B598F;
+box-shadow:  inset 0 0 10em #2B598F;
+}
+#filtros h4 {color:white;}
+#filtros .listado { background-color:#eee; border-radius:5px; font-family:"MyriadPro", Arial, sans-serif; height:10em; overflow:auto; padding:0.25em;}
+#filtros .listado ul li { font-size:0.9em;}
+.proveedor { background-color:#eee; border:1px solid silver; clear:both; padding:1%;}
+.proveedor img { float:left; padding:0.25em 0.5em 0 0;}
+.proveedor .reputacion {background-color:gray;}
+.proveedor p { font-size:0.85em; margin-bottom:0.25em;}
+.proveedor .descripcion { font-size:1em; }
+
 /* PERFIL DE PROVEEDOR */
 aside#perfil-proveedor { background:url('tentu/internas/terminacionperfilabajo.png') no-repeat center bottom; margin-left:0px; max-width:233px; }
 #ficha-proveedor {background:#0080C4 url('tentu/internas/fondotituloperfil.png') repeat-x top left; color:white; margin-bottom:55px; padding:4px; padding-top:3em; text-align:center; width:225px;}

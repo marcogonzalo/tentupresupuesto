@@ -15,8 +15,8 @@
 <h1 class="page-header"><%= t '.title', :default => model_class.model_name.human.pluralize %></h1>
 <div class="span6">
 	<div id="filtros" class="well">
-	<% if solicitante_signed_in? %>
-		<%= link_to "Nueva solicitud", new_trabajo_path, :class => 'btn btn-warning btn-block'%>
+	<% unless proveedor_signed_in? %>
+		<%= link_to "Nueva solicitud", new_trabajo_path, :class => 'btn btn-warning btn-block con-myriad-bold'%>
 		<br>
 	<% end %>
 		<h4>Categorías</h4>
@@ -44,7 +44,7 @@
 			<ul class=" nav nav-list">
 				<li><%= link_to "Todos", trabajos_path, :class => "con-myriad-bold" %></li>
 				<% for est in Trabajo::ESTATUS %>  
-				<li><%= link_to est.camelize, listar_trabajos_path('estatus', est) %></li>
+				<li><%= link_to est.humanize, listar_trabajos_path('estatus', est) %></li>
 				<% end %>
 			</ul>
 		</div>
@@ -56,7 +56,7 @@
 <% elsif not @estatus.nil? %>
 	<h2 class="page-header"><%= @estatus+" ("+@cant_resultados.to_s+")" %></h2>
 <% elsif not @ubicacion.nil? %>
-	<h2 class="page-header"><%= @ubicacion.tipo.camelize+" "+@ubicacion.nombre+" ("+@cant_resultados.to_s+")" %></h2>
+	<h2 class="page-header"><%= @ubicacion.tipo.humanize+" "+@ubicacion.nombre+" ("+@cant_resultados.to_s+")" %></h2>
 <% else %>
 	<h2 class="page-header">Todos los trabajos</h2>
 <% end %>
@@ -69,13 +69,13 @@
 		<section class="datos-solicitud">
 			<div class="cat-p-n <%= trabajo.categoria.clase_css %>"></div>
 			<p>
-				<%= link_to trabajo.categoria.nombre, categoria_path(trabajo.categoria) %> | <%= link_to( t('extras.presupuestos', :count => trabajo.cant_presupuestos), trabajo_path(trabajo, :anchor => "presupuestos")) %>
+				<%= link_to trabajo.categoria.nombre, listar_trabajos_path('categoria', trabajo.categoria.friendly_id) %> | <%= link_to( t('extras.presupuestos', :count => trabajo.cant_presupuestos), trabajo_path(trabajo, :anchor => "presupuestos")) %>
 			</p>
 			<p>
 				<time datetime="<%= l trabajo.created_at, :format => :html5 %>" pubdate="pubdate">
 					<%= l trabajo.created_at, :format => :abrev %>
 				</time> | 
-				En <%= trabajo.localidad.nombre %>, Municipio <%= trabajo.municipio.nombre %>, Estado <%= trabajo.estado.nombre %>.
+				En <%= link_to trabajo.localidad.nombre, listar_trabajos_path('ubicacion', trabajo.localidad.friendly_id) %>, Municipio <%= link_to trabajo.municipio.nombre, listar_trabajos_path('ubicacion', trabajo.municipio.friendly_id) %>, Estado <%= link_to trabajo.estado.nombre, listar_trabajos_path('ubicacion', trabajo.estado.friendly_id) %>.
 			</p>
 		</section>
 		<p class="descripcion"><%= truncate(trabajo.descripcion, :length => 250, :separator => ' ') %></p>

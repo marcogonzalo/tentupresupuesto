@@ -10,7 +10,37 @@ class ProveedoresController < ApplicationController
   # GET /proveedores
   # GET /proveedores.json
   def index
-    @proveedores = Proveedor.all
+    unless params[:filtro].nil?
+      @proveedores = []
+      if FiltroListaProveedores::FILTROS.include?(params[:filtro]) and not params[:valor].nil?
+        case params[:filtro]
+        when "categoria"
+          @categoria = Categoria.find(params[:valor])
+          @proveedores =  @categoria.nil? ? [] : @categoria.proveedores
+        when "tipo"
+          existe_tipo = Proveedor::TIPO_EMPRESA.include?(params[:valor])
+          @tipo = Proveedor::TIPO_EMPRESA.include?(params[:valor]) ? params[:valor].to_s : nil
+          @proveedores = existe_tipo ? Proveedor.where(:tipo_proveedor => params[:valor]) : []
+        when "ubicacion"
+          @ubicacion = UbicacionGeografica.find(params[:valor])
+          unless @ubicacion.nil?
+            case @ubicacion.tipo
+            when 'pais'
+              @proveedores = @ubicacion.proveedores_de_pais
+            when 'estado'
+              @proveedores = @ubicacion.proveedores_de_estado
+            when 'municipio'
+              @proveedores = @ubicacion.proveedores_de_municipio
+            when 'localidad'
+              @proveedores = @ubicacion.proveedores_de_localidad
+            end
+          end
+        end
+      end
+    else
+      @proveedores = Proveedor.all
+    end
+    @cant_resultados = @proveedores.size
     add_breadcrumb :index, :proveedores_path
     respond_to do |format|
       format.html # index.html.erb
