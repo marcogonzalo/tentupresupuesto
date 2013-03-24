@@ -11,7 +11,7 @@
  *= require base_ttp
  *= require_self
  */
-
+body{padding:0px;}
 input[type="text"], input[type="password"], input[type="email"] { height:3em; width:85%;}
 
 #cabecera { background:#71C03A url('tentu/landing/fondo-cabecera.png') no-repeat center bottom; height:auto; max-height:450px; max-width:1060px; overflow:hidden; width:100%; }
