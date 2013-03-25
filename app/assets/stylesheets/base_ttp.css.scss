@@ -14,7 +14,7 @@
 body { background-color:#adeb6e; padding:25px 0 0 0; }
 h1, h2, h3, h4, h5, h6 { color:#333; font-family:'MyriadProBold','Arial',sans-serif; font-weight:normal; line-height:1.25em; margin:0px; }
 h1 { font-family:'Chango','Trebuchet MS', sans-serif; font-size:2em; text-align:center; }
-h2 { font-size:1.8em; }
+h2 { font-size:1.75em; }
 h3 { font-size:1.5em; }
 h4, h5, h6 { color:#333; font-size:1.25em;}
 form {font-family:'MyriadPro','Arial',sans-serif;}
@@ -40,7 +40,7 @@ border-radius:0.25em;
 }
 #cabecera-interna .navbar .enlaces_usuario a:hover { background-color:#5ca224; }
 
-#breadcrumbs {font-family:'MyriadPro','Arial',sans-serif; margin-top:-10px;overflow: hidden;}
+#breadcrumbs {font-family:'MyriadPro','Arial',sans-serif; margin-top:-20px;overflow: hidden;}
 #breadcrumbs .breadcrumb { background:none; margin-bottom:5px; padding:0px; text-align:right; }
 
 #mensaje-ttp { clear:both; }
