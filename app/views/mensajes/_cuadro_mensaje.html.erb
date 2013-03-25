@@ -1,12 +1,15 @@
 <% unless m.new_record? %>
-<div class="mensaje mensaje-<%= m.usuario %>">
-  <%= link_to "&times;".html_safe, mensaje_path(m), :method => 'delete', :class => 'close' %>
-  <p class="tipo-usuario">
-    <b><%= (m.usuario.to_s == tipo_usuario ? "tú" : m.usuario.to_s).camelize %></b>: 
-    <span class="micro-nota"><%= "("+m.leido+")" if m.usuario == tipo_usuario %></span>
-  </p>
-  <p class="comentario"><%= m.comentario %></p>
-  <time><%= l m.created_at, :format => :abrev %></time>
+<div class="mensaje mensaje-<%= m.usuario %> <%= m.usuario.to_s == tipo_usuario ? "mensaje-tu" : "mensaje-otro"%>">
+	<p class="tipo-usuario pull-left">
+		<b><%= (m.usuario.to_s == tipo_usuario ? "tú" : m.usuario.to_s).camelize %></b>: <span class="leido"><%= "("+m.leido+")" if m.usuario == tipo_usuario %></span>
+	</p>
+	<%= link_to "&times;".html_safe, mensaje_path(m), :method => 'delete', :class => 'pull-right close' %>
+	<time class="pull-right">
+		<%= l m.created_at, :format => :abrev %>
+	</time>
+	<p class="comentario">
+		<%= m.comentario %>
+	</p>
 </div>
 <div class="clearfix"></div>
 <% end %>
