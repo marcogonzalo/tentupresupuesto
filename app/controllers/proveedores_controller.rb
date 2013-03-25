@@ -124,7 +124,7 @@ class ProveedoresController < ApplicationController
             current_proveedor.update_attribute('perfilable_id', @proveedor.id)
             
             flash[:success] = "Datos de proveedor registrados."
-            format.html { redirect_to panel_proveedor_path }
+            format.html { redirect_to categorias_de_proveedor_path }
             format.json { render json: @proveedor, status: :created, location: @proveedor }
           else
             flash[:error] = "Ocurrió un error. Revisa el formulario."
