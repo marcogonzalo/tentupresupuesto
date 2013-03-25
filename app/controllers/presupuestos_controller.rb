@@ -69,6 +69,12 @@ class PresupuestosController < ApplicationController
   # GET /presupuestos/new.json
   def new
     @trabajo = Trabajo.find(params[:trabajo_id])
+    presupuestos_de_proveedor = @trabajo.presupuestos.where(:proveedor_id => current_proveedor.perfilable_id).size
+    if presupuestos_de_proveedor > 0
+      flash[:warning] = "Ya has presentado un presupuesto para esta solicitud."
+      redirect_to @trabajo
+      return
+    end
     @presupuesto = @trabajo.presupuestos.build
     @path = [@trabajo, @presupuesto]
     add_breadcrumb @trabajo.proposito, trabajo_path(@trabajo)
@@ -183,7 +189,7 @@ class PresupuestosController < ApplicationController
     respond_to do |format|
       if es_el_solicitante
         if @presupuesto.update_attribute('aprobado',true)
-          flash[:success] = "El presupuesto ha sido aceptado."
+          flash[:success] = "Has aceptado el presupuesto. El trabajo aparecera como en ejecución."
           format.json { render :json => { presupuesto: @presupuesto, tipo_mensaje: :success, mensaje: flash[:success]}}
         else
           flash[:error] = "Ocurrió un error. No pudo aceptarse el presupuesto."

@@ -34,9 +34,9 @@ class ApplicationController < ActionController::Base
   def authenticated_any
     unless signed_in?
       if solicitante_signed_in?
-        redirect_to new_solicitante_session_path()
+        redirect_to new_solicitante_session_path
       else
-        redirect_to new_proveedor_session_path()
+        redirect_to new_proveedor_session_path
       end
     end
     return true
@@ -44,14 +44,14 @@ class ApplicationController < ActionController::Base
   
   def authenticated_solicitante
     unless solicitante_signed_in?
-      redirect_to new_solicitante_session_path()
+      redirect_to new_solicitante_session_path
     end
     return true
   end
   
   def authenticated_proveedor
     unless proveedor_signed_in?
-      redirect_to new_proveedor_session_path()
+      redirect_to new_proveedor_session_path
     end
     return true
   end

@@ -62,4 +62,21 @@ class Trabajo < ActiveRecord::Base
   validates :precio_final, 
             :numericality =>  { :greater_than_or_equal_to => 0 }
   validates :slug, :presence => true
+  
+  # ACCIONES
+  def buscando?
+    self.estatus == "buscando"
+  end
+  
+  def ejecutando?
+    self.estatus == "ejecutando"
+  end
+  
+  def finalizado?
+    self.estatus == "finalizado"
+  end
+  
+  def cerrado?
+    self.estatus == "cerrado"
+  end
 end
