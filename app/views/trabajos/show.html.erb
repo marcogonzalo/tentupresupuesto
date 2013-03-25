@@ -23,6 +23,8 @@
 <section id="descripcion" class="offset1 span20">
 	<h2>Descripci&oacute;n del trabajo solicitado</h3>
 	<pre><%= @trabajo.descripcion %></pre>
+	<p><%= "<b>Estatus</b>: ".html_safe+@trabajo.estatus unless @trabajo.buscando? %></p>
+	
 </section>
 <div class="clearfix micro-nota">
 	Ref: <%= @trabajo.id %>
