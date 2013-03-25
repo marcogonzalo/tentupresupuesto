@@ -91,8 +91,8 @@ class ProveedoresController < ApplicationController
   # GET /proveedor
   def panel
     @presupuestos_presentados = Presupuesto.includes([:trabajo, :mensajes]).where("presupuestos.proveedor_id = ? AND trabajos.estatus = 'buscando'", current_proveedor.perfilable_id).order("trabajos.updated_at DESC")
-    @en_ejecucion = Trabajo.includes(:presupuestos).where(:contratado_id => current_proveedor.perfilable_id).estatus_ejecutando
-    @por_evaluar = Trabajo.includes(:presupuestos).where(:contratado_id => current_proveedor.perfilable_id).estatus_finalizado
+    @trabajos_asignados = Presupuesto.includes([:trabajo, :mensajes]).where("presupuestos.proveedor_id = ? AND trabajos.estatus = 'ejecutando'", current_proveedor.perfilable_id).order("trabajos.updated_at DESC")
+    @por_evaluar = Presupuesto.includes([:trabajo, :mensajes]).where("presupuestos.proveedor_id = ? AND trabajos.estatus = 'finalizado'", current_proveedor.perfilable_id).order("trabajos.updated_at DESC") # Trabajo.includes(:presupuestos).where(:contratado_id => current_proveedor.perfilable_id).estatus_finalizado
 
     render "panel"
   end

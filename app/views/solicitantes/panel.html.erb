@@ -102,7 +102,8 @@ end
 					<%= link_to 'Ver solicitud', trabajo %></td>
 					<td><%= trabajo.cant_presupuestos %>
 					<br>
-					<%= link_to 'Ver presupuestos', trabajo_presupuestos_path(trabajo) %></td>
+					<% #= link_to 'Ver presupuestos', trabajo_presupuestos_path(trabajo) 
+					%></td>
 					<td><%= mensajes.size %> (<%= mensajes.where(:usuario => :proveedor, :visto => false).size %> sin leer)</td>
 				</tr>
 				<% end %>

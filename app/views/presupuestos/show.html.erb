@@ -31,29 +31,47 @@
 			<strong>Precio estimado:</strong>
 		</dt>
 		<dd>
-			Entre <%= number_to_currency(@presupuesto.precio_minimo) %> y <%= number_to_currency(@presupuesto.precio_maximo) %> (<%= @presupuesto.incluye_iva %>) [costo referencial]
+			Entre <%= number_to_currency(@presupuesto.precio_minimo) %> y <%= number_to_currency(@presupuesto.precio_maximo) %> (<%= @presupuesto.incluye_iva %>) <span class="mini-nota">costo referencial</span>
 		</dd>
 		<dt>
 			<strong><%= model_class.human_attribute_name(:resumen) %>:</strong>
 		</dt>
 		<dd>
-			<%= @presupuesto.resumen %>
+			<pre><%= @presupuesto.resumen %></pre>
 		</dd>
+	<% if @presupuesto.rechazado %>
+		<dt>
+			<strong><%= model_class.human_attribute_name(:rechazado) %>:</strong>
+		</dt>
+		<dd>
+			Sí. <%= @presupuesto.motivo_rechazo.humanize %>.
+		</dd>
+	<% elsif @presupuesto.aprobado.nil? %>
+		<dt>
+			<strong><%= model_class.human_attribute_name(:aprobado) %>:</strong>
+		</dt>
+		<dd>
+			<%= @presupuesto.aprobado ? "Sí":"No" %>.
+		</dd>
+	<% end %>
 	</dl>
-	<p>
+	<p class="mini-nota">
 		<%= @presupuesto.fue_visto if @es_el_proveedor %>
 	</p>
 
 </section>
 <div class="clearfix"></div>
 <div class="form-actions">
-	<% if @es_el_solicitante %>
+<% if @es_el_solicitante %>
 		<%= link_to "Ver solicitud", trabajo_path(@trabajo), :class => 'btn btn-large' %>
 		<%= link_to "Ver perfil", perfil_proveedor_path(@presupuesto.proveedor), :class => 'btn btn-warning btn-large' %>
+	<% unless @presupuesto.rechazado or @presupuesto.aprobado %>
 		<%= link_to "Contratar proveedor", aceptar_presupuesto_path(@presupuesto), :remote => true, :method => 'put', :id => 'aceptar-presupuesto', :class => 'btn btn-success btn-large' %>
 		<%= link_to "Rechazar presupuesto", '#modal-rechazo', :id => 'rechazar-presupuesto', :class => 'btn btn-danger btn-large', "data-toggle"=>"modal", "data-backdrop"=>"static" %>
-	<% elsif @es_el_proveedor %>
+	<% end %>		
+<% elsif @es_el_proveedor %>
 		<%= link_to "Ver solicitud", trabajo_path(@trabajo), :class => 'btn' %>
+	<% unless @presupuesto.rechazado or @presupuesto.aprobado %>
 		<%= link_to t('.edit', :default => t("helpers.links.edit")),
 			edit_presupuesto_path(@presupuesto), :class => 'btn' %>
 		<%= link_to t('.destroy', :default => t("helpers.links.destroy")),
@@ -62,6 +80,7 @@
 			:data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
 			:class => 'btn btn-danger' %>
 	<% end %>
+<% end %>
 </div>
 <%= render 'presupuestos/form_rechazo' %>
 <span id="loading" style="display:none;">Cargando</span>

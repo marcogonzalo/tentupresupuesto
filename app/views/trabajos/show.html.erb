@@ -22,7 +22,7 @@
 %>
 <section id="descripcion" class="offset1 span20">
 	<h2>Descripci&oacute;n del trabajo solicitado</h3>
-	<%= @trabajo.descripcion %>
+	<pre><%= @trabajo.descripcion %></pre>
 </section>
 <div class="clearfix"></div>
 <div class="form-actions">
@@ -51,8 +51,16 @@
 <% if @trabajo.contratado %>
 <section id="contratado">
 	<h2>Proveedor contratado</h2>
-	<div class="presupuesto">
-		<span class="proveedor-contratado"><%= @trabajo.contratado.nombre_empresa %></span><%= raw mostrar_reputacion(@trabajo.contratado.reputacion, @trabajo.contratado.valoraciones, "general") %>
+	<div class="span4 presupuesto">
+	  <div class="separar-alrededor">
+	    <%= image_tag(@trabajo.contratado.avatar.mini.url) if @trabajo.contratado.avatar? %>
+	    <span class="proveedor-interesado"><b><%= @trabajo.contratado.nombre_empresa %></b></span> 
+	    <%= raw mostrar_reputacion(@trabajo.contratado.reputacion, @trabajo.contratado.valoraciones, "proveedor") %>
+	    </div>
+	    <div class="botones">
+	      <%= link_to "Ver perfil", perfil_proveedor_path(@trabajo.contratado), :class => 'btn btn-warning btn-small' %>
+	    </div>
+	  </div>
 	</div>
 </section>
 <% end %>

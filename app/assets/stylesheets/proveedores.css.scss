@@ -48,6 +48,7 @@ div#perfil #titulo-pestana {background:url('tentu/internas/terminaciontituloperf
 div#perfil #titulo-pestana h3 {background:#0080C4 url('tentu/internas/fondotituloperfil.png') repeat-x top left; line-height:1.85em; margin:0px; min-height:2.2em; text-align:center;}
 
 div#perfil div#informacion { padding-top:1em;}
+div#perfil div#informacion pre {display:block; padding:inherit; margin:0.25em 1em; font-family:Arial,sans-serif; font-size:1em; line-height: 1.25em; word-break: break-all; word-wrap: break-word; white-space: pre; white-space: pre-wrap; background:none; border:none; border-radius:none;}
 div#perfil div#informacion #iconos-categorias { border:1px solid silver; border-radius:15px; margin-top:15px; overflow:hidden;}
 
 div#perfil div#trabajos, div#imagenes-trabajos { padding-top:1em; text-align:center; }
