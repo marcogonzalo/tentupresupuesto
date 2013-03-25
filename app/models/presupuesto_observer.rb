@@ -13,6 +13,10 @@ class PresupuestoObserver < ActiveRecord::Observer
   
   def after_update(presupuesto)
     if presupuesto.aprobado and presupuesto.trabajo_id.present?
+      t = presupuesto.trabajo
+      t.estatus = "ejecutando"
+      t.contratado_id = presupuesto.proveedor_id
+      t.save
       presupuestos = Presupuesto.where(:trabajo_id => presupuesto.trabajo_id, :aprobado => nil)
       presupuestos.each do |p|
         p.aprobado = false

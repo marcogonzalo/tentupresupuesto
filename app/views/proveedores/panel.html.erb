@@ -100,7 +100,7 @@ end
 	</section>
 	<section id="trabajos-ejecutando" class="well">
 		<h3>Trabajos en ejecución</h3>
-		<% if !@trabajos_asignados.nil? and @trabajos_asignados.size > 0 %>
+		<% unless @trabajos_asignados.nil? or @trabajos_asignados.size < 1 %>
 		<table class="table table-striped">
 			<thead>
 				<tr>
@@ -110,7 +110,7 @@ end
 				</tr>
 			</thead>
 			<tbody>
-				<% @presupuestos_asignados.each do |p|
+				<% @trabajos_asignados.each do |p|
 				t = p.trabajo
 				m = p.mensajes
 				%>

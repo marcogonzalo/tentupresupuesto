@@ -8,6 +8,8 @@ jQuery(function($) {
         $("#rechazar-presupuesto").addClass("disabled")
         $("#aceptar-presupuesto").removeAttr('href')
         $("#rechazar-presupuesto").removeAttr('href')
+        $("#aceptar-presupuesto").fadeOut()
+        $("#rechazar-presupuesto").fadeOut()
       }
       alternar_cargando("#loading")
     })
@@ -25,6 +27,8 @@ jQuery(function($) {
         $("#rechazar-presupuesto").addClass("disabled")
         $("#aceptar-presupuesto").removeAttr('href')
         $("#rechazar-presupuesto").removeAttr('href')
+        $("#aceptar-presupuesto").fadeOut()
+        $("#rechazar-presupuesto").fadeOut()
       }
       alternar_cargando("#loading")
       $("#modal-rechazo").modal('hide')

@@ -9,7 +9,7 @@ class PresupuestosController < ApplicationController
   # GET /presupuestos.json
   def index
     @trabajo = Trabajo.find(params[:trabajo_id])
-    @presupuestos = @trabajo.presupuestos.where(:rechazado => false)
+    @presupuestos = @trabajo.presupuestos.order("aprobado DESC, rechazado ASC")
 
     add_breadcrumb @trabajo.proposito, trabajo_path(@trabajo)
     add_breadcrumb "Presupuestos"
@@ -44,6 +44,11 @@ class PresupuestosController < ApplicationController
       # Actualiza como "visto" los mensajes del otro usuario
       @mensajes.update_all({ :visto => true }, ['usuario = ?', m_u])
       @mensaje = @presupuesto.mensajes.build(:usuario => @tipo_usuario)
+    end
+    
+    if @es_el_solicitante and !@presupuesto.visto
+      # Actualiza como visto el presupuesto
+      @presupuesto.update_attribute('visto', true)
     end
     
     add_breadcrumb @trabajo.proposito, trabajo_path(@trabajo)
@@ -87,7 +92,7 @@ class PresupuestosController < ApplicationController
     add_breadcrumb @trabajo.proposito, trabajo_path(@trabajo)
     add_breadcrumb :edit
     respond_to do |format|
-      if @es_el_proveedor
+      if @es_el_proveedor and not(@presupuesto.rechazado or @presupuesto.aprobado)
         format.html # show.html.erb
         format.json { render json: @presupuesto }
       else
@@ -111,7 +116,7 @@ class PresupuestosController < ApplicationController
     respond_to do |format|
       if @presupuesto.save
         flash[:success] = "Presupuesto enviado satisfactoriamente."
-        format.html { redirect_to @trabajo }
+        format.html { redirect_to @presupuesto }
         format.json { render json: @presupuesto, status: :created, location: @presupuesto }
       else
         flash[:error] = "Ocurrió un error. Revisa el formulario."
@@ -125,13 +130,13 @@ class PresupuestosController < ApplicationController
   # PUT /presupuestos/1.json
   def update
     @presupuesto = Presupuesto.find(params[:id])
-
+    
     es_el_proveedor = false
     if proveedor_signed_in?
       es_el_proveedor = @presupuesto.proveedor_id.eql?(current_proveedor.perfilable_id)
     end
     respond_to do |format|
-      if es_el_proveedor
+      if es_el_proveedor and not(@presupuesto.rechazado or @presupuesto.aprobado)
         if @presupuesto.update_attributes(params[:presupuesto])
           flash[:success] = "Presupuesto actualizado satisfactoriamente."
           format.html { redirect_to @presupuesto }
@@ -152,6 +157,7 @@ class PresupuestosController < ApplicationController
   # DELETE /presupuestos/1.json
   def destroy
     @presupuesto = Presupuesto.find(params[:id])
+    trabajo = @presupuesto.trabajo
     @presupuesto.destroy
 
     es_el_proveedor = false
@@ -161,7 +167,7 @@ class PresupuestosController < ApplicationController
     respond_to do |format|
       if es_el_proveedor
         flash[:success] = "Presupuesto eliminado."
-        format.html { redirect_to presupuestos_url }
+        format.html { redirect_to trabajo }
         format.json { head :no_content }
       else
         flash[:warning] = "No tienes permiso para gestionar el presupuesto."

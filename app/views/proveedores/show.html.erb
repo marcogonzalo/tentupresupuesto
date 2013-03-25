@@ -35,7 +35,7 @@ end
   <div id="informacion" class="offset1 span16 pull-right">
   	<div class="row">
 	    <h4 class="con-myriad-bold">Descripción</h4>
-	    <p><%= @proveedor.descripcion %></p>
+	    <pre><%= @proveedor.descripcion %></pre>
 	    <% unless @proveedor.rif.empty? %>
 	    <dl class="dl-horizontal">
 	      <dt><strong><abbr title="Registro de Información Fiscal">RIF</abbr>:</strong></dt>
