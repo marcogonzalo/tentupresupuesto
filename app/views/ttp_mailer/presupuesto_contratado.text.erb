@@ -1,0 +1,16 @@
+¡Han aprobado tu presupuesto!
+
+El presupuesto que presentaste a la solicitud "<%= @trabajo.proposito %>" de <%= @categoria %>, fue aprobado. Es momento de que entres en contacto con el cliente.
+
+Estos son sus datos:
+<% unless @solicitante.telefono_local.empty? %>
+- Teléfono Local: <%= @solicitante.telefono_local.to_s %>
+<% end %>
+<% unless @solicitante.telefono_movil.empty? %>
+- Teléfono Móvil: <%= @solicitante.telefono_movil.to_s %>
+<% end %>
+<% unless @solicitante.telefono_alt.empty? %>
+- Teléfono Alternativo: <%= @solicitante.telefono_alt.to_s %>
+<% end %>
+
+¡Felicitaciones! Recuerda darle la mejor atención posible para que recibas una buena calificación y puedas recibir más contrataciones.

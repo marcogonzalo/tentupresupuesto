@@ -55,11 +55,11 @@ Ttp::Application.routes.draw do
     scope :trabajos do
       get     'trabajos/:filtro/:valor' => "trabajos#index", :as => "listar_trabajos", :constraints => FiltroListaTrabajos
     end
-    resources :trabajos, :shallow => true, :path_names => {:new => "nuevo", :edit => "editar"} do
-      resources :presupuestos, :path_names => {:new => "nuevo", :edit => "editar"} do
+    resources :trabajos, :shallow => true do
+      resources :presupuestos do
         member do
-          put 'aceptar' => "presupuestos#aceptar_presupuesto"
-          put 'rechazar' => "presupuestos#rechazar_presupuesto"
+          match 'aceptar' => "presupuestos#aceptar_presupuesto", :via => [:put, :post]
+          match 'rechazar' => "presupuestos#rechazar_presupuesto", :via => [:put, :post]
         end
         resources :mensajes # , :only => [:index, :create, :destroy]
       end

@@ -110,6 +110,7 @@ class TrabajosController < ApplicationController
     respond_to do |format|
       @trabajo.solicitante_id = current_solicitante.perfilable_id
       if @trabajo.save
+        TtpMailer.notificar_solicitud_publicada(@trabajo)
         flash[:success] = "Solicitud publicada exitosamente"
         format.html { redirect_to @trabajo }
         format.json { render json: @trabajo, status: :created, location: @trabajo }

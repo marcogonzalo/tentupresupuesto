@@ -66,7 +66,7 @@
 		<%= link_to "Ver solicitud", trabajo_path(@trabajo), :class => 'btn btn-large' %>
 		<%= link_to "Ver perfil", perfil_proveedor_path(@presupuesto.proveedor), :class => 'btn btn-warning btn-large' %>
 	<% unless @presupuesto.rechazado or @presupuesto.aprobado %>
-		<%= link_to "Contratar proveedor", aceptar_presupuesto_path(@presupuesto), :remote => true, :method => 'put', :id => 'aceptar-presupuesto', :class => 'btn btn-success btn-large' %>
+		<%= link_to "Contratar proveedor", aceptar_presupuesto_path(@presupuesto), :method => 'put', :id => 'aceptar-presupuesto', :class => 'btn btn-success btn-large' %>
 		<%= link_to "Rechazar presupuesto", '#modal-rechazo', :id => 'rechazar-presupuesto', :class => 'btn btn-danger btn-large', "data-toggle"=>"modal", "data-backdrop"=>"static" %>
 	<% end %>		
 <% elsif @es_el_proveedor %>

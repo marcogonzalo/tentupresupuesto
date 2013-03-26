@@ -1,0 +1,7 @@
+<h1>&iexcl;Han rechazado tu presupuesto!</h1>
+
+<p>El presupuesto que presentaste a la solicitud <b><%= @trabajo %></b> de <%= @categoria %>, fue rechazado.</p>
+<p>El motivo del rechazo fue: <%= @motivo %></p>
+<p><%= link_to 'Revisa el presupuesto', presupuesto_url(@presupuesto) %></p>
+
+<p>¡Lo sentimos mucho! Te inivtamos a revisar el motivo del rechazo y a buscar nuevas oportunidades en el <%= link_to 'listado de solicitudes', trabajos_url %>.</p>

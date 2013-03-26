@@ -7,7 +7,7 @@ class Trabajo < ActiveRecord::Base
                   :categoria_id, :pais_id, :estado_id, :municipio_id, :localidad_id
   
   has_many :presupuestos
-  belongs_to :solicitante, :inverse_of => :trabajo
+  belongs_to :solicitante
   belongs_to :contratado, :class_name => "Proveedor", :foreign_key => "contratado_id"
   belongs_to :categoria
   belongs_to :pais, :class_name => "UbicacionGeografica", :foreign_key => "pais_id", :conditions => "tipo = 'pais'"

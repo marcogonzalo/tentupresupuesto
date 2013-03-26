@@ -121,6 +121,7 @@ class PresupuestosController < ApplicationController
     end
     respond_to do |format|
       if @presupuesto.save
+        TtpMailer.notificar_presupuesto_recibido(@trabajo,@presupuesto)
         flash[:success] = "Presupuesto enviado satisfactoriamente."
         format.html { redirect_to @presupuesto }
         format.json { render json: @presupuesto, status: :created, location: @presupuesto }
@@ -189,6 +190,7 @@ class PresupuestosController < ApplicationController
     respond_to do |format|
       if es_el_solicitante
         if @presupuesto.update_attribute('aprobado',true)
+          TtpMailer.notificar_presupuesto_contratado(@presupuesto)
           flash[:success] = "Has aceptado el presupuesto. El trabajo aparecera como en ejecución."
           format.json { render :json => { presupuesto: @presupuesto, tipo_mensaje: :success, mensaje: flash[:success]}}
         else
@@ -213,6 +215,7 @@ class PresupuestosController < ApplicationController
     respond_to do |format|
       if es_el_solicitante
         if @presupuesto.save
+          # TtpMailer.notificar_presupuesto_rechazado(@presupuesto)
           flash[:success] = "El presupuesto ha sido rechazado."
           format.json { render :json => { presupuesto: @presupuesto, tipo_mensaje: :success, mensaje: flash[:success]}}
         else

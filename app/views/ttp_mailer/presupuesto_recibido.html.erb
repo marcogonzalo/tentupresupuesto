@@ -1,0 +1,7 @@
+<h1>&iexcl;Has recibido un presupuesto en tu solicitud!</h1>
+
+<p><b><%= @proveedor %></b> (<%= @tipo_proveedor %>) ha presentado una oferta en tu solicitud <b><%= @trabajo %></b> de <%= @categoria %>.</p>
+
+<p><%= link_to 'Revisa el presupuesto', presupuesto_url(@presupuesto) %></p>
+
+<p>¡Ojalá se adecúe a lo que necesitas!</p>
