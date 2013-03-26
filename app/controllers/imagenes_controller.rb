@@ -19,7 +19,7 @@ class ImagenesController < ApplicationController
     
     respond_to do |format|
       if proveedor_signed_in?
-        if @imagen = @proveedor.imagenes.create(:archivo => params[:proveedor][:imagenes][:imagen], :proposito => "galeria")
+        if @imagen = @proveedor.imagenes.create(:archivo => params[:proveedor][:imagenes][:imagen], :descripcion => params[:proveedor][:imagenes][:descripcion], :proposito => "galeria")
           flash[:success] = "Imagen de perfil modificada."
           format.html { render action: "galeria_imagenes" }
           format.json { render json: @imagen, status: :created, location: @imagen }

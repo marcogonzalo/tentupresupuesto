@@ -194,7 +194,7 @@ class ProveedoresController < ApplicationController
         unless current_proveedor.perfilable_id.nil? or current_proveedor.perfilable_id <= 0
           if @proveedor.save
             flash[:success] = "Imagen de perfil modificada."
-            format.html { render action: "imagen_perfil" }
+            format.html { redirect_to panel_proveedor_path } #render action: "imagen_perfil" }
             format.json { render json: @proveedor, status: :created, location: @proveedor }
           else
             flash[:error] = "Ocurrió un error al modificar la imagen."
