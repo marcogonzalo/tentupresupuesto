@@ -20,7 +20,7 @@ class TtpMailer < ActionMailer::Base
 
    # notifica la rececpicon de un presupuesto en un trabajo
   def presupuesto_recibido(trabajo,presupuesto,proveedor,usuarios)
-    @trabajo          = trabajo.nombre
+    @trabajo          = trabajo.proposito
     @categoria        = trabajo.categoria.nombre
     @presupuesto      = presupuesto
     @proveedor        = proveedor.nombre_empresa

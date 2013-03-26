@@ -32,8 +32,8 @@
 <div class="clearfix"></div>
 <div class="form-actions">
 <% if @es_el_solicitante %>
-		<%= link_to t('.back', :default => t("helpers.links.back")),
-			trabajos_path, :class => 'btn' %>
+		<%= link_to "Volver al panel",
+			panel_solicitante_path, :class => 'btn' %>
 		<%= link_to t('.edit', :default => t("helpers.links.edit")),
 			edit_trabajo_path(@trabajo), :class => 'btn' %>
 	<% if @trabajo.buscando? %>

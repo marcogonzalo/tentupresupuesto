@@ -114,7 +114,8 @@ class PresupuestosController < ApplicationController
     @trabajo = Trabajo.find(params[:trabajo_id])
     @presupuesto = @trabajo.presupuestos.build(params[:presupuesto])
     @presupuesto.proveedor_id = current_proveedor.perfilable_id
-
+    
+    @path = [@trabajo, @presupuesto]
     @es_el_proveedor = false
     if proveedor_signed_in?
       @es_el_proveedor = @presupuesto.proveedor_id.eql?(current_proveedor.perfilable_id)
