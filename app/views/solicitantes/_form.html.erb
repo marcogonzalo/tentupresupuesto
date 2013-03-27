@@ -1,93 +1,97 @@
 <div class="formulario-general offset1 span9">
 	<%= form_for(@solicitante) do |f| %>
-
-	<div class="control-group">
-		<% # = f.label :cedula
-%>
-		<div class="controls">
-			<%= f.hidden_field :cedula, :value => "111111" %>
-		</div>
-	</div>
-	<fieldset>
-		<legend>
-			Datos de contacto
-		</legend>
-		<p>
-			(Ser&aacute; entregado al proveedor si apruebas su presupuesto)
-		</p>
-		<div class="control-group">
-			<%= f.label :telefono_local %>
-			<div class="controls">
-				<%= f.text_field :telefono_local %>
-			</div>
-			<span class="help-block">Ej.: 02122561515</span>
-		</div>
+		<span class="help-block"><i class="icon-white icon-asterisk"></i> Indica campo obligatorio</span>
 
 		<div class="control-group">
-			<%= f.label :telefono_movil %>
+			<% # = f.label :cedula
+	%>
 			<div class="controls">
-				<%= f.text_field :telefono_movil %>
-			</div>
-			<span class="help-block">Ej.: 04162232323</span>
-		</div>
-
-		<div class="control-group">
-			<%= f.label :telefono_alt %>
-			<div class="controls">
-				<%= f.text_field :telefono_alt %>
+				<%= f.hidden_field :cedula, :value => "111111" %>
 			</div>
 		</div>
-	</fieldset>
-	<fieldset>
-		<legend>
-			Datos de ubicaci&oacute;n
-		</legend>
-		<p>
-			(Facilita la publicaci&oacute;n de solicitudes)
-		</p>
-
-		<div class="control-group">
-			<%= f.label :pais_id, "País" %>
-			<div class="controls">
-				<%= select_entidad(:solicitante,:pais_id,nil,"pais") %>
+		<fieldset>
+			<legend>
+				Datos de contacto
+			</legend>
+			<p>
+				(Ser&aacute; entregado al proveedor si apruebas su presupuesto)
+			</p>
+			<div class="control-group">
+				<%= f.label :telefono_local %>
+				<div class="controls">
+					<%= f.text_field :telefono_local %>
+				</div>
+				<span class="help-block">Ej.: 02122561515</span>
 			</div>
-		</div>
-
-		<div class="control-group">
-			<%= f.label :estado_id, "Estado" %>
-			<div class="controls">
-				<%= select_entidad(:solicitante,:estado_id,1,"estado") %><%= image_tag "tentu/generales/cargando.gif", {:class => "cargando", :id => "loadingestado"} %>
+	
+			<div class="control-group">
+				<%= f.label :telefono_movil %>
+				<div class="controls">
+					<i class="icon-white icon-asterisk"></i>
+					<%= f.text_field :telefono_movil %>
+				</div>
+				<span class="help-block">Ej.: 04162232323</span>
 			</div>
-		</div>
-
-		<div class="control-group">
-			<%= f.label :municipio_id, "Municipio" %>
-			<div class="controls">
-				<%= select_entidad(:solicitante,:municipio_id,@solicitante.estado_id,"municipio") %><%= image_tag "tentu/generales/cargando.gif", {:class => "cargando", :id => "loadingmunicipio"} %>
+	
+			<div class="control-group">
+				<%= f.label :telefono_alt %>
+				<div class="controls">
+					<%= f.text_field :telefono_alt %>
+				</div>
 			</div>
-		</div>
-
-		<div class="control-group">
-			<%= f.label :localidad_id, "Localidad (Urbanización, Zona, Sector)" %>
-			<div class="controls">
-				<%= text_entidad(:solicitante,:localidad_id,@localidad) %><%= image_tag "tentu/generales/cargando.gif", {:class => "cargando", :id => "loadinglocalidad"} %>
+		</fieldset>
+		<fieldset>
+			<legend>
+				Datos de ubicaci&oacute;n
+			</legend>
+			<p>
+				(Facilita la publicaci&oacute;n de solicitudes)
+			</p>
+	
+			<div class="control-group">
+				<%= f.label :pais_id, "País" %>
+				<div class="controls">
+					<%= select_entidad(:solicitante,:pais_id,nil,"pais") %>
+				</div>
 			</div>
-		</div>
-
-		<div class="control-group">
-			<%= f.label :direccion %>
-			<div class="controls">
-				<%= f.text_area :direccion %>
+	
+			<div class="control-group">
+				<%= f.label :estado_id, "Estado" %>
+				<div class="controls">
+					<%= select_entidad(:solicitante,:estado_id,1,"estado") %><%= image_tag "tentu/generales/cargando.gif", {:class => "cargando", :id => "loadingestado"} %>
+				</div>
 			</div>
-		</div>
-		<div class="control-group">
-			<%= f.label :punto_referencia %>
-			<div class="controls">
-				<%= f.text_field :punto_referencia %>
+	
+			<div class="control-group">
+				<%= f.label :municipio_id, "Municipio" %>
+				<div class="controls">
+					<%= select_entidad(:solicitante,:municipio_id,@solicitante.estado_id,"municipio") %><%= image_tag "tentu/generales/cargando.gif", {:class => "cargando", :id => "loadingmunicipio"} %>
+				</div>
 			</div>
+	
+			<div class="control-group">
+				<%= f.label :localidad_id, "Localidad (Urbanización, Zona, Sector)" %>
+				<div class="controls">
+					<%= text_entidad(:solicitante,:localidad_id,@localidad) %><%= image_tag "tentu/generales/cargando.gif", {:class => "cargando", :id => "loadinglocalidad"} %>
+				</div>
+			</div>
+	
+			<div class="control-group">
+				<%= f.label :direccion %>
+				<div class="controls">
+					<%= f.text_area :direccion %>
+				</div>
+			</div>
+			<div class="control-group">
+				<%= f.label :punto_referencia %>
+				<div class="controls">
+					<%= f.text_field :punto_referencia %>
+				</div>
+			</div>
+		</fieldset>
+		<div class="botones">
+			<%= f.submit "Guardar perfil", :disable_with => "Enviando...", :class => 'btn btn-warning' %>
 		</div>
-	</fieldset>
-	<%= f.submit "Guardar perfil", :disable_with => "Enviando...", :class => 'btn btn-warning' %>
 	<% end %>
 </div>
 <div id="caracteristicas" class="offset1 span10">

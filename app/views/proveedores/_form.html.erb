@@ -1,120 +1,126 @@
 <div class="formulario-general offset1 span9">
 	<%= form_for(@proveedor) do |f| %>
-	<fieldset>
-		<legend>
-			Datos de la empresa
-		</legend>
-
-		<div class="control-group">
-			<%= f.label :nombre_empresa %> <span class="informacion-campo">(Si no tiene empresa, coloque algo relacionado al servicio ofrecido)</span>
-			<div class="controls">
-				<%= f.text_field :nombre_empresa %>
+		<span class="help-block"><i class="icon-white icon-asterisk"></i> Indica campo obligatorio</span>
+		<fieldset>
+			<legend>
+				Datos de la empresa
+			</legend>
+	
+			<div class="control-group">
+				<%= f.label :nombre_empresa %> <span class="informacion-campo">(Si no tiene empresa, coloque algo relacionado al servicio ofrecido)</span>
+				<div class="controls">
+					<i class="icon-white icon-asterisk"></i>
+					<%= f.text_field :nombre_empresa %>
+				</div>
 			</div>
-		</div>
-
-		<div class="control-group">
-			<%= f.label :tipo_proveedor %>
-			<div class="controls">
-				<%= f.select :tipo_proveedor, tipos_proveedor %>
+	
+			<div class="control-group">
+				<%= f.label :tipo_proveedor %>
+				<div class="controls">
+					<i class="icon-white icon-asterisk"></i>
+					<%= f.select :tipo_proveedor, tipos_proveedor %>
+				</div>
 			</div>
-		</div>
-
-		<div class="control-group">
-			<%= f.label :rif %> <span class="informacion-campo">Ej.: X-########-# (Si no tiene, dejar en blanco)</span>
-			<div class="controls">
-				<%= f.text_field :rif %>
+	
+			<div class="control-group">
+				<%= f.label :rif %> <span class="informacion-campo">Ej.: X-########-# (Si no tiene, dejar en blanco)</span>
+				<div class="controls">
+					<%= f.text_field :rif %>
+				</div>
 			</div>
-		</div>
-
-		<div class="control-group">
-			<%= f.label :descripcion %>
-			<div class="controls">
-				<%= f.text_area :descripcion %>
+	
+			<div class="control-group">
+				<%= f.label :descripcion %>
+				<div class="controls">
+					<i class="icon-white icon-asterisk"></i>
+					<%= f.text_area :descripcion %>
+				</div>
 			</div>
-		</div>
-
-	</fieldset>
-	<fieldset>
-		<legend>
-			Datos de contacto
-		</legend>
-		<p>
-			(Ser&aacute; entregado al cliente al aceptar el presupuesto)
-		</p>
-		<div class="control-group">
-			<%= f.label :telefono_local %>
-			<div class="controls">
-				<%= f.text_field :telefono_local %>
+	
+		</fieldset>
+		<fieldset>
+			<legend>
+				Datos de contacto
+			</legend>
+			<p>
+				(Ser&aacute; entregado al cliente al aceptar el presupuesto)
+			</p>
+			<div class="control-group">
+				<%= f.label :telefono_local %>
+				<div class="controls">
+					<%= f.text_field :telefono_local %>
+				</div>
+				<span class="help-block">Ej.: 02122561515</span>
 			</div>
-			<span class="help-block">Ej.: 02122561515</span>
-		</div>
-
-		<div class="control-group">
-			<%= f.label :telefono_movil %>
-			<div class="controls">
-				<%= f.text_field :telefono_movil %>
+	
+			<div class="control-group">
+				<%= f.label :telefono_movil %>
+				<div class="controls">
+					<i class="icon-white icon-asterisk"></i>
+					<%= f.text_field :telefono_movil %>
+				</div>
+				<span class="help-block">Ej.: 04162232323</span>
 			</div>
-			<span class="help-block">Ej.: 04162232323</span>
-		</div>
-
-		<div class="control-group">
-			<%= f.label :telefono_alt %>
-			<div class="controls">
-				<%= f.text_field :telefono_alt %>
+	
+			<div class="control-group">
+				<%= f.label :telefono_alt %>
+				<div class="controls">
+					<%= f.text_field :telefono_alt %>
+				</div>
 			</div>
-		</div>
-	</fieldset>
-	<fieldset>
-		<legend>
-			Datos de ubicaci&oacute;n
-		</legend>
-		<p>
-			(Si tienes local u oficina)
-		</p>
-		<div class="control-group">
-			<%= f.label :pais_id, "País" %>
-			<div class="controls">
-				<%= select_entidad(:proveedor,:pais_id,nil,"pais") %>
+		</fieldset>
+		<fieldset>
+			<legend>
+				Datos de ubicaci&oacute;n
+			</legend>
+			<div class="control-group">
+				<%= f.label :pais_id, "País" %>
+				<div class="controls">
+					<%= select_entidad(:proveedor,:pais_id,nil,"pais") %>
+				</div>
 			</div>
-		</div>
-
-		<div class="control-group">
-			<%= f.label :estado_id, "Estado" %>
-			<div class="controls">
-				<%= select_entidad(:proveedor,:estado_id,1,"estado") %><%= image_tag "tentu/generales/cargando.gif", {:class => "cargando", :id => "loadingestado"} %>
+	
+			<div class="control-group">
+				<%= f.label :estado_id, "Estado" %>
+				<div class="controls">
+					<i class="icon-white icon-asterisk"></i>
+					<%= select_entidad(:proveedor,:estado_id,1,"estado") %><%= image_tag "tentu/generales/cargando.gif", {:class => "cargando", :id => "loadingestado"} %>
+				</div>
 			</div>
-		</div>
-
-		<div class="control-group">
-			<%= f.label :municipio_id, "Municipio" %>
-			<div class="controls">
-				<%= select_entidad(:proveedor,:municipio_id,@proveedor.estado_id,"municipio") %><%= image_tag "tentu/generales/cargando.gif", {:class => "cargando", :id => "loadingmunicipio"} %>
+	
+			<div class="control-group">
+				<%= f.label :municipio_id, "Municipio" %>
+				<div class="controls">
+					<i class="icon-white icon-asterisk"></i>
+					<%= select_entidad(:proveedor,:municipio_id,@proveedor.estado_id,"municipio") %><%= image_tag "tentu/generales/cargando.gif", {:class => "cargando", :id => "loadingmunicipio"} %>
+				</div>
 			</div>
-		</div>
-
-		<div class="control-group">
-			<%= f.label :localidad_id, "Localidad (Urbanización, Zona, Sector)" %>
-			<div class="controls">
-				<%= text_entidad(:proveedor,:localidad_id,@localidad) %><%= image_tag "tentu/generales/cargando.gif", {:class => "cargando", :id => "loadinglocalidad"} %>
+	
+			<div class="control-group">
+				<%= f.label :localidad_id, "Localidad (Urbanización, Zona, Sector)" %>
+				<div class="controls">
+					<i class="icon-white icon-asterisk"></i>
+					<%= text_entidad(:proveedor,:localidad_id,@localidad) %><%= image_tag "tentu/generales/cargando.gif", {:class => "cargando", :id => "loadinglocalidad"} %>
+				</div>
 			</div>
-		</div>
-
-		<div class="control-group">
-			<%= f.label :direccion %>
-			<div class="controls">
-				<%= f.text_area :direccion %>
+	
+			<div class="control-group">
+				<%= f.label :direccion %>
+				<div class="controls">
+					<%= f.text_area :direccion %>
+					<span class="help-block">(En caso de que tengas oficina o local)</span>
+				</div>
 			</div>
-		</div>
-		<div class="control-group">
-			<%= f.label :punto_referencia %>
-			<div class="controls">
-				<%= f.text_field :punto_referencia %>
+			<div class="control-group">
+				<%= f.label :punto_referencia %>
+				<div class="controls">
+					<%= f.text_field :punto_referencia %>
+				</div>
 			</div>
+		</fieldset>
+		<div class="botones">
+			<%= f.submit "Guardar perfil", :class => 'btn btn-warning' %>
 		</div>
-	</fieldset>
-	<div class="botones">
-		<%= f.submit "Guardar perfil", :class => 'btn btn-warning' %>
-	</div>
 	<% end %>
 </div>
 <div id="caracteristicas" class="offset1 span10">
