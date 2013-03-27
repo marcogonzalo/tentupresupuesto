@@ -12,6 +12,16 @@ class Categoria < ActiveRecord::Base
   has_many :trabajos
   
   default_scope order('nombre ASC')
+  scope :con_proveedores, {
+    :joins      => "LEFT JOIN categorias_proveedores ON categorias.id = categorias_proveedores.categoria_id",
+    :conditions => "categorias_proveedores.proveedor_id IS NOT NULL",
+    :select     => "DISTINCT categorias.*"
+  }
+  scope :sin_proveedores, {
+    :joins      => "LEFT JOIN categorias_proveedores ON categorias.id = categorias_proveedores.categoria_id",
+    :conditions => "categorias_proveedores.proveedor_id IS NULL",
+    :select     => "DISTINCT categorias.*"
+  }
   private
   def slug_categoria
     unless self.padre_id == 0 or self.categoria_padre.nil?

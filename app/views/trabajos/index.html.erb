@@ -23,7 +23,7 @@
 		<div class="listado">
 			<ul class=" nav nav-list">
 				<li><%= link_to "Todas", trabajos_path, :class => "con-myriad-bold" %></li>
-				<% for cat in Categoria.find(:all) %>  
+				<% for cat in Categoria.con_proveedores %>  
 				<li><%= link_to cat.nombre, listar_trabajos_path('categoria', cat.friendly_id) %></li>
 				<% end %>
 			</ul>

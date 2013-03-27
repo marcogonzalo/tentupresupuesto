@@ -13,7 +13,7 @@
       <div class="control-group offset1 span9">
         <%= f.label :categoria_id, :class => 'control-label' %>
         <div class="controls">
-          <%= f.select :categoria_id, Categoria.all.collect {|c| [ c.nombre, c.id ] }, { :include_blank => "-- Selecciona --" } %>
+          <%= f.select :categoria_id, Categoria.con_proveedores.collect {|c| [ c.nombre, c.id ] }, { :include_blank => "-- Selecciona --" } %>
         </div>
       </div>
     </div>
