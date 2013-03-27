@@ -1,0 +1,60 @@
+<% content_for :liston do %>
+  <div class="offset3 span7"><div id="iniciar-sesion" class="con-chango"><p>Iniciar como:</p></div></div>
+  <div class="span4"><div id="iniciar-solicitante"><%= link_to "Solicitante", new_session_path("solicitante"), :class => "btn btn-large btn-success" %></div></div>
+  <div class="span4"><div id="iniciar-proveedor"><%= link_to "Proveedor", new_session_path("proveedor"), :class => "btn btn-large btn-warning" %></div></div>
+  
+<%
+=begin
+        <%= form_for("solicitante", :url => session_path("solicitante")) do |f| %>
+          <div class="offset3 span12">
+            <div class="row">
+              <div class="control-group span6"><%= f.label :email %>
+                <div class="controls"><%= f.email_field :email %></div>
+              </div>
+              <div class="control-group span6"><%= f.label :password, "Clave" %>
+                <div class="controls"><%= f.password_field :password %></div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="control-group span6">
+                <label for="usuario_remember_me" class="checkbox">
+                  <%= f.check_box :remember_me %> Recordarme
+                </label>
+              </div>
+              <div class="control-group span6">
+                <%= link_to "¿Olvidaste tu clave?", new_password_path('solicitante') %>
+              </div>
+            </div>
+          </div>
+          <div id="boton-sesion" class="offset1 span5"><%= f.submit 'Iniciar sesión', :class => 'btn btn-success btn-large' %></div>
+        <% end 
+=end
+%>
+      <% end %>
+<div id="pendon-solicita" class="pendon">
+  <div class="contenido-pendon">
+    <div class="imagen">
+      <%= image_tag "tentu/landing/paso1.png", {:title => "Paso 1", :alt => "Paso 1"} %>
+    </div>
+    <h2>Solicita</h2>
+    <p>Envía a los proveedores tu solicitud del trabajo que necesitas para tu hogar u oficina, de forma rápida y eficiente.</p>
+  </div>
+</div>
+<div id="pendon-compara" class="pendon">
+  <div class="contenido-pendon">
+    <div class="imagen">
+      <%= image_tag "tentu/landing/paso2.png", {:title => "Paso 2", :alt => "Paso 2"} %>
+    </div>
+    <h2>Compara</h2>
+    <p>Recibe presupuestos de los proveedores, revisa sus trayectorias, y compara lo que te ofrecen.</p>
+  </div>
+</div>
+<div id="pendon-contrata" class="pendon">
+  <div class="contenido-pendon">
+    <div class="imagen">
+      <%= image_tag "tentu/landing/paso3.png", {:title => "Paso 3", :alt => "Paso 3"} %>
+    </div>
+    <h2>Contrata</h2>
+    <p>Escoge al proveedor que te ofrezca el mejor servicio al mejor precio.</p>
+  </div>
+</div>

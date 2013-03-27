@@ -1,15 +1,19 @@
 # coding: utf-8
 class RegistrationsController < Devise::RegistrationsController
+  before_filter :no_authenticated, :only => [:new, :create]
   def edit
     if solicitante_signed_in? or proveedor_signed_in?
       if solicitante_signed_in?
         parametros = params[:solicitante]
         current_usuario = current_solicitante
+        add_breadcrumb "Panel", panel_solicitante_path
       elsif proveedor_signed_in?
         parametros = params[:proveedor]
         current_usuario = current_proveedor
+        add_breadcrumb "Panel", panel_proveedor_path
       end
       @usuario = Usuario.find(current_usuario.id)
+      add_breadcrumb "Editar datos de cuenta"
     end
   end
   
@@ -25,15 +29,22 @@ class RegistrationsController < Devise::RegistrationsController
       end
       @usuario = Usuario.find(current_usuario.id)
       email_changed = @usuario.email != parametros[:email]
-      password_changed = !parametros[:password].empty?
-      
-      parametros[:email_confirmation] = parametros[:email] unless email_changed # Para que no de error de confirmación de correo
+      password_changed = true
+      if parametros[:password].blank?
+        password_changed = false
+        parametros.delete("password")
+        parametros.delete(:current_password)
+        parametros.delete("password_confirmation")
+      end
+      # parametros[:email_confirmation] = parametros[:email] unless email_changed # Para que no de error de confirmación de correo
 
-      successfully_updated = if email_changed or password_changed
-        parametros[:password_confirmation] = "-" unless password_changed # Para que muestre error en clave si no se colocó
+      successfully_updated = false
+      if password_changed
         actualizado = @usuario.update_with_password(parametros)
+        successfully_updated = true
       else
         actualizado = @usuario.update_without_password(parametros)
+        successfully_updated = true
       end
 
       if successfully_updated and actualizado

@@ -10,17 +10,20 @@ es-VE:
       not_saved:
         one: "1 error prohibió que se ejecutara el proceso" #%{resource}:"
         other: "%{count} errores prohibieron que se ejecutara el proceso" #%{resource}:"
-
   devise:
     failure:
-      already_authenticated: 'Ya ha iniciado sesión.'
-      unauthenticated: 'Se necesita iniciar sesión o registrarse antes de continuar.'
+      already_authenticated: 'Ya has iniciado sesión.'
+      unauthenticated: 'Es necesario iniciar sesión o registrarse antes de continuar.'
       unconfirmed: 'Debe confirmarse la cuenta antes de continuar.'
       locked: 'La cuenta está bloqueada.'
       invalid: 'Correo electrónico o clave incorrectos.'
       invalid_token: 'Token de autenticación inválido.'
-      timeout: 'La sesión expiró, debe iniciarse sesión nuevamente.'
+      timeout: 'La sesión expiró. Inicia sesión nuevamente.'
       inactive: 'La cuenta no ha sido activada.'
+      proveedor:
+        not_found_in_database: "No se encontró en la base de datos"
+      solicitante:
+        not_found_in_database: "No se encontró en la base de datos"
     sessions:
       signed_in: 'Inicio de sesión satisfactorio.'
       signed_out: 'Cierre de sesión satisfactorio.'
@@ -28,20 +31,20 @@ es-VE:
       send_instructions: 'En unos minutos recibirá un correo electrónico con instrucciones para reiniciar la clave.'
       updated: 'Cambio de clave satisfactorio. Sesión iniciada.'
       updated_not_active: 'Cambio de clave satisfactorio.'
-      send_paranoid_instructions: "Si la dirección de correo electrónico existe en la base de datos, en pocos minutos recibirá un mensaje con el enlace para restrablecer la contraseña."
+      send_paranoid_instructions: "Si la dirección de correo electrónico existe en la base de datos, en pocos minutos recibirás un mensaje con el enlace para restrablecer la contraseña."
       no_token: "No puede acceder a esta página sin provenir de un correo de restrablecimiento de clave. Si proviene de un correo de reinicio de clave, asegúrese que usó la dirección (URL) completa."
     confirmations:
-      send_instructions: 'En pocos minutos recibirá un correo electrónico con instrucciones para confirmar su cuenta.'
-      send_paranoid_instructions: 'Si la dirección de correo electrónico existe en la base de datos, en pocos minutos recibirá un mensaje con el enlace para confirmar su cuenta.'
-      confirmed: 'La cuenta ha sido confirmada satisfactoriamente. Sesión iniciada.'
+      send_instructions: 'En pocos minutos recibirás un correo electrónico con instrucciones para confirmar su cuenta.'
+      send_paranoid_instructions: 'Si la dirección de correo electrónico existe en la base de datos, en pocos minutos recibirás un mensaje con el enlace para confirmar su cuenta.'
+      confirmed: 'Cuenta confirmada satisfactoriamente. Sesión iniciada.'
     registrations:
       signed_up: '¡Bienvenid@! Se ha registrado la cuenta satisfactoriamente.'
-      signed_up_but_unconfirmed: 'Se ha enviado un mensaje con el enlace de confirmación a la cuenta de correo electrónico suministrada. Por favor, abra el enlace para activar la cuenta.'
+      signed_up_but_unconfirmed: 'Se ha enviado un mensaje con el enlace de confirmación a la cuenta de correo electrónico suministrada. Por favor, abre el enlace para activar la cuenta.'
       signed_up_but_inactive: 'Se ha registrado la cuenta satisfactoriamente. Sin embargo, no se pudo iniciar la sesión porque la cuenta no ha sido activada.'
       signed_up_but_locked: 'Se ha registrado la cuenta satisfactoriamente. Sin embargo, no se pudo iniciar la sesión porque la cuenta se encuentra bloqueada.'
       updated: 'La cuenta se ha actualizado satisfactoriamente.'
-      update_needs_confirmation: "La cuenta se ha actualizado satisfactoriamente, pero es necesario confirmar la nueva dirección de correo electrónico. Por favor, revise su correo electrónico y abra el enlace de confirmación enviado en el mensaje para finalizar."
-      destroyed: 'La cuenta ha sido cancelada. Esperamos que pronto vuelva a usar nuestros servicios.'
+      update_needs_confirmation: "La cuenta se ha actualizado satisfactoriamente, pero es necesario confirmar la nueva dirección de correo electrónico. Por favor, revisa tu correo electrónico y abre el enlace de confirmación enviado en el mensaje para finalizar."
+      destroyed: 'La cuenta ha sido cancelada. Esperamos que pronto vuelvas a usar nuestros servicios.'
     unlocks:
       send_instructions: 'En pocos minutos recibirá un correo electrónico con las instrucciones para desbloquear la cuenta.'
       unlocked: 'La cuenta ha sido desbloqueada. Por favor, inicie sesión para continuar.'

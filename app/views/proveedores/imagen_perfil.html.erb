@@ -1,0 +1,30 @@
+<%- model_class = Proveedor -%>
+<%
+ content_for :head do
+    stylesheet_link_tag 'proveedores'
+  end
+
+  content_for :foot do
+    javascript_include_tag 'proveedores'
+  end
+
+  content_for :title do
+    "Cambiar imagen de perfil"
+  end
+%>
+<h1>Cambiar imagen de perfil</h1>
+
+<div class="formulario-general offset5 span12">
+	<%= form_for @proveedor, :url => cambiar_imagen_proveedor_path(@proveedor), :html => {:multipart => true} do |f| %>
+		<label>Mi imagen como proveedor</label>
+		<p>
+			<%= image_tag(@proveedor.avatar.url) if @proveedor.avatar? %>
+		</p>
+		<%= f.file_field :avatar %>
+		<%= f.hidden_field :avatar_cache %>
+		</p>
+		<div class="botones">
+			<%= link_to "Volver al panel", panel_proveedor_path, :class => 'btn' %> <%= f.submit "Guardar imagen", :class => 'btn btn-warning' %>
+		</div>
+	<% end %>
+</div>

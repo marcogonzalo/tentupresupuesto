@@ -8,7 +8,7 @@ module UbicacionesGeograficasHelper
   
   def text_entidad(instancia,atributo,prompt="")
     if atributo == :localidad_id
-      return text_field(instancia, atributo, {:value => prompt, "data-provide" => "typeahead", "autocomplete" => "off" })
+      return text_field(instancia, atributo, {:value => prompt, "data-provide" => "typeahead", "autocomplete" => "off", :disabled => true})
     end
   end
 end

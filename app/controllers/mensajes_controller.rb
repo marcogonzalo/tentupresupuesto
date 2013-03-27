@@ -1,6 +1,6 @@
 # coding: utf-8
 class MensajesController < ApplicationController
-  before_filter :authenticate_any
+  before_filter :authenticated_any
   # GET /mensajes
   # GET /mensajes.json
   def index

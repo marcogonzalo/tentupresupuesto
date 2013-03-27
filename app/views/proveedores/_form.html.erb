@@ -1,69 +1,147 @@
-<%= form_for(@proveedor) do |f| %>
-  <fieldset>
-    <legend>Datos de la empresa</legend>
-
-    <div class="control-group"><%= f.label :nombre_empresa %> <span class="informacion-campo">(Si no tiene empresa, coloque algo relacionado al servicio ofrecido)</span>
-      <div class="controls"><%= f.text_field :nombre_empresa %></div>
-    </div>
-    
-    <div class="control-group"><%= f.label :tipo_proveedor %>
-      <div class="controls"><%= f.select :tipo_proveedor, tipos_proveedor %></div>
-    </div>
-    
-    <div class="control-group"><%= f.label :rif %> <span class="informacion-campo">Ej.: X-########-# (Si no tiene, dejar en blanco)</span>
-      <div class="controls"><%= f.text_field :rif %></div>
-    </div>
-    
-    <div class="control-group"><%= f.label :descripcion %>
-      <div class="controls"><%= f.text_area :descripcion %></div>
-    </div>
-    
-  </fieldset>
-  <fieldset>
-    <legend>Datos de contacto</legend>
-    (Ser&aacute; entregado al cliente al aceptar el presupuesto)
-    
-    <div class="control-group"><%= f.label :telefono_local %>
-      <div class="controls"><%= f.text_field :telefono_local %></div>
-    </div>
-    
-    <div class="control-group"><%= f.label :telefono_movil %>
-      <div class="controls"><%= f.text_field :telefono_movil %></div>
-    </div>
-    
-    <div class="control-group"><%= f.label :telefono_alt %>
-      <div class="controls"><%= f.text_field :telefono_alt %></div>
-    </div>
-  </fieldset>
-  <fieldset>
-    <legend>Datos de ubicaci&oacute;n</legend>
-    (Si tienes local u oficina)
-    
-    <div class="control-group"><%= f.label :pais_id, "País" %>
-      <div class="controls"><%= select_entidad(:proveedor,:pais_id,nil,"pais") %></div>
-    </div>
-    
-    <div class="control-group"><%= f.label :estado_id, "Estado" %>
-      <div class="controls"><%= select_entidad(:proveedor,:estado_id,1,"estado") %><%= image_tag "cargando.gif", {:class => "cargando", :id => "loadingestado"} %></div>
-    </div>
-    
-    <div class="control-group"><%= f.label :municipio_id, "Municipio" %>
-      <div class="controls"><%= select_entidad(:proveedor,:municipio_id,@proveedor.estado_id,"municipio") %><%= image_tag "cargando.gif", {:class => "cargando", :id => "loadingmunicipio"} %></div>
-    </div>
-    
-    <div class="control-group"><%= f.label :localidad_id, "Localidad" %>
-      <div class="controls"><%= text_entidad(:proveedor,:localidad_id,@localidad) %><%= image_tag "cargando.gif", {:class => "cargando", :id => "loadinglocalidad"} %></div>
-    </div>
-    
-    <div class="control-group"><%= f.label :direccion %>
-      <div class="controls"><%= f.text_area :direccion %></div>
-    </div>
-    <div class="control-group"><%= f.label :punto_referencia %>
-      <div class="controls"><%= f.text_field :punto_referencia %></div>
-    </div>
-  </fieldset>
-  
-  <div class="form-actions">
-    <p><%= f.submit "Guardar perfil", :class => 'btn btn-primary' %></p>
-  </div>
-<% end %>
+<div class="formulario-general offset1 span9">
+	<%= form_for(@proveedor) do |f| %>
+		<span class="help-block"><i class="icon-white icon-asterisk"></i> Indica campo obligatorio</span>
+		<fieldset>
+			<legend>
+				Datos de la empresa
+			</legend>
+	
+			<div class="control-group">
+				<%= f.label :nombre_empresa %> <span class="informacion-campo">(Si no tiene empresa, coloque algo relacionado al servicio ofrecido)</span>
+				<div class="controls">
+					<i class="icon-white icon-asterisk"></i>
+					<%= f.text_field :nombre_empresa %>
+				</div>
+			</div>
+	
+			<div class="control-group">
+				<%= f.label :tipo_proveedor %>
+				<div class="controls">
+					<i class="icon-white icon-asterisk"></i>
+					<%= f.select :tipo_proveedor, tipos_proveedor %>
+				</div>
+			</div>
+	
+			<div class="control-group">
+				<%= f.label :rif %> <span class="informacion-campo">Ej.: X-########-# (Si no tiene, dejar en blanco)</span>
+				<div class="controls">
+					<%= f.text_field :rif %>
+				</div>
+			</div>
+	
+			<div class="control-group">
+				<%= f.label :descripcion %>
+				<div class="controls">
+					<i class="icon-white icon-asterisk"></i>
+					<%= f.text_area :descripcion %>
+				</div>
+			</div>
+	
+		</fieldset>
+		<fieldset>
+			<legend>
+				Datos de contacto
+			</legend>
+			<p>
+				(Ser&aacute; entregado al cliente al aceptar el presupuesto)
+			</p>
+			<div class="control-group">
+				<%= f.label :telefono_local %>
+				<div class="controls">
+					<%= f.text_field :telefono_local %>
+				</div>
+				<span class="help-block">Ej.: 02122561515</span>
+			</div>
+	
+			<div class="control-group">
+				<%= f.label :telefono_movil %>
+				<div class="controls">
+					<i class="icon-white icon-asterisk"></i>
+					<%= f.text_field :telefono_movil %>
+				</div>
+				<span class="help-block">Ej.: 04162232323</span>
+			</div>
+	
+			<div class="control-group">
+				<%= f.label :telefono_alt %>
+				<div class="controls">
+					<%= f.text_field :telefono_alt %>
+				</div>
+			</div>
+		</fieldset>
+		<fieldset>
+			<legend>
+				Datos de ubicaci&oacute;n
+			</legend>
+			<div class="control-group">
+				<%= f.label :pais_id, "País" %>
+				<div class="controls">
+					<%= select_entidad(:proveedor,:pais_id,nil,"pais") %>
+				</div>
+			</div>
+	
+			<div class="control-group">
+				<%= f.label :estado_id, "Estado" %>
+				<div class="controls">
+					<i class="icon-white icon-asterisk"></i>
+					<%= select_entidad(:proveedor,:estado_id,1,"estado") %><%= image_tag "tentu/generales/cargando.gif", {:class => "cargando", :id => "loadingestado"} %>
+				</div>
+			</div>
+	
+			<div class="control-group">
+				<%= f.label :municipio_id, "Municipio" %>
+				<div class="controls">
+					<i class="icon-white icon-asterisk"></i>
+					<%= select_entidad(:proveedor,:municipio_id,@proveedor.estado_id,"municipio") %><%= image_tag "tentu/generales/cargando.gif", {:class => "cargando", :id => "loadingmunicipio"} %>
+				</div>
+			</div>
+	
+			<div class="control-group">
+				<%= f.label :localidad_id, "Localidad (Urbanización, Zona, Sector)" %>
+				<div class="controls">
+					<i class="icon-white icon-asterisk"></i>
+					<%= text_entidad(:proveedor,:localidad_id,@localidad) %><%= image_tag "tentu/generales/cargando.gif", {:class => "cargando", :id => "loadinglocalidad"} %>
+				</div>
+			</div>
+	
+			<div class="control-group">
+				<%= f.label :direccion %>
+				<div class="controls">
+					<%= f.text_area :direccion %>
+					<span class="help-block">(En caso de que tengas oficina o local)</span>
+				</div>
+			</div>
+			<div class="control-group">
+				<%= f.label :punto_referencia %>
+				<div class="controls">
+					<%= f.text_field :punto_referencia %>
+				</div>
+			</div>
+		</fieldset>
+		<div class="botones">
+			<%= f.submit "Guardar perfil", :class => 'btn btn-warning' %>
+		</div>
+	<% end %>
+</div>
+<div id="caracteristicas" class="offset1 span10">
+	<hr>
+	<div>
+		<h4>&iquest;Por qué debo dar mis números de teléfono?</h4>
+		<p>
+			El número de teléfono es importante para establecer la comunicación final con el solicitante que ha decidido contratarte. Estará disponible en tu perfil, lo que permitirá captar más clientes. También nos permitirá contactarte en caso de ser estrictamente necesario.
+		</p>
+	</div>
+	<div>
+		<h4>&iquest;Por qué debo indicar mi ubicación?</h4>
+		<p>
+			Esta información se colocará automáticamente en tu perfil para que la gente pueda saber en qué área te ubicas. Puedes omitir la dirección exacta si lo deseas, pero recuerda que mientras más información das, más seguridad generas a tus futuros clientes.
+		</p>
+	</div>
+	<div>
+		<h4>&iquest;Esta información será pública?</h4>
+		<p>
+			No. Los números telefónicos y los datos de ubicación exacta serán entregados sólo a aquellos proveedores indiques que contratarás. Al publicar una solicitud sólo se indicará el estado, municipio y localidad de la solicitud, nunca tu dirección exacta.
+		</p>
+	</div>
+	<hr>
+</div>

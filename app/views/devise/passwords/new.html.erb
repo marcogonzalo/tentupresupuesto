@@ -1,14 +1,27 @@
-<h2>&iquest;Olvidaste tu clave secreta?</h2>
+<% 
+  content_for :title do 
+    "Recuperar clave secreta"
+  end
 
-<p>Ingresa tu direcci&oacute;n de correo electr&oacute;nico y te enviaremos las instrucciones para cambiarla.</p>
+  if resource.errors.any? %>
+  <div class="alert alert-error">
+    Algo pas&oacute;. Revisa el formulario para verificar errores.
+  </div>
+<% end %>
+<h1>&iquest;Olvidaste tu clave secreta?</h1>
+<p class="centrado">Ingresa tu direcci&oacute;n de correo electr&oacute;nico y te enviaremos las instrucciones para cambiarla.</p>
+<div class="formulario-general offset2 span10">
 <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f| %>
-
   <div class="control-group"><%= f.label :email %>
     <div class="controls"><%= f.email_field :email %></div>
   </div>
-
-  <div class="form-actions">
-    <p><%= f.submit "Enviar instrucciones", :class => 'btn btn-primary' %></p>
-    <%= render "devise/shared/links" %>
+  
+  <div class="botones">
+    <%= f.submit "Enviar instrucciones", :class => 'btn btn-warning' %>
   </div>
 <% end %>
+</div>
+
+  <div id="caracteristicas" class="offset1 span7">
+    <%= render "devise/shared/links" %>
+  </div>

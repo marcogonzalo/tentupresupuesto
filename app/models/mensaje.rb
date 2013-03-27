@@ -6,6 +6,8 @@ class Mensaje < ActiveRecord::Base
   
   USUARIO = ["solicitante","proveedor"]
   
+  default_scope order('created_at ASC')
+  
   validates :comentario,
             :length => { :in => 2..255 },
             :presence => true

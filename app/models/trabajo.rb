@@ -7,7 +7,7 @@ class Trabajo < ActiveRecord::Base
                   :categoria_id, :pais_id, :estado_id, :municipio_id, :localidad_id
   
   has_many :presupuestos
-  belongs_to :solicitante, :inverse_of => :trabajo
+  belongs_to :solicitante
   belongs_to :contratado, :class_name => "Proveedor", :foreign_key => "contratado_id"
   belongs_to :categoria
   belongs_to :pais, :class_name => "UbicacionGeografica", :foreign_key => "pais_id", :conditions => "tipo = 'pais'"
@@ -16,6 +16,7 @@ class Trabajo < ActiveRecord::Base
   belongs_to :localidad, :class_name => "UbicacionGeografica", :foreign_key => "localidad_id", :conditions => "tipo = 'localidad'"
   
   ESTATUS = ["buscando","ejecutando","finalizado","cancelado"]
+  default_scope order('created_at DESC')
   scope :estatus_buscando, where(:estatus => 'buscando')
   scope :estatus_ejecutando, where(:estatus => 'ejecutando')
   scope :estatus_finalizado, where(:estatus => 'finalizado')
@@ -25,37 +26,57 @@ class Trabajo < ActiveRecord::Base
             :length => { :in => 10..100 }, 
             :presence => true
   validates :descripcion,
-            :length => { :in => 10..500 }, 
+            :length => { :in => 25..500 }, 
             :presence => true
   validates :estatus,
             :inclusion => { :in => ESTATUS }
   validates :pais_id, 
-            :numericality =>  {
-                                :only_integer => true,
-                                :greater_than => 0
-                              }, 
             :presence => true
+#            :numericality =>  {
+#                                :only_integer => true,
+#                                :greater_than => 0
+#                              }
   validates :estado_id, 
-            :numericality =>  {
-                                :only_integer => true,
-                                :greater_than => 0
-                              }, 
             :presence => true
+#            :numericality =>  {
+#                                :only_integer => true,
+#                                :greater_than => 0
+#                              }
   validates :municipio_id, 
-            :numericality =>  {
-                                :only_integer => true,
-                                :greater_than => 0
-                              }, 
             :presence => true
-  validates :localidad_id, 
-            :numericality =>  {
-                                :only_integer => true,
-                                :greater_than => 0
-                              }, 
+#            :numericality =>  {
+#                                :only_integer => true,
+#                                :greater_than => 0
+#                              }
+  validates :localidad_id,
+            :presence => true
+#            :numericality =>  {
+#                                :only_integer => true,
+#                                :greater_than => 0
+#                              }
+  validates :categoria_id,
             :presence => true
   validates :direccion,
+            :length => { :in => 10..250 }, 
             :presence => true
   validates :precio_final, 
             :numericality =>  { :greater_than_or_equal_to => 0 }
   validates :slug, :presence => true
+  
+  # ACCIONES
+  def buscando?
+    self.estatus == "buscando"
+  end
+  
+  def ejecutando?
+    self.estatus == "ejecutando"
+  end
+  
+  def finalizado?
+    self.estatus == "finalizado"
+  end
+  
+  def cerrado?
+    self.estatus == "cerrado"
+  end
 end

@@ -1,0 +1,33 @@
+<% 
+  content_for :title do 
+    "Confirmación de cuenta"
+  end
+
+  if resource.errors.any? %>
+  <div class="alert alert-error">
+    Algo pas&oacute;. Revisa el formulario para verificar errores.
+  </div>
+<% end %>
+<h1>&iexcl;Tu cuenta est&aacute; casi lista!</h1> 
+<p class="centrado">
+  Ya se confirmó tu correo electrónico. Ahora crea una clave segura para tu cuenta. <br> Esta clave la utilizar&aacute;s para iniciar sesi&oacute;n en TenTuPresupuesto.<br>
+</p>
+  <div class="formulario-pendon al-centro">
+    <div class="titulo-pendon span11"><h2 class="sobre-color">Clave de usuario</h2></div>
+    <div class="cuerpo-pendon span11">
+  <%= form_for(resource, :as => resource_name, :url => send(:"#{resource_name}_confirm_path")) do |f| %>
+      <span class="help-block">Debe tener de 8 a 15 letras y números.</span>
+      <div class="control-group"><%= f.label :password %>
+        <div class="controls"><%= f.password_field :password, :input_html => {:autofocus => true} %></div>
+      </div>
+      <div class="control-group"><%= f.label :password_confirmation %>
+        <div class="controls"><%= f.password_field :password_confirmation %></div>
+      </div>
+      <%= f.hidden_field :confirmation_token, :as => :hidden %>
+      
+      <div class="botones">
+        <%= f.submit 'Continuar', :class => 'btn btn-warning' %>
+      </div>
+  <% end %>
+    </div>
+  </div>

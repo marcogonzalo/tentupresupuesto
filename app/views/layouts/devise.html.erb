@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <%= render "layouts/shared/metatags" %>
+    <%= csrf_meta_tags %>
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+    <![endif]-->
+
+    <%= stylesheet_link_tag "devise", :media => "all" %>
+    <%= yield :head %>
+  </head>
+  <body>
+    <div class="container">
+      <header id="cabecera-interna" class="span24">
+        <div class="navbar">
+          <div class="offset1 span22">
+            <a class="brand" href="/"><%= image_tag "tentu/generales/logo_tentupresupuesto.png", {:title => "TenTuPresupuesto", :alt => "TenTuPresupuesto"} %></a>
+            <div class="enlaces_usuario">
+            <% if solicitante_signed_in? %>
+              <%= link_to 'Panel', panel_solicitante_path %>
+              <%= link_to 'Salir', destroy_solicitante_session_path %>
+            <% elsif proveedor_signed_in? %>
+              <%= link_to "Panel", panel_proveedor_path %>
+              <%= link_to 'Salir', destroy_proveedor_session_path %>
+            <% end %>
+            </div>
+          </div>
+        </div>
+      </header>
+    </div>
+    <div class="container">
+      <div id="cuerpo" class="span24">
+        <div class="container">
+          <%= render "layouts/shared/mensajes" %>
+          <%= yield %>
+        </div> <!-- /container -->
+       </div>
+    </div>
+    <%= render "layouts/shared/pie_de_pagina" %>
+    <!-- Javascripts
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <%= javascript_include_tag "devise" %>
+    <%= yield :foot %>
+  </body>
+</html>

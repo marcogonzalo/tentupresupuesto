@@ -47,21 +47,33 @@ Ttp::Application.configure do
   # config.cache_store = :mem_cache_store
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
-  # config.action_controller.asset_host = "http://assets.example.com"
+  # config.action_controller.asset_host = "http://trapichito.tentupresupuesto.com.ve"
+
+  # Add the fonts path
+  config.assets.paths << Rails.root.join('app', 'assets', 'fonts')
+  
+  # Precompile additional assets
+  config.assets.precompile += ['*.svg', '*.eot', '*.woff', '*.ttf', '*.otf', '*.js', '*.css']
+  # %w( .svg .eot .woff .ttf .otf .js .css)
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
-  config.assets.precompile += %w(ubicaciones_geograficas.js proveedores.js solicitantes.js presupuestos.js trabajos.js)
-
-  config.action_mailer.default_url_options = { :host => 'agapito.tentupresupuesto.com.ve' }
-  config.action_mailer.smtp_settings = {
-    :address              => "smtp.gmail.com",
-    :port                 => 587,
-    :domain               => 'google.com',
-    :user_name            => 'contacto@tentupresupuesto.com.ve',
-    :password             => '1scrc0nt4ct0',
-    :authentication       => 'plain',
-    :enable_starttls_auto => true  
+  # config.assets.precompile += %w(ubicaciones_geograficas.js proveedores.js solicitantes.js presupuestos.js trabajos.js)
+  
+  config.action_mailer.asset_host = "http://trapichito.tentupresupuesto.com.ve"
+  config.action_mailer.default_url_options = { 
+    :host => 'trapichito.tentupresupuesto.com.ve',
+    :only_path            => false
   }
+  
+#  config.action_mailer.smtp_settings = {
+#    :address              => "smtp.gmail.com",
+#    :port                 => 587,
+#    :domain               => 'google.com',
+#    :user_name            => 'contacto@tentupresupuesto.com.ve',
+#    :password             => '1scrc0nt4ct0',
+#    :authentication       => 'plain',
+#    :enable_starttls_auto => true
+#  }
 
   # Don't care if the mailer can't send
   config.action_mailer.raise_delivery_errors = true

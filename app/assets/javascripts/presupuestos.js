@@ -1,6 +1,6 @@
 jQuery(function($) {
   $("#aceptar-presupuesto")
-    .bind("ajax:loading",  alternar_cargando("#loading"))
+    .bind("ajax:loading",  alternar_cargando("#loading-aprobar-rechazar"))
     .bind("ajax:success", function(event, data, status, xhr) {
       mostrar_mensaje("#mensaje-ttp","alert alert-"+data.tipo_mensaje,data.mensaje)
       if(data.tipo_mensaje == "success") {
@@ -8,16 +8,18 @@ jQuery(function($) {
         $("#rechazar-presupuesto").addClass("disabled")
         $("#aceptar-presupuesto").removeAttr('href')
         $("#rechazar-presupuesto").removeAttr('href')
+        $("#aceptar-presupuesto").fadeOut()
+        $("#rechazar-presupuesto").fadeOut()
       }
-      alternar_cargando("#loading")
+      ocultar_cargando("#loading-aprobar-rechazar")
     })
     .bind("ajax:error", function(xhr, status, error) {
       mostrar_mensaje("#mensaje-ttp","alert-error",error)
-      alternar_cargando("#loading")
+      ocultar_cargando("#loading-aprobar-rechazar")
     });
 
   $("#rechazo-presupuesto")
-    .bind("ajax:loading",  alternar_cargando("#loading"))
+    .bind("ajax:loading",  alternar_cargando("#loading-aprobar-rechazar"))
     .bind("ajax:success", function(event, data, status, xhr) {
       mostrar_mensaje("#mensaje-ttp","alert alert-"+data.tipo_mensaje,data.mensaje)
       if(data.tipo_mensaje == "success") {
@@ -25,13 +27,15 @@ jQuery(function($) {
         $("#rechazar-presupuesto").addClass("disabled")
         $("#aceptar-presupuesto").removeAttr('href')
         $("#rechazar-presupuesto").removeAttr('href')
+        $("#aceptar-presupuesto").fadeOut()
+        $("#rechazar-presupuesto").fadeOut()
       }
-      alternar_cargando("#loading")
+      ocultar_cargando("#loading-aprobar-rechazar")
       $("#modal-rechazo").modal('hide')
     })
     .bind("ajax:error", function(xhr, status, error) {
       mostrar_mensaje("#mensaje-ttp","alert-error",error)
-      alternar_cargando("#loading")
+      ocultar_cargando("#loading-aprobar-rechazar")
       $("#modal-rechazo").modal('hide')
     }); 
 });

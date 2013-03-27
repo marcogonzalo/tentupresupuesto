@@ -13,7 +13,6 @@ class DeviseCreateUsuarios < ActiveRecord::Migration
       
       ## Atributos adicionales
       t.string    :nombre,            :limit => 50, :null => false, :default => ""
-      t.string    :apellido,          :limit => 50, :null => false, :default => ""
       t.string    :sexo,              :limit => 10, :null => true,  :default => nil
       t.date      :fecha_nacimiento,                :null => true
       t.boolean   :activo,                          :null => false, :default => true
@@ -57,6 +56,7 @@ class DeviseCreateUsuarios < ActiveRecord::Migration
     add_index :usuarios, :email,                :unique => true
     add_index :usuarios, :perfilable_id
     add_index :usuarios, :perfilable_type
+    add_index :usuarios, [:perfilable_type, :perfilable_id]
     add_index :usuarios, :reset_password_token, :unique => true
     add_index :usuarios, :confirmation_token,   :unique => true
     # add_index :usuarios, :unlock_token,         :unique => true

@@ -1,5 +1,44 @@
 // Place all the styles related to the Trabajos controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-#solicitud-trabajo header p { font-size:0.8em; margin-bottom: -0.25em;}
-#solicitud-trabajo #descripcion { margin:1em;}
+
+textarea { height:10em; max-width:90%;}
+/* Lista de Trabajos */
+#filtros.well {background:#1B80C1;
+
+-moz-box-shadow: inset 0 0 10em #2B598F;
+-webkit-box-shadow: inset 0 0 10em #2B598F;
+box-shadow:  inset 0 0 10em #2B598F;
+}
+#filtros h4 {color:white;}
+#filtros .listado { background-color:#eee; border-radius:5px; font-family:"MyriadPro", Arial, sans-serif; height:10em; overflow:auto; padding:0.25em;}
+#filtros .listado ul li { font-size:0.9em;}
+.trabajo { background-color: #eee; border: 1px solid silver; margin-bottom:0.5em; padding:1%;}
+.trabajo p { font-size:0.85em; margin-bottom:0.25em;}
+.trabajo .descripcion { font-size:1em; }
+
+/* Vista de Trabajo */
+#proveedores-interesados {clear:both;}
+.presupuesto { background:#eee url('tentu/generales/fondopie.png') repeat-x center bottom; display:inline-block; margin:0.75em; text-align:center; 
+-o-border-radius:20px;
+-moz-border-radius:20px;
+-webkit-border-radius:20px;
+-khtml-border-radius:20px;
+border-radius:20px;
+
+-moz-box-shadow: 1px 1px 5px #666;
+-webkit-box-shadow: 1px 1px 5px #666;
+box-shadow: 1px 1px 5px #666;
+}
+.presupuesto.destacado { background-color:#999;
+/*-moz-box-shadow: inset 0 0 10em #fc3;
+-webkit-box-shadow: inset 0 0 10em #fc3;
+box-shadow:  inset 0 0 10em #fc3;*/
+}
+.presupuesto .proveedor-interesado { display:block;}
+.presupuesto .reputacion {background-color:#666;margin:1em auto;}
+.separar-alrededor, .botones { margin:1em; }
+
+@media screen and (max-width: 767px) { 
+  .presupuesto { clear:both; display:block; float:none; margin:.75em auto; padding:0.25em; width:98%;}
+}

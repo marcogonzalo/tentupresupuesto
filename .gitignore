@@ -17,4 +17,6 @@
 /log/*.log
 /tmp
 
+# Ignore CarrierWave uploads directory
+/public/uploads
 .project

@@ -1,3 +1,13 @@
+<% 
+  content_for :title do 
+    "Desbloqueo de cuenta"
+  end
+
+  if resource.errors.any? %>
+  <div class="alert alert-error">
+    Algo pas&oacute;. Revisa el formulario para verificar errores.
+  </div>
+<% end %>
 <h2>Instrucciones de desbloqueo de cuenta</h2>
 
 <p>Un correo te ha sido enviado con instrucciones para desbloquear la cuenta. Por favor, sigue las instrucciones que all&iacute; te indicamos.</p>

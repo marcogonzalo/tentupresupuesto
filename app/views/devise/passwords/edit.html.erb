@@ -1,5 +1,18 @@
+<% 
+  content_for :title do 
+    "Cambio de clave"
+  end
+
+  if resource.errors.any? %>
+  <div class="alert alert-error">
+    Algo pas&oacute;. Revisa el formulario para verificar errores.
+  </div>
+<% end %>
 <h2>Cambia tu clave secreta</h2>
 
+  <div id="iniciar-sesion" class="formulario-pendon offset1 span12">
+    <div class="titulo-pendon"><h2 class="sobre-color">Cambiar clave</h2></div>
+    <div class="cuerpo-pendon">
 <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put }) do |f| %>
   <%= f.hidden_field :reset_password_token %>
 
@@ -10,9 +23,14 @@
   <div class="control-group"><%= f.label :password_confirmation, "Confirma la nueva clave" %>
     <div class="controls"><%= f.password_field :password_confirmation %></div>
   </div>
-
-  <div class="form-actions">
-    <p><%= f.submit "Cambiar mi clave", :class => 'btn btn-primary' %></p>
-    <%= render "devise/shared/links" %>
+  
+  <div class="botones">
+    <%= f.submit "Cambiar mi clave", :class => 'btn btn-warning' %>
   </div>
 <% end %>
+    </div>
+  </div>
+
+  <div id="caracteristicas" class="offset1 span7">
+    <%= render "devise/shared/links" %>
+  </div>

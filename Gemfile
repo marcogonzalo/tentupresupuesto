@@ -10,10 +10,17 @@ gem 'timeliness'                      # Manejo de fechas
 gem 'validates_timeliness', '~> 3.0'  # Validacion de fechas en el modelo
 gem "friendly_id", '~> 4.0.1'         # Identificadores amigables para url
 
+gem "seedbank"                        # Gestor de seeds para llenar la BD - https://github.com/james2m/seedbank
+
+# Manejo de imagenes
+gem "mini_magick"                     # A ruby wrapper for ImageMagick command line - https://github.com/minimagick/minimagick
+gem 'carrierwave'                     # Gestionar imágenes - https://github.com/jnicklas/carrierwave
+
 # Sesiones
 gem 'devise'
 gem 'devise-encryptable'
 
+# Bibliotecas jQuery y CSS
 gem 'jquery-rails'
 gem 'modernizr-rails'
 
@@ -29,10 +36,8 @@ group :assets do
 
   gem 'cssminify'
   gem 'uglifier', '>= 1.0.3'
-  gem 'twitter-bootstrap-rails'
 end
-
-gem "seedbank"  # Permite manejar distintos seed para llenar la base de datos https://github.com/james2m/seedbank
+gem 'twitter-bootstrap-rails'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
@@ -48,4 +53,7 @@ gem 'capistrano'
 
 # To use debugger
 # gem 'debugger'
-gem 'debugger', group: [:development, :test]
+group :development do
+  gem 'debugger'
+  gem 'ruby-debug-ide'
+end

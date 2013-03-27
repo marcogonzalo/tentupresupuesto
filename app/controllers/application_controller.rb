@@ -1,7 +1,13 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   FLASH_NOTICE_KEYS = [:error, :warning, :info, :success] # Tipos de notificaciones bootstrap
-
+  
+  add_breadcrumb "TTP", :root_path
+  
+  def current_user
+    return current_solicitante ? current_solicitante : current_proveedor
+  end
+  
   def flash_messages
     return unless messages = flash.keys.select{|k| FLASH_NOTICE_KEYS.include?(k)}
     formatted_messages = messages.map do |type|      
@@ -25,9 +31,38 @@ class ApplicationController < ActionController::Base
   end
   
   protected
-  def authenticate_any
-    unless solicitante_signed_in? or proveedor_signed_in?
+  def authenticated_any
+    unless signed_in?
+      if solicitante_signed_in?
+        redirect_to new_solicitante_session_path
+      else
+        redirect_to new_proveedor_session_path
+      end
+    end
+    return true
+  end
+  
+  def authenticated_solicitante
+    unless solicitante_signed_in?
       redirect_to new_solicitante_session_path
+    end
+    return true
+  end
+  
+  def authenticated_proveedor
+    unless proveedor_signed_in?
+      redirect_to new_proveedor_session_path
+    end
+    return true
+  end
+  
+  def no_authenticated
+    if solicitante_signed_in?
+      return true if current_solicitante.perfilable_id.nil? or current_solicitante.perfilable_id < 1
+      redirect_to panel_solicitante_path
+    elsif proveedor_signed_in?
+      return true if current_proveedor.perfilable_id.nil? or current_proveedor.perfilable_id < 1
+      redirect_to panel_proveedor_path
     end
     return true
   end

@@ -11,13 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130204025539) do
+ActiveRecord::Schema.define(:version => 20130317232653) do
 
   create_table "categorias", :force => true do |t|
-    t.string  "nombre",      :limit => 50, :default => "", :null => false
+    t.string  "nombre",                :limit => 50, :default => "",   :null => false
     t.string  "descripcion"
-    t.integer "padre_id",                  :default => 0
-    t.string  "slug",                      :default => "", :null => false
+    t.integer "padre_id",                            :default => 0
+    t.string  "slug",                                :default => "",   :null => false
+    t.integer "proveedores_asociados",               :default => 0,    :null => false
+    t.integer "trabajos_asociados",                  :default => 0,    :null => false
+    t.boolean "visible",                             :default => true, :null => false
+    t.string  "clase_css",                           :default => "",   :null => false
   end
 
   add_index "categorias", ["padre_id"], :name => "index_categorias_on_padre_id"
@@ -42,6 +46,19 @@ ActiveRecord::Schema.define(:version => 20130204025539) do
   add_index "friendly_id_slugs", ["sluggable_id"], :name => "index_friendly_id_slugs_on_sluggable_id"
   add_index "friendly_id_slugs", ["sluggable_type"], :name => "index_friendly_id_slugs_on_sluggable_type"
 
+  create_table "imagenes", :force => true do |t|
+    t.string   "archivo",                       :null => false
+    t.string   "descripcion"
+    t.string   "proposito",       :limit => 20
+    t.integer  "imagenable_id",                 :null => false
+    t.string   "imagenable_type",               :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+  end
+
+  add_index "imagenes", ["imagenable_type", "imagenable_id", "proposito"], :name => "index_imagenes_on_imtype_imid_proposito"
+  add_index "imagenes", ["imagenable_type", "imagenable_id"], :name => "index_imagenes_on_imtype_imid"
+
   create_table "mensajes", :force => true do |t|
     t.string   "comentario",                   :default => "",    :null => false
     t.string   "usuario",        :limit => 15
@@ -62,6 +79,7 @@ ActiveRecord::Schema.define(:version => 20130204025539) do
     t.boolean  "aprobado"
     t.boolean  "rechazado",                    :default => false, :null => false
     t.string   "motivo_rechazo", :limit => 20
+    t.integer  "cant_mensajes",                :default => 0,     :null => false
     t.datetime "created_at",                                      :null => false
     t.datetime "updated_at",                                      :null => false
     t.integer  "trabajo_id"
@@ -93,8 +111,10 @@ ActiveRecord::Schema.define(:version => 20130204025539) do
     t.integer  "estado_id"
     t.integer  "municipio_id"
     t.integer  "localidad_id"
+    t.string   "avatar"
   end
 
+  add_index "proveedores", ["avatar"], :name => "index_proveedores_on_avatar"
   add_index "proveedores", ["estado_id"], :name => "index_proveedores_on_estado_id"
   add_index "proveedores", ["localidad_id"], :name => "index_proveedores_on_localidad_id"
   add_index "proveedores", ["municipio_id"], :name => "index_proveedores_on_municipio_id"
@@ -126,16 +146,17 @@ ActiveRecord::Schema.define(:version => 20130204025539) do
   add_index "solicitantes", ["pais_id"], :name => "index_solicitantes_on_pais_id"
 
   create_table "trabajos", :force => true do |t|
-    t.string   "proposito",      :limit => 100,                               :default => "",         :null => false
-    t.text     "descripcion",                                                 :default => "",         :null => false
-    t.string   "estatus",        :limit => 15,                                :default => "buscando", :null => false
-    t.text     "direccion",                                                   :default => "",         :null => false
-    t.decimal  "precio_final",                  :precision => 8, :scale => 2, :default => 0.0,        :null => false
-    t.datetime "created_at",                                                                          :null => false
-    t.datetime "updated_at",                                                                          :null => false
+    t.string   "proposito",         :limit => 100,                               :default => "",         :null => false
+    t.text     "descripcion",                                                    :default => "",         :null => false
+    t.string   "estatus",           :limit => 15,                                :default => "buscando", :null => false
+    t.text     "direccion",                                                      :default => "",         :null => false
+    t.decimal  "precio_final",                     :precision => 8, :scale => 2, :default => 0.0,        :null => false
+    t.integer  "cant_presupuestos",                                              :default => 0,          :null => false
+    t.datetime "created_at",                                                                             :null => false
+    t.datetime "updated_at",                                                                             :null => false
     t.integer  "solicitante_id"
     t.integer  "contratado_id"
-    t.string   "slug",                                                        :default => "",         :null => false
+    t.string   "slug",                                                           :default => "",         :null => false
     t.integer  "categoria_id"
     t.integer  "pais_id"
     t.integer  "estado_id"
@@ -157,10 +178,12 @@ ActiveRecord::Schema.define(:version => 20130204025539) do
     t.string  "nombre",     :limit => 100,                     :null => false
     t.string  "tipo",       :limit => 15,  :default => "pais", :null => false
     t.integer "entidad_id"
+    t.string  "slug",                      :default => "",     :null => false
   end
 
   add_index "ubicaciones_geograficas", ["entidad_id"], :name => "index_ubicaciones_geograficas_on_entidad_id"
   add_index "ubicaciones_geograficas", ["nombre", "tipo", "entidad_id"], :name => "index_ubicaciones_geograficas_on_nombre_and_tipo_and_entidad_id", :unique => true
+  add_index "ubicaciones_geograficas", ["slug"], :name => "index_ubicaciones_geograficas_on_slug", :unique => true
 
   create_table "usuarios", :force => true do |t|
     t.string   "email",                                :default => "",    :null => false
@@ -169,7 +192,6 @@ ActiveRecord::Schema.define(:version => 20130204025539) do
     t.string   "perfilable_type"
     t.string   "password_salt"
     t.string   "nombre",                 :limit => 50, :default => "",    :null => false
-    t.string   "apellido",               :limit => 50, :default => "",    :null => false
     t.string   "sexo",                   :limit => 10
     t.date     "fecha_nacimiento"
     t.boolean  "activo",                               :default => true,  :null => false
@@ -197,6 +219,8 @@ ActiveRecord::Schema.define(:version => 20130204025539) do
   add_index "usuarios", ["authentication_token"], :name => "index_usuarios_on_authentication_token", :unique => true
   add_index "usuarios", ["confirmation_token"], :name => "index_usuarios_on_confirmation_token", :unique => true
   add_index "usuarios", ["email"], :name => "index_usuarios_on_email", :unique => true
+  add_index "usuarios", ["perfilable_id"], :name => "index_usuarios_on_perfilable_id"
+  add_index "usuarios", ["perfilable_type"], :name => "index_usuarios_on_perfilable_type"
   add_index "usuarios", ["reset_password_token"], :name => "index_usuarios_on_reset_password_token", :unique => true
 
   add_foreign_key "mensajes", "presupuestos", :name => "mensajes_presupuesto_id_fk", :dependent => :delete

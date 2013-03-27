@@ -19,3 +19,4 @@ namespace :to_staging do
 end
 
 after "deploy:finish", "to_staging:migrations"
+after "deploy:finish", "to_staging:seeds"

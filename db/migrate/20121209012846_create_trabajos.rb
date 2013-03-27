@@ -6,6 +6,7 @@ class CreateTrabajos < ActiveRecord::Migration
       t.string  :estatus,        :limit => 15,  :null => false, :default=>:buscando
       t.text    :direccion,                     :null => false, :default => ""
       t.decimal :precio_final,   :precision => 8, :scale => 2, :null => false, :default => 0.0
+      t.integer :cant_presupuestos,             :null => false, :default => 0
 
       t.timestamps
     end

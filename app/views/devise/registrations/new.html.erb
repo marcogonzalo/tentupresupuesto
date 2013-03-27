@@ -1,53 +1,137 @@
-<h2>Registro de <%= resource_name %></h2>
+<%
+content_for :title do
+"Registro de #{resource_name}"
+end
 
-<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
-  <% if resource.errors.any? %>
-    <div class="alert alert-error">
-      Ocurri&oacute; un error. Revisa el formulario.
-    </div>
-  <% end %>
-  <fieldset>
-    <legend>Datos de la cuenta</legend>
-    <div class="control-group"><%= f.label :email %>
-      <div class="controls"><%= f.email_field :email %></div>
-    </div>
-  
-    <div class="control-group"><%= f.label :email_confirmation %>
-      <div class="controls"><%= f.email_field :email_confirmation %></div>
-    </div>
-  
-    <div class="control-group"><%= f.label :password %>
-      <div class="controls"><%= f.password_field :password %></div>
-    </div>
-  
-    <div class="control-group"><%= f.label :password_confirmation %>
-      <div class="controls"><%= f.password_field :password_confirmation %></div>
-    </div>
-  </fieldset>
-  <fieldset>
-    <legend>Datos personales</legend>
-    <div class="control-group"><%= f.label :nombre %>
-      <div class="controls"><%= f.text_field :nombre %></div>
-    </div>
-    
-    <div class="control-group"><%= f.label :apellido %>
-      <div class="controls"><%= f.text_field :apellido %></div>
-    </div>
-    
-    <div class="control-group"><%= f.label :sexo %>
-      <div class="controls"><%= f.select(:sexo, Usuario::SEXO, {:prompt => 'Selecciona'}) %></div>
-    </div>
-  
-    <div class="control-group"><%= f.label :fecha_nacimiento %>
-      <div class="controls"><%= f.date_select :fecha_nacimiento, :start_year => Time.now.year - 85, :end_year => Time.now.year - 16, :class => 'date_field' %></div>
-    </div>
-  </fieldset>
-  <div><%= f.check_box :acepta_terminos %><%= f.label :acepta_terminos %></div>
-  
-  <%= f.hidden_field :perfilable_type, :value => resource_name %>
-
-   <div class="form-actions">
-    <p><%= f.submit nil, :class => 'btn btn-primary' %></p>
-    <%= render "devise/shared/links" %>
-  </div>
+if resource.errors.any? %>
+<div class="alert alert-error">
+	Algo pas&oacute;. Revisa el formulario para verificar errores.
+</div>
 <% end %>
+<h1>Registro</h1>
+<div id="registro" class="formulario-pendon offset1 span12">
+	<div class="titulo-pendon">
+		<h2 class="sobre-color">Como <%= resource_name %></h2>
+	</div>
+	<div class="cuerpo-pendon">
+		<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+			<span class="help-block"><i class="icon-white icon-asterisk"></i> Indica campo obligatorio</span>
+			<div class="control-group">
+				<%= f.label :nombre %>
+				<div class="controls">
+					<i class="icon-white icon-asterisk"></i>
+					<%= f.text_field :nombre %>
+				</div>
+			</div>
+	
+			<div class="control-group">
+				<%= f.label :email %>
+				<div class="controls">
+				<i class="icon-white icon-asterisk"></i>
+					<%= f.email_field :email %>
+				</div>
+			</div>
+	
+			<div class="control-group">
+				<%= f.label :fecha_nacimiento %>
+				<div class="controls">
+					<%= f.date_select :fecha_nacimiento, :end_year => Time.now.year - 85, :start_year => Time.now.year - 18, :class => 'date_field' %>
+				</div>
+			</div>
+	
+			<div class="control-group">
+				<%= f.label :sexo %>
+				<div class="controls">
+					<%= f.select(:sexo, Usuario::SEXO, {:prompt => 'Selecciona'}) %>
+				</div>
+			</div>
+	
+			<!-- <label for="<%= resource_name %>_acepta_terminos" class="checkbox">
+			<%# = f.check_box :acepta_terminos %> Acepto los <%= link_to "Términos y Condiciones", general_terminos_path
+			%></a>
+			</label> -->
+	
+			<%= f.hidden_field :acepta_terminos, :value => true %>
+			<%= f.hidden_field :perfilable_type, :value => resource_name %>
+	
+			<div class="botones">
+				<%= f.submit "Registrarme", :class => 'btn btn-warning' %>
+			</div>
+		<% end %>
+	</div>
+<%- if controller_name != 'sessions'
+	mensaje = "Iniciar sesión como "+resource_name.to_s
+%>
+	<p>
+		<%= link_to mensaje, new_session_path(resource_name) %>
+	</p>
+<% end -%>
+</div>
+
+<div id="caracteristicas" class="offset1 span8 registro">
+<%- if devise_mapping.registerable? && controller_name == 'registrations'
+	# Enlace para registrarse como otro tipo de usuario
+	mensaje = "¿Quieres registrarte como "
+	mensaje += resource_name.to_s == 'solicitante' ? "proveedor" : "solicitante"
+	mensaje += "?"
+	path = resource_name.to_s == 'solicitante' ? new_proveedor_registration_path : new_solicitante_registration_path
+%>
+	<p>
+		<%= link_to mensaje, path, :class => "btn btn-success btn-large btn-block" %>
+	</p>
+<% end -%>
+	<hr>
+	<h4>Beneficios como <%= resource_name.to_s %></h4>
+<% if resource_name.to_s == 'solicitante' %>
+	<div>
+		<p class="titulo">
+			Solicita
+		</p>
+		<p class="texto">
+			Dile a todos los proveedores qué es lo que necesitas.
+		</p>
+	</div>
+	<div>
+		<p class="titulo">
+			Compara
+		</p>
+		<p class="texto">
+			Recibe las propuestas de los proveedores de la categoría del trabajo, conoce su trayectoria y compara sus ofertas.
+		</p>
+	</div>
+	<div>
+		<p class="titulo">
+			Ahorra
+		</p>
+		<p class="texto">
+			Escoge al proveedor que te ofrezca el mejor servicio al mejor precio.
+		</p>
+	</div>
+<% else %>
+	<div>
+		<p class="titulo">
+			Difunde tu trabajo
+		</p>
+		<p class="texto">
+			Muéstrale a tus potenciales clientes la calidad de tu trabajo a través de tu perfil de TenTuPresupuesto.
+		</p>
+	</div>
+	<div>
+		<p class="titulo">
+			Accede a nuevos clientes
+		</p>
+		<p class="texto">
+			Ten acceso a todas las solicitudes publicadas en las categorías en las que prestas servicios.
+		</p>
+	</div>
+	<div>
+		<p class="titulo">
+			Incrementa tus contrataciones
+		</p>
+		<p class="texto">
+			Presenta las mejores ofertas, presta el mejor servicio, y gana reputación.
+		</p>
+	</div>
+<% end%>
+	<hr>
+</div>

@@ -23,7 +23,7 @@ module Ttp
     # config.plugins = [ :exception_notification, :ssl_requirement, :all ]
 
     # Activate observers that should always be running.
-    config.active_record.observers = :trabajo_observer, :presupuesto_observer
+    config.active_record.observers = :trabajo_observer, :presupuesto_observer, :mensaje_observer
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
@@ -58,5 +58,11 @@ module Ttp
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+    
+    
+    # Plantilla de correo devise
+    config.to_prepare do
+      Devise::Mailer.layout "email.html.erb" # email.haml or email.erb
+    end
   end
 end

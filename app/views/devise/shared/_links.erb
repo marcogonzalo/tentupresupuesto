@@ -1,25 +1,45 @@
-<%- if controller_name != 'sessions' %>
-  <%= link_to "Iniciar sesión", new_session_path(resource_name) %><br />
+<%- if controller_name == 'sessions' and false
+    # Enlace para iniciar sesion con otro tipo de usuario
+    mensaje = "Iniciar sesión como "
+    mensaje += resource_name.to_s == 'solicitante' ? "proveedor" : "solicitante"
+    path = resource_name.to_s == 'solicitante' ? new_proveedor_session_path : new_solicitante_session_path
+  %>
+  <div><%= link_to mensaje, path %></div>
+<% end -%>
+
+<%- if devise_mapping.registerable? && controller_name == 'registrations'
+    # Enlace para registrarse como otro tipo de usuario
+    mensaje = "Registrarse como "
+    mensaje += resource_name.to_s == 'solicitante' ? "proveedor" : "solicitante"
+    path = resource_name.to_s == 'solicitante' ? new_proveedor_registration_path : new_solicitante_registration_path
+  %>
+  <div><%= link_to mensaje, path %></div>
+<% end -%>
+
+<%- if controller_name != 'sessions'  
+    mensaje = "Iniciar sesión como "+resource_name.to_s
+  %>
+  <div><%= link_to mensaje, new_session_path(resource_name) %></div>
 <% end -%>
 
 <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
-  <%= link_to "Registro", new_registration_path(resource_name) %><br />
+  <div><%= link_to "¡Regístrate!", new_registration_path(resource_name) %></div>
 <% end -%>
 
 <%- if devise_mapping.recoverable? && controller_name != 'passwords' %>
-  <%= link_to "¿Olvidaste tu clave?", new_password_path(resource_name) %><br />
+  <div><%= link_to "¿Olvidaste tu clave?", new_password_path(resource_name) %></div>
 <% end -%>
 
 <%- if devise_mapping.confirmable? && controller_name != 'confirmations' %>
-  <%= link_to "¿No recibiste las instrucciones de confirmación?", new_confirmation_path(resource_name) %><br />
+  <div><%= link_to "¿No recibiste las instrucciones de confirmación?", new_confirmation_path(resource_name) %></div>
 <% end -%>
 
 <%- if devise_mapping.lockable? && resource_class.unlock_strategy_enabled?(:email) && controller_name != 'unlocks' %>
-  <%= link_to "¿No recibiste las instrucciones de desbloqueo?", new_unlock_path(resource_name) %><br />
+  <div><%= link_to "¿No recibiste las instrucciones de desbloqueo?", new_unlock_path(resource_name) %></div>
 <% end -%>
 
 <%- if devise_mapping.omniauthable? %>
   <%- resource_class.omniauth_providers.each do |provider| %>
-    <%= link_to "Iniciar sesión con #{provider.to_s.titleize}", omniauth_authorize_path(resource_name, provider) %><br />
+    <div><%= link_to "Iniciar sesión con #{provider.to_s.titleize}", omniauth_authorize_path(resource_name, provider) %></div>
   <% end -%>
 <% end -%>

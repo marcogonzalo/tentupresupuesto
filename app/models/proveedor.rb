@@ -3,12 +3,15 @@ class Proveedor < ActiveRecord::Base
   include FriendlyId
   friendly_id :nombre_empresa, :use => [:slugged, :history]
   
+  mount_uploader :avatar, AvatarUploader
+  
   attr_accessible :nombre_empresa, :tipo_proveedor, :rif, :descripcion,
                   :telefono_local, :telefono_movil, :telefono_alt,
                   :direccion, :punto_referencia, :correo_electronico,
                   :categoria_ids, :pais_id, :estado_id, :municipio_id, :localidad_id
   
   has_one :usuario, :as => :perfilable
+  has_many :imagenes, :as => :imagenable, :dependent => :destroy
   has_many :trabajos
   has_many :presupuestos
   has_and_belongs_to_many :categorias
@@ -58,29 +61,29 @@ class Proveedor < ActiveRecord::Base
                        },
             :allow_blank => true
   validates :pais_id, 
-            :numericality =>  {
-                                :only_integer => true,
-                                :greater_than => 0
-                              }, 
             :presence => true
+#            :numericality =>  {
+#                                :only_integer => true,
+#                                :greater_than => 0
+#                              }
   validates :estado_id, 
-            :numericality =>  {
-                                :only_integer => true,
-                                :greater_than => 0
-                              }, 
             :presence => true
+#            :numericality =>  {
+#                                :only_integer => true,
+#                                :greater_than => 0
+#                              }
   validates :municipio_id, 
-            :numericality =>  {
-                                :only_integer => true,
-                                :greater_than => 0
-                              }, 
             :presence => true
-  validates :localidad_id, 
-            :numericality =>  {
-                                :only_integer => true,
-                                :greater_than => 0
-                              }, 
+#            :numericality =>  {
+#                                :only_integer => true,
+#                                :greater_than => 0
+#                              }
+  validates :localidad_id,
             :presence => true
+#            :numericality =>  {
+#                                :only_integer => true,
+#                                :greater_than => 0
+#                              }
   validates :direccion, 
             :length => { :in => 10..255 }, 
             :allow_blank => true

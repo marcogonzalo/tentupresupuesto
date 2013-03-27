@@ -16,3 +16,4 @@ namespace :to_production do
 end
 
 after "deploy:finish", "to_production:migrations"
+after "deploy:finish", "to_production:seeds"
