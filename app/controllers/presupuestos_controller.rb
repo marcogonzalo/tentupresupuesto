@@ -112,6 +112,13 @@ class PresupuestosController < ApplicationController
   # POST /presupuestos.json
   def create
     @trabajo = Trabajo.find(params[:trabajo_id])
+    presupuestos_de_proveedor = @trabajo.presupuestos.where(:proveedor_id => current_proveedor.perfilable_id).size
+    if presupuestos_de_proveedor > 0
+      flash[:warning] = "Ya has presentado un presupuesto para esta solicitud."
+      redirect_to @trabajo
+      return
+    end
+    
     @presupuesto = @trabajo.presupuestos.build(params[:presupuesto])
     @presupuesto.proveedor_id = current_proveedor.perfilable_id
     
@@ -216,7 +223,7 @@ class PresupuestosController < ApplicationController
     respond_to do |format|
       if es_el_solicitante
         if @presupuesto.save
-          # TtpMailer.notificar_presupuesto_rechazado(@presupuesto)
+          TtpMailer.notificar_presupuesto_rechazado(@presupuesto)
           flash[:success] = "El presupuesto ha sido rechazado."
           format.json { render :json => { presupuesto: @presupuesto, tipo_mensaje: :success, mensaje: flash[:success]}}
         else
