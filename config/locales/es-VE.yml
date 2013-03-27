@@ -268,7 +268,7 @@ es-VE:
           one: "1 trabajo realizado"
           other: "%{count} trabajos realizados"
         telefono_alt: "Teléfono alternativo"
-        telefono_fijo: "Teléfono fijo"
+        telefono_local: "Teléfono local"
         telefono_movil: "Teléfono móvil"
         tipo_proveedor: "Tipo de proveedor"
         tipos_proveedor:
@@ -285,7 +285,7 @@ es-VE:
         pais_id: "País"
         punto_referencia: "Punto de referencia"
         telefono_alt: "Teléfono alternativo"
-        telefono_fijo: "Teléfono fijo"
+        telefono_local: "Teléfono local"
         telefono_movil: "Teléfono móvil"
       trabajo:
         categoria_id: "Categoría"

@@ -15,8 +15,7 @@ class Solicitante < ActiveRecord::Base
             :numericality =>  { 
                                 :only_integer => true,
                                 :greater_than => 50000
-                              }, 
-            :presence => true
+                              }
   validates :telefono_local, 
             :presence => { 
                           :message => "debe completarse si no posee teléfono móvil", 
