@@ -59,7 +59,7 @@ Ttp::Application.configure do
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
   # config.assets.precompile += %w(ubicaciones_geograficas.js proveedores.js solicitantes.js presupuestos.js trabajos.js)
 
-  config.action_mailer.asset_host = "http://wwww.tentupresupuesto.com.ve"
+  config.action_mailer.asset_host = "http://www.tentupresupuesto.com.ve"
   config.action_mailer.default_url_options = { 
     :host => 'www.tentupresupuesto.com.ve',
     :only_path            => false
