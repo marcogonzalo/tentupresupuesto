@@ -56,6 +56,9 @@ Ttp::Application.routes.draw do
       get     'trabajos/:filtro/:valor' => "trabajos#index", :as => "listar_trabajos", :constraints => FiltroListaTrabajos
     end
     resources :trabajos, :shallow => true do
+      member do
+        match 'finalizar' => "trabajos#finalizar_trabajo", :via => [:put]
+      end
       resources :presupuestos do
         member do
           match 'aceptar' => "presupuestos#aceptar_presupuesto", :via => [:put, :post]

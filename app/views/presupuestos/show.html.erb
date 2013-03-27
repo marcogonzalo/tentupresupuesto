@@ -23,9 +23,9 @@
 <%= (link_to "Volver al listado de presupuestos", trabajo_presupuestos_path(@trabajo), :class => 'btn btn-link') if @es_el_solicitante %>
 <h2 class="offset1"><%= t '.title', :default => model_class.model_name.human %></h2>
 <section id="descripcion" class="offset1 span20">
-	<% if @es_el_solicitante %>
+<% if @es_el_solicitante %>
 	<h3 class="offset1">De: <span class="con-myriad"><%= @presupuesto.proveedor.nombre_empresa %></span></h3>
-	<% end %>
+<% end %>
 	<dl class="dl-horizontal">
 		<dt>
 			<strong>Precio estimado:</strong>
@@ -58,6 +58,7 @@
 	<p class="mini-nota">
 		<%= @presupuesto.fue_visto if @es_el_proveedor %>
 	</p>
+	
 
 </section>
 <div class="clearfix"></div>

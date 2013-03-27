@@ -21,37 +21,72 @@
   end
 %>
 <section id="descripcion" class="offset1 span20">
-	<h2>Descripci&oacute;n del trabajo solicitado</h3>
-	<pre><%= @trabajo.descripcion %></pre>
-	<p><%= "<b>Estatus</b>: ".html_safe+@trabajo.estatus unless @trabajo.buscando? %></p>
-	
+	<h2>Descripci&oacute;n del trabajo solicitado</h3> 	<pre><%= @trabajo.descripcion %></pre>
+	<p>
+		<%= "<b>Estatus</b>: ".html_safe+@trabajo.estatus unless @trabajo.buscando? %>
+	</p>
+<% if @trabajo.ejecutando? %>
+	<% if @es_el_proveedor %>
+	<h4>Datos del solicitante</h4>
+	<dl class="dl-horizontal">
+		<% unless @trabajo.solicitante.telefono_local.empty? %>
+		<dt>
+			<strong>Teléfono Local: </strong>
+		</dt>
+		<dd>
+			<%= @trabajo.solicitante.telefono_local %>
+		</dd>
+		<% end %>
+		<% unless @trabajo.solicitante.telefono_movil.empty? %>
+		<dt>
+			<strong>Teléfono Móvil </strong>
+		</dt>
+		<dd>
+			<%= @trabajo.solicitante.telefono_movil %>
+		</dd>
+		<% end %>
+		<% unless @trabajo.solicitante.telefono_alt.empty? %>
+		<dt>
+			<strong>Teléfono Alternativo: </strong>
+		</dt>
+		<dd>
+			<%= @trabajo.solicitante.telefono_alt %>
+		</dd>
+		<% end %>
+	</dl>
+	<% end %>
+<% end %>
 </section>
 <div class="clearfix micro-nota">
 	Ref: <%= @trabajo.id %>
 </div>
 <div class="clearfix"></div>
 <div class="form-actions">
-<% if @es_el_solicitante %>
-		<%= link_to "Volver al panel",
-			panel_solicitante_path, :class => 'btn' %>
-		<%= link_to t('.edit', :default => t("helpers.links.edit")),
-			edit_trabajo_path(@trabajo), :class => 'btn' %>
-	<% if @trabajo.buscando? %>
-		<%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-			trabajo_path(@trabajo),
-			:method => 'delete',
-			:confirm => t('.confirm', :default => t("helpers.links.confirm", :default => '¿Estás seguro de eliminar la oferta?')),
-			:class => 'btn btn-danger' %>
+	<% if @es_el_solicitante %>
+	<%= link_to "Volver al panel",
+	panel_solicitante_path, :class => 'btn' %>
+	<% if @trabajo.buscando? or @trabajo.cerrado? %>
+	<%= link_to t('.edit', :default => t("helpers.links.edit")),
+	edit_trabajo_path(@trabajo), :class => 'btn' %>
 	<% end %>
-<% elsif proveedor_signed_in? %>
+	<%= link_to "Marcar como finalizado", finalizar_trabajo_path(@trabajo, :format => 'json'), :remote => 'true', :method => 'put', :id => 'finalizar-trabajo', :class => 'btn btn-success' %>
 	<% if @trabajo.buscando? %>
-		<%= link_to t('.new', :default => "Ofrece un presupuesto para esta solicitud"),
-			new_trabajo_presupuesto_path(@trabajo), :class => 'btn btn-success btn-large' %>
+	<%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+	trabajo_path(@trabajo),
+	:method => 'delete',
+	:confirm => t('.confirm', :default => t("helpers.links.confirm", :default => '¿Estás seguro de eliminar la oferta?')),
+	:class => 'btn btn-danger' %>
 	<% end %>
-<% else %>
-		<%= link_to t('.new', :default => "Para ofertar presupuestos o publicar solicitudes como esta, regístrate aquí"),
-			new_registration_path("solicitante"), :class => 'btn btn-success btn-large' %>
-<% end %>
+	<% elsif proveedor_signed_in? %>
+	<% if @trabajo.buscando? %>
+	<%= link_to t('.new', :default => "Ofrece un presupuesto para esta solicitud"),
+	new_trabajo_presupuesto_path(@trabajo), :class => 'btn btn-success btn-large' %>
+	<% end %>
+	<% else %>
+	<%= link_to t('.new', :default => "Para ofertar presupuestos o publicar solicitudes como esta, regístrate aquí"),
+	new_registration_path("solicitante"), :class => 'btn btn-success btn-large' %>
+	<% end %>
+	<%= image_tag "tentu/generales/cargando.gif", {:class => "cargando", :id => "loading-aprobar-rechazar"} %>
 </div>
 <a name="presupuestos"></a>
 <% if @trabajo.contratado %>
@@ -59,13 +94,13 @@
 	<h2>Proveedor contratado</h2>
 	<div class="span4 presupuesto">
 		<div class="separar-alrededor">
-		    <%= image_tag(@trabajo.contratado.avatar.mini.url) if @trabajo.contratado.avatar? %>
-		    <span class="proveedor-interesado"><b><%= @trabajo.contratado.nombre_empresa %></b></span> 
-		    <%= raw mostrar_reputacion(@trabajo.contratado.reputacion, @trabajo.contratado.valoraciones, "proveedor") %>
-	  	</div>
-	    <div class="botones">
-	      <%= link_to "Ver perfil", perfil_proveedor_path(@trabajo.contratado), :class => 'btn btn-warning btn-small' %>
-	    </div>
+			<%= image_tag(@trabajo.contratado.avatar.mini.url) if @trabajo.contratado.avatar? %>
+			<span class="proveedor-interesado"><b><%= @trabajo.contratado.nombre_empresa %></b></span>
+			<%= raw mostrar_reputacion(@trabajo.contratado.reputacion, @trabajo.contratado.valoraciones, "proveedor") %>
+		</div>
+		<div class="botones">
+			<%= link_to "Ver perfil", perfil_proveedor_path(@trabajo.contratado), :class => 'btn btn-warning btn-small' %>
+		</div>
 	</div>
 </section>
 <% end %>
@@ -73,8 +108,8 @@
 if (@trabajo.presupuestos.size == 1 and not @trabajo.contratado) or @trabajo.presupuestos.size > 1 %>
 <section id="proveedores-interesados">
 	<h2>Proveedores interesados</h2>
-	<%= render(:partial => 'presupuestos/info_en_trabajo', 
-		:collection => @trabajo.presupuestos, :as => :p, 
-		:locals => {:contratado => @trabajo.contratado, :es_el_solicitante => @es_el_solicitante}) or 'No hay presupuestos presentados.' %>
+	<%= render(:partial => 'presupuestos/info_en_trabajo',
+	:collection => @trabajo.presupuestos, :as => :p,
+	:locals => {:contratado => @trabajo.contratado, :es_el_solicitante => @es_el_solicitante}) or 'No hay presupuestos presentados.' %>
 </section>
 <% end %>

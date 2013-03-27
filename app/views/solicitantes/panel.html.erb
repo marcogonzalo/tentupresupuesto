@@ -93,20 +93,18 @@ end
 				</tr>
 			</thead>
 			<tbody>
-				<% @en_ejecucion.each do |trabajo|
-				mensajes = Mensaje.where(:presupuesto_id => trabajo.presupuestos)
-				%>
+			<% @en_ejecucion.each do |trabajo|
+				p = trabajo.presupuestos.where(:proveedor_id => trabajo.contratado_id).first
+				m = p.mensajes
+			%>
 				<tr>
 					<td><%= trabajo.proposito %>
 					<br>
 					<%= link_to 'Ver solicitud', trabajo %></td>
-					<td><%= trabajo.cant_presupuestos %>
-					<br>
-					<% #= link_to 'Ver presupuestos', trabajo_presupuestos_path(trabajo) 
-					%></td>
-					<td><%= mensajes.size %> (<%= mensajes.where(:usuario => :proveedor, :visto => false).size %> sin leer)</td>
+					<td><%= link_to((number_to_currency(p.precio_minimo)+" a "+number_to_currency(p.precio_maximo)), p) %></td>
+					<td><%= link_to(p.cant_mensajes, presupuesto_path(p, :anchor => "mensajes")) %> (<%= m.where(:usuario => :proveedor, :visto => false).size %> sin leer)</td>
 				</tr>
-				<% end %>
+			<% end %>
 			</tbody>
 		</table>
 		<% else%>

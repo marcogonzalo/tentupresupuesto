@@ -66,6 +66,15 @@ class TtpMailer < ActionMailer::Base
     mail( :to => emails,
           :subject => "Han rechazado tu presupuesto" )
   end
+
+  # notifica la finalizacion del trabajo
+  def trabajo_finalizado(trabajo,usuarios)
+    @trabajo    = trabajo.proposito
+    @categoria  = trabajo.categoria.nombre
+    emails = usuarios.map(&:email)
+    mail( :to => emails,
+          :subject => "Trabajo finalizado" )
+  end
   
   
   
@@ -107,5 +116,11 @@ class TtpMailer < ActionMailer::Base
     trabajo       = presupuesto.trabajo
     usuarios      = Usuario.where(:perfilable_type => "proveedor", :perfilable_id => presupuesto.proveedor_id)
     TtpMailer.presupuesto_rechazado(trabajo,presupuesto,usuarios).deliver
+  end
+  
+  def notificar_trabajo_finalizado(trabajo)
+    # Notificar al proveedor
+    usuarios      = Usuario.where(:perfilable_type => "proveedor", :perfilable_id => trabajo.contratado_id)
+    TtpMailer.trabajo_finalizado(trabajo,usuarios).deliver
   end
 end

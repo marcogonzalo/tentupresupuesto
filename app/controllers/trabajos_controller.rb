@@ -51,6 +51,10 @@ class TrabajosController < ApplicationController
       redirect_to @trabajo, status: :moved_permanently
     end
     @es_el_solicitante = solicitante_signed_in? and current_solicitante.perfilable_id.eql?(@trabajo.solicitante_id)
+    
+    if @trabajo.ejecutando? and proveedor_signed_in?
+      @es_el_proveedor = current_proveedor.perfilable_id.eql?(@trabajo.contratado_id)
+    end
     add_breadcrumb @trabajo.proposito
     respond_to do |format|
       format.html # show.html.erb
@@ -156,6 +160,27 @@ class TrabajosController < ApplicationController
       flash[:success] = "Solicitud eliminada."
       format.html { redirect_to trabajos_url }
       format.json { head :no_content }
+    end
+  end
+  
+  def finalizar_trabajo
+    @trabajo = Trabajo.find(params[:id])
+    es_el_solicitante = @trabajo.solicitante_id == current_solicitante.perfilable_id
+    
+    respond_to do |format|
+      if es_el_solicitante
+        if @trabajo.update_attribute('estatus','finalizado')
+          TtpMailer.notificar_trabajo_finalizado(@trabajo)
+          flash[:success] = "Has marcado como finalizado el trabajo. Recuerda evaluar al proveedor en cuanto sea posible."
+          format.json { render :json => { presupuesto: @trabajo, tipo_mensaje: :success, mensaje: flash[:success]}}
+        else
+          flash[:error] = "Ocurrió un error. No pudo finalizarse el trabajo."
+          format.json { render :json => { presupuesto: @trabajo.errors, tipo_mensaje: :error, mensaje: flash[:error]} }
+        end    
+      else
+        flash[:warning] = "Sólo el solicitante puede finalizar."
+        format.json { render :json => {tipo_mensaje: :warning, mensaje: flash[:warning]} }
+      end
     end
   end
   

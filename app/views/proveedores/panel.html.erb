@@ -86,7 +86,7 @@ end
 				t = p.trabajo
 				%>
 				<tr>
-					<td> <%= link_to t.proposito, trabajo_path(t) %> </td>
+					<td> <%= t.proposito %> <br> <%= link_to "Ver solicitud", trabajo_path(t) %></td>
 					<td><%= link_to((number_to_currency(p.precio_minimo)+" a "+number_to_currency(p.precio_maximo)), p) %></td>
 					<td><%= link_to(p.cant_mensajes, presupuesto_path(p, :anchor => "mensajes")) %> (<%= p.mensajes.where(:usuario => :solicitante, :visto => false).size %> sin leer)</td>
 				</tr>
@@ -116,7 +116,7 @@ end
 				m = p.mensajes
 				%>
 				<tr>
-					<td> <%= link_to t.proposito, trabajo_path(t) %> </td>
+					<td> <%= t.proposito %> <br> <%= link_to "Ver solicitud", trabajo_path(t) %></td>
 					<td><%= link_to((number_to_currency(p.precio_minimo)+" a "+number_to_currency(p.precio_maximo)), p) %></td>
 					<td><%= link_to(p.cant_mensajes, presupuesto_path(p, :anchor => "mensajes")) %> (<%= m.where(:usuario => :solicitante, :visto => false).size %> sin leer)</td>
 				</tr>
@@ -136,24 +136,22 @@ end
 			<thead>
 				<tr>
 					<th>Trabajo</th>
-					<th>Presupuestos</th>
+					<th>Presupuesto</th>
 					<th>Mensajes</th>
 					<th>Estado</th>
 				</tr>
 			</thead>
 			<tbody>
-				<% @por_evaluar.each do |trabajo|
-				mensajes = Mensaje.where(:presupuesto_id => trabajo.presupuestos)
+				<% @por_evaluar.each do |p|
+				t = p.trabajo
+				m = p.mensajes
+				%>
+				mensajes = Mensaje.where(:presupuesto_id => p.presupuestos)
 				%>
 				<tr>
-					<td><%= trabajo.proposito %>
-					<br>
-					<%= link_to 'Ver solicitud', trabajo %></td>
-					<td><%= trabajo.presupuestos.size %>
-					<br>
-					<%= link_to 'Ver presupuestos', trabajo_presupuestos_path(trabajo) %></td>
+					<td> <%= t.proposito %> <br> <%= link_to "Ver solicitud", trabajo_path(t) %></td>
+					<td><%= link_to((number_to_currency(p.precio_minimo)+" a "+number_to_currency(p.precio_maximo)), p) %></td>
 					<td><%= mensajes.size %> (<%= mensajes.where(:usuario => :proveedor, :visto => false).size %> sin leer)</td>
-					<td><%= trabajo.estatus.to_s.camelize %></td>
 				</tr>
 				<% end %>
 			</tbody>
