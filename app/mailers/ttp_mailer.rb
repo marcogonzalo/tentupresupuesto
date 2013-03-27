@@ -59,9 +59,9 @@ class TtpMailer < ActionMailer::Base
 
   # notifica el rechazo de un presupuesto
   def presupuesto_rechazado(trabajo,presupuesto,usuarios)
-    @trabajo    = trabajo
+    @trabajo    = trabajo.proposito
     @categoria  = trabajo.categoria.nombre
-    @motivo     = presupuesto.motivo_rechazo
+    @motivo     = presupuesto.motivo_rechazo.to_s
     emails = usuarios.map(&:email)
     mail( :to => emails,
           :subject => "Han rechazado tu presupuesto" )
