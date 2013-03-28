@@ -2,6 +2,7 @@
 class Proveedor < ActiveRecord::Base
   include FriendlyId
   friendly_id :nombre_empresa, :use => [:slugged, :history]
+  before_save :set_rif_blank_to_nil
   
   mount_uploader :avatar, AvatarUploader
   
@@ -124,5 +125,9 @@ class Proveedor < ActiveRecord::Base
       errors.add(:categorias, "debe asociarse al menos una categoría")
       return false
     end
+  end
+
+  def set_rif_blank_to_nil
+    self.rif = nil if self.rif.blank?
   end
 end
