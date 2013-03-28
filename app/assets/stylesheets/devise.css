@@ -37,6 +37,7 @@ border-radius:0.25em;
 #caracteristicas.registro .btn-large {}
 #caracteristicas.registro h4 { margin-bottom:0.5em; text-align:center; }
 #caracteristicas > p {text-align:center;}
+#caracteristicas .cambio-tipo-usuario {font-family:"MyriadProBold"; font-size:1.5em; font-weight:bold; line-height:1.5em; padding-left:0.25em; padding-right:0.5em;}
 
 /* Dejar siempre debajo para sobreescribir en dispositivos */
 @media screen and (min-width: 1200px) { 

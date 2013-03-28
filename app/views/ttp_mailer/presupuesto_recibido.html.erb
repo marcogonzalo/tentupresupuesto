@@ -1,4 +1,8 @@
-<h1>&iexcl;Has recibido un presupuesto en tu solicitud!</h1>
+<%
+  content_for :title do
+    "¡Has recibido un presupuesto en tu solicitud!"
+  end
+%>
 
 <p><b><%= @proveedor %></b> (<%= @tipo_proveedor %>) ha presentado una oferta en tu solicitud <b><%= @trabajo %></b> de <%= @categoria %>.</p>
 

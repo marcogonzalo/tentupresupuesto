@@ -1,4 +1,8 @@
-<h1>&iexcl;Han aprobado tu presupuesto!</h1>
+<%
+  content_for :title do
+    "¡Han aprobado tu presupuesto!"
+  end
+%>
 
 <p>El presupuesto que presentaste a la solicitud <b><%= @trabajo.proposito %></b> de <%= @categoria %>, fue aprobado. Es momento de que entres en contacto con el cliente.</p>
 <p>Estos son sus datos:</p>

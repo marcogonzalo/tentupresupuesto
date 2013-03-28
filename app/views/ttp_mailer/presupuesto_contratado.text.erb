@@ -1,4 +1,8 @@
-¡Han aprobado tu presupuesto!
+<%
+  content_for :title do
+    "¡Han aprobado tu presupuesto!"
+  end
+%>
 
 El presupuesto que presentaste a la solicitud "<%= @trabajo.proposito %>" de <%= @categoria %>, fue aprobado. Es momento de que entres en contacto con el cliente.
 

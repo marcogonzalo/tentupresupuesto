@@ -42,7 +42,7 @@
     mensaje += resource_name.to_s == 'solicitante' ? "proveedor" : "solicitante"
     path = resource_name.to_s == 'solicitante' ? new_proveedor_session_path : new_solicitante_session_path
   %>
-    <p><%= link_to mensaje, path, :class => "btn btn-success btn-large btn-block" %></p>
+    <p><%= link_to mensaje, path, :class => "cambio-tipo-usuario btn btn-success btn-large btn-block" %></p>
     <% end -%>
     <hr>
     <%= render "devise/shared/links" %>

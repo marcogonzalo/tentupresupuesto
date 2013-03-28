@@ -1,4 +1,8 @@
-¡Han marcado tu trabajo como finalizado!
+<%
+  content_for :title do
+    "¡Has marcado tu trabajo como finalizado!"
+  end
+%>
 
 El trabajo "<%= @trabajo %>" de <%= @categoria %>, fue marcado como finalizado por el solicitante.
 
