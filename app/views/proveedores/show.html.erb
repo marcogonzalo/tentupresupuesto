@@ -54,7 +54,7 @@
 		<div class="row">
 			<h4 class="con-myriad-bold">Descripción</h4>
 			<pre><%= @proveedor.descripcion %></pre>			
-	    <% unless @proveedor.rif.empty? %>
+	    <% unless @proveedor.rif.nil? %>
 
 			<dl class="dl-horizontal">
 				<dt>
