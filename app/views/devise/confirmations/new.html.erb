@@ -13,9 +13,9 @@ if resource.errors.any? %>
 <p class="centrado">
 	Un correo de confirmaci&oacute;n te ha sido enviado para validar la direcci&oacute;n de correo electr&oacute;nico que ingresaste.
 	<br>
-	En caso de no conseguir el mensaje en tu bandeja de entrada, revisa la bandeja de correo no deseado (spam).
+	En caso de no conseguir el mensaje en tu bandeja de entrada, <b>revisa también la bandeja de correo no deseado (spam)</b>.
 	<br>
-	De haber llegado como spam, por favor, marca que NO es spam.
+	De haber llegado como spam, por favor, <b>marca que NO es spam</b>, así evítaras inconvenientes al recibir nuestros correos.
 	<br>
 	Si no recibiste el mensaje ingresa la direcci&oacute;n de correo con la que te registraste y lo enviaremos de nuevo.
 </p>
@@ -27,6 +27,7 @@ if resource.errors.any? %>
 				<%= f.email_field :email %>
 			</div>
 		</div>
+		<span class="help-block">(Antes de solicitar un nuevo correo revisa tu bandeja de correo no deseado o SPAM))
 	
 		<div class="botones">
 			<%= f.submit "Enviar instrucciones", :class => 'btn btn-warning' %>
