@@ -1,4 +1,8 @@
-¡Has recibido un presupuesto en tu solicitud!
+<%
+  content_for :title do
+    "¡Has recibido un presupuesto en tu solicitud!"
+  end
+%>
 
 <%= @proveedor %> (<%= @tipo_proveedor %>) ha presentado una oferta en tu solicitud "<%= @trabajo %>" de <%= @categoria %>.
 

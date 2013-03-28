@@ -1,5 +1,8 @@
-<h1>&iexcl;Han publicado una nueva solicitud de tu interés!</h1>
-
+<%
+  content_for :title do
+    "¡Han publicado una nueva solicitud de tu interés!"
+  end
+%>
 <p>Fue publicada en la categoría <b><%= @categoria %></b> y se ubica en <%= @localidad %>, Municipio <%= @municipio %>, Estado <%= @estado %>.</p>
 
 <p><%= link_to 'Revisa la solicitud', trabajo_url(@trabajo) %></p>

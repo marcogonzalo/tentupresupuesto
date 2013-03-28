@@ -1,4 +1,8 @@
-¡Han publicado una nueva solicitud de tu interés!
+<%
+  content_for :title do
+    "¡Han publicado una nueva solicitud de tu interés!"
+  end
+%>
 
 Fue publicada en la categoría "<%= @categoria %>" y se ubica en <%= @localidad %>, Municipio <%= @municipio %>, Estado <%= @estado %>. 
 	

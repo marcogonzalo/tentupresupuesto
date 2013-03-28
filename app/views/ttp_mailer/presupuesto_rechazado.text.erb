@@ -1,4 +1,8 @@
-Han rechazado tu presupuesto
+<%
+  content_for :title do
+    "Han rechazado tu presupuesto"
+  end
+%>
 
 El presupuesto que presentaste a la solicitud "<%= @trabajo %>" de <%= @categoria %>, fue rechazado.
 El motivo del rechazo fue: <%= t("activerecord.attributes.presupuesto.motivos_rechazo."+@motivo) %>.

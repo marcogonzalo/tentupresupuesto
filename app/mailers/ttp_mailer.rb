@@ -1,6 +1,6 @@
 class TtpMailer < ActionMailer::Base
   layout 'email' # use email.(html|text).erb as the layout
-  default :from => "notificaciones@tentupresupuesto.com.ve"
+  default :from => "TenTuPresupuesto <notificaciones@tentupresupuesto.com.ve>"
   
   ###################
   ### PLANTILLAS
