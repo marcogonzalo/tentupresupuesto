@@ -12,6 +12,8 @@ class Usuario < ActiveRecord::Base
 
   SEXO = ["masculino", "femenino"] # Constante para valores de sexo
   CAMPOS = ["email","nombre","apellido","sexo","fecha_nacimiento"]
+  
+  before_save :correct_perfilable_type
 
   belongs_to :perfilable, :polymorphic => true
   
@@ -43,14 +45,8 @@ class Usuario < ActiveRecord::Base
 
   def perfil
     unless self.perfilable_id.nil? or self.perfilable_id <= 0
-      case self.perfilable_type
-      when "solicitante"
-        Solicitante.find(self.perfilable_id)
-      when "proveedor"
-        Proveedor.find(self.perfilable_id)
-      else
-        nil
-      end
+		p = self.perfilable_type.classify.constantize.find(self.perfilable_id)
+		return p
     end
   end
   
@@ -71,5 +67,10 @@ class Usuario < ActiveRecord::Base
     self.errors[:password_confirmation] << "no puede quedar en blanco " if password_confirmation.blank?
     self.errors[:password_confirmation] << "no coincide la clave" if password != password_confirmation
     password == password_confirmation && !password.blank?
+  end
+  
+  private
+  def correct_perfilable_type
+    self.perfilable_type = self.perfilable_type.capitalize unless self.perfilable_type.nil?
   end
 end
