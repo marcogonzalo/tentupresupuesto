@@ -10,6 +10,14 @@ end
 content_for :title do
 "Panel de Proveedor"
 end
+
+if flash[:warning].nil? and flash[:error].nil? and flash[:info].nil? and flash[:success].nil? and notice.nil? and alert.nil?
+	data_offset_bottom = 225
+	data_offset_top = 400
+else
+	data_offset_bottom = 260
+	data_offset_top = 450
+end
 %>
 <h1 class="page-header">Panel de proveedor</h1>
 <aside class="span6">
@@ -18,7 +26,7 @@ end
 			<%= (link_to (image_tag 'tentu/generales/transparente.png', :alt => "Cambiar imagen de perfil", :title => "Cambiar imagen de perfil", :class => 'transparente'), imagen_proveedor_path) unless current_proveedor.perfil.avatar? %>
 			<%= (link_to (image_tag current_proveedor.perfil.avatar.url, :alt => "Cambiar imagen de perfil", :title => "Cambiar imagen de perfil"), imagen_proveedor_path) if current_proveedor.perfil.avatar? %>
 		</div>
-		<ul class="nav nav-list well span5" data-spy="affix" data-offset-top="425" data-offset-bottom="200">
+		<ul class="nav nav-list well span5" data-spy="affix" data-offset-top="<%= data_offset_top %>" data-offset-bottom="<%= data_offset_bottom %>">
 			<li class="nav-header">
 				<i class="icon-white icon-user"></i> Usuario
 			</li>
