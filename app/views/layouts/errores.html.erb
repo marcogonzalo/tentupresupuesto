@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <%= render "layouts/shared/metatags" %>
+    <%= csrf_meta_tags %>
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+    <![endif]-->
+
+    <%= stylesheet_link_tag "errores", :media => "all" %>
+    <%= yield :head %>
+  </head>
+  <body>
+    <div class="container">
+      <header><%= image_tag "tentu/generales/logo-texto.png", {:title => "TenTuPresupuesto", :alt => "TenTuPresupuesto"} %>
+      </header>
+    </div>
+    <div class="container">
+      <div id="cuerpo">
+        <div class="container">
+			<div class="span3 pull-right"></div>
+			<div id="error" class="span8 pull-right">
+	          <%= yield %>
+			</div>
+			<div class="span9 offset2">
+				<%= image_tag "tentu/errores/error.jpg", {:title => "Error", :alt => "Error"} %>
+			</div>
+        </div> <!-- /container -->
+       </div>
+    </div>
+    <%= render "layouts/shared/pie_de_pagina" %>
+    <!-- Javascripts
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <%= javascript_include_tag "errores" %>
+    <%= yield :foot %>
+  </body>
+</html>
