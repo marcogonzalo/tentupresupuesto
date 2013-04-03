@@ -2,6 +2,7 @@
   content_for :title do 
     "¡Tu cuenta está bloqueada!"
   end
+	resource_type = @resource.perfilable_type.downcase
 %>
 <p>&iexcl;Hola, <%= @resource.nombre %>!</p>
 
@@ -9,5 +10,5 @@
 
 <p>
   Para desbloquearla, ingresa en el siguiente enlace:
-  <%= link_to 'Unlock my account', unlock_url(@resource, :unlock_token => @resource.unlock_token) %>
+  <%= link_to 'Desbloquear mi cuenta', unlock_url(resource_type, :unlock_token => @resource.unlock_token) %>
 </p>

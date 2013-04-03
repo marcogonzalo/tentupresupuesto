@@ -1,3 +1,4 @@
+# coding: utf-8
 class ApplicationController < ActionController::Base
   protect_from_forgery
   FLASH_NOTICE_KEYS = [:error, :warning, :info, :success] # Tipos de notificaciones bootstrap
@@ -44,6 +45,8 @@ class ApplicationController < ActionController::Base
   
   def authenticated_solicitante
     unless solicitante_signed_in?
+		sign_out_all_scopes
+		flash[:warning] = "Debes iniciar sesión con el usuario correcto" 
       redirect_to new_solicitante_session_path
     end
     return true
@@ -51,6 +54,8 @@ class ApplicationController < ActionController::Base
   
   def authenticated_proveedor
     unless proveedor_signed_in?
+		sign_out_all_scopes
+		flash[:warning] = "Debes iniciar sesión con el usuario correcto" 
       redirect_to new_proveedor_session_path
     end
     return true
@@ -69,9 +74,10 @@ class ApplicationController < ActionController::Base
   
   private
   def after_sign_in_path_for(resource)
+	resource_type = resource.perfilable_type.downcase
     unless resource.confirmed_at.nil?
       if resource.perfilable_id.nil? or resource.perfilable_id <= 0
-        case resource.perfilable_type
+        case resource_type
           when "solicitante"
             return new_solicitante_path
           when "proveedor"
@@ -80,7 +86,7 @@ class ApplicationController < ActionController::Base
             root_path
           end
       else
-        case resource.perfilable_type
+        case resource_type
           when "solicitante"
             return panel_solicitante_path
           when "proveedor"
@@ -90,7 +96,7 @@ class ApplicationController < ActionController::Base
           end
       end
     else
-      return new_confirmation_path(resource.perfilable_type)
+      return new_confirmation_path(resource_type)
     end
     return root_path
   end

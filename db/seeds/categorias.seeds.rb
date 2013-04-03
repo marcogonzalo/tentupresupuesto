@@ -3,7 +3,7 @@ Categoria.find_or_create_by_nombre('Aire acondicionado', :clase_css => 'aa', :de
 Categoria.find_or_create_by_nombre('Arquitectura, Diseño y Decoración', :clase_css => 'deco', :descripcion => 'Planificación, diseño, proyección y decoración de estructuras y espacios.')
 Categoria.find_or_create_by_nombre('Artículos eléctricos y electrónicos', :clase_css => 'electro', :descripcion => 'Instalación, mantenimiento y reparación de artículos eléctricos y electrónicos.')
 Categoria.find_or_create_by_nombre('Carpintería y Ebanistería', :clase_css => 'carp', :descripcion => 'Trabajo con la madera y sus materiales derivados para la elaboración de estructuras y muebles.')
-Categoria.find_or_create_by_nombre('Cerrajería', :clase_css => 'herre', :descripcion => 'Instalación, reparación y mantenimiento de cerraduras, candados, cerrojos y cilindros.')
+Categoria.find_or_create_by_nombre('Cerrajería', :clase_css => 'cerraj', :descripcion => 'Instalación, reparación y mantenimiento de cerraduras, candados, cerrojos y cilindros.')
 Categoria.find_or_create_by_nombre('Computadores y Teléfonos', :clase_css => 'comp', :descripcion => 'Instalación, mantenimiento y reparación de computadores, teléfonos y equipos informáticos.')
 Categoria.find_or_create_by_nombre('Construcción y Remodelación General', :clase_css => 'constru', :descripcion => 'Planificación, fabricación, mantenimiento y modificación de estructuras arquitectónicas.')
 Categoria.find_or_create_by_nombre('Electricidad', :clase_css => 'electric', :descripcion => 'Instalación y mantenimiento de sistemas y cableados eléctricos.')

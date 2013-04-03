@@ -11,19 +11,6 @@
  *= require bootstrap_and_overrides
  *= require_self
  */
-body { background-color:#adeb6e; padding:25px 0 0 0; }
-h1, h2, h3, h4, h5, h6 { color:#333; font-family:'MyriadProBold','Arial',sans-serif; font-weight:normal; line-height:1.25em; margin:0px; }
-h1 { font-family:'Chango','Trebuchet MS', sans-serif; font-size:2em; text-align:center; }
-h2 { font-size:1.75em; }
-h3 { font-size:1.5em; }
-h4, h5, h6 { color:#333; font-size:1.25em;}
-form {font-family:'MyriadPro','Arial',sans-serif;}
-fieldset legend { color:white; font-family:'Chango','Trebuchet MS', sans-serif; font-size:1.25em; margin-bottom:0.5em; }
-label { color:white; font-family:'MyriadPro','Arial',sans-serif; font-weight:bold; line-height:1em; margin-bottom:1px; vertical-align: middle;}
-label.checkbox {line-height:2em; margin-bottom:-10px;}
-select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input { font-size:1em; margin-bottom:0px; margin-right:5px; max-width:325px; width:100%; }
-select { width: auto; }
-textarea { height:5em; }
 
 #cabecera-interna { background-color:white; margin:0px auto; max-width:1060px; min-height:170px; }
 #cabecera-interna .navbar { background: url('tentu/generales/head.png') no-repeat center top; margin-bottom:0px; min-height:170px; overflow:hidden; position:relative; top:-19px; }
@@ -40,7 +27,7 @@ border-radius:0.25em;
 }
 #cabecera-interna .navbar .enlaces_usuario a:hover { background-color:#5ca224; }
 
-#breadcrumbs {font-family:'MyriadPro','Arial',sans-serif; margin-top:-20px;overflow: hidden;}
+#breadcrumbs {margin-top:-20px;overflow: hidden;}
 #breadcrumbs .breadcrumb { background:none; margin-bottom:5px; padding:0px; text-align:right; }
 
 #mensaje-ttp { clear:both; }
@@ -58,9 +45,9 @@ box-shadow:  inset 0 0 10em #2B598F;
 }
 
 .formulario-pendon { margin-bottom:1em; margin-top:1em; max-width:465px; overflow:hidden; width:100%; }
-.formulario-pendon .titulo-pendon { background:url('tentu/internas/pendon-titulo.png') no-repeat center top; height:100%; max-height:73px; max-width:459px; padding:0.9em 0 1.75em 0; text-align:center; text-shadow:0 2px 5px #666; }
-.formulario-pendon .titulo-pendon h2 {font-family:'Chango','Trebuchet MS', sans-serif;}
-.formulario-pendon .titulo-pendon h3 {font-family:'Chango','Trebuchet MS', sans-serif;}
+.formulario-pendon .titulo-pendon { background:url('tentu/internas/pendon-titulo.png') no-repeat center top; height:100%; max-height:73px; max-width:459px; padding:15px 0 25px 0; text-align:center; text-shadow:0 2px 5px #666; }
+.formulario-pendon .titulo-pendon h2 {font-family:'Chango','Trebuchet MS', sans-serif; font-weight:normal;}
+.formulario-pendon .titulo-pendon h3 {font-family:'Chango','Trebuchet MS', sans-serif; font-weight:normal;}
 .formulario-pendon .cuerpo-pendon { background:url('tentu/internas/pendon-contenido.png') no-repeat center bottom; height:100%; max-height:465px; max-width:459px; overflow:hidden; padding:1em 0px 3em 0px; }
 .formulario-pendon .cuerpo-pendon form { margin:0px auto; width:80%; }
 
@@ -103,13 +90,13 @@ img.cargando { display:none; width: 16px; height: 16px;}
 .al-centro { margin-left:auto; margin-right:auto; }
 .centrado { text-align:center; }
 .con-chango { font-family:'Chango'; }
-.con-myriad { font-family:'MyriadPro'; }
-.con-myriad-bold { font-family:'MyriadProBold'; }
+.con-myriad { font-family:'Arial', sans-serif; }
+.con-myriad-bold { font-family:'Arial', sans-serif; font-weght:bold; }
 .error-campo { color: red; display: inline; }
 .informacion-campo { font-size:0.8em; display:inline; }
 .mini-nota { font-size:x-small;}
 .micro-nota { font-size:xx-small;}
-.sobre-color { color:white; text-shadow:0 2px 5px #333; }
+.sobre-color { color:white; font-weight:normal; text-shadow:0 2px 5px #333; }
 
 /* Dejar siempre debajo para sobreescribir en dispositivos */
 @media screen and (min-width: 1200px) { 

@@ -2,12 +2,19 @@
   content_for :title do 
     "¡Confirma tu correo!"
   end
+	resource_type = @resource.perfilable_type.downcase
 %>
 <p>&iexcl;Hola, <%= @resource.nombre %>!</p>
 
-<p>Puedes confirmar tu correo a trav&eacute;s del siguiente enlace: <%= link_to 'confirmar mi cuenta', confirmation_url(@resource.perfilable_type, :confirmation_token => @resource.confirmation_token) %></p>
+<p>Puedes confirmar tu correo a trav&eacute;s del siguiente enlace: <%= link_to 'confirmar mi cuenta', confirmation_url(resource_type, :confirmation_token => @resource.confirmation_token) %></p>
 
 <p>
-  Si lo deseas, puedes hacerlo colocando en tu navegador la siguiente direcci&oacute;n:<br>
-  <%= link_to confirmation_url(@resource.perfilable_type, :confirmation_token => @resource.confirmation_token), confirmation_url(@resource.perfilable_type, :confirmation_token => @resource.confirmation_token) %>
+  Puedes hacerlo también colocando en tu navegador la siguiente direcci&oacute;n:<br>
+  <%= link_to confirmation_url(resource_type, :confirmation_token => @resource.confirmation_token), confirmation_url(resource_type, :confirmation_token => @resource.confirmation_token) %>
 </p>
+
+<p>
+	Si has recibido este correo en tu Bandeja de Correo no Deseado (SPAM), por favor marca la opción de "no es spam" de tu proveedor de correo para evitar que otros correos que te sean enviados no lleguen a tu Bandeja de Entrada.
+</p>
+
+<p>Por último, si no has solicitado este correo puedes ignorarlo o comunicarte con nosotros.</p>

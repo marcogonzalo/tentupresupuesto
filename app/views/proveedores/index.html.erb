@@ -7,23 +7,19 @@
   content_for :title do
     "Listado de solicitudes"
   end
-
-  #  content_for :foot do
-  #    javascript_include_tag 'trabajos'
-  #  end
 %>
 <h1 class="page-header"><%= t '.title', :default => model_class.model_name.human.pluralize %></h1>
 <div class="span6">
 	<div id="filtros" class="well">
 		<% unless signed_in?  %>
-		<%= link_to "¿Provees algún servicio?", new_trabajo_path, :class => 'btn btn-warning btn-block con-myriad-bold'%>
+		<%= link_to "¿Provees algún servicio?", new_proveedor_registration_path, :class => 'btn btn-warning btn-block con-myriad-bold'%>
 		<br>
 		<% end %>
 		<h4>Categorías</h4>
 		<div class="listado">
 			<ul class=" nav nav-list">
 				<li>
-					<%= link_to "Todas", trabajos_path, :class => "con-myriad-bold" %>
+					<b><%= link_to "Todas", proveedores_path %></b>
 				</li>
 				<% for cat in Categoria.con_proveedores %>
 				<li>
@@ -37,7 +33,7 @@
 		<div class="listado">
 			<ul class=" nav nav-list">
 				<li>
-					<%= link_to "Todas", trabajos_path, :class => "con-myriad-bold" %>
+					<b><%= link_to "Todas", proveedores_path %></b>
 				</li>
 				<% for ug in UbicacionGeografica.where(:tipo => 'estado', :entidad_id => 1) %>
 				<li>
@@ -51,7 +47,7 @@
 		<div class="listado">
 			<ul class=" nav nav-list">
 				<li>
-					<%= link_to "Todos", trabajos_path, :class => "con-myriad-bold" %>
+					<b><%= link_to "Todos", proveedores_path %></b>
 				</li>
 				<% for emp in Proveedor::TIPO_EMPRESA %>
 				<li>
@@ -75,12 +71,12 @@
 <% if @cant_resultados > 0 %>
 	<% @proveedores.each do |proveedor| %>
 	<div class="row proveedor ">
-		<h3> <%= link_to proveedor.nombre_empresa, proveedor %> </h3>
+		<h4> <%= link_to proveedor.nombre_empresa, proveedor %> </h4>
 		<%= image_tag(proveedor.avatar.micro.url) if proveedor.avatar? %>
 		<section class="datos-proveedor">
-			<p> <%= link_to t('activerecord.attributes.proveedor.tipos_proveedor.'+proveedor.tipo_proveedor), listar_proveedores_path('tipo', proveedor.tipo_proveedor) %> | 
+			<div class="datos-en-linea"> <%= link_to proveedor.translated_tipo_proveedor, listar_proveedores_path('tipo', proveedor.tipo_proveedor) %> | 
 				En <%= link_to proveedor.localidad.nombre, listar_proveedores_path('ubicacion', proveedor.localidad.friendly_id) %>, Municipio <%= link_to proveedor.municipio.nombre, listar_proveedores_path('ubicacion', proveedor.municipio.friendly_id) %>, Estado <%= link_to proveedor.estado.nombre, listar_proveedores_path('ubicacion', proveedor.estado.friendly_id) %>.
-			</p>
+			</div>
 			<%= raw mostrar_reputacion(proveedor.reputacion, proveedor.valoraciones, "proveedor") %>
 		</section>
 		<p class="descripcion">

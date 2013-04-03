@@ -10,11 +10,19 @@ end
 content_for :title do
 "Panel de Solicitante"
 end
+
+if flash[:warning].nil? and flash[:error].nil? and flash[:info].nil? and flash[:success].nil? and notice.nil? and alert.nil?
+	data_offset_bottom = 210
+	data_offset_top = 250
+else
+	data_offset_bottom = 250
+	data_offset_top = 290
+end
 %>
 <h1 class="page-header">Panel de solicitante</h1>
 <aside class="span6">
 	<div id="menu-panel">
-		<ul class="nav nav-list well span5" data-spy="affix" data-offset-top="275" data-offset-bottom="300">
+		<ul class="nav nav-list well span5" data-spy="affix" data-offset-top="<%= data_offset_top %>" data-offset-bottom="<%= data_offset_bottom %>">
 			<li class="nav-header">
 				<i class="icon-white icon-user"></i> Usuario
 			</li>

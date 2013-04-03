@@ -22,7 +22,6 @@ gem 'devise-encryptable'
 
 # Bibliotecas jQuery y CSS
 gem 'jquery-rails'
-gem 'modernizr-rails'
 
 # Gems used only for assets and not required
 # in production environments by default.

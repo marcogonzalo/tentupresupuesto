@@ -60,10 +60,10 @@ class RegistrationsController < Devise::RegistrationsController
 
   protected
   def after_sign_up_path_for(resource)
-    case resource.perfilable_type
-    when "Solicitante"
+    case resource.perfilable_type.downcase
+    when "solicitante"
       return new_solicitante_path
-    when "Proveedor"
+    when "proveedor"
       return new_proveedor_path
     else
       root_path
@@ -71,13 +71,13 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def after_inactive_sign_up_path_for(resource)
-    new_confirmation_path(resource.perfilable_type)
+    new_confirmation_path(resource)
   end
   
   
   
   def after_update_path_for(resource)
-    case resource.perfilable_type
+    case resource.perfilable_type.downcase
       when "solicitante"
         return panel_solicitante_path
       when "proveedor"
