@@ -8,7 +8,8 @@ class ApplicationController < ActionController::Base
   def current_user
     return current_solicitante ? current_solicitante : current_proveedor
   end
-  
+
+# Mensajes Flash 
   def flash_messages
     return unless messages = flash.keys.select{|k| FLASH_NOTICE_KEYS.include?(k)}
     formatted_messages = messages.map do |type|      
@@ -30,7 +31,21 @@ class ApplicationController < ActionController::Base
       end
     end
   end
-  
+# Fin Mensjes Flash  
+
+  unless Rails.application.config.consider_all_requests_local
+    rescue_from Exception, with: lambda { |exception| render_error 500, exception }
+    rescue_from ActionController::RoutingError, ActionController::UnknownController, ::AbstractController::ActionNotFound, ActiveRecord::RecordNotFound, with: lambda { |exception| render_error 404, exception }
+  end
+
+  private
+  def render_error(status, exception)
+    respond_to do |format|
+      format.html { render template: "errores/error_#{status}", layout: 'layouts/application', status: status }
+      format.all { render nothing: true, status: status }
+    end
+  end
+
   protected
   def authenticated_any
     unless signed_in?
