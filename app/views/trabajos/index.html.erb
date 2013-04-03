@@ -43,9 +43,11 @@
 		<div class="listado">
 			<ul class=" nav nav-list">
 				<li><b><%= link_to "Todos", trabajos_path %></b></li>
-				<% for est in Trabajo::ESTATUS %>  
+			<% for est in Trabajo::ESTATUS %>
+				<% unless est.eql?("cancelado") %>
 				<li><%= link_to est.humanize, listar_trabajos_path('estatus', est) %></li>
 				<% end %>
+			<% end %>
 			</ul>
 		</div>
 	</div>

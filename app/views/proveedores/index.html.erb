@@ -74,7 +74,7 @@
 		<h4> <%= link_to proveedor.nombre_empresa, proveedor %> </h4>
 		<%= image_tag(proveedor.avatar.micro.url) if proveedor.avatar? %>
 		<section class="datos-proveedor">
-			<div class="datos-en-linea"> <%= link_to t('activerecord.attributes.proveedor.tipos_proveedor.'+proveedor.tipo_proveedor), listar_proveedores_path('tipo', proveedor.tipo_proveedor) %> | 
+			<div class="datos-en-linea"> <%= link_to proveedor.translated_tipo_proveedor, listar_proveedores_path('tipo', proveedor.tipo_proveedor) %> | 
 				En <%= link_to proveedor.localidad.nombre, listar_proveedores_path('ubicacion', proveedor.localidad.friendly_id) %>, Municipio <%= link_to proveedor.municipio.nombre, listar_proveedores_path('ubicacion', proveedor.municipio.friendly_id) %>, Estado <%= link_to proveedor.estado.nombre, listar_proveedores_path('ubicacion', proveedor.estado.friendly_id) %>.
 			</div>
 			<%= raw mostrar_reputacion(proveedor.reputacion, proveedor.valoraciones, "proveedor") %>
