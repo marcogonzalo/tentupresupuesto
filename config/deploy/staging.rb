@@ -17,6 +17,3 @@ namespace :to_staging do
     run "cd #{current_path} && rake db:seed RAILS_ENV=staging"
   end
 end
-
-after "deploy:finish", "to_staging:migrations"
-after "deploy:finish", "to_staging:seeds"

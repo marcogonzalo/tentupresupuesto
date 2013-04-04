@@ -14,6 +14,3 @@ namespace :to_production do
     run "cd #{current_path} && rake db:seed RAILS_ENV=production"
   end
 end
-
-after "deploy:finish", "to_production:migrations"
-after "deploy:finish", "to_production:seeds"
