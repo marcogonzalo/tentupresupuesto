@@ -8,7 +8,8 @@ class ApplicationController < ActionController::Base
   def current_user
     return current_solicitante ? current_solicitante : current_proveedor
   end
-  
+
+# Mensajes Flash 
   def flash_messages
     return unless messages = flash.keys.select{|k| FLASH_NOTICE_KEYS.include?(k)}
     formatted_messages = messages.map do |type|      
@@ -30,7 +31,8 @@ class ApplicationController < ActionController::Base
       end
     end
   end
-  
+# Fin Mensjes Flash  
+
   protected
   def authenticated_any
     unless signed_in?
