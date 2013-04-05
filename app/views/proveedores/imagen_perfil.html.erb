@@ -24,7 +24,9 @@
 		<%= f.hidden_field :avatar_cache %>
 		</p>
 		<div class="botones">
-			<%= link_to "Volver al panel", panel_proveedor_path, :class => 'btn' %> <%= f.submit "Guardar imagen", :class => 'btn btn-warning' %>
+			<%= image_tag "tentu/generales/cargando.gif", {:class => "cargando", :id => "loadingimagen"} %>
+			<%= link_to "Volver al panel", panel_proveedor_path, :class => 'btn' %>
+			<%= f.submit "Guardar imagen", :class => 'btn btn-warning', :onclick => 'mostrar_cargando("#loadingimagen");' %>
 		</div>
 	<% end %>
 </div>

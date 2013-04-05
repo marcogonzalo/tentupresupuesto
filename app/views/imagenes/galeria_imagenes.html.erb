@@ -28,7 +28,9 @@
 		<%= builder.text_field :descripcion %>
 		</p>
 		<div class="botones">
-			<%= link_to "Volver al panel", panel_proveedor_path, :class => 'btn' %> <%= f.submit "Guardar imagen", :class => 'btn btn-warning' %>
+			<%= image_tag "tentu/generales/cargando.gif", {:class => "cargando", :id => "loadingimagen"} %>
+			<%= link_to "Volver al panel", panel_proveedor_path, :class => 'btn', :id => "boton-enviar-imagenes" %> 
+			<%= f.submit "Guardar imagen", :class => 'btn btn-warning', :onclick => 'mostrar_cargando("#loadingimagen");' %>
 		</div>
 		<% end %>
 	<% end %>
@@ -42,12 +44,14 @@
 	<h2 class="centrado">Imágenes mostradas actualmente</h2>
 	<% @imagenes.each do |img| %>
 	<div class="imagen">
-		<%= image_tag(img.archivo.mini.url) if img.archivo? %>
-		<%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-		borrar_galeria_proveedor_path(img),
-		:method => :delete,
-		:data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => '¿Borrar esta imagen?')) },
-		:class => 'btn btn-mini btn-danger' %>
+		<div class="al-medio">
+			<%= image_tag(img.archivo.mini.url, :alt => img.descripcion, :title => img.descripcion ) if img.archivo? %>
+			<%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+			borrar_galeria_proveedor_path(img),
+			:method => :delete,
+			:data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => '¿Borrar esta imagen?')) },
+			:class => 'btn btn-mini btn-danger' %>
+		</div>
 	</div>
 	<% end %>
 </div>

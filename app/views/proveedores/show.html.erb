@@ -152,7 +152,9 @@
 	<div id="trabajos" class="offset1 span16 pull-right">
 		<% @imagenes.each do |img| %>
 		<div class="imagen">
-			<%= image_tag(img.archivo.mini.url) if img.archivo? %>
+			<div class="al-medio">
+				<%= image_tag(img.archivo.mini.url, :alt => img.descripcion, :title => img.descripcion ) if img.archivo? %>
+			</div>
 		</div>
 		<% end %>
 	</div>
