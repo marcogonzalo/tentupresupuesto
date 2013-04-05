@@ -28,8 +28,10 @@
 		<%= builder.text_field :descripcion %>
 		</p>
 		<div class="botones">
+			<%= image_tag "tentu/generales/cargando.gif", {:class => "cargando", :id => "loadingimagen"} %>
 			<%= link_to "Volver al panel", panel_proveedor_path, :class => 'btn', :id => "boton-enviar-imagenes" %> 
-			<%= f.submit "Guardar imagen", :class => 'btn btn-warning' %>
+			<%= f.submit "Guardar imagen", :class => 'btn btn-warning', :onclick => 'mostrar_cargando("#loadingimagen");' %>
+		</div>
 		<% end %>
 	<% end %>
 </div>
