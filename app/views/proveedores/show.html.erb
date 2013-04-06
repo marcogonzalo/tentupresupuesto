@@ -28,7 +28,7 @@
 				<%= image_tag imagen_proveedor, :alt => "Logo de "+@proveedor.nombre_empresa, :title => "Logo de "+@proveedor.nombre_empresa %>
 			<% end %>
 			</div>
-			<h4 class="con-chango sobre-color"><%= @proveedor.nombre_empresa %></h4>
+			<h4 id="nombre-proveedor" class="con-chango sobre-color"><%= @proveedor.nombre_empresa %></h4>
 			<p>
 				<%= t('activerecord.attributes.proveedor.tipos_proveedor.'+@proveedor.tipo_proveedor) %>
 				<% if @proveedor.verificado %><span class="badge badge-warning" title="Proveedor verificado"><i class="icon-ok icon-white"></i></span><% end %>

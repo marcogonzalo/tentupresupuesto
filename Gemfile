@@ -4,21 +4,23 @@ gem 'rails', '3.2.11'
 
 gem 'pg'
 
+gem "seedbank"                        # Gestor de seeds para llenar la BD - https://github.com/james2m/seedbank
+
 # Asociados a modelos
 gem 'foreigner'                       # Soporte para Claves Foraneas en las migraciones
 gem 'timeliness'                      # Manejo de fechas
 gem 'validates_timeliness', '~> 3.0'  # Validacion de fechas en el modelo
 gem "friendly_id", '~> 4.0.1'         # Identificadores amigables para url
 
-gem "seedbank"                        # Gestor de seeds para llenar la BD - https://github.com/james2m/seedbank
+# Sesiones
+gem 'devise'
+gem 'devise-encryptable'
+
+gem 'will_paginate'                   # Paginador de resultados - https://github.com/mislav/will_paginate
 
 # Manejo de imagenes
 gem "mini_magick"                     # A ruby wrapper for ImageMagick command line - https://github.com/minimagick/minimagick
 gem 'carrierwave'                     # Gestionar imágenes - https://github.com/jnicklas/carrierwave
-
-# Sesiones
-gem 'devise'
-gem 'devise-encryptable'
 
 # Bibliotecas jQuery y CSS
 gem 'jquery-rails'
