@@ -1,0 +1,18 @@
+
+es-VE:
+  will_paginate:
+      previous_label: "&laquo; Anterior"
+      next_label: "Siguiente &raquo;"
+      page_gap: "&hellip;"
+      page_entries_info:
+        single_page:
+          zero:  "No se encontraron"
+          one:   "Mostrando 1"
+          other: "Mostrando el total de %{count}"
+        single_page_html:
+          zero:  '<div class="pagination-info">No se encontraron</div>'
+          one:   '<div class="pagination-info">Mostrando <b>1</b> en total</div>'
+          other: '<div class="pagination-info">Mostrando <b> %{count}</b> en total</div>'
+  
+        multi_page: "Mostrando %{from} - %{to} de %{count} en total"
+        multi_page_html: '<div class="pagination-info">Mostrando <b>%{from}&nbsp;-&nbsp;%{to}</b> de <b>%{count}</b> en total</div>'

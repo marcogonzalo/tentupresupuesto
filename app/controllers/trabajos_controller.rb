@@ -6,35 +6,36 @@ class TrabajosController < ApplicationController
   # GET /trabajos
   # GET /trabajos.json
   def index
+    require 'will_paginate/array'
     unless params[:filtro].nil?
       @trabajos = []
       if FiltroListaTrabajos::FILTROS.include?(params[:filtro]) and not params[:valor].nil?
         case params[:filtro]
         when "categoria"
           @categoria = Categoria.find(params[:valor])
-          @trabajos =  @categoria.nil? ? [] : @categoria.trabajos
+          @trabajos =  @categoria.nil? ? [] : @categoria.trabajos.page(params[:p])
         when "estatus"
           existe_estatus = Trabajo::ESTATUS.include?(params[:valor])
           @estatus = Trabajo::ESTATUS.include?(params[:valor]) ? params[:valor].to_s.humanize : nil
-          @trabajos = existe_estatus ? Trabajo.where(:estatus => params[:valor]) : []
+          @trabajos = existe_estatus ? Trabajo.where(:estatus => params[:valor]).page(params[:p]) : []
         when "ubicacion"
           @ubicacion = UbicacionGeografica.find(params[:valor])
           unless @ubicacion.nil?
             case @ubicacion.tipo
             when 'pais'
-              @trabajos = @ubicacion.trabajos_de_pais
+              @trabajos = @ubicacion.trabajos_de_pais.page(params[:p])
             when 'estado'
-              @trabajos = @ubicacion.trabajos_de_estado
+              @trabajos = @ubicacion.trabajos_de_estado.page(params[:p])
             when 'municipio'
-              @trabajos = @ubicacion.trabajos_de_municipio
+              @trabajos = @ubicacion.trabajos_de_municipio.page(params[:p])
             when 'localidad'
-              @trabajos = @ubicacion.trabajos_de_localidad
+              @trabajos = @ubicacion.trabajos_de_localidad.page(params[:p])
             end
           end
         end
       end
     else
-      @trabajos = Trabajo.all
+      @trabajos = Trabajo.all.paginate(:page => params[:p])
     end
     @cant_resultados = @trabajos.size
     respond_to do |format|

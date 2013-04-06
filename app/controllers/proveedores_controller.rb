@@ -10,35 +10,36 @@ class ProveedoresController < ApplicationController
   # GET /proveedores
   # GET /proveedores.json
   def index
+    require 'will_paginate/array' 
     unless params[:filtro].nil?
       @proveedores = []
       if FiltroListaProveedores::FILTROS.include?(params[:filtro]) and not params[:valor].nil?
         case params[:filtro]
         when "categoria"
           @categoria = Categoria.find(params[:valor])
-          @proveedores =  @categoria.nil? ? [] : @categoria.proveedores
+          @proveedores =  @categoria.nil? ? [] : @categoria.proveedores.page(params[:p])
         when "tipo"
           existe_tipo = Proveedor::TIPO_EMPRESA.include?(params[:valor])
           @tipo = Proveedor::TIPO_EMPRESA.include?(params[:valor]) ? params[:valor].to_s : nil
-          @proveedores = existe_tipo ? Proveedor.where(:tipo_proveedor => params[:valor]) : []
+          @proveedores = existe_tipo ? Proveedor.where(:tipo_proveedor => params[:valor]).page(params[:p]) : []
         when "ubicacion"
           @ubicacion = UbicacionGeografica.find(params[:valor])
           unless @ubicacion.nil?
             case @ubicacion.tipo
             when 'pais'
-              @proveedores = @ubicacion.proveedores_de_pais
+              @proveedores = @ubicacion.proveedores_de_pais.page(params[:p])
             when 'estado'
-              @proveedores = @ubicacion.proveedores_de_estado
+              @proveedores = @ubicacion.proveedores_de_estado.page(params[:p])
             when 'municipio'
-              @proveedores = @ubicacion.proveedores_de_municipio
+              @proveedores = @ubicacion.proveedores_de_municipio.page(params[:p])
             when 'localidad'
-              @proveedores = @ubicacion.proveedores_de_localidad
+              @proveedores = @ubicacion.proveedores_de_localidad.page(params[:p])
             end
           end
         end
       end
     else
-      @proveedores = Proveedor.all
+      @proveedores = Proveedor.all.paginate(:page => params[:p])
     end
     @cant_resultados = @proveedores.size
     add_breadcrumb :index, :proveedores_path
