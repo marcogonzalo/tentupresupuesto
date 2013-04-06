@@ -163,6 +163,7 @@ GEM
       timeliness (~> 0.3.6)
     warden (1.2.1)
       rack (>= 1.0)
+    will_paginate (3.0.4)
 
 PLATFORMS
   ruby
@@ -190,3 +191,4 @@ DEPENDENCIES
   twitter-bootstrap-rails
   uglifier (>= 1.0.3)
   validates_timeliness (~> 3.0)
+  will_paginate

@@ -64,5 +64,6 @@ module Ttp
     config.to_prepare do
       Devise::Mailer.layout "email.html.erb" # email.haml or email.erb
     end
+    WillPaginate.per_page = 10
   end
 end
