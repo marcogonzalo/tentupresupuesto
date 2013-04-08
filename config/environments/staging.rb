@@ -53,7 +53,7 @@ Ttp::Application.configure do
   config.assets.paths << Rails.root.join('app', 'assets', 'fonts')
   
   # Precompile additional assets
-  config.assets.precompile = ['*.svg', '*.eot', '*.woff', '*.ttf', '*.otf', '*.js']
+  config.assets.precompile = ['*.svg', '*.eot', '*.woff', '*.ttf', '*.otf', '*.js', '*.ico']
   config.assets.precompile += ['base_ttp*', 'application.css', 'devise.css', 'email.css', 'errores.css', 'general.css', 'interna-liston.css', 'landing.css']
   config.assets.precompile += ['categoria*', 'mensajes*', 'presupuestos*', 'proveedores*', 'reputacion*', 'trabajos*', 'ubicaciones_geograficas*']
   config.assets.precompile += ['rails_admin/rails_admin.css', 'rails_admin/rails_admin.js']
