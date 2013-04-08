@@ -64,7 +64,7 @@
 <% end %>
 <% if @cant_resultados > 0 %>
 	<%= page_entries_info @trabajos %>
-	<%= will_paginate @trabajos, :param_name => 'p' %> 
+	<%= paginate @trabajos, :param_name => 'p' %> 
 	<% @trabajos.each do |trabajo| %>
 	<div class="row trabajo ">
 		<h4>
@@ -84,7 +84,7 @@
 		<p class="descripcion"><%= truncate(trabajo.descripcion, :length => 250, :separator => ' ') %></p>
 	</div>
 	<% end %>
-	<%= will_paginate @trabajos, :param_name => 'p' %> 
+	<%= paginate @trabajos, :param_name => 'p' %> 
 <% else %>
 	<p class="text-muted">No se hallaron solicitudes con el criterio seleccionado.</p>
 <% end %>
