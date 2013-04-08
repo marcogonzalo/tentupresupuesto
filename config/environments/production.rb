@@ -55,6 +55,7 @@ Ttp::Application.configure do
   # Precompile additional assets
   config.assets.precompile += ['*.svg', '*.eot', '*.woff', '*.ttf', '*.otf', '*.js', '*.css']
   # %w( .svg .eot .woff .ttf .otf .js .css)
+  config.assets.precompile += %w(rails_admin/rails_admin.css rails_admin/rails_admin.js)
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
   # config.assets.precompile += %w(ubicaciones_geograficas.js proveedores.js solicitantes.js presupuestos.js trabajos.js)
