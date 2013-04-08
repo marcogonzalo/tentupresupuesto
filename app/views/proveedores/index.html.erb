@@ -70,7 +70,7 @@
 <% end %>
 <% if @cant_resultados > 0 %>
 	<%= page_entries_info @proveedores %>
-	<%= will_paginate @proveedores, :param_name => 'p' %> 
+	<%= paginate @proveedores, :param_name => 'p' %> 
 	<% @proveedores.each do |proveedor| %>
 	<div class="row proveedor ">
 		<h4> <%= link_to proveedor.nombre_empresa, proveedor %> </h4>
@@ -86,7 +86,7 @@
 		</p>
 	</div>
 	<% end %>
-	<%= will_paginate @proveedores, :param_name => 'p' %> 
+	<%= paginate @proveedores, :param_name => 'p' %> 
 <% else %>
 	<p class="text-muted">
 		No se hallaron proveedores con el criterio seleccionado.
