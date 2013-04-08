@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   FLASH_NOTICE_KEYS = [:error, :warning, :info, :success] # Tipos de notificaciones bootstrap
   
-  add_breadcrumb "TTP", :root_path
+  add_breadcrumb "TTP", '/'
   
   def current_user
     return current_solicitante ? current_solicitante : current_proveedor
@@ -76,6 +76,10 @@ class ApplicationController < ActionController::Base
   
   private
   def after_sign_in_path_for(resource)
+    if resource.instance_of?(Admin)
+      return rails_admin.dashboard_path
+    end
+    
 	resource_type = resource.perfilable_type.downcase
     unless resource.confirmed_at.nil?
       if resource.perfilable_id.nil? or resource.perfilable_id <= 0

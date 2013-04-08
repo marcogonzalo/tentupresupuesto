@@ -20,6 +20,7 @@ es-VE:
       invalid_token: 'Token de autenticación inválido.'
       timeout: 'La sesión expiró. Inicia sesión nuevamente.'
       inactive: 'La cuenta no ha sido activada.'
+      not_approved: 'La cuenta aún no ha sido aprobada'
       proveedor:
         not_found_in_database: "No se encontró en la base de datos"
       solicitante:
@@ -42,6 +43,7 @@ es-VE:
       signed_up_but_unconfirmed: 'Se ha enviado un mensaje con el enlace de confirmación a la cuenta de correo electrónico suministrada. Por favor, abre el enlace para activar la cuenta.'
       signed_up_but_inactive: 'Se ha registrado la cuenta satisfactoriamente. Sin embargo, no se pudo iniciar la sesión porque la cuenta no ha sido activada.'
       signed_up_but_locked: 'Se ha registrado la cuenta satisfactoriamente. Sin embargo, no se pudo iniciar la sesión porque la cuenta se encuentra bloqueada.'
+      signed_up_but_not_approved: 'Se ha registrado la cuenta satisfactoriamente. Sin embargo, debe ser aprobada para ser utilizada.'
       updated: 'La cuenta se ha actualizado satisfactoriamente.'
       update_needs_confirmation: "La cuenta se ha actualizado satisfactoriamente, pero es necesario confirmar la nueva dirección de correo electrónico. Por favor, revisa tu correo electrónico y abre el enlace de confirmación enviado en el mensaje para finalizar."
       destroyed: 'La cuenta ha sido cancelada. Esperamos que pronto vuelvas a usar nuestros servicios.'
