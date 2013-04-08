@@ -53,8 +53,9 @@ Ttp::Application.configure do
   config.assets.paths << Rails.root.join('app', 'assets', 'fonts')
   
   # Precompile additional assets
+  config.assets.precompile += ['*.svg', '*.eot', '*.woff', '*.ttf', '*.otf', '*.js']
+  config.assets.precompile += ['base_ttp.css.scss']
   config.assets.precompile += ['rails_admin/rails_admin.css', 'rails_admin/rails_admin.js']
-  config.assets.precompile += ['*.svg', '*.eot', '*.woff', '*.ttf', '*.otf', '*.js*', '*.css*']
   # %w( .svg .eot .woff .ttf .otf .js .css)
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
