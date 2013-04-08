@@ -16,11 +16,14 @@ gem "friendly_id", '~> 4.0.1'         # Identificadores amigables para url
 gem 'devise'
 gem 'devise-encryptable'
 
-gem 'will_paginate'                   # Paginador de resultados - https://github.com/mislav/will_paginate
+# gem 'will_paginate'                   # Paginador de resultados - https://github.com/mislav/will_paginate
+gem 'kaminari'                          # Paginador de resultados - https://github.com/amatsuda/kaminari
 
 # Manejo de imagenes
 gem "mini_magick"                     # A ruby wrapper for ImageMagick command line - https://github.com/minimagick/minimagick
 gem 'carrierwave'                     # Gestionar imágenes - https://github.com/jnicklas/carrierwave
+
+gem 'rails_admin'                     # Provides an interface for managing your data - https://github.com/sferik/rails_admin
 
 # Bibliotecas jQuery y CSS
 gem 'jquery-rails'

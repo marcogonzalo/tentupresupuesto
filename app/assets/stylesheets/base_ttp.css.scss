@@ -33,7 +33,7 @@ border-radius:0.25em;
 #mensaje-ttp { clear:both; }
 
 .pagination { margin:10px auto; text-align:center; }
-.pagination .current {font-style: normal; background-color:#2070AC; padding:0.5em; color: white; font-weight: bold;
+.pagination .page.current { background-color:#2070AC; color:white; display:inline-block; font-style: normal; font-weight: bold; padding:0.25em 0.5em; text-align:center;
 -o-border-radius:5px;
 -moz-border-radius:5px;
 -webkit-border-radius:5px;
