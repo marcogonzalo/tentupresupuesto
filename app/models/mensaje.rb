@@ -4,7 +4,7 @@ class Mensaje < ActiveRecord::Base
   
   belongs_to :presupuesto
   
-  USUARIO = ["solicitante","proveedor"]
+  USUARIO = ["solicitante","proveedor","Solicitante","Proveedor"]
   
   default_scope order('created_at ASC')
   
