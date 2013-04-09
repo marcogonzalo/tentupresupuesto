@@ -1,7 +1,9 @@
+require "bundler/capistrano"
+require 'capistrano/ext/multistage'
+
 # Available stages
 set :stages, Dir["config/deploy/*.rb"].map{|t| File.basename(t, ".rb")}
 set :default_stage, "staging"
-require 'capistrano/ext/multistage'
 
 set :application, "Ttp"
 set :domain, "tentupresupuesto.com.ve" 
@@ -76,6 +78,7 @@ ERROR!  You must have a file on your server with the database configuration.
 
   task :build_gems, :roles => :app do
     desc "Building gems"
+    run 'cd #{release_path} && bundle update rake'
     run "cd #{release_path} && bundle install --without development test"
   end
   

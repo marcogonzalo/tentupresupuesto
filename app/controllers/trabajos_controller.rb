@@ -6,7 +6,6 @@ class TrabajosController < ApplicationController
   # GET /trabajos
   # GET /trabajos.json
   def index
-    require 'will_paginate/array'
     unless params[:filtro].nil?
       @trabajos = []
       if FiltroListaTrabajos::FILTROS.include?(params[:filtro]) and not params[:valor].nil?
@@ -35,7 +34,7 @@ class TrabajosController < ApplicationController
         end
       end
     else
-      @trabajos = Trabajo.all.paginate(:page => params[:p])
+      @trabajos = Trabajo.order('created_at').page(params[:p])
     end
     @cant_resultados = @trabajos.size
     respond_to do |format|

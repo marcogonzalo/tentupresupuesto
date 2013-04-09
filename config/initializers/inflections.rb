@@ -24,6 +24,8 @@ ActiveSupport::Inflector.inflections do |inflect|
   inflect.plural /(\bdetalle)(\w+|_|$)/, '\1s\2'
   inflect.plural /(\bdetalles)(\w+|_|$)/, '\1\2'
   inflect.singular /(\bdetalle)s(\w+|_|$)/, '\1\2'
+  
+  inflect.irregular 'admin', 'admins'
 
   # Para evitar errores de pluralización utilizados por formtastic al utilizar i18n
   # (https://github.com/justinfrench/formtastic/blob/master/lib/formtastic.rb#L1850)

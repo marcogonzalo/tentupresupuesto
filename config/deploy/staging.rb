@@ -9,7 +9,7 @@ set :migrate_env,    "staging"
 namespace :to_staging do
   task :migrations do
     desc "Migrating database"
-    run "cd #{release_path} && rake db:migrate RAILS_ENV=staging"
+    run "cd #{current_path} && rake db:migrate RAILS_ENV=staging"
   end
   
   task :seeds do

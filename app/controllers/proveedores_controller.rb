@@ -10,7 +10,6 @@ class ProveedoresController < ApplicationController
   # GET /proveedores
   # GET /proveedores.json
   def index
-    require 'will_paginate/array' 
     unless params[:filtro].nil?
       @proveedores = []
       if FiltroListaProveedores::FILTROS.include?(params[:filtro]) and not params[:valor].nil?
@@ -39,7 +38,7 @@ class ProveedoresController < ApplicationController
         end
       end
     else
-      @proveedores = Proveedor.all.paginate(:page => params[:p])
+      @proveedores = Proveedor.order('created_at DESC').page(params[:p])
     end
     @cant_resultados = @proveedores.size
     add_breadcrumb :index, :proveedores_path
