@@ -54,8 +54,8 @@ Ttp::Application.configure do
   
   # Precompile additional assets
   config.assets.precompile = ['*.svg', '*.eot', '*.woff', '*.ttf', '*.otf', '*.js', '*.ico', '*.png', '*.jpg', '*.jpeg', '*.gif']
-  config.assets.precompile += ['base_ttp*', 'application.css', 'devise.css', 'email.css', 'errores.css', 'general.css', 'interna-liston.css', 'landing.css']
-  config.assets.precompile += ['categoria*', 'mensajes*', 'presupuestos*', 'proveedores*', 'reputacion*', 'trabajos*', 'ubicaciones_geograficas*']
+  config.assets.precompile += ['application.css', 'base_ttp*', 'devise.css', 'email.css', 'errores.css', 'general.css', 'interna-liston.css', 'landing.css']
+  config.assets.precompile += ['categorias*', 'mensajes*', 'presupuestos*', 'proveedores*', 'reputacion*', 'solicitantes*', 'trabajos*', 'ubicaciones_geograficas*']
   config.assets.precompile += ['rails_admin/rails_admin.css', 'rails_admin/rails_admin.js']
   # %w( .svg .eot .woff .ttf .otf .js .css)
 
