@@ -569,7 +569,7 @@ RailsAdmin.config do |config|
           column_width 50
         end
         field :proposito
-        field :status do
+        field :estatus do
           column_width 100
         end
         field :solicitante do
@@ -642,7 +642,7 @@ RailsAdmin.config do |config|
         field :tipo do
           column_width 100
         end
-        field :entidad
+        field :entidad_superior
       end
   #     show do; end
   #     edit do; end
