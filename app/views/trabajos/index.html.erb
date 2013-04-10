@@ -73,7 +73,7 @@
 		<section class="datos-solicitud">
 			<div class="cat-p-n <%= trabajo.categoria.clase_css %>"></div>
 			<div class="datos-en-lista">
-				<%= link_to trabajo.categoria.nombre, listar_trabajos_path('categoria', trabajo.categoria.friendly_id) %> | <%= link_to( t('extras.presupuestos', :count => trabajo.cant_presupuestos), trabajo_path(trabajo, :anchor => "presupuestos")) %>
+				<%= link_to trabajo.categoria.nombre, listar_trabajos_path('categoria', trabajo.categoria.friendly_id) %> | <%= trabajo.estatus.capitalize %> | <%= link_to( t('extras.presupuestos', :count => trabajo.cant_presupuestos), trabajo_path(trabajo, :anchor => "presupuestos")) %>
 				<br>
 				<time datetime="<%= l trabajo.created_at, :format => :html5 %>" pubdate="pubdate">
 					<%= l trabajo.created_at, :format => :abrev %>
