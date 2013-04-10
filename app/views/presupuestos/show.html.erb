@@ -46,13 +46,15 @@
 		<dd>
 			Sí. <%= @presupuesto.motivo_rechazo.humanize %>.
 		</dd>
-	<% elsif @presupuesto.aprobado.nil? %>
+	<% else %>
+		<% unless @presupuesto.aprobado.nil? %>
 		<dt>
 			<strong><%= model_class.human_attribute_name(:aprobado) %>:</strong>
 		</dt>
 		<dd>
 			<%= @presupuesto.aprobado ? "Sí":"No" %>.
 		</dd>
+		<% end %>
 	<% end %>
 	</dl>
 	<p class="mini-nota">
@@ -67,9 +69,11 @@
 		<%= link_to "Ver solicitud", trabajo_path(@trabajo), :class => 'btn btn-large' %>
 		<%= link_to "Ver perfil", perfil_proveedor_path(@presupuesto.proveedor), :class => 'btn btn-warning btn-large' %>
 	<% unless @presupuesto.rechazado or @presupuesto.aprobado %>
-		<%= link_to "Contratar proveedor", aceptar_presupuesto_path(@presupuesto, :format => 'json'), :remote => 'true', :method => 'put', :id => 'aceptar-presupuesto', :class => 'btn btn-success btn-large' %>
+		<%= link_to "Contratar proveedor", aceptar_presupuesto_path(@presupuesto, :format => 'json'), :remote => 'true', :method => 'put',
+			:data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => '¿Deseas contratar a este proveedor? Esta acción es irreversible')) },
+			:id => 'aceptar-presupuesto', :class => 'btn btn-success btn-large' %>
 		<%= link_to "Rechazar presupuesto", '#modal-rechazo', :id => 'rechazar-presupuesto', :class => 'btn btn-danger btn-large', "data-toggle"=>"modal", "data-backdrop"=>"static" %>
-<%= image_tag "tentu/generales/cargando.gif", {:class => "cargando", :id => "loading-aprobar-rechazar"} %>
+		<%= image_tag "tentu/generales/cargando.gif", {:class => "cargando", :id => "loading-aprobar-rechazar"} %>
 	<% end %>		
 <% elsif @es_el_proveedor %>
 		<%= link_to "Ver solicitud", trabajo_path(@trabajo), :class => 'btn' %>
