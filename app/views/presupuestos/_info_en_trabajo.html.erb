@@ -1,7 +1,7 @@
 <% unless p.proveedor == contratado %>
 <div class="span4 presupuesto">
 	<div class="separar-alrededor">
-		<%= image_tag(p.proveedor.avatar.mini.url) if p.proveedor.avatar? %>
+		<%= image_tag(p.proveedor.avatar.mini.url) %>
 		<span class="proveedor-interesado"><b><%= p.proveedor.nombre_empresa %></b></span>
 		<%= raw mostrar_reputacion(p.proveedor.reputacion, p.proveedor.valoraciones, "proveedor") %>
 	</div>
@@ -20,9 +20,7 @@
 	</details>
 	<% end %>
 	<div class="botones">
-		<% if es_el_solicitante %>
-		<%= link_to "Ver oferta", presupuesto_path(p), :class=>"btn btn-small" %>
-		<% end %>
+		<%= link_to("Ver oferta", presupuesto_path(p), :class=>"btn btn-small") if es_el_solicitante %>
 		<%= link_to "Ver perfil", perfil_proveedor_path(p.proveedor), :class => 'btn btn-warning btn-small' %>
 	</div>
 </div>

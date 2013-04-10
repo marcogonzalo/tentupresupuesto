@@ -26,7 +26,7 @@
 	<% @presupuestos.each do |p| %>
 	<div class="presupuesto <%= "p-rechazado" if p.rechazado %><%= "p-aprobado" if p.aprobado %> row">
 		<div class="span11">
-			<%= image_tag(p.proveedor.avatar.micro.url) if p.proveedor.avatar? %>
+			<%= image_tag(p.proveedor.avatar.micro.url) %>
 			<%= p.proveedor.nombre_empresa %>
 			<%= "(rechazado)" if p.rechazado %>
 			<%= "(aprobado)" if p.aprobado %>
