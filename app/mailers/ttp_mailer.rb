@@ -85,7 +85,7 @@ class TtpMailer < ActionMailer::Base
   def notificar_solicitud_publicada(trabajo)
     # Notificar a proveedores
     proveedores   = trabajo.categoria.proveedores.select("id")
-    usuarios      = Usuario.where(:perfilable_type => "proveedor", :perfilable_id => proveedores)
+    usuarios      = Usuario.where(:perfilable_type => "Proveedor", :perfilable_id => proveedores)
     TtpMailer.solicitud_publicada(trabajo,usuarios).deliver
   end
   
@@ -93,34 +93,34 @@ class TtpMailer < ActionMailer::Base
     # Notificar a proveedores
     proveedor     = presupuesto.proveedor
     trabajo       = trabajo
-    usuarios      = Usuario.where(:perfilable_type => "solicitante", :perfilable_id => trabajo.solicitante_id)
+    usuarios      = Usuario.where(:perfilable_type => "Solicitante", :perfilable_id => trabajo.solicitante_id)
     TtpMailer.presupuesto_recibido(trabajo,presupuesto,proveedor,usuarios).deliver
   end
   
   def notificar_presupuesto_contratado(presupuesto)
     # Notificar al proveedor
     trabajo       = presupuesto.trabajo
-    usuarios      = Usuario.where(:perfilable_type => "proveedor", :perfilable_id => presupuesto.proveedor_id)
+    usuarios      = Usuario.where(:perfilable_type => "Proveedor", :perfilable_id => presupuesto.proveedor_id)
     TtpMailer.presupuesto_contratado(trabajo,usuarios).deliver
   end
   
   def notificar_presupuesto_no_contratado(trabajo,presupuesto)
     # Notificar al proveedor
     trabajo       = trabajo
-    usuarios      = Usuario.where(:perfilable_type => "proveedor", :perfilable_id => presupuesto.proveedor_id)
+    usuarios      = Usuario.where(:perfilable_type => "Proveedor", :perfilable_id => presupuesto.proveedor_id)
     TtpMailer.presupuesto_no_contratado(trabajo,presupuesto,usuarios).deliver
   end
   
   def notificar_presupuesto_rechazado(presupuesto)
     # Notificar al proveedor
     trabajo       = presupuesto.trabajo
-    usuarios      = Usuario.where(:perfilable_type => "proveedor", :perfilable_id => presupuesto.proveedor_id)
+    usuarios      = Usuario.where(:perfilable_type => "Proveedor", :perfilable_id => presupuesto.proveedor_id)
     TtpMailer.presupuesto_rechazado(trabajo,presupuesto,usuarios).deliver
   end
   
   def notificar_trabajo_finalizado(trabajo)
     # Notificar al proveedor
-    usuarios      = Usuario.where(:perfilable_type => "proveedor", :perfilable_id => trabajo.contratado_id)
+    usuarios      = Usuario.where(:perfilable_type => "Proveedor", :perfilable_id => trabajo.contratado_id)
     TtpMailer.trabajo_finalizado(trabajo,usuarios).deliver
   end
 end
