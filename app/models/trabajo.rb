@@ -15,7 +15,7 @@ class Trabajo < ActiveRecord::Base
   belongs_to :municipio, :class_name => "UbicacionGeografica", :foreign_key => "municipio_id", :conditions => "tipo = 'municipio'"
   belongs_to :localidad, :class_name => "UbicacionGeografica", :foreign_key => "localidad_id", :conditions => "tipo = 'localidad'"
   
-  ESTATUS = ["buscando","ejecutando","finalizado","cancelado"]
+  ESTATUS = ["buscando","ejecutando","finalizado","cerrado"]
   default_scope order('created_at DESC')
   scope :estatus_buscando, where(:estatus => 'buscando')
   scope :estatus_ejecutando, where(:estatus => 'ejecutando')

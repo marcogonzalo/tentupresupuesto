@@ -12,7 +12,7 @@
 #    javascript_include_tag 'trabajos'
 #  end
 %>
-<h1 class="page-header"><%= t '.title', :default => model_class.model_name.human.pluralize %></h1>
+<h1 class="page-header">Solicitudes</h1>
 <div class="span6">
 	<div id="filtros" class="well">
 	<% unless proveedor_signed_in? %>
@@ -60,7 +60,7 @@
 <% elsif not @ubicacion.nil? %>
 	<h2 class="page-header"><%= @ubicacion.tipo.humanize+" "+@ubicacion.nombre+" ("+@cant_resultados.to_s+")" %></h2>
 <% else %>
-	<h2 class="page-header">Todos los trabajos</h2>
+	<h2 class="page-header">Todas las solicitudes</h2>
 <% end %>
 <% if @cant_resultados > 0 %>
 	<%= page_entries_info @trabajos %>
@@ -73,7 +73,7 @@
 		<section class="datos-solicitud">
 			<div class="cat-p-n <%= trabajo.categoria.clase_css %>"></div>
 			<div class="datos-en-lista">
-				<%= link_to trabajo.categoria.nombre, listar_trabajos_path('categoria', trabajo.categoria.friendly_id) %> | <%= link_to( t('extras.presupuestos', :count => trabajo.cant_presupuestos), trabajo_path(trabajo, :anchor => "presupuestos")) %>
+				<%= link_to trabajo.categoria.nombre, listar_trabajos_path('categoria', trabajo.categoria.friendly_id) %> | <%= trabajo.estatus.capitalize %> | <%= link_to( t('extras.presupuestos', :count => trabajo.cant_presupuestos), trabajo_path(trabajo, :anchor => "presupuestos")) %>
 				<br>
 				<time datetime="<%= l trabajo.created_at, :format => :html5 %>" pubdate="pubdate">
 					<%= l trabajo.created_at, :format => :abrev %>
