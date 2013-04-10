@@ -21,11 +21,9 @@
 			<%	# Si es el perfil del proveedor que esta en sesion
 				if proveedor_signed_in? and @proveedor.id == current_proveedor.perfilable_id 
 			%>
-				<%= (link_to (image_tag 'tentu/generales/transparente.png', :alt => "Cambiar imagen de perfil", :title => "Cambiar imagen de perfil", :class => 'transparente'), imagen_proveedor_path) unless @proveedor.avatar? %>
-				<%= (link_to (image_tag @proveedor.avatar.url, :alt => "Cambiar imagen de perfil", :title => "Cambiar imagen de perfil"), imagen_proveedor_path) if @proveedor.avatar? %>
+				<%= (link_to (image_tag @proveedor.avatar.url, :alt => "Cambiar imagen de perfil", :title => "Cambiar imagen de perfil"), imagen_proveedor_path) %>
 			<% else %>
-				<% imagen_proveedor = @proveedor.avatar? ? @proveedor.avatar.url : 'tentu/generales/transparente.png' %>
-				<%= image_tag imagen_proveedor, :alt => "Logo de "+@proveedor.nombre_empresa, :title => "Logo de "+@proveedor.nombre_empresa %>
+				<%= image_tag @proveedor.avatar.url, :alt => "Logo de "+@proveedor.nombre_empresa, :title => "Logo de "+@proveedor.nombre_empresa %>
 			<% end %>
 			</div>
 			<h4 id="nombre-proveedor" class="con-chango sobre-color"><%= @proveedor.nombre_empresa %></h4>
