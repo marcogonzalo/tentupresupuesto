@@ -73,10 +73,11 @@ div#perfil div#evaluaciones .accordion-group .accordion-heading a {color:black; 
 div#perfil div#evaluaciones .accordion-group .accordion-heading .trabajo { display: table-cell; float:left; font-size: 1.15em; font-weight:bold; padding-top:0.25em; vertical-align: middle; width:68%;}
 div#perfil div#evaluaciones .accordion-group .accordion-heading .trabajo .badge {display:none;}
 div#perfil div#evaluaciones .accordion-group .accordion-heading .reputacion { display: inline-block; float:right; position:relative; top:5px; }
-div#perfil div#evaluaciones .accordion-group .accordion-body .accordion-inner { padding-left:50px;}
+div#perfil div#evaluaciones .accordion-group .accordion-body .accordion-inner { padding:5px 0px;}
+div#perfil div#evaluaciones .accordion-group .accordion-body .accordion-inner .comentarios p {background-color: #e9e9e9; border-radius:10px; margin:0px; min-height:75px; padding:10px;}
 div#perfil div#evaluaciones .accordion-group .accordion-body .accordion-inner .caracteristicas-evaluadas { text-align:right;}
-div#perfil div#evaluaciones .accordion-group .accordion-body .accordion-inner .caracteristicas-evaluadas .caracteristica {padding: 0px 0px 5px 5px;}
-div#perfil div#evaluaciones .accordion-group .accordion-body .accordion-inner .caracteristicas-evaluadas .nombre-caracteristica { padding-right:10px; display:inline-block; font-weight:bold; vertical-align: middle;}
+div#perfil div#evaluaciones .accordion-group .accordion-body .accordion-inner .caracteristicas-evaluadas .caracteristica {padding: 0px 1px 1px 0px;}
+div#perfil div#evaluaciones .accordion-group .accordion-body .accordion-inner .caracteristicas-evaluadas .nombre-caracteristica { display:inline-block; font-size:0.8em; font-weight:bold; padding-right:2px; vertical-align: middle;}
 div#perfil div#evaluaciones .accordion-group .accordion-body .accordion-inner .caracteristicas-evaluadas .reputacion { display: inline-block; vertical-align: middle; }
 /* Dejar siempre debajo para sobreescribir en dispositivos */
 @media screen and (min-width: 1200px) { 

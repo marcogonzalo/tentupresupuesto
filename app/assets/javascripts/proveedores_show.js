@@ -22,7 +22,7 @@ $('#perfil-tabs a').click(function (e) {
 	    	$('#perfil '+href).show();
 	    	$('#perfil #informacion').hide();
 	    	$('#perfil #trabajos').hide(); 
-	    	$('#titulo-pestana h3').text("Calificaciones")
+	    	$('#titulo-pestana h3').text("Valoraciones")
 	    	break;
 	}
 })

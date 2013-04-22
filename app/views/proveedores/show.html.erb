@@ -32,15 +32,16 @@
 				<% if @proveedor.verificado %><span class="badge badge-warning" title="Proveedor verificado"><i class="icon-ok icon-white"></i></span><% end %>
 			</p>
 			<%= raw mostrar_reputacion(@proveedor.reputacion, @proveedor.valoraciones, "general") %>
+			<span class="badge badge-info"><%= t('extras.valoraciones', :count => @proveedor.valoraciones) %></span>
 			<ul id="perfil-tabs">
 				<li id="boton-informacion">
 					<a href="#informacion"><i>&nbsp;</i>Información</a>
 				</li>
+				<li id="boton-evaluaciones">
+					<a href="#evaluaciones"><i>&nbsp;</i>Valoraciones</a>
+				</li>
 				<li id="boton-previos">
 					<a href="#trabajos"><i>&nbsp;</i>Trabajos previos</a>
-				</li>
-				<li id="boton-evaluaciones">
-					<a href="#evaluaciones"><i>&nbsp;</i>Calificaciones</a>
 				</li>
 			</ul>
 		</div>
