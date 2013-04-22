@@ -10,7 +10,7 @@ module EvaluacionesHelper
       estrellas = ""
       entero.times { |i| estrellas += " * " }
       if tipo == "general" or tipo == "proveedor"
-        return '<div class="reputacion"><div class="'+rep+'" title="'+number_with_delimiter(reputacion)+' ('+(valoraciones.to_s)+' evaluaciones)"><span style="'+ancho+'"><i>'+estrellas+'</i></span></div></div>'
+        return '<div class="reputacion"><div class="'+rep+'" title="'+number_with_delimiter(reputacion)+' ('+t('extras.valoraciones', :count => valoraciones)+')"><span style="'+ancho+'"><i>'+estrellas+'</i></span></div></div>'
       else
         # Valoraciones individuales (trabajo)
         return '<div class="reputacion"><div class="'+rep+'" title="'+number_with_delimiter(reputacion)+'"><span style="'+ancho+'"><i>'+estrellas+'</i></span></div></div>'

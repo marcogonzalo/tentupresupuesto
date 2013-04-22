@@ -144,10 +144,10 @@ es-VE:
         one: ! '%{model} no pudo guardarse debido a 1 error'
         other: ! '%{model} no pudo guardarse debido a %{count} errores'
   extras:
-    evaluaciones:
-      zero: Sin evaluaciones
-      one: 1 evaluación
-      other: '%{count} evaluaciones'
+    valoraciones:
+      zero: Sin valoraciones
+      one: 1 valoración
+      other: '%{count} valoraciones'
     mensajes:
       zero: No hay mensajes
       one: 1 mensaje
@@ -300,6 +300,10 @@ es-VE:
           independiente: "Independiente"
           empresa_privada: "Empresa Privada"
           empresa_produccion_social: "Empresa de Producción Social"
+        valoraciones:
+          zero: "Sin evaluar"
+          one: "1 valoracion"
+          other: "%{count} valoraciones"
       solicitante:
         cedula: "Cédula"
         direccion: "Dirección"
