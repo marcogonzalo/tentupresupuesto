@@ -12,7 +12,6 @@ class FiltroListaTrabajos
 end
 
 Ttp::Application.routes.draw do
-
   scope :path_names => { :new => "nuevo", :edit => "editar" } do
     scope :path_names => { :sign_in => 'iniciar_sesion', :sign_up => 'registro', :sign_out => 'cerrar_sesion', :password => 'clave', :confirmation => 'verificacion', :edit => 'editar' } do
       devise_for :admins
@@ -61,17 +60,18 @@ Ttp::Application.routes.draw do
     scope :trabajos do
       get     'trabajos/:filtro/:valor' => "trabajos#index", :as => "listar_trabajos", :constraints => FiltroListaTrabajos
     end
-    resources :trabajos, :shallow => true do
+    resources :trabajos do
       member do
         match 'finalizar' => "trabajos#finalizar_trabajo", :via => [:put]
       end
-      resources :presupuestos do
+      resources :presupuestos, :shallow => true do
         member do
           match 'aceptar' => "presupuestos#aceptar_presupuesto", :via => [:put, :post]
           match 'rechazar' => "presupuestos#rechazar_presupuesto", :via => [:put, :post]
         end
-        resources :mensajes # , :only => [:index, :create, :destroy]
+        resources :mensajes, :shallow => true # , :only => [:index, :create, :destroy]
       end
+      resources :evaluaciones, :except => [:index, :edit, :destroy], :path => "/", :path_names => { :new => "evaluar" }
     end
     
     resources :categorias

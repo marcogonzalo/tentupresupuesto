@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130407043229) do
+ActiveRecord::Schema.define(:version => 20130411033924) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                  :default => "",    :null => false
@@ -54,6 +54,25 @@ ActiveRecord::Schema.define(:version => 20130407043229) do
 
   add_index "categorias_proveedores", ["categoria_id", "proveedor_id"], :name => "index_categorias_proveedores_on_categoria_id_and_proveedor_id", :unique => true
   add_index "categorias_proveedores", ["proveedor_id", "categoria_id"], :name => "index_categorias_proveedores_on_proveedor_id_and_categoria_id", :unique => true
+
+  create_table "evaluaciones", :force => true do |t|
+    t.integer  "trabajo_id",                           :null => false
+    t.integer  "proveedor_id",                         :null => false
+    t.float    "total",               :default => 0.0, :null => false
+    t.float    "atencion"
+    t.float    "calidad"
+    t.float    "limpieza"
+    t.float    "precio"
+    t.float    "responsabilidad"
+    t.float    "tiempo"
+    t.string   "observaciones",       :default => "",  :null => false
+    t.string   "respuesta_proveedor", :default => "",  :null => false
+    t.datetime "created_at",                           :null => false
+    t.datetime "updated_at",                           :null => false
+  end
+
+  add_index "evaluaciones", ["proveedor_id"], :name => "index_evaluaciones_on_proveedor_id"
+  add_index "evaluaciones", ["trabajo_id"], :name => "index_evaluaciones_on_trabajo_id", :unique => true
 
   create_table "friendly_id_slugs", :force => true do |t|
     t.string   "slug",                         :null => false
@@ -255,6 +274,9 @@ ActiveRecord::Schema.define(:version => 20130407043229) do
   add_index "usuarios", ["perfilable_id"], :name => "index_usuarios_on_perfilable_id"
   add_index "usuarios", ["perfilable_type"], :name => "index_usuarios_on_perfilable_type"
   add_index "usuarios", ["reset_password_token"], :name => "index_usuarios_on_reset_password_token", :unique => true
+
+  add_foreign_key "evaluaciones", "proveedores", :name => "evaluaciones_proveedor_id_fk", :dependent => :delete
+  add_foreign_key "evaluaciones", "trabajos", :name => "evaluaciones_trabajo_id_fk"
 
   add_foreign_key "mensajes", "presupuestos", :name => "mensajes_presupuesto_id_fk", :dependent => :delete
 

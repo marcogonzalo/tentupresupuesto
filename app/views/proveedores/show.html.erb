@@ -1,7 +1,7 @@
 <%- model_class = Proveedor -%>
 <%
  content_for :head do
-    stylesheet_link_tag 'categorias','reputacion','proveedores'
+    stylesheet_link_tag 'categorias','evaluaciones', 'reputacion','proveedores'
   end
 
   content_for :foot do
@@ -32,18 +32,20 @@
 				<% if @proveedor.verificado %><span class="badge badge-warning" title="Proveedor verificado"><i class="icon-ok icon-white"></i></span><% end %>
 			</p>
 			<%= raw mostrar_reputacion(@proveedor.reputacion, @proveedor.valoraciones, "general") %>
+			<span class="badge badge-info"><%= t('extras.valoraciones', :count => @proveedor.valoraciones) %></span>
 			<ul id="perfil-tabs">
 				<li id="boton-informacion">
 					<a href="#informacion"><i>&nbsp;</i>Información</a>
 				</li>
+				<li id="boton-evaluaciones">
+					<a href="#evaluaciones"><i>&nbsp;</i>Valoraciones</a>
+				</li>
 				<li id="boton-previos">
 					<a href="#trabajos"><i>&nbsp;</i>Trabajos previos</a>
 				</li>
-				<li id="boton-evaluaciones" class="hide">
-					<a href="#evaluaciones"><i>&nbsp;</i>Evaluaciones</a>
-				</li>
 			</ul>
 		</div>
+		<div id="terminacion"></div>
 	</aside>
 	<div id="titulo-pestana" class="span16 pull-right">
 		<h3 class="con-chango sobre-color">Información del proveedor</h3>
@@ -156,6 +158,8 @@
 		</div>
 		<% end %>
 	</div>
-	<div id="evaluaciones" class="span16 pull-right"></div>
+	<div id="evaluaciones" class="span17 pull-right accordion">
+		<%= render(:partial => 'evaluaciones/bloque_evaluacion', :collection => @evaluaciones, :as => :e) or 'No ha sido evaluado.' %>
+	</div>
 </div>
 

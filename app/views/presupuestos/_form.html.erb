@@ -1,66 +1,60 @@
-<% 
-content_for :head do
-  stylesheet_link_tag 'trabajos'
-end
+<%
+ content_for :head do
+    stylesheet_link_tag 'trabajos'
+  end
 
-content_for :title do 
-  "Presupuesto para: "+@trabajo.proposito
-end
+  content_for :title do
+    "Presupuesto para: "+@trabajo.proposito
+  end
 
-content_for :article_tag_id do
-  "solicitud-trabajo"
-end
+  content_for :article_tag_id do
+    "solicitud-trabajo"
+  end
 
-content_for :liston do 
-  render :partial => 'trabajos/cabecera', :locals => {:trabajo => @trabajo, :cantidad_presupuestos => @trabajo.presupuestos.size, :color => "b"}
-end
+  content_for :liston do
+    render :partial => 'trabajos/cabecera', :locals => {:trabajo => @trabajo, :cantidad_presupuestos => @trabajo.presupuestos.size, :color => "b"}
+  end
 
-content_for :foot do
-  javascript_include_tag 'presupuestos'
-end
+  content_for :foot do
+    javascript_include_tag 'presupuestos'
+  end
 %>
 <div id="registro" class="formulario-pendon offset1 span12">
-  <div class="titulo-pendon"><h2 class="sobre-color">Presupuesto</h2></div>
-  <div class="cuerpo-pendon">
-<%= form_for @path do |f| %>
-  <div class="row">
-    <div class="control-group span4">
-      <%= f.label :precio_minimo, :class => 'control-label' %>
-      <div class="controls">
-        <%= f.text_field :precio_minimo, :class => 'text_field' %>
-      </div>
-    </div>
-    <div class="control-group span4">
-      <%= f.label :precio_maximo, :class => 'control-label' %>
-      <div class="controls">
-        <%= f.text_field :precio_maximo, :class => 'text_field' %>
-      </div>
-    </div>
-    <span class="help-block">Se indicará al cliente que estos son montos estimados y no definitivos.</span>
-  </div>
-  <div class="control-group">
-    <label for="presupuesto_con_iva" class="checkbox" %>
-        <%= f.check_box :con_iva, :class => 'check_box' %> El precio incluye <abbr title="Impuesto al Valor Agregado">IVA</abbr>
-    </label>
-  </div>
-  <div class="control-group">
-    <%= f.label :resumen, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_area :resumen, :class => 'text_area' %>
-    </div>
-  </div>
-  <div class="botones">
-    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                trabajo_path(@trabajo), :class => 'btn' %>
-    <%= f.submit 'Enviar presupuesto', :class => 'btn btn-warning' %>
-  </div>
-<% end %>
-  </div>
+	<div class="titulo-pendon">
+		<h2 class="sobre-color">Presupuesto</h2>
+	</div>
+	<div class="cuerpo-pendon">
+		<%= form_for @path do |f| %>
+			<div class="row">
+				<div class="control-group span4">
+					<%= f.label :precio_minimo, :class => 'control-label' %>
+					<div class="controls">
+						<%= f.text_field :precio_minimo, :class => 'text_field' %>
+					</div>
+				</div>
+				<div class="control-group span4">
+					<%= f.label :precio_maximo, :class => 'control-label' %>
+					<div class="controls">
+						<%= f.text_field :precio_maximo, :class => 'text_field' %>
+					</div>
+				</div>
+				<span class="help-block">Se indicará al cliente que estos son montos estimados y no definitivos.</span>
+			</div>
+			<div class="control-group">
+				<label for="presupuesto_con_iva" class="checkbox" %> <%= f.check_box :con_iva, :class => 'check_box' %> El precio incluye <abbr title="Impuesto al Valor Agregado">IVA</abbr> </label>
+			</div>
+			<div class="control-group">
+				<%= f.label :resumen, :class => 'control-label' %>
+				<div class="controls">
+					<%= f.text_area :resumen, :class => 'text_area' %>
+				</div>
+			</div>
+			<div class="botones">
+				<%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+				trabajo_path(@trabajo), :class => 'btn' %>
+				<%= f.submit 'Enviar presupuesto', :class => 'btn btn-warning' %>
+			</div>
+		<% end %>
+	</div>
 </div>
-<div id="caracteristicas" class="offset1 span8">
-  <h2>La solicitud</h2>
-  <br>
-  <p class="titulo">Categoría:</p><p class="texto"><%= @trabajo.categoria.nombre %></p>
-  <p class="titulo">Solicitud:</p><p class="texto"><%= @trabajo.proposito %></p>
-  <p class="titulo">Descripción:</p><p class="texto"><%= @trabajo.descripcion %></p>
-</div>
+<%= render :partial => 'trabajos/caracteristicas', :local => {:trabajo => @trabajo} %>

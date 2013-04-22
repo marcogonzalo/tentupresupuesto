@@ -35,17 +35,22 @@ box-shadow:  inset 0 0 10em #2B598F;
 .proveedor .descripcion { font-size:1em; }
 
 /* PERFIL DE PROVEEDOR */
-aside#perfil-proveedor { background:url('tentu/internas/terminacionperfilabajo.png') no-repeat center bottom; margin-left:0px; max-width:233px; }
-#ficha-proveedor {background:#0080C4 url('tentu/internas/fondotituloperfil.png') repeat-x top left; color:white; margin-bottom:55px; padding:4px; padding-top:3em; text-align:center; width:225px;}
-#ficha-proveedor #imagen-proveedor {background:white url('tentu/internas/imagendefault.png') no-repeat center center; margin:1em auto; height:140px; padding:5px; width:190px; text-align:center;}
+div#perfil {min-height:450px; margin-bottom:50px;}
+aside#perfil-proveedor { margin-left:0px; max-width:233px; }
+aside#perfil-proveedor #terminacion {background:url('tentu/internas/terminacionperfilabajo.png') no-repeat center bottom; height:55px; width:100%;}
+#ficha-proveedor {background:#0080C4 url('tentu/internas/fondotituloperfil.png') repeat-x top left; color:white; padding:4px; padding-top:3em; text-align:center; width:225px;}
+#ficha-proveedor #imagen-proveedor {background:white; margin:1em auto; height:140px; padding:5px; width:190px; text-align:center;}
 #ficha-proveedor #imagen-proveedor img { max-height:100%; }
 #ficha-proveedor #nombre-proveedor { font-size:1.2em; }
 #ficha-proveedor .reputacion { margin:0.1em auto;}
 #ficha-proveedor ul { list-style:none; margin:1em 0px 0px 0px;}
 #ficha-proveedor ul li a { color:white; display:block; font-weight:bold; font-size:1.25em; line-height:2em;  text-align:left; }
 #ficha-proveedor ul li a:hover {background:#0080C4 url('tentu/internas/fondotituloperfil.png') repeat-x top left; cursor:pointer; text-decoration:none; }
-#ficha-proveedor ul li#boton-informacion a i {background:url('tentu/internas/informacion.png') no-repeat left center; background-position:5px 7px; display:inline-block; height:35px; width:40px;}
-#ficha-proveedor ul li#boton-previos a i {background:url('tentu/internas/trabajosprevios.png') no-repeat left center; background-position:2px 5px; display:inline-block; height:35px; width:40px;}
+#ficha-proveedor ul li a i {background:url('tentu/internas/menu-perfil.png') no-repeat left center; display:inline-block; height:32px; width:32px; margin-right:8px;}
+#ficha-proveedor ul li#boton-informacion a i {background-position:2px 3px;}
+#ficha-proveedor ul li#boton-previos a i {background-position:2px -32px;}
+#ficha-proveedor ul li#boton-evaluaciones a i {background-position:2px -67px;}
+
 div#perfil #titulo-pestana {background:url('tentu/internas/terminaciontituloperfil.png') no-repeat bottom left; padding:0px; padding-left:30px; }
 div#perfil #titulo-pestana h3 {background:#0080C4 url('tentu/internas/fondotituloperfil.png') repeat-x top left; line-height:1.85em; margin:0px; min-height:2em; text-align:center;}
 
@@ -56,28 +61,44 @@ div#perfil div#trabajos, div#imagenes-trabajos { padding-top:1em; text-align:cen
 div#perfil div#trabajos .imagen, div#imagenes-trabajos .imagen {border:1px solid silver; display:inline-block; height:150px; margin:1em auto; position:relative; width:200px;}
 div#perfil div#trabajos .imagen .al-medio, div#imagenes-trabajos .imagen .al-medio {display:table-cell; height:150px; text-align:center; vertical-align:middle; width:200px;}
 div#imagenes-trabajos .imagen .btn {position:absolute; right:10px; bottom:10px;}
-div#perfil div#evaluaciones { padding-top:1em;display:none;}
+
+div#perfil div#evaluaciones { padding-top:0em; display:none;}
 
 /* Dejar siempre debajo para sobreescribir en dispositivos */
 @media screen and (min-width: 1200px) { 
-  #ficha-proveedor {min-height: 500px;}
+  #perfil {position:relative;}
+  aside#perfil-proveedor { position:absolute;right:0;top:0;bottom:0;}
+  aside#perfil-proveedor #ficha-proveedor {height:90%;min-height:400px;}
+  div#perfil div#titulo-pestana, div#perfil div#informacion, div#perfil div#trabajos, div#perfil div#evaluaciones {margin-right:233px;}
+  div#perfil div#informacion, div#perfil div#trabajos, div#perfil div#evaluaciones {margin-bottom:50px;}
 }
 @media screen and (min-width: 980px) and (max-width: 1199px) { 
-  #ficha-proveedor {min-height: 500px;}
+  #perfil {position:relative;}
+  aside#perfil-proveedor { position:absolute;right:0;top:0;bottom:0;}
+  aside#perfil-proveedor #ficha-proveedor {height:90%;min-height:400px;}
+  div#perfil div#titulo-pestana, div#perfil div#informacion, div#perfil div#trabajos, div#perfil div#evaluaciones {margin-right:233px;}
+  div#perfil div#informacion, div#perfil div#trabajos, div#perfil div#evaluaciones {margin-bottom:50px;}
 }
 @media screen and (min-width: 768px) and (max-width: 979px) { 
-  aside#perfil-proveedor{ width:200px; } 
-  #ficha-proveedor {min-height: 500px;  width:192px;}
-  #ficha-proveedor #imagen-proveedor { height:135px; width:180px; }
+  #perfil {position:relative;}
+  aside#perfil-proveedor{ position:absolute;right:0;top:0;bottom:0; width:200px;}
+  aside#perfil-proveedor #ficha-proveedor {height:90%;min-height:400px; width:192px;}
+  aside#perfil-proveedor #ficha-proveedor #imagen-proveedor { height:135px; width:180px; }
+  div#perfil div#titulo-pestana, div#perfil div#informacion, div#perfil div#trabajos, div#perfil div#evaluaciones {margin-right:200px;}
+  div#perfil div#informacion, div#perfil div#trabajos, div#perfil div#evaluaciones {margin-bottom:50px;}
+  
   div#informacion #datos-ubicacion .dl-horizontal dd {margin-left:auto; margin-right:1em; text-align:right;}
 }
 
 @media screen and (max-width: 767px) { 
   #menu-panel { margin-bottom:15px; }
   #menu-panel .affix {position:static; top:auto;}
+  
+  div#perfil {min-height:0px}
   aside#perfil-proveedor {background:#0080C4;}
+  aside#perfil-proveedor #terminacion {background:none; height:0px;}
   aside#perfil-proveedor,#ficha-proveedor { max-width:100%; width:100%;}
   #ficha-proveedor { padding-left:0px; padding-right:0px; } 
-  #ficha-proveedor #imagen-proveedor { width: 150px; }
+  #ficha-proveedor #imagen-proveedor { height:auto; width: 150px; }
   div#perfil #titulo-pestana { background:url('tentu/internas/fondotituloperfil.png'); margin-top:1em; padding:0px; width:100%;}
 }

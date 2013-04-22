@@ -1,0 +1,92 @@
+<div id="evaluacion" class="formulario-general span12">
+	<%= form_for @path do |f| %>
+		<p class="help-block">(Mientras más estrellas marcas mayor calificación recibe el proveedor)</p>
+		<div class="row">
+			<div class="control-group span6">
+				<%= f.label :atencion, :class => 'control-label' %>
+				<div class="controls clearfix rating">
+				<% 5.times { |i| i = 5-i %>
+					<%= f.radio_button :atencion, i%> 
+					<label class="radio" for="evaluacion_atencion_<%= i %>"><%= i %></label>
+				<% } %>
+				</div>
+			</div>
+			<div class="control-group clearfix span6">
+				<%= f.label :calidad, :class => 'control-label' %>
+				<div class="controls rating">
+				<% 5.times { |i| i = 5-i %>
+						<%= f.radio_button :calidad, i%>
+					<label class="radio" for="evaluacion_calidad_<%= i %>"> <%= i %>
+					</label>
+				<% } %>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="control-group clearfix span6">
+				<%= f.label :limpieza, :class => 'control-label' %>
+				<div class="controls rating">
+				<% 5.times { |i| i = 5-i %>
+						<%= f.radio_button :limpieza, i%> 
+					<label class="radio" for="evaluacion_limpieza_<%= i %>"><%= i %>
+					</label>
+				<% } %>
+				</div>
+			</div>
+			<div class="control-group clearfix span6">
+				<%= f.label :precio, :class => 'control-label' %>
+				<div class="controls rating">
+				<% 5.times { |i| i = 5-i %>
+						<%= f.radio_button :precio, i%> 
+					<label class="radio" for="evaluacion_precio_<%= i %>"><%= i %>
+					</label>
+				<% } %>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="control-group clearfix span6">
+				<%= f.label :responsabilidad, :class => 'control-label' %>
+				<div class="controls rating">
+				<% 5.times { |i| i = 5-i %>
+						<%= f.radio_button :responsabilidad, i%> 
+					<label class="radio" for="evaluacion_responsabilidad_<%= i %>"><%= i %>
+					</label>
+				<% } %>
+				</div>
+			</div>
+			<div class="control-group clearfix span6">
+				<%= f.label :tiempo, "Duración del trabajo", :class => 'control-label' %>
+				<div class="controls rating">
+				<% 5.times { |i| i = 5-i %>
+						<%= f.radio_button :tiempo, i%> 
+					<label class="radio" for="evaluacion_tiempo_<%= i %>"><%= i %>
+					</label>
+				<% } %>
+				</div>
+			</div>
+		</div>
+		<div class="control-group clearfix">
+			<%= f.label :observaciones, :class => 'control-label' %>
+			<div class="controls">
+				<%= f.text_area :observaciones %>
+			</div>
+		</div>
+		<div class="control-group clearfix">
+		<% f.fields_for :imagenes do |builder| %>
+			<label>Seleccionar imagen del trabajo realizado</label>
+			<div class="controls">
+				<%= builder.file_field :imagen %>
+				<%= builder.hidden_field :imagen_cache %>
+			</div>
+		<% end %>
+		</div>
+		<div class="botones">
+			<%= link_to 'Volver al panel', panel_solicitante_path, :class => "btn" if solicitante_signed_in? %>
+			<%
+			#= link_to 'Volver al panel', panel_proveedor_path, :class => "btn" if proveedor_signed_in? 
+			%>
+			<%= f.submit 'Enviar evaluación', :class => 'btn btn-warning' %>
+		</div>
+	<% end %>
+</div>

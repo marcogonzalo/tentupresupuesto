@@ -1,0 +1,17 @@
+<%
+content_for :head do
+	stylesheet_link_tag 'evaluaciones'
+end
+
+content_for :foot do
+#javascript_include_tag 'trabajos_show'
+end
+
+content_for :title do
+	"Evaluar trabajo: "+@trabajo.proposito
+end
+%>
+<h1>Evaluar trabajo</h1>
+
+<%= render 'form' %>
+<%= render :partial => 'trabajos/caracteristicas', :locals => {:trabajo => @trabajo} %>

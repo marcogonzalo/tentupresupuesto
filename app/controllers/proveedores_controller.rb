@@ -52,6 +52,7 @@ class ProveedoresController < ApplicationController
   # GET /proveedores/1.json
   def show
     @proveedor = Proveedor.find(params[:id])
+    @evaluaciones = @proveedor.evaluaciones
     @imagenes = @proveedor.imagenes
     if request.path != proveedor_path(@proveedor)
       redirect_to @proveedor, status: :moved_permanently
@@ -92,7 +93,7 @@ class ProveedoresController < ApplicationController
   def panel
     @presupuestos_presentados = Presupuesto.includes([:trabajo, :mensajes]).where("presupuestos.proveedor_id = ? AND trabajos.estatus = 'buscando'", current_proveedor.perfilable_id).order("trabajos.updated_at DESC")
     @trabajos_asignados = Presupuesto.includes([:trabajo, :mensajes]).where("presupuestos.proveedor_id = ? AND trabajos.estatus = 'ejecutando'", current_proveedor.perfilable_id).order("trabajos.updated_at DESC")
-    @por_evaluar = Presupuesto.includes([:trabajo, :mensajes]).where("presupuestos.proveedor_id = ? AND trabajos.estatus = 'finalizado'", current_proveedor.perfilable_id).order("trabajos.updated_at DESC") # Trabajo.includes(:presupuestos).where(:contratado_id => current_proveedor.perfilable_id).estatus_finalizado
+    @por_evaluar = Trabajo.sin_evaluar.where(:contratado_id => current_proveedor.perfilable_id).estatus_finalizado
 
     render "panel"
   end

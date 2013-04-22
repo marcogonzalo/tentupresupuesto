@@ -52,6 +52,18 @@ class SolicitantesController < ApplicationController
       format.json { render json: @solicitante }
     end
   end
+  
+  def panel
+    @solicitudes = Trabajo.includes(:presupuestos).where(:solicitante_id => current_solicitante.perfilable_id).estatus_buscando
+    @en_ejecucion = Trabajo.includes(:presupuestos).where(:solicitante_id => current_solicitante.perfilable_id).estatus_ejecutando
+    @por_evaluar = Trabajo.sin_evaluar.where(:solicitante_id => current_solicitante.perfilable_id).estatus_finalizado
+
+    render "panel"
+  end
+
+################  
+######## ACCIONES
+################
 
   # POST /solicitantes
   # POST /solicitantes.json
@@ -123,12 +135,6 @@ class SolicitantesController < ApplicationController
       format.json { head :no_content }
     end
   end
-  
-  def panel
-    @solicitudes = Trabajo.includes(:presupuestos).where(:solicitante_id => current_solicitante.perfilable_id).estatus_buscando
-    @en_ejecucion = Trabajo.includes(:presupuestos).where(:solicitante_id => current_solicitante.perfilable_id).estatus_ejecutando
-    @por_evaluar = Trabajo.includes(:presupuestos).where(:solicitante_id => current_solicitante.perfilable_id).estatus_finalizado
 
-    render "panel"
-  end
+
 end

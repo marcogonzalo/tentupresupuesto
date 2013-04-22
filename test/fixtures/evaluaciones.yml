@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  trabajos: 
+  total: 1.5
+  atencion: 1.5
+  calidad: 1.5
+  limpieza: 1.5
+  precio: 1.5
+  responsabilidad: 1.5
+  tiempo: 1.5
+  observaciones: MyString
+  respuesta_proveedor: MyString
+
+two:
+  trabajos: 
+  total: 1.5
+  atencion: 1.5
+  calidad: 1.5
+  limpieza: 1.5
+  precio: 1.5
+  responsabilidad: 1.5
+  tiempo: 1.5
+  observaciones: MyString
+  respuesta_proveedor: MyString

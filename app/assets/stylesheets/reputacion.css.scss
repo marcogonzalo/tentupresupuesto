@@ -10,29 +10,15 @@ border-radius:5px;
 .rep-general { background:url('tentu/internas/estrellas.png') repeat center bottom; height:32px; margin:0 auto; width:160px;}
 .rep-general span { background:url('tentu/internas/estrellas.png') repeat left top; background-position-y:1px; display:block; height:32px; max-width:160px; }
 .rep-general span i {display:none;}
-.rep-general .rep0_0 { width:0px; }
-.rep-general .rep0_5 { width:16px; }
-.rep-general .rep1_0 { width:32px; }
-.rep-general .rep1_5 { width:48px; }
-.rep-general .rep2_0 { width:64px; }
-.rep-general .rep2_5 { width:80px; }
-.rep-general .rep3_0 { width:96px; }
-.rep-general .rep3_5 { width:112px; }
-.rep-general .rep4_0 { width:128px; }
-.rep-general .rep4_5 { width:144px; }
-.rep-general .rep5_0 { width:160px; }
 
 .rep-proveedor { background:url('tentu/internas/estrellas-p.png') repeat center bottom; height:24px; margin:0 auto; width:120px;}
 .rep-proveedor span { background:url('tentu/internas/estrellas-p.png') repeat left top; background-position-y:1px; display:block; height:24px; max-width:120px; }
 .rep-proveedor span i {display:none;}
-.rep-proveedor .rep0_0 { width:0px; }
-.rep-proveedor .rep0_5 { width:12px; }
-.rep-proveedor .rep1_0 { width:24px; }
-.rep-proveedor .rep1_5 { width:36px; }
-.rep-proveedor .rep2_0 { width:48px; }
-.rep-proveedor .rep2_5 { width:60px; }
-.rep-proveedor .rep3_0 { width:72px; }
-.rep-proveedor .rep3_5 { width:84px; }
-.rep-proveedor .rep4_0 { width:96px; }
-.rep-proveedor .rep4_5 { width:108px; }
-.rep-proveedor .rep5_0 { width:120px; }
+
+.rep-trabajo { background:url('tentu/internas/estrellas.png') repeat center bottom; height:32px; margin:0 auto; width:160px;}
+.rep-trabajo span { background:url('tentu/internas/estrellas.png') repeat left top; background-position-y:1px; display:block; height:32px; max-width:160px; }
+.rep-trabajo span i {display:none;}
+
+.rep-caracteristica { background:url('tentu/internas/estrellas-p.png') repeat center bottom; height:24px; margin:0 auto; width:120px;}
+.rep-caracteristica span { background:url('tentu/internas/estrellas-p.png') repeat left top; background-position-y:1px; display:block; height:24px; max-width:120px; }
+.rep-caracteristica span i {display:none;}
