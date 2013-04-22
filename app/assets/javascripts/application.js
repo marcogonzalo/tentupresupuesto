@@ -12,7 +12,9 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require twitter/bootstrap/bootstrap-collapse
 //= require twitter/bootstrap/bootstrap-affix
 //= require twitter/bootstrap/bootstrap-modal
+//= require twitter/bootstrap/bootstrap-transition
 //= require twitter/bootstrap/bootstrap-typeahead
 //= require comun

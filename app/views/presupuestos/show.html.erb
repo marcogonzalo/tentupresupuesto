@@ -73,7 +73,7 @@
 			:data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => '¿Deseas contratar a este proveedor? Esta acción es irreversible')) },
 			:id => 'aceptar-presupuesto', :class => 'btn btn-success btn-large' %>
 		<%= link_to "Rechazar presupuesto", '#modal-rechazo', :id => 'rechazar-presupuesto', :class => 'btn btn-danger btn-large', "data-toggle"=>"modal", "data-backdrop"=>"static" %>
-		<%= image_tag "tentu/generales/cargando.gif", {:class => "cargando", :id => "loading-aprobar-rechazar"} %>
+		<%= image_tag "tentu/generales/cargando.gif", {:class => "cargando cargando24", :id => "loading-aprobar-rechazar"} %>
 	<% end %>		
 <% elsif @es_el_proveedor %>
 		<%= link_to "Ver solicitud", trabajo_path(@trabajo), :class => 'btn' %>

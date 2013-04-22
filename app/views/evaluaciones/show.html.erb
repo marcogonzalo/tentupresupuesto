@@ -1,0 +1,55 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Trabajos:</b>
+  <%= @evaluacion.trabajos %>
+</p>
+
+<p>
+  <b>Total:</b>
+  <%= @evaluacion.total %>
+</p>
+
+<p>
+  <b>Atencion:</b>
+  <%= @evaluacion.atencion %>
+</p>
+
+<p>
+  <b>Calidad:</b>
+  <%= @evaluacion.calidad %>
+</p>
+
+<p>
+  <b>Limpieza:</b>
+  <%= @evaluacion.limpieza %>
+</p>
+
+<p>
+  <b>Precio:</b>
+  <%= @evaluacion.precio %>
+</p>
+
+<p>
+  <b>Responsabilidad:</b>
+  <%= @evaluacion.responsabilidad %>
+</p>
+
+<p>
+  <b>Tiempo:</b>
+  <%= @evaluacion.tiempo %>
+</p>
+
+<p>
+  <b>Observaciones:</b>
+  <%= @evaluacion.observaciones %>
+</p>
+
+<p>
+  <b>Respuesta proveedor:</b>
+  <%= @evaluacion.respuesta_proveedor %>
+</p>
+
+
+<%= link_to 'Edit', edit_evaluacion_path(@evaluacion) %> |
+<%= link_to 'Back', evaluaciones_path %>

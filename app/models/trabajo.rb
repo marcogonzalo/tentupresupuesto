@@ -6,6 +6,7 @@ class Trabajo < ActiveRecord::Base
   attr_accessible :descripcion, :direccion, :estatus, :precio_final, :proposito,
                   :categoria_id, :pais_id, :estado_id, :municipio_id, :localidad_id
   
+  has_one :evaluacion
   has_many :presupuestos
   belongs_to :solicitante
   belongs_to :contratado, :class_name => "Proveedor", :foreign_key => "contratado_id"
@@ -21,6 +22,12 @@ class Trabajo < ActiveRecord::Base
   scope :estatus_ejecutando, where(:estatus => 'ejecutando')
   scope :estatus_finalizado, where(:estatus => 'finalizado')
   scope :estatus_cerrado, where(:estatus => 'cerrado')
+  
+  scope :sin_evaluar, {
+    :joins      => "LEFT OUTER JOIN evaluaciones ON evaluaciones.trabajo_id = trabajos.id",
+    :conditions => "evaluaciones.id IS NULL",
+    :select     => "trabajos.*"
+  }
   
   validates :proposito, 
             :length => { :in => 10..100 }, 
@@ -78,5 +85,9 @@ class Trabajo < ActiveRecord::Base
   
   def cerrado?
     self.estatus == "cerrado"
+  end
+  
+  def presupuesto_contratado
+    self.presupuestos.where(:proveedor_id => self.contratado_id).first
   end
 end

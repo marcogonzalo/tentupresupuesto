@@ -5,6 +5,7 @@ class TrabajoObserver < ActiveRecord::Observer
   def after_create(trabajo)
     if trabajo.solicitante_id.present?
       Solicitante.increment_counter(:solicitudes_realizadas,trabajo.solicitante_id)
+      Categoria.increment_counter(:trabajos_asociados,trabajo.categoria_id)
     end
   end
 
@@ -12,7 +13,7 @@ class TrabajoObserver < ActiveRecord::Observer
   # trabajos_realizados por un proveedor, cuando el trabajo finaliza
   def after_update(trabajo)
     # Si se cambia a estado de finalizado
-    if trabajo.estatus.eql?('Finalizado')
+    if trabajo.finalizado?
       Solicitante.increment_counter(:trabajos_recibidos,trabajo.solicitante_id)
       Proveedor.increment_counter(:trabajos_realizados,trabajo.contratado_id)
     end
@@ -23,6 +24,7 @@ class TrabajoObserver < ActiveRecord::Observer
   def after_destroy(trabajo)
     if trabajo.solicitante_id.present?
       Solicitante.decrement_counter(:solicitudes_realizadas,trabajo.solicitante_id)
+      Categoria.decrement_counter(:trabajos_asociados,trabajo.categoria_id)
     end
   end
 end
