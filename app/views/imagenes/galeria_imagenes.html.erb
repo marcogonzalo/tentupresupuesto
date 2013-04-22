@@ -19,7 +19,7 @@
 	<%= form_for @proveedor, :url => editar_galeria_proveedor_path, :html => {:multipart => true} do |f| %>
 		<% f.fields_for :imagenes do |builder| %>
 		<p>
-		<label>Seleccionar magen de trabajo anterior</label>
+		<label>Seleccionar imagen de trabajo anterior</label>
 		<%= builder.file_field :imagen %>
 		<%= builder.hidden_field :imagen_cache %>
 		</p>

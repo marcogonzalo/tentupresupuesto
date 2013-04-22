@@ -15,6 +15,7 @@ class Proveedor < ActiveRecord::Base
   has_many :imagenes, :as => :imagenable, :dependent => :destroy
   has_many :trabajos, :foreign_key => "contratado_id"
   has_many :presupuestos
+  has_many :evaluaciones
   has_and_belongs_to_many :categorias
   belongs_to :pais, :class_name => "UbicacionGeografica", :foreign_key => "pais_id", :conditions => "tipo = 'pais'"
   belongs_to :estado, :class_name => "UbicacionGeografica", :foreign_key => "estado_id", :conditions => "tipo = 'estado'"

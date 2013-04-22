@@ -146,11 +146,11 @@ es-VE:
   extras:
     evaluaciones:
       zero: Sin evaluaciones
-      one: Una evaluación
+      one: 1 evaluación
       other: '%{count} evaluaciones'
     mensajes:
       zero: No hay mensajes
-      one: Un mensaje
+      one: 1 mensaje
       other: '%{count} mensajes'
     presupuestos:
       zero: Sin presupuestos
@@ -247,6 +247,30 @@ es-VE:
 #        one: Usuario
 #        other: Usuarios
     attributes:
+      evaluacion:
+        atencion: "Atención"
+        calidad: "Calidad"
+        limpieza: "Limpieza"
+        observaciones: "Observaciones sobre el trabajo"
+        precio: "Precio del trabajo"
+        responsabilidad: "Responsabilidad"
+        respuesta_proveedor: "Comentario del proveedor"
+        tiempo: "Duración del trabajo"
+        total: "Total"
+      presupuesto:
+        con_iva: "Incluye IVA"
+        motivo_rechazo: "Motivo del rechazo"
+        motivos_rechazo:
+          da_pocos_detalles: "Da muy pocos detalles"
+          muy_barato: "Muy barato para lo que solicito"
+          muy_caro: "Muy caro"
+          no_confiable: "No me genera confianza"
+          no_responde: "No responde los mensajes"
+          otro: "Otro"
+        precio_minimo: "Precio mínimo"
+        precio_maximo: "Precio máximo"
+        resumen: "Resumen"
+        trabajo_id: "Solicitud"
       proveedor:
         correo_electronico: "Correo electrónico"
         descripcion: "Descripción"
@@ -298,20 +322,6 @@ es-VE:
         pais_id: "País"
         precio_final: "Precio final"
         proposito: "Propósito"
-      presupuesto:
-        con_iva: "Incluye IVA"
-        motivo_rechazo: "Motivo del rechazo"
-        motivos_rechazo:
-          da_pocos_detalles: "Da muy pocos detalles"
-          muy_barato: "Muy barato para lo que solicito"
-          muy_caro: "Muy caro"
-          no_confiable: "No me genera confianza"
-          no_responde: "No responde los mensajes"
-          otro: "Otro"
-        precio_minimo: "Precio mínimo"
-        precio_maximo: "Precio máximo"
-        resumen: "Resumen"
-        trabajo_id: "Solicitud"
       usuario:
         acepta_terminos: "Acepto los Términos y Condiciones"
         email: "Correo electrónico"

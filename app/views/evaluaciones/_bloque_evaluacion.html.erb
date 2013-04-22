@@ -1,0 +1,69 @@
+	<div class="accordion-group">
+		<div class="accordion-heading">
+			<a class="accordion-toggle" data-toggle="collapse" data-parent="#evaluaciones" href="#evaluacion<%= e.id %>">
+				<div class="cat-p-n <%= e.trabajo.categoria.clase_css %>"></div>
+				<div class="row">
+					<div class="trabajo"><%= e.trabajo.proposito %> <span class="badge badge-warning pull-right"><%= number_with_delimiter(e.total.round(2)) %></span></div>
+					<%= raw mostrar_reputacion(e.total.round(2), 1, "trabajo") %>
+					
+				</div>
+			</a>
+			
+		</div>
+		<div id="evaluacion<%= e.id %>" class="accordion-body collapse">
+			<div class="accordion-inner">
+				<div class="comentarios span8">
+					<p>
+						<b>Observaciones</b>
+						<br>
+						<%= e.observaciones.blank? ? "No hay observaciones" : e.observaciones %>
+					</p>
+					<% unless e.respuesta_proveedor.blank? %>
+					<p>
+						<b>Comentario del proveedor</b>
+						<br>
+						<%= e.respuesta_proveedor %>
+					</p>
+					<% end %>
+				</div>
+				<div class="caracteristicas-evaluadas span7">
+				<% unless e.atencion.nil? %>
+					<div class="caracteristica">
+						<span class="nombre-caracteristica">Atención</span>
+						<%= raw mostrar_reputacion(e.atencion.round(2), 1, "caracteristica") %>
+					</div>
+				<% end %>
+				<% unless e.calidad.nil? %>
+					<div class="caracteristica">
+						<span class="nombre-caracteristica">Calidad</span>
+						<%= raw mostrar_reputacion(e.calidad.round(2), 1, "caracteristica") %>
+					</div>
+				<% end %>
+				<% unless e.limpieza.nil? %>
+					<div class="caracteristica">
+						<span class="nombre-caracteristica">Limpieza</span>
+						<%= raw mostrar_reputacion(e.limpieza.round(2), 1, "caracteristica") %>
+					</div>
+				<% end %>
+				<% unless e.precio.nil? %>
+					<div class="caracteristica">
+						<span class="nombre-caracteristica">Precio</span>
+						<%= raw mostrar_reputacion(e.precio.round(2), 1, "caracteristica") %>
+					</div>
+				<% end %>
+				<% unless e.responsabilidad.nil? %>
+					<div class="caracteristica">
+						<span class="nombre-caracteristica">Responsabilidad</span>
+						<%= raw mostrar_reputacion(e.responsabilidad.round(2), 1, "caracteristica") %>
+					</div>
+				<% end %>
+				<% unless e.tiempo.nil? %>
+					<div class="caracteristica">
+						<span class="nombre-caracteristica">Tiempo</span>
+						<%= raw mostrar_reputacion(e.tiempo.round(2), 1, "caracteristica") %>
+					</div>
+				<% end %>
+				</div>
+			</div>
+		</div>
+	</div>

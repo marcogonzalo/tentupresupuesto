@@ -172,10 +172,10 @@ class TrabajosController < ApplicationController
         if @trabajo.update_attribute('estatus','finalizado')
           TtpMailer.notificar_trabajo_finalizado(@trabajo)
           flash[:success] = "Has marcado como finalizado el trabajo. Recuerda evaluar al proveedor en cuanto sea posible."
-          format.json { render :json => { presupuesto: @trabajo, tipo_mensaje: :success, mensaje: flash[:success]}}
+          format.json { render :json => { trabajo: @trabajo, tipo_mensaje: :success, mensaje: flash[:success]}}
         else
           flash[:error] = "Ocurrió un error. No pudo finalizarse el trabajo."
-          format.json { render :json => { presupuesto: @trabajo.errors, tipo_mensaje: :error, mensaje: flash[:error]} }
+          format.json { render :json => { trabajo: @trabajo.errors, tipo_mensaje: :error, mensaje: flash[:error]} }
         end    
       else
         flash[:warning] = "Sólo el solicitante puede finalizar."

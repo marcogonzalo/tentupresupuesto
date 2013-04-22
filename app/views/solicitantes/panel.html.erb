@@ -64,7 +64,7 @@ end
 				<tr>
 					<th>Trabajo</th>
 					<th>Presupuestos</th>
-					<th>Mensajes</th>
+					<th>Total de Mensajes</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -75,10 +75,13 @@ end
 					<td><%= trabajo.proposito %>
 					<br>
 					<%= link_to 'Ver solicitud', trabajo %></td>
-					<td><%= trabajo.cant_presupuestos %>
-					<br>
-					<%= link_to 'Ver presupuestos', trabajo_presupuestos_path(trabajo) %></td>
-					<td><%= mensajes.size %> (<%= mensajes.where(:usuario => :proveedor, :visto => false).size %> sin leer)</td>
+					<td style="vertical-align: middle;">
+						<%=link_to t('extras.presupuestos', :count => trabajo.cant_presupuestos), trabajo_presupuestos_path(trabajo) %>
+					</td>
+					<td>
+						<%= t('extras.mensajes', :count => mensajes.size) %><br>
+						(<%= mensajes.where(:usuario => :proveedor, :visto => false).size %> sin leer)
+					</td>
 				</tr>
 				<% end %>
 			</tbody>
@@ -96,21 +99,28 @@ end
 			<thead>
 				<tr>
 					<th>Trabajo</th>
-					<th>Presupuestos</th>
+					<th>Presupuesto</th>
 					<th>Mensajes</th>
 				</tr>
 			</thead>
 			<tbody>
 			<% @en_ejecucion.each do |trabajo|
-				p = trabajo.presupuestos.where(:proveedor_id => trabajo.contratado_id).first
+				p = trabajo.presupuesto_contratado
 				m = p.mensajes
 			%>
 				<tr>
-					<td><%= trabajo.proposito %>
-					<br>
-					<%= link_to 'Ver solicitud', trabajo %></td>
-					<td><%= link_to((number_to_currency(p.precio_minimo)+" a "+number_to_currency(p.precio_maximo)), p) %></td>
-					<td><%= link_to(p.cant_mensajes, presupuesto_path(p, :anchor => "mensajes")) %> (<%= m.where(:usuario => :proveedor, :visto => false).size %> sin leer)</td>
+					<td>
+						<p><%= trabajo.proposito %></p>
+						<p><%= link_to 'Ver solicitud', trabajo %></p>
+					</td>
+					<td>
+						<p><%= link_to((number_to_currency(p.precio_minimo)+" a "+number_to_currency(p.precio_maximo)), p) %></p>
+						<p>Por <%= link_to p.proveedor.nombre_empresa, proveedor_path(p.proveedor) %></p>
+					</td>
+					<td>
+						<p><%= link_to t('extras.mensajes', :count => p.cant_mensajes), presupuesto_path(p, :anchor => "mensajes") %></p>
+							<p>(<%= m.where(:usuario => :proveedor, :visto => false).size %> sin leer)</p>
+					</td>
 				</tr>
 			<% end %>
 			</tbody>
@@ -124,27 +134,30 @@ end
 
 	<section id="trabajos-pendientes" class="well">
 		<h3>Trabajos por evaluar</h3>
-		<% if @por_evaluar.size > 0 and false %>
+		<% if @por_evaluar.size > 0 %>
 		<table class="table table-striped">
 			<thead>
 				<tr>
 					<th>Trabajo</th>
-					<th>Presupuestos</th>
-					<th>Mensajes</th>
+					<th>Presupuesto</th>
+					<th></th>
 				</tr>
 			</thead>
 			<tbody>
 				<% @por_evaluar.each do |trabajo|
-				mensajes = Mensaje.where(:presupuesto_id => trabajo.presupuestos)
+					p = trabajo.presupuesto_contratado
+					m = p.mensajes
 				%>
 				<tr>
-					<td><%= trabajo.proposito %>
-					<br>
-					<%= link_to 'Ver solicitud', trabajo %></td>
-					<td><%= trabajo.cant_presupuestos %>
-					<br>
-					<%= link_to 'Ver presupuestos', trabajo_presupuestos_path(trabajo) %></td>
-					<td><%= mensajes.size %> (<%= mensajes.where(:usuario => :proveedor, :visto => false).size %> sin leer)</td>
+					<td>
+						<p><%= trabajo.proposito %></p>
+						<p><%= link_to 'Ver solicitud', trabajo %></p>
+					</td>
+					<td>
+						<p><%= link_to((number_to_currency(p.precio_minimo)+" a "+number_to_currency(p.precio_maximo)), p) %></p>
+						<p><%= link_to t('extras.mensajes', :count => p.cant_mensajes), presupuesto_path(p, :anchor => "mensajes") %> (<%= m.where(:usuario => :proveedor, :visto => false).size %> sin leer)</p>
+					</td>
+					<td style="vertical-align: middle;"><%= link_to "Evaluar", new_trabajo_evaluacion_path(trabajo), :class => "btn btn-success" if trabajo.evaluacion.nil?%></td>
 				</tr>
 				<% end %>
 			</tbody>

@@ -1,7 +1,7 @@
 <%- model_class = Proveedor -%>
 <%
  content_for :head do
-    stylesheet_link_tag 'categorias','reputacion','proveedores'
+    stylesheet_link_tag 'categorias','evaluaciones', 'reputacion','proveedores'
   end
 
   content_for :foot do
@@ -39,11 +39,12 @@
 				<li id="boton-previos">
 					<a href="#trabajos"><i>&nbsp;</i>Trabajos previos</a>
 				</li>
-				<li id="boton-evaluaciones" class="hide">
-					<a href="#evaluaciones"><i>&nbsp;</i>Evaluaciones</a>
+				<li id="boton-evaluaciones">
+					<a href="#evaluaciones"><i>&nbsp;</i>Calificaciones</a>
 				</li>
 			</ul>
 		</div>
+		<div id="terminacion"></div>
 	</aside>
 	<div id="titulo-pestana" class="span16 pull-right">
 		<h3 class="con-chango sobre-color">Información del proveedor</h3>
@@ -156,6 +157,8 @@
 		</div>
 		<% end %>
 	</div>
-	<div id="evaluaciones" class="span16 pull-right"></div>
+	<div id="evaluaciones" class="span17 pull-right accordion">
+		<%= render(:partial => 'evaluaciones/bloque_evaluacion', :collection => @evaluaciones, :as => :e) or 'No ha sido evaluado.' %>
+	</div>
 </div>
 
