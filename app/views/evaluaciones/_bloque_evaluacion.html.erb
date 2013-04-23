@@ -12,15 +12,19 @@
 		</div>
 		<div id="evaluacion<%= e.id %>" class="accordion-body collapse">
 			<div class="accordion-inner">
+				<div class="span16 pull-right">
+					<span><b>Categoría:</b> <%= e.trabajo.categoria.nombre %></span>
+					<%= link_to "Ver trabajo", trabajo_path(e.trabajo), :class => "btn btn-link"%>
+				</div>
 				<div class="comentarios offset1 span8">
 					<p>
-						<b>Observaciones</b>
+						<b>Observaciones:</b>
 						<br>
 						<%= e.observaciones.blank? ? "No hay observaciones" : e.observaciones %>
 					</p>
 					<% unless e.respuesta_proveedor.blank? %>
 					<p>
-						<b>Comentario del proveedor</b>
+						<b>Comentario del proveedor:</b>
 						<br>
 						<%= e.respuesta_proveedor %>
 					</p>
