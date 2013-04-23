@@ -27,7 +27,7 @@
 	<div class="presupuesto <%= "p-rechazado" if p.rechazado %><%= "p-aprobado" if p.aprobado %> row">
 		<div class="span11">
 			<%= image_tag(p.proveedor.avatar.micro.url) %>
-			<%= p.proveedor.nombre_empresa %>
+			<%= link_to p.proveedor.nombre_empresa, proveedor_path(p.proveedor) %>
 			<%= "(rechazado)" if p.rechazado %>
 			<%= "(aprobado)" if p.aprobado %>
 			<br>
