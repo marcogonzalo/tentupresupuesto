@@ -2,9 +2,9 @@
 	<%= form_for @path do |f| %>
 		<p class="help-block">(Mientras más estrellas marcas mayor calificación recibe el proveedor)</p>
 		<div class="row">
-			<div class="control-group span6">
+			<div class="control-group clearfix span6">
 				<%= f.label :atencion, :class => 'control-label' %>
-				<div class="controls clearfix rating">
+				<div class="controls rating">
 				<% 5.times { |i| i = 5-i %>
 					<%= f.radio_button :atencion, i%> 
 					<label class="radio" for="evaluacion_atencion_<%= i %>"><%= i %></label>
