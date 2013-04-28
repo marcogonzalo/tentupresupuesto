@@ -12,6 +12,8 @@ class FiltroListaTrabajos
 end
 
 Ttp::Application.routes.draw do
+  mount RailsAdmin::Engine => '/agapitear', :as => 'rails_admin'
+
   scope :path_names => { :new => "nuevo", :edit => "editar" } do
     scope :path_names => { :sign_in => 'iniciar_sesion', :sign_up => 'registro', :sign_out => 'cerrar_sesion', :password => 'clave', :confirmation => 'verificacion', :edit => 'editar' } do
       devise_for :admins
@@ -19,7 +21,7 @@ Ttp::Application.routes.draw do
       devise_for :solicitante, :class_name => 'Usuario', :controllers => { :registrations => "registrations", :confirmations => "confirmations" }
     end
 
-    mount RailsAdmin::Engine => '/agapitear', :as => 'rails_admin'
+    
     
     devise_scope :solicitante do
       put "/solicitante/verificacion" => "confirmations#confirm", :as => :solicitante_confirm
@@ -71,7 +73,7 @@ Ttp::Application.routes.draw do
         end
         resources :mensajes, :shallow => true # , :only => [:index, :create, :destroy]
       end
-      resources :evaluaciones, :except => [:index, :edit, :destroy], :path => "/", :path_names => { :new => "evaluar" }
+      resources :evaluaciones, :except => [:index, :show, :edit, :destroy], :path => "/", :path_names => { :new => "evaluar" }
     end
     
     resources :categorias
