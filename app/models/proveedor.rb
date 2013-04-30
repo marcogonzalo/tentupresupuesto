@@ -113,7 +113,7 @@ class Proveedor < ActiveRecord::Base
                               }
   validates :slug, :presence => true
   
-  validate :minimo_de_categorias
+  # validate :minimo_de_categorias # Removida por dar problemas al editar otros atributos 
   
   # ACCIONES
   def translated_tipo_proveedor
