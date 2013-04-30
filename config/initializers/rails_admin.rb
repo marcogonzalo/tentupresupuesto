@@ -179,6 +179,61 @@ RailsAdmin.config do |config|
   end
 
 
+  ###  Evaluacion  ###
+
+  config.model 'Evaluacion' do
+
+  #   # You can copy this to a 'rails_admin do ... end' block inside your evaluacion.rb model definition
+
+  #   # Found associations:
+
+  #     configure :trabajo, :belongs_to_association 
+  #     configure :proveedor, :belongs_to_association 
+  #     configure :imagenes, :has_many_association 
+
+  #   # Found columns:
+
+  #     configure :id, :integer 
+  #     configure :trabajo_id, :integer         # Hidden 
+  #     configure :proveedor_id, :integer         # Hidden 
+  #     configure :total, :float 
+  #     configure :atencion, :float 
+  #     configure :calidad, :float 
+  #     configure :limpieza, :float 
+  #     configure :precio, :float 
+  #     configure :responsabilidad, :float 
+  #     configure :tiempo, :float 
+  #     configure :observaciones, :string 
+  #     configure :respuesta_proveedor, :string 
+  #     configure :created_at, :datetime 
+  #     configure :updated_at, :datetime 
+
+  #   # Cross-section configuration:
+
+  #     # object_label_method :name     # Name of the method called for pretty printing an *instance* of ModelName
+  #     # label 'My model'              # Name of ModelName (smartly defaults to ActiveRecord's I18n API)
+  #     # label_plural 'My models'      # Same, plural
+  #     # weight 0                      # Navigation priority. Bigger is higher.
+  #     # parent OtherModel             # Set parent model for navigation. MyModel will be nested below. OtherModel will be on first position of the dropdown
+  #     # navigation_label              # Sets dropdown entry's name in navigation. Only for parents!
+
+  #   # Section specific configuration:
+
+  #     list do
+  #       # filters [:id, :name]  # Array of field names which filters should be shown by default in the table header
+  #       # items_per_page 100    # Override default_items_per_page
+  #       # sort_by :id           # Sort column (default is primary key)
+  #       # sort_reverse true     # Sort direction (default is true for primary key, last created first)
+  #     end
+  #     show do; end
+  #     edit do; end
+  #     export do; end
+  #     # also see the create, update, modal and nested sections, which override edit in specific cases (resp. when creating, updating, modifying from another model in a popup modal or modifying from another model nested form)
+  #     # you can override a cross-section field configuration in any section with the same syntax `configure :field_name do ... end`
+  #     # using `field` instead of `configure` will exclude all other fields and force the ordering
+  end
+
+
   ###  Imagen  ###
 
   config.model 'Imagen' do
@@ -431,7 +486,9 @@ RailsAdmin.config do |config|
         field :id do
           column_width 50
         end
-        field :avatar
+        field :usuario do
+          inverse_of :perfilable
+        end
         field :nombre_empresa
         field :tipo_proveedor do
           column_width 150
@@ -499,8 +556,26 @@ RailsAdmin.config do |config|
       list do
   #       # filters [:id, :name]  # Array of field names which filters should be shown by default in the table header
   #       # items_per_page 100    # Override default_items_per_page
-  #       # sort_by :id           # Sort column (default is primary key)
+  #       sort_by :id           # Sort column (default is primary key)
   #       # sort_reverse true     # Sort direction (default is true for primary key, last created first)
+        field :id do
+          column_width 50
+        end
+        field :usuario do
+          inverse_of :perfilable
+        end
+        field :solicitudes_realizadas do
+          column_width 50
+        end
+        field :trabajos_recibidos do
+          column_width 50
+        end
+        field :id do
+          column_width 50
+        end
+        field :created_at do
+          date_format :abrev
+        end
       end
   #     show do; end
   #     edit do; end
@@ -715,14 +790,19 @@ RailsAdmin.config do |config|
         field :id do
           column_width 50
         end
+        field :email
         field :perfilable do
           column_width 100
         end
-        field :email
+        field :perfilable_type do
+          column_width 50
+          visible true
+          label "Tipo"
+        end
         field :confirmed_at do
           date_format :abrev
         end
-        field :created_at do
+        field :updated_at do
           date_format :abrev
         end
       end
