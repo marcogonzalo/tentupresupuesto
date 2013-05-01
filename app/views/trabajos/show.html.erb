@@ -63,7 +63,7 @@
 <div class="clearfix"></div>
 <div class="form-actions">
 <% if @es_el_solicitante %>
-	<%= link_to "Volver al panel", panel_solicitante_path, :class => 'btn' %>
+	<%= link_to "Volver al panel", panel_solicitante_path, :class => 'btn btn-large' %>
 	<%= link_to(t('.edit', :default => t("helpers.links.edit")), edit_trabajo_path(@trabajo), :class => 'btn btn-large') if @trabajo.buscando? or @trabajo.cerrado? %>
 	<%= link_to("Marcar como finalizado", finalizar_trabajo_path(@trabajo, :format => 'json'), :remote => 'true', :method => 'put', :id => 'finalizar-trabajo', :class => 'btn btn-success btn-large') if @trabajo.ejecutando? %>
 	<%= link_to(t('.destroy', :default => t("helpers.links.destroy")),
