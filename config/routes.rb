@@ -76,7 +76,9 @@ Ttp::Application.routes.draw do
       resources :evaluaciones, :except => [:index, :show, :edit, :destroy], :path => "/", :path_names => { :new => "evaluar" }
     end
     
-    resources :categorias
+    resources :categorias do
+      get     ":que" => "categorias#reset", :as => "reset_en_categorias"
+    end
   
     scope "/ubicaciones_geograficas" do
       get "get_lista_entidades" => "ubicaciones_geograficas#get_lista_entidades"

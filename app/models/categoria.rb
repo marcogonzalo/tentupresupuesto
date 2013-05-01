@@ -22,6 +22,22 @@ class Categoria < ActiveRecord::Base
     :conditions => "categorias_proveedores.proveedor_id IS NULL",
     :select     => "DISTINCT categorias.*"
   }
+  
+  # ACCIONES
+  def self.reset_proveedores_asociados
+    Categoria.all.each do |c|
+      cuenta_proveedores = c.proveedores.count
+      c.update_attribute("proveedores_asociados",cuenta_proveedores)
+    end
+  end 
+  
+  def self.reset_trabajos_asociados
+    Categoria.all.each do |c|
+      cuenta_trabajos = c.trabajos.count
+      c.update_attribute("trabajos_asociados",cuenta_trabajos)
+    end
+  end 
+  
   private
   def slug_categoria
     unless self.padre_id == 0 or self.categoria_padre.nil?

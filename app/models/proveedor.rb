@@ -16,7 +16,9 @@ class Proveedor < ActiveRecord::Base
   has_many :trabajos, :foreign_key => "contratado_id"
   has_many :presupuestos
   has_many :evaluaciones
-  has_and_belongs_to_many :categorias
+  has_and_belongs_to_many :categorias,
+      :after_add => :increment_proveedores_asociados,
+      :after_remove => :decrement_proveedores_asociados
   belongs_to :pais, :class_name => "UbicacionGeografica", :foreign_key => "pais_id", :conditions => "tipo = 'pais'"
   belongs_to :estado, :class_name => "UbicacionGeografica", :foreign_key => "estado_id", :conditions => "tipo = 'estado'"
   belongs_to :municipio, :class_name => "UbicacionGeografica", :foreign_key => "municipio_id", :conditions => "tipo = 'municipio'"
@@ -121,6 +123,16 @@ class Proveedor < ActiveRecord::Base
   end
   
   private
+  def increment_proveedores_asociados(categoria)
+    categoria.proveedores_asociados += 1
+    categoria.save
+  end
+ 
+  def decrement_proveedores_asociados(categoria)
+    categoria.proveedores_asociados -= 1
+    categoria.save
+  end
+  
   def minimo_de_categorias
     unless categorias.size > 0 or new_record?
       errors.add(:categorias, "debe asociarse al menos una categoría")
