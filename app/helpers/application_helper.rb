@@ -23,4 +23,8 @@ module ApplicationHelper
       nil
     end
   end
+  
+  def get_favicon(url)
+    return image_tag 'https://plus.google.com/_/favicon?domain='+url
+  end
 end

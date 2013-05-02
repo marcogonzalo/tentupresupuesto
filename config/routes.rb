@@ -21,8 +21,6 @@ Ttp::Application.routes.draw do
       devise_for :solicitante, :class_name => 'Usuario', :controllers => { :registrations => "registrations", :confirmations => "confirmations" }
     end
 
-    
-    
     devise_scope :solicitante do
       put "/solicitante/verificacion" => "confirmations#confirm", :as => :solicitante_confirm
     end
@@ -45,6 +43,8 @@ Ttp::Application.routes.draw do
       put     'categorias(/:id)' => "proveedores#update_categorias_de_proveedor", :as => "update_categorias_de_proveedor"
       get     "editar-perfil" => "proveedores#edit", :as => "edit_proveedor"
 #      put     "editar-perfil(.:id)" => "proveedores#update", :as => "proveedores"
+      get     'enlaces' => "proveedores#enlaces_de_proveedor", :as => "enlaces_de_proveedor"
+      put     'enlaces(/:id)' => "proveedores#update_enlaces_de_proveedor", :as => "enlaces_de_proveedor"
       get     "imagen" => "proveedores#imagen", :as => "imagen_proveedor"
       put     "imagen(/:id)" => "proveedores#cambiar_imagen", :as => "cambiar_imagen_proveedor"
       get     "imagenes_galeria" => "imagenes#galeria", :as => "galeria_proveedor"
