@@ -9,14 +9,18 @@ class Proveedor < ActiveRecord::Base
   attr_accessible :nombre_empresa, :tipo_proveedor, :rif, :descripcion,
                   :telefono_local, :telefono_movil, :telefono_alt,
                   :direccion, :punto_referencia, :correo_electronico,
-                  :categoria_ids, :pais_id, :estado_id, :municipio_id, :localidad_id
+                  :categoria_ids, :pais_id, :estado_id, :municipio_id, :localidad_id,
+                  :web_url, :twitter_url, :facebook_url, :google_url, :linkedin_url, 
+                  :youtube_url, :pinterest_url, :instagram_url
   
   has_one :usuario, :as => :perfilable
   has_many :imagenes, :as => :imagenable, :dependent => :destroy
   has_many :trabajos, :foreign_key => "contratado_id"
   has_many :presupuestos
   has_many :evaluaciones
-  has_and_belongs_to_many :categorias
+  has_and_belongs_to_many :categorias,
+      :after_add => :increment_proveedores_asociados,
+      :after_remove => :decrement_proveedores_asociados
   belongs_to :pais, :class_name => "UbicacionGeografica", :foreign_key => "pais_id", :conditions => "tipo = 'pais'"
   belongs_to :estado, :class_name => "UbicacionGeografica", :foreign_key => "estado_id", :conditions => "tipo = 'estado'"
   belongs_to :municipio, :class_name => "UbicacionGeografica", :foreign_key => "municipio_id", :conditions => "tipo = 'municipio'"
@@ -112,6 +116,54 @@ class Proveedor < ActiveRecord::Base
                                 :greater_than_or_equal_to => 0
                               }
   validates :slug, :presence => true
+  validates :web_url,
+            :format =>  {
+                          :with => /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/ix,
+                          :message => "tiene un formato inválido"
+                        },
+            :allow_blank => true
+  validates :twitter_url,
+            :format =>  {
+                          :with => /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/ix,
+                          :message => "tiene un formato inválido"
+                        },
+            :allow_blank => true
+  validates :facebook_url,
+            :format =>  {
+                          :with => /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/ix,
+                          :message => "tiene un formato inválido"
+                        },
+            :allow_blank => true
+  validates :google_url,
+            :format =>  {
+                          :with => /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/ix,
+                          :message => "tiene un formato inválido"
+                        },
+            :allow_blank => true
+  validates :linkedin_url,
+            :format =>  {
+                          :with => /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/ix,
+                          :message => "tiene un formato inválido"
+                        },
+            :allow_blank => true
+  validates :youtube_url,
+            :format =>  {
+                          :with => /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/ix,
+                          :message => "tiene un formato inválido"
+                        },
+            :allow_blank => true
+  validates :pinterest_url,
+            :format =>  {
+                          :with => /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/ix,
+                          :message => "tiene un formato inválido"
+                        },
+            :allow_blank => true
+  validates :instagram_url,
+            :format =>  {
+                          :with => /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/ix,
+                          :message => "tiene un formato inválido"
+                        },
+            :allow_blank => true
   
   # validate :minimo_de_categorias # Removida por dar problemas al editar otros atributos 
   
@@ -121,6 +173,16 @@ class Proveedor < ActiveRecord::Base
   end
   
   private
+  def increment_proveedores_asociados(categoria)
+    categoria.proveedores_asociados += 1
+    categoria.save
+  end
+ 
+  def decrement_proveedores_asociados(categoria)
+    categoria.proveedores_asociados -= 1
+    categoria.save
+  end
+  
   def minimo_de_categorias
     unless categorias.size > 0 or new_record?
       errors.add(:categorias, "debe asociarse al menos una categoría")

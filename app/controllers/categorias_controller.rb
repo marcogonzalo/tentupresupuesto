@@ -1,6 +1,12 @@
 # coding: utf-8
 class CategoriasController < ApplicationController
+  before_filter :authenticated_admin, :only => [:reset]
   add_breadcrumb :index, :categorias_path
+
+################  
+######## VISTAS
+################
+
   # GET /categorias
   # GET /categorias.json
   def index
@@ -38,6 +44,10 @@ class CategoriasController < ApplicationController
   def edit
     @categoria = Categoria.find(params[:id])
   end
+
+################  
+######## ACCIONES
+################
 
   # POST /categorias
   # POST /categorias.json
@@ -81,5 +91,15 @@ class CategoriasController < ApplicationController
       format.html { redirect_to categorias_url }
       format.json { head :no_content }
     end
+  end
+  
+  def reset
+    case params[:que]
+    when "proveedores"
+      Categoria.reset_proveedores_asociados
+    when "trabajos"
+      Categoria.reset_trabajos_asociados
+    end
+    redirect_to rails_admin_path+"/categoria"
   end
 end

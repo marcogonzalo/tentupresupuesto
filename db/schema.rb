@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130411033924) do
+ActiveRecord::Schema.define(:version => 20130501195612) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                  :default => "",    :null => false
@@ -151,6 +151,14 @@ ActiveRecord::Schema.define(:version => 20130411033924) do
     t.integer  "municipio_id"
     t.integer  "localidad_id"
     t.string   "avatar"
+    t.string   "web_url"
+    t.string   "twitter_url"
+    t.string   "facebook_url"
+    t.string   "google_url"
+    t.string   "linkedin_url"
+    t.string   "youtube_url"
+    t.string   "pinterest_url"
+    t.string   "instagram_url"
   end
 
   add_index "proveedores", ["avatar"], :name => "index_proveedores_on_avatar"

@@ -3,6 +3,11 @@ class TrabajosController < ApplicationController
   before_filter :authenticated_solicitante, :except => [:show, :index]
   layout :resolve_layout
   add_breadcrumb :index, :trabajos_path
+
+################  
+######## VISTAS
+################
+
   # GET /trabajos
   # GET /trabajos.json
   def index
@@ -98,6 +103,10 @@ class TrabajosController < ApplicationController
       format.json { render json: @trabajo }
     end
   end
+
+################  
+######## ACCIONES
+################
 
   # POST /trabajos
   # POST /trabajos.json

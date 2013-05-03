@@ -103,6 +103,12 @@ class ProveedoresController < ApplicationController
     @proveedor = Proveedor.find(current_proveedor.perfilable_id)
     render "categorias"
   end
+  
+  # GET /proveedor/enlaces
+  def enlaces_de_proveedor
+    @proveedor = Proveedor.find(current_proveedor.perfilable_id)
+    render "enlaces"
+  end
 
 ################  
 ######## ACCIONES
@@ -228,11 +234,11 @@ class ProveedoresController < ApplicationController
         if params[:proveedor][:categoria_ids].nil?
           @proveedor.categorias.clear
           flash[:success] = "Categorías actualizadas."
-          format.html { redirect_to categorias_de_proveedor_path }
+          format.html { redirect_to panel_proveedor_path }
           format.json { render :json => {tipo_mensaje: :success, mensaje: flash[:success]} }
         elsif @proveedor.update_attributes(params[:proveedor])
           flash[:success] = "Categorías actualizadas."
-          format.html { redirect_to categorias_de_proveedor_path }
+          format.html { redirect_to panel_proveedor_path }
           format.json { render :json => {tipo_mensaje: :success, mensaje: flash[:success]} }
         else
           flash[:error] = "Ocurrió un error. Revisa el formulario."
@@ -243,6 +249,26 @@ class ProveedoresController < ApplicationController
         flash[:info] = 'No ha iniciado sesión.'
         format.html { redirect_to new_proveedor_session }
         format.json { render :json => {tipo_mensaje: :info, mensaje: flash[:info]} }
+      end
+    end
+  end
+
+  # PUT /proveedor/enlaces
+  def update_enlaces_de_proveedor
+    @proveedor = Proveedor.find(current_proveedor.perfilable_id)
+    if params[:proveedor].nil?
+      params[:proveedor] ||= {}
+    end
+    respond_to do |format|
+      if @proveedor.update_attributes(params[:proveedor])
+        flash[:success] = "Enlaces actualizados."
+        format.html { redirect_to panel_proveedor_path }
+        format.json { render :json => {tipo_mensaje: :success, mensaje: flash[:success]} }
+      else
+        flash[:error] = "Ocurrió un error. Revisa el formulario."
+        format.html { render action: "enlaces" }
+        puts @proveedor.errors.full_messages
+        format.json { render :json => {tipo_mensaje: :danger, mensaje: flash[:error], errores: @proveedor.errors, status: :unprocessable_entity} }
       end
     end
   end

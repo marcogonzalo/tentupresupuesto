@@ -47,8 +47,8 @@ class ApplicationController < ActionController::Base
   
   def authenticated_solicitante
     unless solicitante_signed_in?
-		sign_out_all_scopes
-		flash[:warning] = "Debes iniciar sesión con el usuario correcto" 
+      sign_out_all_scopes
+      flash[:warning] = "Debes iniciar sesión con el usuario correcto" 
       redirect_to new_solicitante_session_path
     end
     return true
@@ -56,9 +56,18 @@ class ApplicationController < ActionController::Base
   
   def authenticated_proveedor
     unless proveedor_signed_in?
-		sign_out_all_scopes
-		flash[:warning] = "Debes iniciar sesión con el usuario correcto" 
+      sign_out_all_scopes
+      flash[:warning] = "Debes iniciar sesión con el usuario correcto" 
       redirect_to new_proveedor_session_path
+    end
+    return true
+  end
+  
+  def authenticated_admin
+    unless admin_signed_in?
+      sign_out_all_scopes
+      flash[:warning] = "Debes iniciar sesión con el usuario correcto" 
+      redirect_to root_path
     end
     return true
   end
@@ -80,7 +89,7 @@ class ApplicationController < ActionController::Base
       return rails_admin.dashboard_path
     end
     
-	resource_type = resource.perfilable_type.downcase
+    resource_type = resource.perfilable_type.downcase
     unless resource.confirmed_at.nil?
       if resource.perfilable_id.nil? or resource.perfilable_id <= 0
         case resource_type

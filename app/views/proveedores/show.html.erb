@@ -15,151 +15,175 @@
 <h1>Ficha de proveedor</h1>
 <br>
 <div id="perfil" class="row">
-	<aside id="perfil-proveedor" class="span6 pull-right">
-		<div id="ficha-proveedor">
-			<div id="imagen-proveedor" class="img-rounded">
-			<%	# Si es el perfil del proveedor que esta en sesion
-				if proveedor_signed_in? and @proveedor.id == current_proveedor.perfilable_id 
-			%>
-				<%= (link_to (image_tag @proveedor.avatar.url, :alt => "Cambiar imagen de perfil", :title => "Cambiar imagen de perfil"), imagen_proveedor_path) %>
-			<% else %>
-				<%= image_tag @proveedor.avatar.url, :alt => "Logo de "+@proveedor.nombre_empresa, :title => "Logo de "+@proveedor.nombre_empresa %>
-			<% end %>
-			</div>
-			<h4 id="nombre-proveedor" class="con-chango sobre-color"><%= @proveedor.nombre_empresa %></h4>
-			<p>
-				<%= t('activerecord.attributes.proveedor.tipos_proveedor.'+@proveedor.tipo_proveedor) %>
-				<% if @proveedor.verificado %><span class="badge badge-warning" title="Proveedor verificado"><i class="icon-ok icon-white"></i></span><% end %>
-			</p>
-			<%= raw mostrar_reputacion(@proveedor.reputacion, @proveedor.valoraciones, "general") %>
-			<span class="badge badge-info"><%= t('extras.valoraciones', :count => @proveedor.valoraciones) %></span>
-			<ul id="perfil-tabs">
-				<li id="boton-informacion">
-					<a href="#informacion"><i>&nbsp;</i>Información</a>
-				</li>
-				<li id="boton-evaluaciones">
-					<a href="#evaluaciones"><i>&nbsp;</i>Valoraciones</a>
-				</li>
-				<li id="boton-previos">
-					<a href="#trabajos"><i>&nbsp;</i>Trabajos previos</a>
-				</li>
-			</ul>
-		</div>
-		<div id="terminacion"></div>
-	</aside>
-	<div id="titulo-pestana" class="span16 pull-right">
-		<h3 class="con-chango sobre-color">Información del proveedor</h3>
-	</div>
-	<div id="informacion" class="offset1 span16 pull-right">
-		<div class="row">
-			<h4 class="con-myriad-bold">Descripción</h4>
-			<pre><%= @proveedor.descripcion %></pre>			
-	    <% unless @proveedor.rif.nil? %>
-
-			<dl class="dl-horizontal">
-				<dt>
-					<strong><abbr title="Registro de Información Fiscal">RIF</abbr>:</strong>
-				</dt>
-				<dd>
-					<%= @proveedor.rif %>
-				</dd>
-			</dl>
-			<% end %>
-			<h4 class="con-myriad-bold">Ubicación</h4>
-			<address class="span15">
-				<dl class="dl-horizontal">
-					<dt>
-						Localidad:
-					</dt>
-					<dd>
-						Estado <%= @proveedor.estado.nombre %>. Municipio <%= @proveedor.municipio.nombre %>, <%= @proveedor.localidad.nombre %>
-					</dd>
-					<% unless @proveedor.tipo_proveedor.eql?("independiente") %>
-					<dt>
-						<strong><%= model_class.human_attribute_name(:direccion) %>:</strong>
-					</dt>
-					<dd>
-						<%= @proveedor.direccion %><%= ". Punto de referencia: "+@proveedor.punto_referencia unless @proveedor.punto_referencia.empty?  %>
-					</dd>
-					<% end %>
-				</dl>
-			</address>
-		</div>
-		<div class="row">
-			<div id="datos-ubicacion" class="span7">
-				<dl class="dl-horizontal">
-					<h4 class="con-myriad-bold">Datos de contacto</h4>
-					<% unless @proveedor.telefono_local.empty? %>
-					<dt>
-						<strong><%= model_class.human_attribute_name(:telefono_local) %>:</strong>
-					</dt>
-					<dd>
-						<%= @proveedor.telefono_local %>
-					</dd>
-					<% end %>
-					<% unless @proveedor.telefono_movil.empty? %>
-					<dt>
-						<strong><%= model_class.human_attribute_name(:telefono_movil) %>:</strong>
-					</dt>
-					<dd>
-						<%= @proveedor.telefono_movil %>
-					</dd>
-					<% end %>
-					<% unless @proveedor.telefono_alt.empty? %>
-					<dt>
-						<strong><%= model_class.human_attribute_name(:telefono_alt) %>:</strong>
-					</dt>
-					<dd>
-						<%= @proveedor.telefono_alt %>
-					</dd>
-					<% end %>
-				</dl>
-				<dl class="dl-horizontal">
-					<h4 class="con-myriad-bold">Registro de actividad</h4>
-					<dt>
-						<strong>Solicitudes atendidas:</strong>
-					</dt>
-					<dd>
-						<%= @proveedor.solicitudes_atendidas %>
-					</dd>
-					<dt>
-						<strong>Trabajos realizados:</strong>
-					</dt>
-					<dd>
-						<%= @proveedor.trabajos_realizados %>
-					</dd>
-					<% if false %>
-					<dt >
-						<strong>Actividad en TTP:</strong>
-					</dt>
-					<dd>
-						<%= t('activerecord.attributes.proveedor.solicitudes_atendidas', :count => @proveedor.solicitudes_atendidas) %>
-						<br>
-						<%= t('activerecord.attributes.proveedor.trabajos_realizados', :count => @proveedor.trabajos_realizados) %>
-					</dd>
-					<% end %>
-				</dl>
-			</div>
-			<div id="iconos-categorias" class="span8">
-				<% @proveedor.categorias.each do |cat| %>
-				<div class="cat-m-n <%= cat.clase_css %>">
-					<%= image_tag 'tentu/generales/transparente.png', :alt => cat.nombre, :title => cat.nombre, :class => 'transparente' %>
-				</div>
-				<% end %>
-			</div>
-		</div>
-	</div>
-	<div id="trabajos" class="offset1 span16 pull-right">
-		<% @imagenes.each do |img| %>
-		<div class="imagen">
-			<div class="al-medio">
-				<%= image_tag(img.archivo.mini.url, :alt => img.descripcion, :title => img.descripcion ) if img.archivo? %>
-			</div>
-		</div>
-		<% end %>
-	</div>
-	<div id="evaluaciones" class="span17 pull-right accordion">
-		<%= render(:partial => 'evaluaciones/bloque_evaluacion', :collection => @evaluaciones, :as => :e) or 'No ha sido evaluado.' %>
-	</div>
+    <aside id="perfil-proveedor" class="span6 pull-right">
+        <div id="ficha-proveedor">
+            <div id="imagen-proveedor" class="img-rounded">
+            <%	# Si es el perfil del proveedor que esta en sesion
+            if proveedor_signed_in? and @proveedor.id == current_proveedor.perfilable_id
+            %>
+                <%= (link_to (image_tag @proveedor.avatar.url, :alt => "Cambiar imagen de perfil", :title => "Cambiar imagen de perfil"), imagen_proveedor_path) %>
+            <% else %>
+                <%= image_tag @proveedor.avatar.url, :alt => "Logo de "+@proveedor.nombre_empresa, :title => "Logo de "+@proveedor.nombre_empresa %>
+            <% end %>
+            </div>
+            <h4 id="nombre-proveedor" class="con-chango sobre-color"><%= @proveedor.nombre_empresa %></h4>
+            <p></p>
+            <p>
+                <%= t('activerecord.attributes.proveedor.tipos_proveedor.'+@proveedor.tipo_proveedor) %><br>
+                <strong><abbr title="Registro de Información Fiscal">RIF</abbr>:</strong> <%= @proveedor.rif unless @proveedor.rif.nil? %>
+                <% if @proveedor.verificado %><span class="badge badge-warning" title="Proveedor verificado"><i class="icon-ok icon-white"></i></span><% end %>
+            </p>
+            <%= raw mostrar_reputacion(@proveedor.reputacion, @proveedor.valoraciones, "general") %>
+            <p class="badge badge-info"><%= t('extras.valoraciones', :count => @proveedor.valoraciones) %></p>
+            <ul id="perfil-tabs">
+                <li id="boton-informacion">
+                    <a href="#informacion"><i>&nbsp;</i>Información</a>
+                </li>
+                <li id="boton-evaluaciones">
+                    <a href="#evaluaciones"><i>&nbsp;</i>Valoraciones</a>
+                </li>
+                <li id="boton-previos">
+                    <a href="#trabajos"><i>&nbsp;</i>Trabajos previos</a>
+                </li>
+            </ul>
+        </div>
+        <div id="terminacion"></div>
+    </aside>
+    <div id="titulo-pestana" class="span16 pull-right">
+        <h3 class="con-chango sobre-color">Información del proveedor</h3>
+    </div>
+    <div id="informacion" class="offset1 span16 pull-right">
+        <div class="row">
+            <div class="span11">
+                <div class="row">
+                    <h4 class="con-myriad-bold">Descripción</h4>
+                    <pre><%= @proveedor.descripcion %></pre>
+                    <br>
+                    <h4 class="con-myriad-bold">Ubicación</h4>
+                    <address class="span11">
+                        <p>
+                            <b>Localidad:</b>
+                            Estado <%= @proveedor.estado.nombre %>. Municipio <%= @proveedor.municipio.nombre %>, <%= @proveedor.localidad.nombre %>
+                        </p>
+                        <% unless @proveedor.tipo_proveedor.eql?("independiente") %>
+                        <p>
+                            <strong><%= model_class.human_attribute_name(:direccion) %>:</strong>
+                            <%= @proveedor.direccion %><%= ". Punto de referencia: "+@proveedor.punto_referencia unless @proveedor.punto_referencia.empty?  %>
+                        </p>
+                        <% end %>
+                    </address>
+                </div>
+                <div class="row">
+                    <div id="datos-ubicacion" class="span10">
+                        <dl class="dl-horizontal">
+                            <h4 class="con-myriad-bold">Datos de contacto</h4>
+                            <% unless @proveedor.telefono_local.empty? %>
+                            <dt>
+                                <strong><%= model_class.human_attribute_name(:telefono_local) %>: </strong>
+                            </dt>
+                            <dd>
+                                <%= @proveedor.telefono_local %>
+                            </dd>
+                            <% end %>
+                            <% unless @proveedor.telefono_movil.empty? %>
+                            <dt>
+                                <strong><%= model_class.human_attribute_name(:telefono_movil) %>: </strong>
+                            </dt>
+                            <dd>
+                                <%= @proveedor.telefono_movil %>
+                            </dd>
+                            <% end %>
+                            <% unless @proveedor.telefono_alt.empty? %>
+                            <dt>
+                                <strong><%= model_class.human_attribute_name(:telefono_alt) %>: </strong>
+                            </dt>
+                            <dd>
+                                <%= @proveedor.telefono_alt %>
+                            </dd>
+                            <% end %>
+                        </dl>
+                        <dl class="dl-horizontal">
+                            <h4 class="con-myriad-bold">Registro de actividad</h4>
+                            <dt>
+                                <strong>Solicitudes atendidas:</strong>
+                            </dt>
+                            <dd>
+                                <%= @proveedor.solicitudes_atendidas %>
+                            </dd>
+                            <dt>
+                                <strong>Trabajos realizados:</strong>
+                            </dt>
+                            <dd>
+                                <%= @proveedor.trabajos_realizados %>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+            <div class="span4">
+                <div id="iconos-categorias" class="span4">
+                    <% @proveedor.categorias.each do |cat| %>
+                    <div class="cat-m-n <%= cat.clase_css %>">
+                        <%= image_tag 'tentu/generales/transparente.png', :alt => cat.nombre, :title => cat.nombre, :class => 'transparente' %>
+                    </div>
+                    <% end %>
+                </div>
+                <div id="enlaces-proveedor" class="span4">
+                    <%  unless @proveedor.facebook_url.empty? %>
+                    <div class="enlace-fb">
+                        <%= link_to image_tag('tentu/generales/transparente.png', :class => 'transparente'), @proveedor.facebook_url, :title => t('activerecord.attributes.proveedor.facebook_url') %>
+                    </div>
+                    <% end %>
+                    <%  unless @proveedor.twitter_url.empty? %>
+                    <div class="enlace-tw">
+                        <%= link_to image_tag('tentu/generales/transparente.png', :class => 'transparente'), @proveedor.twitter_url, :title => t('activerecord.attributes.proveedor.twitter_url') unless @proveedor.twitter_url.empty? %>
+                    </div>
+                    <% end %>
+                    <%  unless @proveedor.google_url.empty? %>
+                    <div class="enlace-gp">
+                        <%= link_to image_tag('tentu/generales/transparente.png', :class => 'transparente'), @proveedor.google_url, :title => t('activerecord.attributes.proveedor.google_url') unless @proveedor.google_url.empty? %>
+                    </div>
+                    <% end %>
+                    <%  unless @proveedor.linkedin_url.empty? %>
+                    <div class="enlace-li">
+                        <%= link_to image_tag('tentu/generales/transparente.png', :class => 'transparente'), @proveedor.linkedin_url, :title => t('activerecord.attributes.proveedor.linkedin_url') unless @proveedor.linkedin_url.empty? %>
+                    </div>
+                    <% end %>
+                    <%  unless @proveedor.youtube_url.empty? %>
+                    <div class="enlace-yt">
+                        <%= link_to image_tag('tentu/generales/transparente.png', :class => 'transparente'), @proveedor.youtube_url, :title => t('activerecord.attributes.proveedor.youtube_url') unless @proveedor.youtube_url.empty? %>
+                    </div>
+                    <% end %>
+                    <%  unless @proveedor.pinterest_url.empty? %>
+                    <div class="enlace-pn">
+                        <%= link_to image_tag('tentu/generales/transparente.png', :class => 'transparente'), @proveedor.pinterest_url, :title => t('activerecord.attributes.proveedor.pinterest_url') unless @proveedor.pinterest_url.empty? %>
+                    </div>
+                    <% end %>
+                    <%  unless @proveedor.instagram_url.empty? %>
+                    <div class="enlace-ig">
+                        <%= link_to image_tag('tentu/generales/transparente.png', :class => 'transparente'), @proveedor.instagram_url, :title => t('activerecord.attributes.proveedor.instagram_url') unless @proveedor.instagram_url.empty? %>
+                    </div>
+                    <% end %>
+                    <%  unless @proveedor.web_url.empty? %>
+                    <div class="enlace-web">
+                        <%= link_to image_tag('tentu/generales/transparente.png', :class => 'transparente'), @proveedor.web_url, :title => t('activerecord.attributes.proveedor.web_url') unless @proveedor.web_url.empty? %>
+                    </div>
+                    <% end %>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="trabajos" class="offset1 span16 pull-right">
+        <% @imagenes.each do |img| %>
+        <div class="imagen">
+            <div class="al-medio">
+                <%= image_tag(img.archivo.mini.url, :alt => img.descripcion, :title => img.descripcion ) if img.archivo? %>
+            </div>
+        </div>
+        <% end %>
+    </div>
+    <div id="evaluaciones" class="span17 pull-right accordion">
+        <%= render(:partial => 'evaluaciones/bloque_evaluacion', :collection => @evaluaciones, :as => :e) or 'No ha sido evaluado.' %>
+    </div>
 </div>
 
