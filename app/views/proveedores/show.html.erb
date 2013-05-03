@@ -129,30 +129,46 @@
                     <% end %>
                 </div>
                 <div id="enlaces-proveedor" class="span4">
+                    <%  unless @proveedor.facebook_url.empty? %>
                     <div class="enlace-fb">
-                        <%= link_to image_tag('tentu/generales/transparente.png', :class => 'transparente'), @proveedor.facebook_url, :title => t('activerecord.attributes.proveedor.facebook_url') unless @proveedor.facebook_url.empty? %>
+                        <%= link_to image_tag('tentu/generales/transparente.png', :class => 'transparente'), @proveedor.facebook_url, :title => t('activerecord.attributes.proveedor.facebook_url') %>
                     </div>
+                    <% end %>
+                    <%  unless @proveedor.twitter_url.empty? %>
                     <div class="enlace-tw">
                         <%= link_to image_tag('tentu/generales/transparente.png', :class => 'transparente'), @proveedor.twitter_url, :title => t('activerecord.attributes.proveedor.twitter_url') unless @proveedor.twitter_url.empty? %>
                     </div>
+                    <% end %>
+                    <%  unless @proveedor.google_url.empty? %>
                     <div class="enlace-gp">
                         <%= link_to image_tag('tentu/generales/transparente.png', :class => 'transparente'), @proveedor.google_url, :title => t('activerecord.attributes.proveedor.google_url') unless @proveedor.google_url.empty? %>
                     </div>
+                    <% end %>
+                    <%  unless @proveedor.linkedin_url.empty? %>
                     <div class="enlace-li">
                         <%= link_to image_tag('tentu/generales/transparente.png', :class => 'transparente'), @proveedor.linkedin_url, :title => t('activerecord.attributes.proveedor.linkedin_url') unless @proveedor.linkedin_url.empty? %>
                     </div>
+                    <% end %>
+                    <%  unless @proveedor.youtube_url.empty? %>
                     <div class="enlace-yt">
                         <%= link_to image_tag('tentu/generales/transparente.png', :class => 'transparente'), @proveedor.youtube_url, :title => t('activerecord.attributes.proveedor.youtube_url') unless @proveedor.youtube_url.empty? %>
                     </div>
+                    <% end %>
+                    <%  unless @proveedor.pinterest_url.empty? %>
                     <div class="enlace-pn">
                         <%= link_to image_tag('tentu/generales/transparente.png', :class => 'transparente'), @proveedor.pinterest_url, :title => t('activerecord.attributes.proveedor.pinterest_url') unless @proveedor.pinterest_url.empty? %>
                     </div>
+                    <% end %>
+                    <%  unless @proveedor.instagram_url.empty? %>
                     <div class="enlace-ig">
                         <%= link_to image_tag('tentu/generales/transparente.png', :class => 'transparente'), @proveedor.instagram_url, :title => t('activerecord.attributes.proveedor.instagram_url') unless @proveedor.instagram_url.empty? %>
                     </div>
+                    <% end %>
+                    <%  unless @proveedor.web_url.empty? %>
                     <div class="enlace-web">
                         <%= link_to image_tag('tentu/generales/transparente.png', :class => 'transparente'), @proveedor.web_url, :title => t('activerecord.attributes.proveedor.web_url') unless @proveedor.web_url.empty? %>
                     </div>
+                    <% end %>
                 </div>
             </div>
         </div>

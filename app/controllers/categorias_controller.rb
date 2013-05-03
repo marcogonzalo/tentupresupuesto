@@ -100,6 +100,6 @@ class CategoriasController < ApplicationController
     when "trabajos"
       Categoria.reset_trabajos_asociados
     end
-    redirect_to rails_admin_path
+    redirect_to rails_admin_path+"/categoria"
   end
 end
