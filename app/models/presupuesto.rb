@@ -6,7 +6,7 @@ class Presupuesto < ActiveRecord::Base
   belongs_to :proveedor
   has_many :mensajes
   
-  MOTIVO_RECHAZO = [:da_pocos_detalles, :muy_barato, :muy_caro, :no_confiable, :no_responde, :otro]
+  MOTIVO_RECHAZO = [:da_pocos_detalles, :muy_barato, :muy_caro, :no_confiable, :no_responde, :ubicacion_lejana, :otro]
   
   validate  :rango_precio_valido
   validates :resumen, 
