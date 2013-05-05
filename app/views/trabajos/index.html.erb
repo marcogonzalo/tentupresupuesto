@@ -53,15 +53,7 @@
 	</div>
 </div>
 <div class="offset1 span15">
-<% if not @categoria.nil? %>
-	<h2 class="page-header"><%= @categoria.nombre+" ("+@cant_resultados.to_s+")" %></h2>
-<% elsif not @estatus.nil? %>
-	<h2 class="page-header"><%= @estatus+" ("+@cant_resultados.to_s+")" %></h2>
-<% elsif not @ubicacion.nil? %>
-	<h2 class="page-header"><%= @ubicacion.tipo.humanize+" "+@ubicacion.nombre+" ("+@cant_resultados.to_s+")" %></h2>
-<% else %>
-	<h2 class="page-header">Todas las solicitudes</h2>
-<% end %>
+	<h2 class="page-header"><%= @titulo %></h2>
 <% if @cant_resultados > 0 %>
 	<%= page_entries_info @trabajos %>
 	<%= paginate @trabajos, :param_name => 'p' %> 
