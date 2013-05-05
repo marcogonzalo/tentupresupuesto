@@ -1,3 +1,4 @@
+# coding: utf-8
 # RailsAdmin config file. Generated on April 07, 2013 00:02
 # See github.com/sferik/rails_admin for more informations
 
@@ -24,7 +25,7 @@ RailsAdmin.config do |config|
   # config.compact_show_view = false
 
   # Number of default rows per-page:
-  config.default_items_per_page = 25
+  config.default_items_per_page = 50
 
   # Exclude specific models (keep the others):
   # config.excluded_models = ['Admin', 'Categoria', 'Imagen', 'Mensaje', 'Presupuesto', 'Proveedor', 'Solicitante', 'Trabajo', 'UbicacionGeografica', 'Usuario']
@@ -34,6 +35,11 @@ RailsAdmin.config do |config|
 
   # Label methods for model instances:
   # config.label_methods << :description # Default is [:name, :title]
+  
+  
+  def tipo_nombre_entidad
+    "#{self.tipo.capitalize} #{self.nombre}"
+  end
 
 
   ################  Model configuration  ################
@@ -145,7 +151,7 @@ RailsAdmin.config do |config|
 
   #   # Cross-section configuration:
 
-  #     # object_label_method :name     # Name of the method called for pretty printing an *instance* of ModelName
+      object_label_method :nombre     # Name of the method called for pretty printing an *instance* of ModelName
   #     # label 'My model'              # Name of ModelName (smartly defaults to ActiveRecord's I18n API)
   #     # label_plural 'My models'      # Same, plural
   #     # weight 0                      # Navigation priority. Bigger is higher.
@@ -394,23 +400,23 @@ RailsAdmin.config do |config|
         field :id do
           column_width 50
         end
-        field :trabajo do
-          column_width 100
-        end
+        field :trabajo
         field :proveedor do
           column_width 100
         end
         field :precio_minimo do
-          column_width 100
+          column_width 75
+          label "Mínimo"
         end
         field :precio_maximo do
-          column_width 100
+          column_width 75
+          label "Máximo"
         end
         field :aprobado do
-          column_width 75
+          column_width 50
         end
         field :rechazado do
-          column_width 75
+          column_width 50
         end
       end
   #     show do; end
@@ -469,7 +475,7 @@ RailsAdmin.config do |config|
 
   #   # Cross-section configuration:
 
-  #     # object_label_method :name     # Name of the method called for pretty printing an *instance* of ModelName
+      object_label_method :nombre_empresa     # Name of the method called for pretty printing an *instance* of ModelName
   #     # label 'My model'              # Name of ModelName (smartly defaults to ActiveRecord's I18n API)
   #     # label_plural 'My models'      # Same, plural
   #     # weight 0                      # Navigation priority. Bigger is higher.
@@ -570,9 +576,6 @@ RailsAdmin.config do |config|
         field :trabajos_recibidos do
           column_width 50
         end
-        field :id do
-          column_width 50
-        end
         field :created_at do
           date_format :abrev
         end
@@ -626,7 +629,7 @@ RailsAdmin.config do |config|
 
   #   # Cross-section configuration:
 
-  #     # object_label_method :name     # Name of the method called for pretty printing an *instance* of ModelName
+      object_label_method :proposito     # Name of the method called for pretty printing an *instance* of ModelName
   #     # label 'My model'              # Name of ModelName (smartly defaults to ActiveRecord's I18n API)
   #     # label_plural 'My models'      # Same, plural
   #     # weight 0                      # Navigation priority. Bigger is higher.
@@ -696,7 +699,7 @@ RailsAdmin.config do |config|
 
   #   # Cross-section configuration:
 
-  #     # object_label_method :name     # Name of the method called for pretty printing an *instance* of ModelName
+      object_label_method :tipo_nombre_entidad     # Name of the method called for pretty printing an *instance* of ModelName
   #     # label 'My model'              # Name of ModelName (smartly defaults to ActiveRecord's I18n API)
   #     # label_plural 'My models'      # Same, plural
   #     # weight 0                      # Navigation priority. Bigger is higher.
@@ -714,9 +717,7 @@ RailsAdmin.config do |config|
           column_width 50
         end
         field :nombre
-        field :tipo do
-          column_width 100
-        end
+        field :tipo
         field :entidad_superior
       end
   #     show do; end
@@ -725,6 +726,8 @@ RailsAdmin.config do |config|
   #     # also see the create, update, modal and nested sections, which override edit in specific cases (resp. when creating, updating, modifying from another model in a popup modal or modifying from another model nested form)
   #     # you can override a cross-section field configuration in any section with the same syntax `configure :field_name do ... end`
   #     # using `field` instead of `configure` will exclude all other fields and force the ordering
+  
+  
   end
 
 
@@ -773,7 +776,7 @@ RailsAdmin.config do |config|
 
   #   # Cross-section configuration:
 
-  #     # object_label_method :name     # Name of the method called for pretty printing an *instance* of ModelName
+      object_label_method :email     # Name of the method called for pretty printing an *instance* of ModelName
   #     # label 'My model'              # Name of ModelName (smartly defaults to ActiveRecord's I18n API)
   #     # label_plural 'My models'      # Same, plural
   #     # weight 0                      # Navigation priority. Bigger is higher.
