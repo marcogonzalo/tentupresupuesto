@@ -1,0 +1,13 @@
+<%
+  content_for :title do
+    "Has recibido un nuevo mensaje"
+  end
+%>
+
+Has recibido un mensaje <%= ("de parte de "+@proveedor if @tipo.eql?("Proveedor") %> en la solicitud "<%= @trabajo %>" de <%= @categoria %>.
+
+El mensaje dice:
+<%= @mensaje %>
+
+
+Responde el mensaje en esta dirección: <%= presupuesto_url(@presupuesto, :anchor => "mensajes") %>
