@@ -30,6 +30,19 @@ class TtpMailer < ActionMailer::Base
           :subject => "Tu solicitud ha recibido una oferta" )
   end
 
+   # notifica la rececpicon de un mensaje en un presupuesto
+  def mensaje_recibido(mensaje,trabajo,presupuesto,proveedor,usuarios)
+    @trabajo          = trabajo.proposito
+    @categoria        = trabajo.categoria.nombre
+    @presupuesto      = presupuesto
+    @proveedor        = proveedor.nombre_empresa
+    @mensaje          = mensaje.comentario
+    @tipo             = mensaje.usuario
+    emails = usuarios.map(&:email)
+    mail( :to => emails,
+          :subject => "Has recibido un nuevo mensaje" )
+  end
+
    # notifica la contratacion de un presupuesto
   def presupuesto_contratado(trabajo,usuarios)
     @trabajo      = trabajo
@@ -90,15 +103,36 @@ class TtpMailer < ActionMailer::Base
   end
   
   def notificar_presupuesto_recibido(trabajo,presupuesto)
-    # Notificar a proveedores
+    # Notificar a solicitante
     proveedor     = presupuesto.proveedor
     trabajo       = trabajo
     usuarios      = Usuario.where(:perfilable_type => "Solicitante", :perfilable_id => trabajo.solicitante_id)
     TtpMailer.presupuesto_recibido(trabajo,presupuesto,proveedor,usuarios).deliver
   end
   
+  def notificar_mensaje_recibido(mensaje)
+    # Notificar a usuario
+    presupuesto   = mensaje.presupuesto
+    trabajo       = presupuesto.trabajo
+    proveedor     = presupuesto.proveedor
+    
+    # Si es solicitante, enviar al proveedor
+    if mensaje.usuario.eql?("Solicitante")
+      tipo = "Proveedor"
+      id = proveedor.id
+    end
+    
+    # Si es proveedor, enviar al solicitante
+    if mensaje.usuario.eql?("Proveedor")
+      tipo = "Solicitante"
+      id = trabajo.solicitante_id
+    end
+    usuarios     = Usuario.where(:perfilable_type => tipo, :perfilable_id => id)
+    TtpMailer.mensaje_recibido(mensaje,trabajo,presupuesto,proveedor,usuarios).deliver
+  end
+  
   def notificar_presupuesto_contratado(presupuesto)
-    # Notificar al proveedor
+    # Notificar a proveedor
     trabajo       = presupuesto.trabajo
     usuarios      = Usuario.where(:perfilable_type => "Proveedor", :perfilable_id => presupuesto.proveedor_id)
     TtpMailer.presupuesto_contratado(trabajo,usuarios).deliver

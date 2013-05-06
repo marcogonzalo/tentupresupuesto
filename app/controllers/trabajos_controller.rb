@@ -11,19 +11,36 @@ class TrabajosController < ApplicationController
   # GET /trabajos
   # GET /trabajos.json
   def index
+    @titulo = "Todas las solicitudes"
     unless params[:filtro].nil?
       @trabajos = []
       if FiltroListaTrabajos::FILTROS.include?(params[:filtro]) and not params[:valor].nil?
         case params[:filtro]
         when "categoria"
-          @categoria = Categoria.find(params[:valor])
-          @trabajos =  @categoria.nil? ? [] : @categoria.trabajos.page(params[:p])
+          if params[:valor].eql?("mis-categorias")
+            
+            @trabajos = []
+            if proveedor_signed_in?
+              categorias = current_proveedor.perfilable.categorias
+              @trabajos = Trabajo.where(:categoria_id => categorias).page(params[:p])
+            end
+            @cant_resultados = @trabajos.size
+            @titulo ="Mis categorías ("+@cant_resultados.to_s+")"
+          else
+            @categoria = Categoria.find(params[:valor])
+            @trabajos =  @categoria.nil? ? [] : @categoria.trabajos.page(params[:p])
+            @cant_resultados = @trabajos.size
+            @titulo = @categoria.nombre+" ("+@cant_resultados.to_s+")"
+          end
         when "estatus"
           existe_estatus = Trabajo::ESTATUS.include?(params[:valor])
           @estatus = Trabajo::ESTATUS.include?(params[:valor]) ? params[:valor].to_s.humanize : nil
           @trabajos = existe_estatus ? Trabajo.where(:estatus => params[:valor]).page(params[:p]) : []
+          @cant_resultados = @trabajos.size
+          @titulo = @estatus+" ("+@cant_resultados.to_s+")"
         when "ubicacion"
           @ubicacion = UbicacionGeografica.find(params[:valor])
+          @trabajos = [] if @ubicacion.nil?
           unless @ubicacion.nil?
             case @ubicacion.tipo
             when 'pais'
@@ -36,12 +53,14 @@ class TrabajosController < ApplicationController
               @trabajos = @ubicacion.trabajos_de_localidad.page(params[:p])
             end
           end
+          @cant_resultados = @trabajos.size
+          @titulo = @ubicacion.tipo.humanize+" "+@ubicacion.nombre+" ("+@cant_resultados.to_s+")"
         end
       end
     else
-      @trabajos = Trabajo.order('created_at').page(params[:p])
+      @trabajos = Trabajo.page(params[:p])
+      @cant_resultados = @trabajos.size
     end
-    @cant_resultados = @trabajos.size
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @trabajos }

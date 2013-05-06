@@ -266,6 +266,7 @@ es-VE:
           muy_caro: "Muy caro"
           no_confiable: "No me genera confianza"
           no_responde: "No responde los mensajes"
+          fuera_de_area: "El proveedor no está ubicado cerca"
           otro: "Otro"
         precio_minimo: "Precio mínimo"
         precio_maximo: "Precio máximo"

@@ -1,0 +1,12 @@
+<%
+  content_for :title do
+    "Has recibido un nuevo mensaje"
+  end
+%>
+
+<p>Has recibido un mensaje <%= ("de parte de <i>"+@proveedor+"</i>").html_safe if @tipo.eql?("Proveedor") %> en la solicitud <b><%= @trabajo %></b> de <%= @categoria %>.</p>
+
+<p>El mensaje dice:</p>
+<blockquote><pre style="font-size:1.15em;"><%= @mensaje %></pre></blockquote>
+
+<p><%= link_to 'Responder el mensaje', presupuesto_url(@presupuesto, :anchor => "mensajes") %></p>

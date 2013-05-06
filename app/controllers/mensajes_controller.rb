@@ -34,6 +34,11 @@ class MensajesController < ApplicationController
     end
   end
 
+################  
+######## ACCIONES
+################
+
+
   # POST /mensajes
   # POST /mensajes.json
   def create
@@ -42,6 +47,7 @@ class MensajesController < ApplicationController
     
     respond_to do |format|
       if @mensaje.save
+        TtpMailer.notificar_mensaje_recibido(@mensaje)
         flash[:success] = "Mensaje enviado satisfactoriamente."
         format.html { redirect_to presupuesto_path(@presupuesto,:anchor => "mensajes") }
         format.json { render json: @mensaje, status: :created, location: @mensaje }
