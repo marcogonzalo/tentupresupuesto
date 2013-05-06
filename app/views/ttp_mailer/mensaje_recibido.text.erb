@@ -4,7 +4,7 @@
   end
 %>
 
-Has recibido un mensaje <%= ("de parte de "+@proveedor if @tipo.eql?("Proveedor") %> en la solicitud "<%= @trabajo %>" de <%= @categoria %>.
+Has recibido un mensaje <%= "de parte de "+@proveedor if @tipo.eql?("Proveedor") %> en la solicitud "<%= @trabajo %>" de <%= @categoria %>.
 
 El mensaje dice:
 <%= @mensaje %>
