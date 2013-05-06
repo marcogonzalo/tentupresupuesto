@@ -68,7 +68,7 @@
                         <% unless @proveedor.tipo_proveedor.eql?("independiente") %>
                         <p>
                             <strong><%= model_class.human_attribute_name(:direccion) %>:</strong>
-                            <%= @proveedor.direccion %><%= ". Punto de referencia: "+@proveedor.punto_referencia unless @proveedor.punto_referencia.empty?  %>
+                            <%= @proveedor.direccion %><%= ". Punto de referencia: "+@proveedor.punto_referencia unless @proveedor.punto_referencia.blank?  %>
                         </p>
                         <% end %>
                     </address>
@@ -77,7 +77,7 @@
                     <div id="datos-ubicacion" class="span10">
                         <dl class="dl-horizontal">
                             <h4 class="con-myriad-bold">Datos de contacto</h4>
-                            <% unless @proveedor.telefono_local.empty? %>
+                            <% unless @proveedor.telefono_local.blank? %>
                             <dt>
                                 <strong><%= model_class.human_attribute_name(:telefono_local) %>: </strong>
                             </dt>
@@ -85,7 +85,7 @@
                                 <%= @proveedor.telefono_local %>
                             </dd>
                             <% end %>
-                            <% unless @proveedor.telefono_movil.empty? %>
+                            <% unless @proveedor.telefono_movil.blank? %>
                             <dt>
                                 <strong><%= model_class.human_attribute_name(:telefono_movil) %>: </strong>
                             </dt>
@@ -93,7 +93,7 @@
                                 <%= @proveedor.telefono_movil %>
                             </dd>
                             <% end %>
-                            <% unless @proveedor.telefono_alt.empty? %>
+                            <% unless @proveedor.telefono_alt.blank? %>
                             <dt>
                                 <strong><%= model_class.human_attribute_name(:telefono_alt) %>: </strong>
                             </dt>
@@ -129,44 +129,44 @@
                     <% end %>
                 </div>
                 <div id="enlaces-proveedor" class="span4">
-                    <%  unless @proveedor.facebook_url.empty? %>
+                    <%  unless @proveedor.facebook_url.blank? %>
                     <div class="enlace-fb">
                         <%= link_to image_tag('tentu/generales/transparente.png', :class => 'transparente'), @proveedor.facebook_url, :title => t('activerecord.attributes.proveedor.facebook_url') %>
                     </div>
                     <% end %>
-                    <%  unless @proveedor.twitter_url.empty? %>
+                    <%  unless @proveedor.twitter_url.blank? %>
                     <div class="enlace-tw">
-                        <%= link_to image_tag('tentu/generales/transparente.png', :class => 'transparente'), @proveedor.twitter_url, :title => t('activerecord.attributes.proveedor.twitter_url') unless @proveedor.twitter_url.empty? %>
+                        <%= link_to image_tag('tentu/generales/transparente.png', :class => 'transparente'), @proveedor.twitter_url, :title => t('activerecord.attributes.proveedor.twitter_url') unless @proveedor.twitter_url.blank? %>
                     </div>
                     <% end %>
-                    <%  unless @proveedor.google_url.empty? %>
+                    <%  unless @proveedor.google_url.blank? %>
                     <div class="enlace-gp">
-                        <%= link_to image_tag('tentu/generales/transparente.png', :class => 'transparente'), @proveedor.google_url, :title => t('activerecord.attributes.proveedor.google_url') unless @proveedor.google_url.empty? %>
+                        <%= link_to image_tag('tentu/generales/transparente.png', :class => 'transparente'), @proveedor.google_url, :title => t('activerecord.attributes.proveedor.google_url') unless @proveedor.google_url.blank? %>
                     </div>
                     <% end %>
-                    <%  unless @proveedor.linkedin_url.empty? %>
+                    <%  unless @proveedor.linkedin_url.blank? %>
                     <div class="enlace-li">
-                        <%= link_to image_tag('tentu/generales/transparente.png', :class => 'transparente'), @proveedor.linkedin_url, :title => t('activerecord.attributes.proveedor.linkedin_url') unless @proveedor.linkedin_url.empty? %>
+                        <%= link_to image_tag('tentu/generales/transparente.png', :class => 'transparente'), @proveedor.linkedin_url, :title => t('activerecord.attributes.proveedor.linkedin_url') unless @proveedor.linkedin_url.blank? %>
                     </div>
                     <% end %>
-                    <%  unless @proveedor.youtube_url.empty? %>
+                    <%  unless @proveedor.youtube_url.blank? %>
                     <div class="enlace-yt">
-                        <%= link_to image_tag('tentu/generales/transparente.png', :class => 'transparente'), @proveedor.youtube_url, :title => t('activerecord.attributes.proveedor.youtube_url') unless @proveedor.youtube_url.empty? %>
+                        <%= link_to image_tag('tentu/generales/transparente.png', :class => 'transparente'), @proveedor.youtube_url, :title => t('activerecord.attributes.proveedor.youtube_url') unless @proveedor.youtube_url.blank? %>
                     </div>
                     <% end %>
-                    <%  unless @proveedor.pinterest_url.empty? %>
+                    <%  unless @proveedor.pinterest_url.blank? %>
                     <div class="enlace-pn">
-                        <%= link_to image_tag('tentu/generales/transparente.png', :class => 'transparente'), @proveedor.pinterest_url, :title => t('activerecord.attributes.proveedor.pinterest_url') unless @proveedor.pinterest_url.empty? %>
+                        <%= link_to image_tag('tentu/generales/transparente.png', :class => 'transparente'), @proveedor.pinterest_url, :title => t('activerecord.attributes.proveedor.pinterest_url') unless @proveedor.pinterest_url.blank? %>
                     </div>
                     <% end %>
-                    <%  unless @proveedor.instagram_url.empty? %>
+                    <%  unless @proveedor.instagram_url.blank? %>
                     <div class="enlace-ig">
-                        <%= link_to image_tag('tentu/generales/transparente.png', :class => 'transparente'), @proveedor.instagram_url, :title => t('activerecord.attributes.proveedor.instagram_url') unless @proveedor.instagram_url.empty? %>
+                        <%= link_to image_tag('tentu/generales/transparente.png', :class => 'transparente'), @proveedor.instagram_url, :title => t('activerecord.attributes.proveedor.instagram_url') unless @proveedor.instagram_url.blank? %>
                     </div>
                     <% end %>
-                    <%  unless @proveedor.web_url.empty? %>
+                    <%  unless @proveedor.web_url.blank? %>
                     <div class="enlace-web">
-                        <%= link_to image_tag('tentu/generales/transparente.png', :class => 'transparente'), @proveedor.web_url, :title => t('activerecord.attributes.proveedor.web_url') unless @proveedor.web_url.empty? %>
+                        <%= link_to image_tag('tentu/generales/transparente.png', :class => 'transparente'), @proveedor.web_url, :title => t('activerecord.attributes.proveedor.web_url') unless @proveedor.web_url.blank? %>
                     </div>
                     <% end %>
                 </div>
