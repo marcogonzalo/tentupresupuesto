@@ -1,159 +1,188 @@
 <%
 content_for :title do
-"Registro de #{resource_name}"
+    "Registro de #{resource_name}"
 end
 
-if resource.errors.any? %>
+if resource.errors.any? 
+%>
 <div class="alert alert-error">
-	Algo pas&oacute;. Revisa el formulario para verificar errores.
+    Algo pas&oacute;. Revisa el formulario para verificar errores.
 </div>
 <% end %>
 <h1>Registro</h1>
 <div id="registro" class="formulario-pendon offset1 span12">
-	<div class="titulo-pendon">
-		<h2 class="sobre-color">Como <%= resource_name %></h2>
-	</div>
-	<div class="cuerpo-pendon">
-		<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
-			<span class="help-block"><i class="icon-white icon-asterisk"></i> Indica campo obligatorio</span>
-			<div class="control-group">
-				<%= f.label :nombre %>
-				<div class="controls">
-					<i class="icon-white icon-asterisk"></i>
-					<%= f.text_field :nombre %>
-				</div>
-			</div>
-	
-			<div class="control-group">
-				<%= f.label :email %>
-				<div class="controls">
-				<i class="icon-white icon-asterisk"></i>
-					<%= f.email_field :email %>
-				</div>
-			</div>
-	
-			<div class="control-group">
-				<%= f.label :fecha_nacimiento %>
-				<div class="controls">
-					<%= f.date_select :fecha_nacimiento, :end_year => Time.now.year - 85, :start_year => Time.now.year - 18, :class => 'date_field' %>
-				</div>
-			</div>
-	
-			<div class="control-group">
-				<%= f.label :sexo %>
-				<div class="controls">
-					<%= f.select(:sexo, Usuario::SEXO, {:prompt => 'Selecciona'}) %>
-				</div>
-			</div>
-	
-			<!-- <label for="<%= resource_name %>_acepta_terminos" class="checkbox">
-			<%# = f.check_box :acepta_terminos %> Acepto los <%= link_to "Términos y Condiciones", general_terminos_path
-			%></a>
-			</label> -->
-	
-			<%= f.hidden_field :acepta_terminos, :value => true %>
-			<%= f.hidden_field :perfilable_type, :value => resource_name %>
-	
-			<div class="botones">
-				<%= f.submit "Registrarme", :class => 'btn btn-warning' %>
-			</div>
-		<% end %>
-	</div>
-<%- if controller_name != 'sessions'
-	mensaje = "Iniciar sesión como "+resource_name.to_s
-%>
-	<p>
-		<%= link_to mensaje, new_session_path(resource_name) %>
-	</p>
-<% end -%>
+    <div class="titulo-pendon">
+        <h2 class="sobre-color">Como <%= resource_name %></h2>
+    </div>
+    <div class="cuerpo-pendon">
+        <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+            <span class="help-block"><i class="icon-white icon-asterisk"></i> Indica campo obligatorio</span>
+            <div class="control-group">
+                <%= f.label :nombre %>
+                <div class="controls">
+                    <i class="icon-white icon-asterisk"></i>
+                    <%= f.text_field :nombre %>
+                </div>
+            </div>
+    
+            <div class="control-group">
+                <%= f.label :email %>
+                <div class="controls">
+                    <i class="icon-white icon-asterisk"></i>
+                    <%= f.email_field :email %>
+                </div>
+            </div>
+    
+            <div class="control-group">
+                <%= f.label :password, "Nueva clave" %>
+                <div class="controls">
+                    <i class="icon-white icon-asterisk"></i>
+                    <%= f.password_field :password %>
+                </div>
+            </div>
+    
+            <div class="control-group">
+                <%= f.label :password_confirmation, "Confirma la nueva clave" %>
+                <div class="controls">
+                    <i class="icon-white icon-asterisk"></i>
+                    <%= f.password_field :password_confirmation %>
+                </div>
+            </div>
+    
+            <div class="control-group">
+                <%= f.label :fecha_nacimiento %>
+                <div class="controls">
+                    <%= f.date_select :fecha_nacimiento, :end_year => Time.now.year - 85, :start_year => Time.now.year - 18, :class => 'date_field' %>
+                </div>
+            </div>
+    
+            <div class="control-group">
+                <%= f.label :sexo %>
+                <div class="controls">
+                    <%= f.select(:sexo, Usuario::SEXO, {:prompt => 'Selecciona'}) %>
+                </div>
+            </div>
+    
+            <!-- <label for="<%= resource_name %>_acepta_terminos" class="checkbox">
+            <%# = f.check_box :acepta_terminos %> Acepto los <%= link_to "Términos y Condiciones", general_terminos_path
+            %></a>
+            </label> -->
+    
+            <%= f.hidden_field :acepta_terminos, :value => true %>
+            <%= f.hidden_field :perfilable_type, :value => resource_name %>
+    
+            <div class="botones">
+                <%= f.submit "Registrarme", :class => 'btn btn-warning' %>
+            </div>
+        <% end %>
+    </div>
+    <%- if controller_name != 'sessions'
+            mensaje = "Iniciar sesión como "+resource_name.to_s
+    %>
+    <p>
+        <%= link_to mensaje, new_session_path(resource_name) %>
+    </p>
+    <% end -%>
 </div>
 
 <div id="caracteristicas" class="offset1 span8 registro">
-<%- if devise_mapping.registerable? && controller_name == 'registrations'
-	# Enlace para registrarse como otro tipo de usuario
-	mensaje = "¿Quieres registrarte como "
-	mensaje += resource_name.to_s == 'solicitante' ? "proveedor" : "solicitante"
-	mensaje += "?"
-	path = resource_name.to_s == 'solicitante' ? new_proveedor_registration_path : new_solicitante_registration_path
-%>
-	<p>
-		<%= link_to mensaje, path, :class => "cambio-tipo-usuario btn btn-success btn-large btn-block" %>
-	</p>
-<% end -%>
-<% if resource_name.to_s == 'proveedor' %>
-	<hr>
-	<p class="al-centro" style="font-weight:bold; margin:0; padding:0;"><a data-toggle="modal" data-target="#myModal" style="cursor:pointer;">Conoce nuestras categorías</a></p>
-<% end %>
-	<hr>
-	<h3>Beneficios como <%= resource_name.to_s %></h3>
-<% if resource_name.to_s == 'solicitante' %>
-	<div>
-		<p class="titulo">
-			Solicita
-		</p>
-		<p class="texto">
-			Dile a todos los proveedores qué es lo que necesitas.
-		</p>
-	</div>
-	<div>
-		<p class="titulo">
-			Compara
-		</p>
-		<p class="texto">
-			Recibe las propuestas de los proveedores de la categoría del trabajo, conoce su trayectoria y compara sus ofertas.
-		</p>
-	</div>
-	<div>
-		<p class="titulo">
-			Ahorra
-		</p>
-		<p class="texto">
-			Escoge al proveedor que te ofrezca el mejor servicio al mejor precio.
-		</p>
-	</div>
-<% else %>
-	<div>
-		<p class="titulo">
-			Difunde tu trabajo
-		</p>
-		<p class="texto">
-			Muéstrale a tus potenciales clientes la calidad de tu trabajo a través de tu perfil de TenTuPresupuesto.
-		</p>
-	</div>
-	<div>
-		<p class="titulo">
-			Accede a nuevos clientes
-		</p>
-		<p class="texto">
-			Ten acceso a todas las solicitudes publicadas en las categorías en las que prestas servicios.
-		</p>
-	</div>
-	<div>
-		<p class="titulo">
-			Incrementa tus contrataciones
-		</p>
-		<p class="texto">
-			Presenta las mejores ofertas, presta el mejor servicio, y gana reputación.
-		</p>
-	</div>
-<% end%>
-	<hr>
+    <%- if devise_mapping.registerable? && controller_name == 'registrations'
+    # Enlace para registrarse como otro tipo de usuario
+    mensaje = "¿Quieres registrarte como "
+    mensaje += resource_name.to_s == 'solicitante' ? "proveedor" : "solicitante"
+    mensaje += "?"
+    path = resource_name.to_s == 'solicitante' ? new_proveedor_registration_path : new_solicitante_registration_path
+    %>
+    <p>
+        <%= link_to mensaje, path, :class => "cambio-tipo-usuario btn btn-success btn-large btn-block" %>
+    </p>
+    <% end -%>
+    <% if resource_name.to_s == 'proveedor' %>
+    <hr>
+    <p class="al-centro" style="font-weight:bold; margin:0; padding:0;">
+        <a data-toggle="modal" data-target="#myModal" style="cursor:pointer;">Conoce nuestras categorías</a>
+    </p>
+    <% end %>
+    <hr>
+    <h3>Beneficios como <%= resource_name.to_s %></h3>
+    <% if resource_name.to_s == 'solicitante' %>
+    <div>
+        <p class="titulo">
+            Solicita
+        </p>
+        <p class="texto">
+            Dile a todos los proveedores qué es lo que necesitas.
+        </p>
+    </div>
+    <div>
+        <p class="titulo">
+            Compara
+        </p>
+        <p class="texto">
+            Recibe las propuestas de los proveedores de la categoría del trabajo, conoce su trayectoria y compara sus ofertas.
+        </p>
+    </div>
+    <div>
+        <p class="titulo">
+            Ahorra
+        </p>
+        <p class="texto">
+            Escoge al proveedor que te ofrezca el mejor servicio al mejor precio.
+        </p>
+    </div>
+    <% else %>
+    <div>
+        <p class="titulo">
+            Difunde tu trabajo
+        </p>
+        <p class="texto">
+            Muéstrale a tus potenciales clientes la calidad de tu trabajo a través de tu perfil de TenTuPresupuesto.
+        </p>
+    </div>
+    <div>
+        <p class="titulo">
+            Accede a nuevos clientes
+        </p>
+        <p class="texto">
+            Ten acceso a todas las solicitudes publicadas en las categorías en las que prestas servicios.
+        </p>
+    </div>
+    <div>
+        <p class="titulo">
+            Incrementa tus contrataciones
+        </p>
+        <p class="texto">
+            Presenta las mejores ofertas, presta el mejor servicio, y gana reputación.
+        </p>
+    </div>
+    <% end%>
+    <hr>
 </div>
 <% if resource_name.to_s == 'proveedor' %>
 <div id="myModal" class="modal hide">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-    <h3>Categorías</h3>
-  </div>
-  <div class="modal-body" style="text-align:center;">
-	<% Categoria.all.each do |c| %>
-    <p style="background-color:#eee; border:1px solid silver; border-radius:6px; display:inline-block; margin:3px; padding:4px;"><%= c.nombre %></p>
-	<% end %>
-	<br>
-	<p>¿No está tu servicio?<br><%= link_to "Sugiere una categoría", "https://docs.google.com/forms/d/1RzBhILlcjBDTWt5ZACnaeAHCbbmmmJER3Fbb92NlqL4/viewform", :target => "_blank", :class => "btn btn-success" %></p>
-  </div>
-  <div class="modal-footer">
-    <button type="button" data-dismiss="modal" class="btn">Cerrar</button>
-  </div>
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+            &times;
+        </button>
+        <h3>Categorías</h3>
+    </div>
+    <div class="modal-body" style="text-align:center;">
+        <% Categoria.all.each do |c| %>
+        <p style="background-color:#eee; border:1px solid silver; border-radius:6px; display:inline-block; margin:3px; padding:4px;">
+            <%= c.nombre %>
+        </p>
+        <% end %>
+        <br>
+        <p>
+            ¿No está tu servicio?
+            <br>
+            <%= link_to "Sugiere una categoría", "https://docs.google.com/forms/d/1RzBhILlcjBDTWt5ZACnaeAHCbbmmmJER3Fbb92NlqL4/viewform", :target => "_blank", :class => "btn btn-success" %>
+        </p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" data-dismiss="modal" class="btn">
+            Cerrar
+        </button>
+    </div>
 </div>
 <% end%>
