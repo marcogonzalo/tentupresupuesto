@@ -194,13 +194,16 @@ class TrabajosController < ApplicationController
   def finalizar_trabajo
     @trabajo = Trabajo.find(params[:id])
     es_el_solicitante = @trabajo.solicitante_id == current_solicitante.perfilable_id
+    @trabajo.estatus = 'finalizado'
+    @trabajo.precio_final = params[:trabajo][:precio_final].to_f
     
     respond_to do |format|
       if es_el_solicitante
-        if @trabajo.update_attribute('estatus','finalizado')
+        if @trabajo.save
           TtpMailer.notificar_trabajo_finalizado(@trabajo)
           flash[:success] = "Has marcado como finalizado el trabajo. Recuerda evaluar al proveedor en cuanto sea posible."
           format.json { render :json => { trabajo: @trabajo, tipo_mensaje: :success, mensaje: flash[:success]}}
+          #redirect_to new_trabajo_evaluacion_path(@trabajo)
         else
           flash[:error] = "Ocurrió un error. No pudo finalizarse el trabajo."
           format.json { render :json => { trabajo: @trabajo.errors, tipo_mensaje: :error, mensaje: flash[:error]} }

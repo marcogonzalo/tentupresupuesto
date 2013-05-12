@@ -23,77 +23,76 @@
 <%= (link_to "Volver al listado de presupuestos", trabajo_presupuestos_path(@trabajo), :class => 'btn btn-link') if @es_el_solicitante %>
 <h2 class="offset1"><%= t '.title', :default => model_class.model_name.human %></h2>
 <section id="descripcion" class="offset1 span20">
-<% if @es_el_solicitante %>
-	<h3 class="offset1">De: <span class="con-myriad"><%= @presupuesto.proveedor.nombre_empresa %></span></h3>
-<% end %>
-	<dl class="dl-horizontal">
-		<dt>
-			<strong>Precio estimado:</strong>
-		</dt>
-		<dd>
-			Entre <%= number_to_currency(@presupuesto.precio_minimo) %> y <%= number_to_currency(@presupuesto.precio_maximo) %> (<%= @presupuesto.incluye_iva %>) <span class="mini-nota">costo referencial</span>
-		</dd>
-		<dt>
-			<strong><%= model_class.human_attribute_name(:resumen) %>:</strong>
-		</dt>
-		<dd>
-			<pre><%= @presupuesto.resumen %></pre>
-		</dd>
-	<% if @presupuesto.rechazado %>
-		<dt>
-			<strong><%= model_class.human_attribute_name(:rechazado) %>:</strong>
-		</dt>
-		<dd>
-			Sí. <%= @presupuesto.motivo_rechazo.humanize %>.
-		</dd>
-	<% else %>
-		<% unless @presupuesto.aprobado.nil? %>
-		<dt>
-			<strong><%= model_class.human_attribute_name(:aprobado) %>:</strong>
-		</dt>
-		<dd>
-			<%= @presupuesto.aprobado ? "Sí":"No" %>.
-		</dd>
-		<% end %>
-	<% end %>
-	</dl>
-	<p class="mini-nota">
-		<%= @presupuesto.fue_visto if @es_el_proveedor %>
-	</p>
-	
+    <% if @es_el_solicitante %>
+    <h3 class="offset1">De: <span class="con-myriad"><%= @presupuesto.proveedor.nombre_empresa %></span></h3>
+    <% end %>
+    <dl class="dl-horizontal">
+        <dt>
+            <strong>Precio estimado:</strong>
+        </dt>
+        <dd>
+            Entre <%= number_to_currency(@presupuesto.precio_minimo) %> y <%= number_to_currency(@presupuesto.precio_maximo) %> (<%= @presupuesto.incluye_iva %>) <span class="mini-nota">costo referencial</span>
+        </dd>
+        <dt>
+            <strong><%= model_class.human_attribute_name(:resumen) %>:</strong>
+        </dt>
+        <dd>
+            <pre><%= @presupuesto.resumen %></pre>
+        </dd>
+        <% if @presupuesto.rechazado %>
+        <dt>
+            <strong><%= model_class.human_attribute_name(:rechazado) %>:</strong>
+        </dt>
+        <dd>
+            Sí. <%= @presupuesto.motivo_rechazo.humanize %>.
+        </dd>
+        <% else %>
+            <% unless @presupuesto.aprobado.nil? %>
+        <dt>
+            <strong><%= model_class.human_attribute_name(:aprobado) %>:</strong>
+        </dt>
+        <dd>
+            <%= @presupuesto.aprobado ? "Sí":"No" %>.
+        </dd>
+            <% end %>
+        <% end %>
+    </dl>
+    <p class="mini-nota">
+        <%= @presupuesto.fue_visto if @es_el_proveedor %>
+    </p>
 
 </section>
 <div class="clearfix"></div>
 <div class="form-actions">
 <% if @es_el_solicitante %>
-		<%= link_to "Ver solicitud", trabajo_path(@trabajo), :class => 'btn btn-large' %>
-		<%= link_to "Ver perfil", perfil_proveedor_path(@presupuesto.proveedor), :class => 'btn btn-warning btn-large' %>
-	<% unless @presupuesto.rechazado or @presupuesto.aprobado %>
-		<%= link_to "Contratar proveedor", aceptar_presupuesto_path(@presupuesto, :format => 'json'), :remote => 'true', :method => 'put',
-			:data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => '¿Deseas contratar a este proveedor? Esta acción es irreversible')) },
-			:id => 'aceptar-presupuesto', :class => 'btn btn-success btn-large' %>
-		<%= link_to "Rechazar presupuesto", '#modal-rechazo', :id => 'rechazar-presupuesto', :class => 'btn btn-danger btn-large', "data-toggle"=>"modal", "data-backdrop"=>"static" %>
-		<%= image_tag "tentu/generales/cargando.gif", {:class => "cargando cargando24", :id => "loading-aprobar-rechazar"} %>
-	<% end %>		
+    <%= link_to "Ver solicitud", trabajo_path(@trabajo), :class => 'btn btn-large' %>
+    <%= link_to "Ver perfil", perfil_proveedor_path(@presupuesto.proveedor), :class => 'btn btn-warning btn-large' %>
+    <% unless @presupuesto.rechazado or @presupuesto.aprobado %>
+        <%= link_to "Contratar proveedor", aceptar_presupuesto_path(@presupuesto, :format => 'json'), :remote => 'true', :method => 'put',
+            :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => '¿Deseas contratar a este proveedor? Esta acción es irreversible')) },
+            :id => 'aceptar-presupuesto', :class => 'btn btn-success btn-large' %>
+        <%= link_to "Rechazar presupuesto", '#modal-rechazo', :id => 'rechazar-presupuesto', :class => 'btn btn-danger btn-large', "data-toggle"=>"modal", "data-backdrop"=>"static" %>
+        <%= image_tag "tentu/generales/cargando.gif", {:class => "cargando cargando24", :id => "loading-aprobar-rechazar"} %>
+    <% end %>
 <% elsif @es_el_proveedor %>
-		<%= link_to "Ver solicitud", trabajo_path(@trabajo), :class => 'btn btn-large' %>
-	<% unless @presupuesto.rechazado or @presupuesto.aprobado %>
-		<%= link_to t('.edit', :default => t("helpers.links.edit")),
-			edit_presupuesto_path(@presupuesto), :class => 'btn btn-large' %>
-		<%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-			presupuesto_path(@presupuesto),
-			:method => 'delete',
-			:data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => '¿Deseas borrar el presupuesto ofertado?')) },
-			:class => 'btn btn-danger btn-large' %>
-	<% end %>
+    <%= link_to "Ver solicitud", trabajo_path(@trabajo), :class => 'btn btn-large' %>
+    <% unless @presupuesto.rechazado or @presupuesto.aprobado %>
+        <%= link_to t('.edit', :default => t("helpers.links.edit")),
+        edit_presupuesto_path(@presupuesto), :class => 'btn btn-large' %>
+        <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+            presupuesto_path(@presupuesto),
+            :method => 'delete',
+            :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => '¿Deseas borrar el presupuesto ofertado?')) },
+            :class => 'btn btn-danger btn-large' %>
+    <% end %>
 <% end %>
 </div>
-<%= render 'presupuestos/form_rechazo' %>
+<%= render 'presupuestos/form_rechazo' unless @presupuesto.rechazado or @presupuesto.aprobado %>
 <a name="mensajes"></a>
 <section id="mensajes" class="offset2 span18">
-	<h3>Mensajes</h3>
-	<div id="listado-mensajes">
-		<%= render(:partial => 'mensajes/cuadro_mensaje', :collection => @mensajes, :as => :m, :locals => {:tipo_usuario => @tipo_usuario}) or 'No hay mensajes.' %>
-	</div>
-	<%= render :partial => 'mensajes/form' %>
+    <h3>Mensajes</h3>
+    <div id="listado-mensajes">
+        <%= render(:partial => 'mensajes/cuadro_mensaje', :collection => @mensajes, :as => :m, :locals => {:tipo_usuario => @tipo_usuario}) or 'No hay mensajes.' %>
+    </div>
+    <%= render :partial => 'mensajes/form' %>
 </section>

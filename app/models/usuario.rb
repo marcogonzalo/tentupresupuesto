@@ -58,16 +58,16 @@ class Usuario < ActiveRecord::Base
   end
   
   # Sobreescritura de acciones Devise
-  def password_required?
-    super if confirmed?
-  end
+#  def password_required?
+#    super if confirmed?
+#  end
 
-  def password_match?
-    self.errors[:password] << "no puede quedar en blanco" if password.blank?
-    self.errors[:password_confirmation] << "no puede quedar en blanco " if password_confirmation.blank?
-    self.errors[:password_confirmation] << "no coincide la clave" if password != password_confirmation
-    password == password_confirmation && !password.blank?
-  end
+#  def password_match?
+#    self.errors[:password] << "no puede quedar en blanco" if password.blank?
+#    self.errors[:password_confirmation] << "no puede quedar en blanco " if password_confirmation.blank?
+#    self.errors[:password_confirmation] << "no coincide la clave" if password != password_confirmation
+#    password == password_confirmation && !password.blank?
+#  end
   
   private
   def correct_perfilable_type

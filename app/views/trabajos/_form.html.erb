@@ -8,15 +8,15 @@
 			<p class="help-block"><i class="icon-white icon-asterisk"></i> Todos los campos son obligatorios</p>
 			<div class="row">
 				<div class="control-group span9">
-					<%= f.label :proposito, "¿Qué necesitas?", :class => 'control-label' %>
+					<%= f.label :categoria_id, "¿Qué tipo de trabajo es?", :class => 'control-label' %>
 					<div class="controls">
-						<%= f.text_field :proposito, :class => 'text_field' %>
+						<%= f.select :categoria_id, Categoria.con_proveedores.collect {|c| [ c.nombre, c.id ] }, { :include_blank => "-- Selecciona --" } %>
 					</div>
 				</div>
 				<div class="control-group offset1 span9">
-					<%= f.label :categoria_id, :class => 'control-label' %>
+					<%= f.label :proposito, "¿Qué necesitas?", :class => 'control-label' %>
 					<div class="controls">
-						<%= f.select :categoria_id, Categoria.con_proveedores.collect {|c| [ c.nombre, c.id ] }, { :include_blank => "-- Selecciona --" } %>
+						<%= f.text_field :proposito, :class => 'text_field' %>
 					</div>
 				</div>
 			</div>

@@ -24,7 +24,7 @@ class TtpMailer < ActionMailer::Base
     @categoria        = trabajo.categoria.nombre
     @presupuesto      = presupuesto
     @proveedor        = proveedor.nombre_empresa
-    @tipo_proveedor   = proveedor.tipo_proveedor
+    @tipo_proveedor   = I18n.t proveedor.tipo_proveedor.to_sym, :scope => 'activerecord.attributes.proveedor.tipos_proveedor'
     emails = usuarios.map(&:email)
     mail( :to => emails,
           :subject => "Tu solicitud ha recibido una oferta" )
@@ -59,12 +59,12 @@ class TtpMailer < ActionMailer::Base
 
   # notifica la no contratacion de un presupuesto
   def presupuesto_no_contratado(trabajo,presupuesto,usuarios)
-    @trabajo    = trabajo
-    @categoria  = trabajo.categoria.nombre
-    @estado     = trabajo.estado.nombre
-    @municipio  = trabajo.municipio.nombre
-    @localidad  = trabajo.localidad.nombre
-    @presupuesto      = presupuesto
+    @trabajo      = trabajo
+    @categoria    = trabajo.categoria.nombre
+    @estado       = trabajo.estado.nombre
+    @municipio    = trabajo.municipio.nombre
+    @localidad    = trabajo.localidad.nombre
+    @presupuesto  = presupuesto
     emails = usuarios.map(&:email)
     mail( :to => emails,
           :subject => "Tu presupuesto no fue contratado" )
@@ -74,7 +74,7 @@ class TtpMailer < ActionMailer::Base
   def presupuesto_rechazado(trabajo,presupuesto,usuarios)
     @trabajo    = trabajo.proposito
     @categoria  = trabajo.categoria.nombre
-    @motivo     = presupuesto.motivo_rechazo.to_s
+    @motivo     = I18n.t presupuesto.motivo_rechazo.to_sym, :scope => 'activerecord.attributes.presupuesto.motivos_rechazo'
     emails = usuarios.map(&:email)
     mail( :to => emails,
           :subject => "Han rechazado tu presupuesto" )

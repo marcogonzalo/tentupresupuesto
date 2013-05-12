@@ -17,8 +17,8 @@ Ttp::Application.routes.draw do
   scope :path_names => { :new => "nuevo", :edit => "editar" } do
     scope :path_names => { :sign_in => 'iniciar_sesion', :sign_up => 'registro', :sign_out => 'cerrar_sesion', :password => 'clave', :confirmation => 'verificacion', :edit => 'editar' } do
       devise_for :admins
-      devise_for :proveedor, :class_name => 'Usuario', :controllers => { :registrations => "registrations", :confirmations => "confirmations" }
-      devise_for :solicitante, :class_name => 'Usuario', :controllers => { :registrations => "registrations", :confirmations => "confirmations" }
+      devise_for :proveedor, :class_name => 'Usuario', :controllers => { :registrations => "registrations"}
+      devise_for :solicitante, :class_name => 'Usuario', :controllers => { :registrations => "registrations"}
     end
 
     devise_scope :solicitante do
