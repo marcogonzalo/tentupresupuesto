@@ -16,7 +16,11 @@ module EvaluacionesHelper
         return '<div class="reputacion"><div class="'+rep+'" title="'+number_with_delimiter(reputacion)+'"><span style="'+ancho+'"><i>'+estrellas+'</i></span></div></div>'
       end
     else
-      return '<div class="reputacion"><div class="'+rep+'" title="Sin evaluar"><span style="width:0%;"><i>Sin evaluar</i></span></div></div>'
+      if tipo == "proveedor"
+        return '<div class="reputacion"><span class="sin-evaluar">Sin evaluaciones</span></div>'
+      else
+        return '<div class="reputacion"><div class="'+rep+'" title="Sin evaluar"><span style="width:0%;"><i>Sin evaluar</i></span></div></div>'
+      end
     end
   end
   
