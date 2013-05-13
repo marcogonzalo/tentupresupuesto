@@ -87,11 +87,11 @@ if resource.errors.any?
 
 <div id="caracteristicas" class="offset1 span8 registro">
     <%- if devise_mapping.registerable? && controller_name == 'registrations'
-    # Enlace para registrarse como otro tipo de usuario
-    mensaje = "¿Quieres registrarte como "
-    mensaje += resource_name.to_s == 'solicitante' ? "proveedor" : "solicitante"
-    mensaje += "?"
-    path = resource_name.to_s == 'solicitante' ? new_proveedor_registration_path : new_solicitante_registration_path
+        # Enlace para registrarse como otro tipo de usuario
+        mensaje = "¿Quieres registrarte como "
+        mensaje += resource_name.to_s == 'solicitante' ? "proveedor" : "solicitante"
+        mensaje += "?"
+        path = resource_name.to_s == 'solicitante' ? new_proveedor_registration_path : new_solicitante_registration_path
     %>
     <p>
         <%= link_to mensaje, path, :class => "cambio-tipo-usuario btn btn-success btn-large btn-block" %>

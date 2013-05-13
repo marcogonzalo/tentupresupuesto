@@ -1,0 +1,148 @@
+<%
+content_for :head do
+stylesheet_link_tag 'proveedores'
+end
+
+content_for :foot do
+#javascript_include_tag 'trabajos_show'
+end
+
+content_for :title do
+"Consejos para proveedores"
+end
+%>
+<% if params[:item].eql?('clientes') %>
+<h1 class="page-header">Consejos para conseguir más clientes</h1>
+<p>
+    TenTuPresupuesto se ha dado la tarea de investigar las variables que más valoran los clientes a la hora de contratar un servicio, 
+    por esa razón queremos darte los siguientes consejos:
+</p>
+
+<div id="caracteristicas" class="span17 offset2">
+    <div>
+        <h3>Completa tu Perfil Público</h3>
+        <p>
+            Completa toda la información referente a ti o a tu empresa (nombre, teléfono, descripción, página web, redes sociales, categorías) 
+            y sube todas las fotos permitidas de tus trabajos anteriores (coloca una breve descripción y una foto real), 
+            así como la foto del perfil, recuerda que a veces una imagen vale más que mil palabras. 
+            Cuanto más completo sea tu perfil transmitirás una imagen de profesionalismo a los usuarios de nuestra página web, 
+            recuerda que estos son tus clientes potenciales.
+        </p>
+    </div>
+    <div>
+        <h3>Cordialidad ante todo</h3>
+        <p>
+            Saluda a tu cliente potencial, personaliza tu presupuesto, haz que se sienta bien atendido y déjale saber cómo te puede contactar, 
+            o aún mejor, pídele sus datos y comunícate tú con él, ¡demuestra interés!
+        </p>
+    </div>
+    <div>
+        <h3>Preparación de Presupuestos</h3>
+        <p>
+            La primera impresión siempre cuenta, y el presupuesto que envíes será la primera vía de contacto entre tú y tu potencial cliente. 
+            Mientras más detalles des en tu oferta, la personalices y le des un toque de cordialidad y profesionalismo, 
+            mejorarás la posibilidad de obtener la contratación. 
+        </p>
+        <p>
+            No sólo cuenta el precio, la calidad y el profesionalismo son muy apreciados por los clientes. 
+        </p>
+        <p>
+            No escribas siempre lo mismo, recuerda que cada cliente y cada solicitud son diferentes.
+        </p>
+        <%= link_to "¿Cómo hacer un buen presupuesto?", consejos_proveedor_path(:item => "presupuestos") %>
+    </div>
+    <div>
+        <h3>Definición de precios estimados</h3>
+        <p>
+            En la medida de lo posible trata de usar cifras reales, no coloques números sin sentido ya que el cliente podría desconfiar de tu oferta. 
+            Aunque la descripción no dé mayor información, coloca un precio que pueda permitir al cliente tener un acercamiento al costo de su trabajo.
+        </p>
+        <p>
+            Si el precio es en metros cuadrados, o lineales, o siguen alguna relación con el tipo de trabajo, indícaselo al cliente, 
+            hazle saber, si la descripción lo permite, el precio total estimado del trabajo solicitado.
+        </p>
+        <p>
+            Como la mayoría de las veces el cliente no decide a la primera, 
+            se recomienda mantener actualizada la estimación de precios a medida que se obtiene más información sobre el trabajo a realizar.
+        </p>
+    </div>
+    <div>
+        <h3>Buenas Evaluaciones</h3>
+        <p>
+            La reputación dentro de TenTuPresupuesto es lo que le permite al cliente saber a quién está contratando, 
+            le da información sobre la calidad de su trabajo, su profesionalismo y otros aspectos que son importantes para ellos. 
+            Cuando seas contratado no olvides la cordialidad, puntualidad y dejar limpio el lugar, entre otras cosas, 
+            recuerda que una buena evaluación te dará una mejor reputación, y te permitirá conseguir más contrataciones.
+        </p>
+    </div>
+    <div>
+        <h3>Contrata siempre a través de TenTuPresupuesto</h3>
+        <p>
+            A medida que tus clientes quedan satisfechos con tus trabajos querrán volverte a contratar.
+            Evita que te contraten simplemente con una llamada telefónica. 
+            Al tener tus contrataciones en TenTuPresupuesto incrementas tu reputación y podrás conseguir más clientes.
+        </p>
+    </div>
+</div>
+<% elsif params[:item].eql?('presupuestos') %>
+<h1 class="page-header">Consejos para presentar un buen presupuesto</h1>
+<p>
+    Si deseas que tu presupuesto sea el elegido entre todos los que reciba el cliente debes conocer las claves para que tu oferta siempre de una excelente primera impresión.
+</p>
+
+<div id="caracteristicas" class="span17 offset2">
+    <div>
+        <h3>Datos claros, precisos y necesarios</h3>
+        <p>
+            Incluye solamente datos relativos al trabajo solicitado y al presupuesto ofrecido. 
+            La información sobre tu experiencia aparecerá en tu perfil, no tienes que colocarla en cada oferta. 
+            ¡Utiliza eficientemente el espacio ofrecido!
+        </p>
+    </div>
+    <div>
+        <h3>Tu experiencia es tu aliada a la hora de presupuestar</h3>
+        <p>
+            Sabemos que a veces hay solicitudes que no otorgan la información más idónea o deseada, 
+            que en ocasiones resulta difícil hacer un presupuesto atinado debido a la descripción que se tiene, 
+            pero haz tu mayor esfuerzo. 
+        </p>
+        <p>
+            Si la descripción del trabajo no te da toda la información necesaria, utiliza tu intuición para estimar 
+            qué actividades serían necesarias y estima cuál sería el precio del trabajo. 
+            También es recomendable coordinar una visita sin compromiso y desarrollar un presupuesto que se ajuste más a la realidad.
+        </p>
+    </div>
+    <div>
+        <h3>Describe los trabajos a realizar, uno a uno</h3>
+        <p>
+            A veces, una reparación o remodelación posee una serie de tareas, inclúyelas todas. 
+            La idea es dar una estimación de precios que oriente al solicitante a tomar su decisión. 
+        </p>
+        <p>
+            Recuerda describir todas las actividades, mostrará aún más profesionalismo, y 
+            hazle saber al cliente quién tendrá que cubrir los materiales.
+        </p>
+    </div>
+    <div>
+        <h3>Haz un esfuerzo y ofrece precios reales</h3>
+        <p>
+            Si la descripción no permite dar un precio estimado bastante cercano a la realidad, utiliza tu experiencia, i
+            ntuición y conocimientos para indicarle al cliente un precio referencial, 
+            colocar cifras irreales le hará más difícil tomar su decisión.
+        </p>
+    </div>
+    <div>
+        <h3>Comunícate con tu cliente, envíale mensajes</h3>
+        <p>
+            Si necesitas completar algún tipo de información puedes utilizar la mensajería gratuita que te ofrece TenTuPresupuesto, 
+            el cliente sentirá que está siendo bien atendido y podrás tener más probabilidades de ser contratado.
+        </p>
+        <p>
+            Por último no olvides que la información en tu perfil es clave para las contrataciones, ¡complétalo!, 
+            lo mismo sucede con la reputación que tengas, cuando termines un trabajo solicita tu evaluación al cliente, 
+            esto te ayudará a obtener contrataciones. 
+            <b>¡Éxitos!</b>
+        </p>
+    </div>
+</div>
+<% end %>

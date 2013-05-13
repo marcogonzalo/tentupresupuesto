@@ -25,7 +25,7 @@
         <div id="imagen-proveedor" class="img-rounded">
             <%= link_to(image_tag(current_proveedor.perfil.avatar.url, :alt => "Cambiar imagen de perfil", :title => "Cambiar imagen de perfil"), imagen_proveedor_path) %>
         </div>
-        <ul class="nav nav-list well span5" data-spy="affix" data-offset-top="<%= data_offset_top %>" data-offset-bottom="<%= data_offset_bottom %>">
+        <ul class="nav nav-list well span5" data--spy="affix" data-offset-top="<%= data_offset_top %>" data-offset-bottom="<%= data_offset_bottom %>">
             <li class="nav-header">
                 <i class="icon-white icon-user"></i> Usuario
             </li>
@@ -42,7 +42,7 @@
                 <%= link_to "Editar cuenta", edit_proveedor_registration_path %>
             </li>
             <li>
-                <%= link_to "Enlaces sociales <span class=\"badge badge-info\">nuevo</span>".html_safe, enlaces_de_proveedor_path %>
+                <%= link_to "Enlaces sociales <span class=\"label label-info\">nuevo</span>".html_safe, enlaces_de_proveedor_path %>
             </li>
             <li>
                 <%= link_to "Imagen de perfil", imagen_proveedor_path %>
@@ -64,6 +64,15 @@
             </li>
             <li class="disabled">
                 Evaluaciones
+            </li>
+            <li class="nav-header">
+                <i class="icon-white icon-bookmark"></i> Consejos <span class="label">nuevo</span>
+            </li>
+            <li>
+                <%= link_to "¿Cómo conseguir clientes?", consejos_proveedor_path(:item => "clientes") %>
+            </li>
+            <li>
+                <%= link_to "¿Cómo hacer un buen presupuesto?", consejos_proveedor_path(:item => "presupuestos") %>
             </li>
             <li class="divider"></li>
             <li class="disabled">
