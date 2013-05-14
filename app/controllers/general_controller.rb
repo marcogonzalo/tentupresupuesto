@@ -5,6 +5,12 @@ class GeneralController < ApplicationController
   def home
   end
   
+  def consejos_solicitante
+  end
+  
+  def consejos_proveedor
+  end
+  
   private
   def resolve_layout
     case action_name

@@ -1,0 +1,84 @@
+<%
+content_for :head do
+stylesheet_link_tag 'proveedores'
+end
+
+content_for :foot do
+#javascript_include_tag 'trabajos_show'
+end
+
+content_for :title do
+"Consejos para solicitantes"
+end
+%>
+<% if params[:item].eql?('solicitudes') %>
+<h1 class="page-header">Consejos para presentar una buena solicitud</h1>
+<p>
+    En TenTuPresupuesto nos preocupamos por ti y queremos que tu solicitud sea atendida a la brevedad posible, por eso te damos estos consejos para recibir presupuestos más acertados.
+</p>
+
+<div id="caracteristicas" class="span17 offset2">
+    <div>
+        <h3>Determina bien qué necesitas para que puedas obtener el presupuesto adecuado</h3>
+        <p>
+            Lo más importante antes de pedir presupuestos es saber claramente qué es lo que se necesita.
+            Describe bien cuál es tu necesidad, toma en cuenta la categoría o área de trabajo en la que tengas
+            una necesidad. Si necesitas varios trabajos evalúa hacer una solicitud por cada
+            uno o una solicitud general.
+        </p>
+        <p>
+            Una buena descripción de tu necesidad determina el éxito de los presupuestos obtenidos.
+            Hazle más fácil el trabajo al proveedor, indica cuáles son las medidas, distancias, cantidades,
+            materiales requeridos, o cualquier dato que consideres que pueda afectar al precio final.
+        </p>
+    </div>
+    <div>
+        <h3>No tengas prisa, compara varios presupuestos</h3>
+        <p>
+            Espera pacientemente a que los proveedores te envíen sus ofertas, espera a tener varias antes de
+            tomar una decisión. Es mejor que esperes unos tres a siete días para tener varios presupuestos, 
+            así podrás comparar precios y calidad.
+        </p>
+    </div>
+    <div>
+        <h3>Coordina visitas si son necesarias</h3>
+        <p>
+            Si un presupuesto requiere una verificación de la zona de trabajo coordina una visita con cada proveedor. 
+            Dale la oportunidad a varios para que tomen medidas y ajusten sus precios, 
+            esto te dará mayor garantía de obtener el precio más económico y de mejor calidad.
+        </p>
+    </div>
+    <div>
+        <h3>Utiliza la mensajería</h3>
+        <p>
+            Si deseas que un proveedor en particular se ponga en contacto contigo comunícate con él, 
+            utiliza la mensajería gratuita de TenTuPresupuesto para solicitar, añadir o complementar cualquier
+            información que el proveedor requiera. 
+        </p>
+        <p>
+            Mantén tu solicitud actualizada para que el proveedor siempre tenga la información correcta.
+        </p>
+    </div>
+    <div>
+        <h3>Contrata siempre a través de TenTuPresupuesto</h3>
+        <p>
+            Cuando escojas al proveedor de tu preferencia recuerda darle a contratar, de lo contrario seguirás
+            recibiendo presupuestos y el proveedor contratado no tendrá acceso a tus datos (teléfonos,
+            dirección, entre otras).
+        </p>
+    </div>
+    <div>
+        <h3>Utiliza la mensajería</h3>
+        <p>
+            Da la oportunidad a otras personas de poder escoger si contratar o no al proveedor que tú contrataste, evalúalo luego
+            de que realice el trabajo.
+        </p>
+        <p>
+            Recuerda que puedes consultar el perfil de cada proveedor y verificar su reputación.
+            Posiblemente verás proveedores que no tengan evaluaciones, 
+            esto no quiere decir que no sean buenos o no sean de calidad, 
+            sólo que aún no han sido contratados. Si son la mejor opción&hellip; <b>¡Contrátalos!</b>
+        </p>
+    </div>
+</div>
+<% end %>

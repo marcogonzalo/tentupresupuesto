@@ -1,171 +1,190 @@
 <%
-content_for :head do
-stylesheet_link_tag 'solicitantes'
-end
-
-content_for :foot do
-#javascript_include_tag 'trabajos_show'
-end
-
-content_for :title do
-"Panel de Solicitante"
-end
-
-if flash[:warning].nil? and flash[:error].nil? and flash[:info].nil? and flash[:success].nil? and notice.nil? and alert.nil?
-	data_offset_bottom = 210
-	data_offset_top = 250
-else
-	data_offset_bottom = 250
-	data_offset_top = 290
-end
+    content_for :head do
+        stylesheet_link_tag 'solicitantes'
+    end
+    
+    content_for :foot do
+    #javascript_include_tag 'trabajos_show'
+    end
+    
+    content_for :title do
+        "Panel de Solicitante"
+    end
+    
+    if flash[:warning].nil? and flash[:error].nil? and flash[:info].nil? and flash[:success].nil? and notice.nil? and alert.nil?
+        data_offset_bottom = 210
+        data_offset_top = 250
+    else
+        data_offset_bottom = 250
+        data_offset_top = 290
+    end
 %>
 <h1 class="page-header">Panel de solicitante</h1>
 <aside class="span6">
-	<div id="menu-panel">
-		<ul class="nav nav-list well span5" data-spy="affix" data-offset-top="<%= data_offset_top %>" data-offset-bottom="<%= data_offset_bottom %>">
-			<li class="nav-header">
-				<i class="icon-white icon-user"></i> Usuario
-			</li>
-			<li>
-				<%= link_to "Editar cuenta", edit_solicitante_registration_path %>
-			</li>
-			<li>
-				<%= link_to "Editar perfil", edit_solicitante_path %>
-			</li>
-			<li class="divider"></li>
-			<li class="nav-header">
-				<i class="icon-white  icon-list-alt"></i> Actividad
-			</li>
-			<li>
-				<a href="#solicitudes-abiertas">Solicitudes abiertas <i class="icon-white icon-chevron-right"></i></a>
-			</li>
-			<li>
-				<a href="#trabajos-ejecutando">Trabajos ejecutándose <i class="icon-white icon-chevron-right"></i></a>
-			</li>
-			<li>
-				<a href="#trabajos-pendientes">Trabajos por evaluar <i class="icon-white icon-chevron-right"></i></a>
-			</li>
-			<li class="disabled">
-				Estadísticas
-			</li>
-		</ul>
-	</div>
+    <div id="menu-panel">
+        <ul class="nav nav-list well span5" data-spy="affix" data-offset-top="<%= data_offset_top %>" data-offset-bottom="<%= data_offset_bottom %>">
+            <li class="nav-header">
+                <i class="icon-white icon-user"></i> Usuario
+            </li>
+            <li>
+                <%= link_to "Editar cuenta", edit_solicitante_registration_path %>
+            </li>
+            <li>
+                <%= link_to "Editar perfil", edit_solicitante_path %>
+            </li>
+            <li class="divider"></li>
+            <li class="nav-header">
+                <i class="icon-white  icon-list-alt"></i> Actividad
+            </li>
+            <li>
+                <a href="#solicitudes-abiertas">Solicitudes abiertas <i class="icon-white icon-chevron-right"></i></a>
+            </li>
+            <li>
+                <a href="#trabajos-ejecutando">Trabajos ejecutándose <i class="icon-white icon-chevron-right"></i></a>
+            </li>
+            <li>
+                <a href="#trabajos-pendientes">Trabajos por evaluar <i class="icon-white icon-chevron-right"></i></a>
+            </li>
+            <li class="nav-header">
+                <i class="icon-white icon-bookmark"></i> Consejos <span class="label">nuevo</span>
+            </li>
+            <li>
+                <%= link_to "¿Cómo hacer una buena solicitud?", consejos_solicitante_path(:item => "solicitudes") %>
+            </li>
+            <li class="divider"></li>
+            <li class="disabled">
+                Estadísticas
+            </li>
+        </ul>
+    </div>
 </aside>
 <div class="span16">
-	<div class="row">
-		<%= link_to "Nueva solicitud", new_trabajo_path, :class => 'btn btn-warning pull-right'%>
-		<h2 class="page-header">Mis solicitudes</h2>
-	</div>
-	<section id="solicitudes-abiertas" class="well">
-		<h3>Solicitudes abiertas</h3>
-		<% if @solicitudes.size > 0 %>
-		<table class="table table-striped">
-			<thead>
-				<tr>
-					<th>Trabajo</th>
-					<th>Presupuestos</th>
-					<th>Total de Mensajes</th>
-				</tr>
-			</thead>
-			<tbody>
-				<% @solicitudes.each do |trabajo|
-				mensajes = Mensaje.where(:presupuesto_id => trabajo.presupuestos)
-				%>
-				<tr>
-					<td><%= trabajo.proposito %>
-					<br>
-					<%= link_to 'Ver solicitud', trabajo %></td>
-					<td style="vertical-align: middle;">
-						<%=link_to t('extras.presupuestos', :count => trabajo.cant_presupuestos), trabajo_presupuestos_path(trabajo) %>
-					</td>
-					<td>
-						<%= t('extras.mensajes', :count => mensajes.size) %><br>
-						(<%= mensajes.where(:usuario => :proveedor, :visto => false).size %> sin leer)
-					</td>
-				</tr>
-				<% end %>
-			</tbody>
-		</table>
-		<% else%>
-		<p class="text-muted">
-			No tienes solicitudes esperando presupuestos.
-		</p>
-		<% end %>
-	</section>
-	<section id="trabajos-ejecutando" class="well">
-		<h3>Trabajos en ejecución</h3>
-		<% if @en_ejecucion.size > 0 %>
-		<table class="table table-striped">
-			<thead>
-				<tr>
-					<th>Trabajo</th>
-					<th>Presupuesto</th>
-					<th>Mensajes</th>
-				</tr>
-			</thead>
-			<tbody>
-			<% @en_ejecucion.each do |trabajo|
-				p = trabajo.presupuesto_contratado
-				m = p.mensajes
-			%>
-				<tr>
-					<td>
-						<p><%= trabajo.proposito %></p>
-						<p><%= link_to 'Ver solicitud', trabajo %></p>
-					</td>
-					<td>
-						<p><%= link_to((number_to_currency(p.precio_minimo)+" a "+number_to_currency(p.precio_maximo)), p) %></p>
-						<p>Por <%= link_to p.proveedor.nombre_empresa, proveedor_path(p.proveedor) %></p>
-					</td>
-					<td>
-						<p><%= link_to t('extras.mensajes', :count => p.cant_mensajes), presupuesto_path(p, :anchor => "mensajes") %></p>
-							<p>(<%= m.where(:usuario => :proveedor, :visto => false).size %> sin leer)</p>
-					</td>
-				</tr>
-			<% end %>
-			</tbody>
-		</table>
-		<% else%>
-		<p class="text-muted">
-			No tienes trabajos en ejecución.
-		</p>
-		<% end %>
-	</section>
+    <div class="row">
+        <%= link_to "Nueva solicitud", new_trabajo_path, :class => 'btn btn-warning pull-right'%>
+        <h2 class="page-header">Mis solicitudes</h2>
+    </div>
+    <section id="solicitudes-abiertas" class="well">
+        <h3>Solicitudes abiertas</h3>
+        <% if @solicitudes.size > 0 %>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Trabajo</th>
+                    <th>Presupuestos</th>
+                    <th>Total de Mensajes</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% @solicitudes.each do |trabajo|
+                mensajes = Mensaje.where(:presupuesto_id => trabajo.presupuestos)
+                %>
+                <tr>
+                    <td><%= trabajo.proposito %>
+                    <br>
+                    <%= link_to 'Ver solicitud', trabajo %></td>
+                    <td style="vertical-align: middle;"> <%= link_to t('extras.presupuestos', :count => trabajo.cant_presupuestos), trabajo_presupuestos_path(trabajo) %> </td>
+                    <td> <%= t('extras.mensajes', :count => mensajes.size) %>
+                    <br>
+                    (<%= mensajes.where(:usuario => :proveedor, :visto => false).size %> sin leer) </td>
+                </tr>
+                <% end %>
+            </tbody>
+        </table>
+        <% else%>
+        <p class="text-muted">
+            No tienes solicitudes esperando presupuestos.
+        </p>
+        <% end %>
+    </section>
+    <section id="trabajos-ejecutando" class="well">
+        <h3>Trabajos en ejecución</h3>
+        <% if @en_ejecucion.size > 0 %>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Trabajo</th>
+                    <th>Presupuesto</th>
+                    <th>Mensajes</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% @en_ejecucion.each do |trabajo|
+                p = trabajo.presupuesto_contratado
+                m = p.mensajes
+                %>
+                <tr>
+                    <td>
+                    <p>
+                        <%= trabajo.proposito %>
+                    </p>
+                    <p>
+                        <%= link_to 'Ver solicitud', trabajo %>
+                    </p></td>
+                    <td>
+                    <p>
+                        <%= link_to((number_to_currency(p.precio_minimo)+" a "+number_to_currency(p.precio_maximo)), p) %>
+                    </p>
+                    <p>
+                        Por <%= link_to p.proveedor.nombre_empresa, proveedor_path(p.proveedor) %>
+                    </p></td>
+                    <td>
+                    <p>
+                        <%= link_to t('extras.mensajes', :count => p.cant_mensajes), presupuesto_path(p, :anchor => "mensajes") %>
+                    </p>
+                    <p>
+                        (<%= m.where(:usuario => :proveedor, :visto => false).size %> sin leer)
+                    </p></td>
+                </tr>
+                <% end %>
+            </tbody>
+        </table>
+        <% else%>
+        <p class="text-muted">
+            No tienes trabajos en ejecución.
+        </p>
+        <% end %>
+    </section>
 
-	<section id="trabajos-pendientes" class="well">
-		<h3>Trabajos por evaluar</h3>
-		<% if @por_evaluar.size > 0 %>
-		<table class="table table-striped">
-			<thead>
-				<tr>
-					<th>Trabajo</th>
-					<th>Presupuesto</th>
-					<th></th>
-				</tr>
-			</thead>
-			<tbody>
-				<% @por_evaluar.each do |trabajo|
-					p = trabajo.presupuesto_contratado
-					m = p.mensajes
-				%>
-				<tr>
-					<td>
-						<p><%= trabajo.proposito %></p>
-						<p><%= link_to 'Ver solicitud', trabajo %></p>
-					</td>
-					<td>
-						<p><%= link_to((number_to_currency(p.precio_minimo)+" a "+number_to_currency(p.precio_maximo)), p) %></p>
-						<p><%= link_to t('extras.mensajes', :count => p.cant_mensajes), presupuesto_path(p, :anchor => "mensajes") %> (<%= m.where(:usuario => :proveedor, :visto => false).size %> sin leer)</p>
-					</td>
-					<td style="vertical-align: middle;"><%= link_to "Evaluar", new_trabajo_evaluacion_path(trabajo), :class => "btn btn-success" if trabajo.evaluacion.nil?%></td>
-				</tr>
-				<% end %>
-			</tbody>
-		</table>
-		<% else%>
-		<p class="text-muted">
-			¡Excelente! No tienes trabajos sin evaluar.
-		</p>
-		<% end %>
-	</section>
+    <section id="trabajos-pendientes" class="well">
+        <h3>Trabajos por evaluar</h3>
+        <% if @por_evaluar.size > 0 %>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Trabajo</th>
+                    <th>Presupuesto</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <% @por_evaluar.each do |trabajo|
+                p = trabajo.presupuesto_contratado
+                m = p.mensajes
+                %>
+                <tr>
+                    <td>
+                    <p>
+                        <%= trabajo.proposito %>
+                    </p>
+                    <p>
+                        <%= link_to 'Ver solicitud', trabajo %>
+                    </p></td>
+                    <td>
+                    <p>
+                        <%= link_to((number_to_currency(p.precio_minimo)+" a "+number_to_currency(p.precio_maximo)), p) %>
+                    </p>
+                    <p>
+                        <%= link_to t('extras.mensajes', :count => p.cant_mensajes), presupuesto_path(p, :anchor => "mensajes") %> (<%= m.where(:usuario => :proveedor, :visto => false).size %> sin leer)
+                    </p></td>
+                    <td style="vertical-align: middle;"><%= link_to "Evaluar", new_trabajo_evaluacion_path(trabajo), :class => "btn btn-success" if trabajo.evaluacion.nil?%></td>
+                </tr>
+                <% end %>
+            </tbody>
+        </table>
+        <% else%>
+        <p class="text-muted">
+            ¡Excelente! No tienes trabajos sin evaluar.
+        </p>
+        <% end %>
+    </section>
 </div>
