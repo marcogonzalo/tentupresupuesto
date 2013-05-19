@@ -70,7 +70,7 @@ class SolicitantesController < ApplicationController
   def create
     params[:solicitante][:pais_id] = 1 # Venezuela
     @localidad = ""
-    unless params[:solicitante][:localidad_id].empty?
+    unless params[:solicitante][:localidad_id].blank?
       @localidad = params[:solicitante][:localidad_id]
       params[:solicitante][:localidad_id] = UbicacionGeografica.buscar_o_crear_id_de_entidad(params[:solicitante][:localidad_id],'localidad',params[:solicitante][:municipio_id])
     end
@@ -105,7 +105,7 @@ class SolicitantesController < ApplicationController
 
     params[:solicitante][:pais_id] = 1 # Venezuela
     @localidad = ""
-    unless params[:solicitante][:localidad_id].empty?
+    unless params[:solicitante][:localidad_id].blank?
       @localidad = params[:solicitante][:localidad_id]
       params[:solicitante][:localidad_id] = UbicacionGeografica.buscar_o_crear_id_de_entidad(params[:solicitante][:localidad_id],'localidad',params[:solicitante][:municipio_id])
     end
