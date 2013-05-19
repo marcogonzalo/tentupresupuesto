@@ -22,44 +22,69 @@
 %>
 <%= (link_to "Volver al listado de presupuestos", trabajo_presupuestos_path(@trabajo), :class => 'btn btn-link') if @es_el_solicitante %>
 <h2 class="offset1"><%= t '.title', :default => model_class.model_name.human %></h2>
-<section id="descripcion" class="offset1 span20">
+<section id="descripcion" class="offset1 span19">
     <% if @es_el_solicitante %>
-    <h3 class="offset1">De: <span class="con-myriad"><%= @presupuesto.proveedor.nombre_empresa %></span></h3>
+    <h3 class="offset1"><%= @presupuesto.proveedor.nombre_empresa %></h3>
     <% end %>
-    <dl class="dl-horizontal">
-        <dt>
-            <strong>Precio estimado:</strong>
-        </dt>
-        <dd>
-            Entre <%= number_to_currency(@presupuesto.precio_minimo) %> y <%= number_to_currency(@presupuesto.precio_maximo) %> (<%= @presupuesto.incluye_iva %>) <span class="mini-nota">costo referencial</span>
-        </dd>
-        <dt>
-            <strong><%= model_class.human_attribute_name(:resumen) %>:</strong>
-        </dt>
-        <dd>
-            <pre><%= @presupuesto.resumen %></pre>
-        </dd>
-        <% if @presupuesto.rechazado %>
-        <dt>
-            <strong><%= model_class.human_attribute_name(:rechazado) %>:</strong>
-        </dt>
-        <dd>
-            Sí. <%= @presupuesto.motivo_rechazo.humanize %>.
-        </dd>
-        <% else %>
-            <% unless @presupuesto.aprobado.nil? %>
-        <dt>
-            <strong><%= model_class.human_attribute_name(:aprobado) %>:</strong>
-        </dt>
-        <dd>
-            <%= @presupuesto.aprobado ? "Sí":"No" %>.
-        </dd>
+    <div class="pull-right span6">
+        <div id="precio">
+            <p><span id="monto"><%= number_to_currency(@presupuesto.precio_minimo) %><br>a<br><%= number_to_currency(@presupuesto.precio_maximo) %></span><span id="con-iva"><%= @presupuesto.incluye_iva %></span><span class="mini-nota">(costo referencial)</span></p>
+        </div>
+    </div>
+    <div class="offset2 span10">
+        <div class="row">
+            <p>
+            <% if @presupuesto.rechazado %>
+                    <span class="label label-important">rechazado</span> <span class="text-error"><%= t('activerecord.attributes.presupuesto.motivos_rechazo.'+@presupuesto.motivo_rechazo.to_s) %></span>.
+            <% else %>
+                <% if not @presupuesto.aprobado.nil? %>
+                    <%= @presupuesto.aprobado ? '<span class="label label-success">APROBADO</span>'.html_safe : '<span class="label label-important">no aprobado</span>'.html_safe %>.
+                <% else %>
+                <span class="label">
+                    <%= @presupuesto.fue_visto if @es_el_proveedor %>
+                </span>
+                <% end %>
             <% end %>
-        <% end %>
-    </dl>
-    <p class="mini-nota">
-        <%= @presupuesto.fue_visto if @es_el_proveedor %>
-    </p>
+            </p>
+        </div>
+        <div class="row">
+            <%= image_tag @presupuesto.proveedor.avatar.mini.url, :class => 'pull-left' %>
+            
+            <blockquote class="pull-left span6">
+                <b>Dice: </b>
+                <pre><%= @presupuesto.resumen %></pre>
+            </blockquote>
+        </div>
+        <div class="row">
+            <h4>Para contactar a <%= @presupuesto.proveedor.nombre_empresa %></h4>
+            <dl class="dl-horizontal">
+                <% unless @presupuesto.proveedor.telefono_local.blank? %>
+                <dt>
+                    <strong><%= t('activerecord.attributes.proveedor.telefono_local') %>: </strong>
+                </dt>
+                <dd>
+                    <%= @presupuesto.proveedor.telefono_local %>
+                </dd>
+                <% end %>
+                <% unless @presupuesto.proveedor.telefono_movil.blank? %>
+                <dt>
+                    <strong><%= t('activerecord.attributes.proveedor.telefono_movil') %>: </strong>
+                </dt>
+                <dd>
+                    <%= @presupuesto.proveedor.telefono_movil %>
+                </dd>
+                <% end %>
+                <% unless @presupuesto.proveedor.telefono_alt.blank? %>
+                <dt>
+                    <strong><%= t('activerecord.attributes.proveedor.telefono_alt') %>: </strong>
+                </dt>
+                <dd>
+                    <%= @presupuesto.proveedor.telefono_alt %>
+                </dd>
+                <% end %>
+            </dl>
+        </div>
+    </div>
 
 </section>
 <div class="clearfix"></div>

@@ -27,7 +27,7 @@
     <% if @es_el_proveedor %>
     <h4>Datos del solicitante</h4>
     <dl class="dl-horizontal">
-        <% unless @trabajo.solicitante.telefono_local.empty? %>
+        <% unless @trabajo.solicitante.telefono_local.blank? %>
         <dt>
             <strong>Teléfono Local: </strong>
         </dt>
@@ -35,7 +35,7 @@
             <%= @trabajo.solicitante.telefono_local %>
         </dd>
         <% end %>
-        <% unless @trabajo.solicitante.telefono_movil.empty? %>
+        <% unless @trabajo.solicitante.telefono_movil.blank? %>
         <dt>
             <strong>Teléfono Móvil </strong>
         </dt>
@@ -43,7 +43,7 @@
             <%= @trabajo.solicitante.telefono_movil %>
         </dd>
         <% end %>
-        <% unless @trabajo.solicitante.telefono_alt.empty? %>
+        <% unless @trabajo.solicitante.telefono_alt.blank? %>
         <dt>
             <strong>Teléfono Alternativo: </strong>
         </dt>
