@@ -73,7 +73,7 @@
     new_trabajo_presupuesto_path(@trabajo), :class => 'btn btn-success btn-large') if @trabajo.buscando? %>
 <% else %>
     <%= link_to t('.new', :default => "Para ofertar presupuestos o publicar solicitudes como esta, regístrate aquí"),
-    new_registration_path("solicitante"), :class => 'btn btn-success btn-large' %>
+    new_registration_path("proveedor"), :class => 'btn btn-success btn-large' %>
 <% end %>
     <%= image_tag "tentu/generales/cargando.gif", {:class => "cargando cargando24", :id => "loading-trabajo"} %>
 </div>
