@@ -40,9 +40,11 @@
                 <% if not @presupuesto.aprobado.nil? %>
                     <%= @presupuesto.aprobado ? '<span class="label label-success">APROBADO</span>'.html_safe : '<span class="label label-important">no aprobado</span>'.html_safe %>
                 <% else %>
+                    <%  if @es_el_proveedor %>
                 <span class="label">
-                    <%= @presupuesto.fue_visto if @es_el_proveedor %>
+                    <%= @presupuesto.fue_visto %>
                 </span>
+                    <% end %>
                 <% end %>
             <% end %>
             </p>
