@@ -1,27 +1,29 @@
 <% unless p.proveedor == contratado %>
 <div class="span4 presupuesto">
-	<div class="separar-alrededor">
-		<%= image_tag(p.proveedor.avatar.mini.url) %>
-		<span class="proveedor-interesado"><b><%= p.proveedor.nombre_empresa %></b></span>
-		<%= raw mostrar_reputacion(p.proveedor.reputacion, p.proveedor.valoraciones, "proveedor") %>
-	</div>
-	<% if es_el_solicitante and false %>
-	<details>
-		<p>
-			Precio estimado:
-			<br>
-			<%= number_to_currency(p.precio_minimo) %> a <%= number_to_currency(p.precio_maximo) %>
-			<br>
-			(<%= p.incluye_iva%>)
-		</p>
-		<p>
-			<%= p.resumen %>
-		</p>
-	</details>
-	<% end %>
-	<div class="botones">
-		<%= link_to("Ver oferta", presupuesto_path(p), :class=>"btn btn-small") if es_el_solicitante %>
-		<%= link_to "Ver perfil", perfil_proveedor_path(p.proveedor), :class => 'btn btn-warning btn-small' %>
-	</div>
+    <div class="separar-alrededor">
+        <div style="min-height:90px;">
+            <%= image_tag(p.proveedor.avatar.mini.url) %>
+        </div>
+        <span class="proveedor-interesado"><b><%= p.proveedor.nombre_empresa %></b></span>
+        <%= raw mostrar_reputacion(p.proveedor.reputacion, p.proveedor.valoraciones, "proveedor") %>
+    </div>
+    <% if es_el_solicitante and false %>
+    <details>
+        <p>
+            Precio estimado:
+            <br>
+            <%= number_to_currency(p.precio_minimo) %> a <%= number_to_currency(p.precio_maximo) %>
+            <br>
+            (<%= p.incluye_iva%>)
+        </p>
+        <p>
+            <%= p.resumen %>
+        </p>
+    </details>
+    <% end %>
+    <div class="botones">
+        <%= link_to "Ver perfil", perfil_proveedor_path(p.proveedor), :class => 'btn btn-small' %>
+        <%= link_to("Ver oferta", presupuesto_path(p), :class=>"btn btn-warning btn-small") if es_el_solicitante %>
+    </div>
 </div>
 <% end %>

@@ -119,7 +119,7 @@ class ProveedoresController < ApplicationController
   def create
     params[:proveedor][:pais_id] = 1 # Venezuela
     @localidad = ""
-    unless params[:proveedor][:localidad_id].empty?
+    unless params[:proveedor][:localidad_id].blank?
       params[:proveedor][:localidad_id] = UbicacionGeografica.buscar_o_crear_id_de_entidad(params[:proveedor][:localidad_id],'localidad',params[:proveedor][:municipio_id])
     end
     @proveedor = Proveedor.new(params[:proveedor])
@@ -158,7 +158,7 @@ class ProveedoresController < ApplicationController
     
     params[:proveedor][:pais_id] = 1 # Venezuela
     @localidad = ""
-    unless params[:proveedor][:localidad_id].empty?
+    unless params[:proveedor][:localidad_id].blank?
       @localidad = params[:proveedor][:localidad_id]
       params[:proveedor][:localidad_id] = UbicacionGeografica.buscar_o_crear_id_de_entidad(params[:proveedor][:localidad_id],'localidad',params[:proveedor][:municipio_id])
     end

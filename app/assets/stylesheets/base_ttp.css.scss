@@ -12,7 +12,7 @@
  *= require_self
  */
 
-#cabecera-interna { background-color:white; margin:0px auto; max-width:1060px; min-height:170px; }
+#cabecera-interna { background-color:white; margin:0px auto; max-width:1060px; min-height:170px; padding-bottom:5px;}
 #cabecera-interna .navbar { background: url('tentu/generales/head.png') no-repeat center top; margin-bottom:0px; min-height:170px; overflow:hidden; position:relative; top:-19px; }
 #cabecera-interna .navbar .brand { margin:0px; padding:0px; margin-top:1%; }
 #cabecera-interna .navbar .brand img { width:100%; }

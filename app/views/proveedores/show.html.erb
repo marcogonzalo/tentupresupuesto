@@ -75,6 +75,7 @@
                 </div>
                 <div class="row">
                     <div id="datos-ubicacion" class="span10">
+                    <% if false %>
                         <dl class="dl-horizontal">
                             <h4 class="con-myriad-bold">Datos de contacto</h4>
                             <% unless @proveedor.telefono_local.blank? %>
@@ -102,6 +103,7 @@
                             </dd>
                             <% end %>
                         </dl>
+                    <% end %>
                         <dl class="dl-horizontal">
                             <h4 class="con-myriad-bold">Registro de actividad</h4>
                             <dt>

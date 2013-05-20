@@ -98,9 +98,9 @@ class TrabajosController < ApplicationController
     @trabajo.municipio_id = perfil.municipio_id unless perfil.municipio_id.nil?
     @trabajo.localidad_id = perfil.localidad_id unless perfil.localidad_id.nil?
     @localidad = @trabajo.localidad ? @trabajo.localidad.nombre : ""
-    unless perfil.direccion.empty?
+    unless perfil.direccion.blank?
       direccion = perfil.direccion
-      pto_ref = perfil.punto_referencia.empty? ? "" : ". Punto de referencia: "+perfil.punto_referencia
+      pto_ref = perfil.punto_referencia.blank? ? "" : ". Punto de referencia: "+perfil.punto_referencia
       @trabajo.direccion = direccion+pto_ref
     end
 
@@ -132,7 +132,7 @@ class TrabajosController < ApplicationController
   def create
     params[:trabajo][:pais_id] = 1 # Venezuela
     @localidad = ""
-    unless params[:trabajo][:localidad_id].empty?
+    unless params[:trabajo][:localidad_id].blank?
       @localidad = params[:trabajo][:localidad_id]
       params[:trabajo][:localidad_id] = UbicacionGeografica.buscar_o_crear_id_de_entidad(params[:trabajo][:localidad_id],'localidad',params[:trabajo][:municipio_id])
     end
@@ -161,7 +161,7 @@ class TrabajosController < ApplicationController
     
     params[:trabajo][:pais_id] = 1 # Venezuela
     @localidad = ""
-    unless params[:trabajo][:localidad_id].empty?
+    unless params[:trabajo][:localidad_id].blank?
       params[:trabajo][:localidad_id] = UbicacionGeografica.buscar_o_crear_id_de_entidad(params[:trabajo][:localidad_id],'localidad',params[:trabajo][:municipio_id])
     end
 
