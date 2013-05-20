@@ -1,24 +1,32 @@
 <%= form_for @presupuesto, :url => rechazar_presupuesto_path(@presupuesto), :method => 'put', :remote => true, :html => {:id => "rechazo-presupuesto"} do |f| %>
-  <div id="modal-rechazo" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-header">
-      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
-      <h3 id="myModalLabel">Rechazar presupuesto</h3>
+    <div id="modal-rechazo" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                x
+            </button>
+            <h3 id="myModalLabel">Rechazar presupuesto</h3>
+        </div>
+        <div class="modal-body">
+            <p>
+                Al rechazar un presupuesto, impides de manera definitiva que el proveedor oferte en esta solicitud.
+                Si tienes dudas sobre el presupuesto, te recomendamos contactar al proveedor para aclararlas.
+            </p>
+            <p>
+                Si ya has determinado que no te interesa tener este presupuesto como opción, puedes proceder con el rechazo.
+            </p>
+            <div class="control-group">
+                <%= f.label :motivo_rechazo %>
+                <div class="controls">
+                    <%= f.select :motivo_rechazo, motivos_rechazo %>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <%= image_tag "tentu/generales/cargando.gif", {:class => "cargando cargando24", :id => "loading-rechazo"} %>
+            <button class="btn" data-dismiss="modal" aria-hidden="true">
+                Cerrar
+            </button>
+            <%= f.submit "Rechazar presupuesto", :class => 'btn btn-danger' %>
+        </div>
     </div>
-    <div class="modal-body">
-      <p>
-        Al rechazar un presupuesto, impides de manera definitiva que el proveedor oferte en esta solicitud. 
-        Si tienes dudas sobre el presupuesto, te recomendamos contactar al proveedor para aclararlas.
-      </p>
-      <p>
-        Si ya has determinado que no te interesa tener este presupuesto como opción, puedes proceder con el rechazo.
-      </p>
-      <div class="control-group"><%= f.label :motivo_rechazo %>
-        <div class="controls"><%= f.select :motivo_rechazo, motivos_rechazo %></div>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</button>
-      <%= f.submit "Rechazar presupuesto", :class => 'btn btn-danger' %>
-    </div>
-  </div>
 <% end %>
