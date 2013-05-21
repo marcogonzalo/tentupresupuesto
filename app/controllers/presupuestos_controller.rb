@@ -39,7 +39,7 @@ class PresupuestosController < ApplicationController
       m_u = 'solicitante'
     end
     
-    if @es_el_solicitante or @es_el_proveedor
+    if @es_el_solicitante or @es_el_proveedor or admin_signed_in?
       @mensajes = @presupuesto.mensajes
       # Actualiza como "visto" los mensajes del otro usuario
       @mensajes.update_all({ :visto => true }, ['usuario = ?', m_u])
@@ -55,7 +55,7 @@ class PresupuestosController < ApplicationController
     add_breadcrumb :index, trabajo_presupuestos_path(@trabajo)
     add_breadcrumb :show
     respond_to do |format|
-      if @es_el_solicitante or @es_el_proveedor
+      if @es_el_solicitante or @es_el_proveedor or admin_signed_in?
         format.html # show.html.erb
         format.json { render json: @presupuesto }
       else

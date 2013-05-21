@@ -22,7 +22,7 @@ RailsAdmin.config do |config|
   # config.audit_with :paper_trail, 'Admin'
 
   # Display empty fields in show views:
-  # config.compact_show_view = false
+  config.compact_show_view = false
 
   # Number of default rows per-page:
   config.default_items_per_page = 50
@@ -419,7 +419,14 @@ RailsAdmin.config do |config|
           column_width 50
         end
       end
-  #     show do; end
+      show do
+        field :resumen do
+          pretty_value do
+            %{<pre>#{value}</pre>}.html_safe
+          end
+        end
+        include_all_fields
+      end
   #     edit do; end
   #     export do; end
   #     # also see the create, update, modal and nested sections, which override edit in specific cases (resp. when creating, updating, modifying from another model in a popup modal or modifying from another model nested form)
@@ -657,7 +664,14 @@ RailsAdmin.config do |config|
           column_width 100
         end
       end
-  #     show do; end
+      show do
+        field :descripcion do
+          pretty_value do
+            %{<pre>#{value}</pre>}.html_safe
+          end
+        end
+        include_all_fields
+      end
   #     edit do; end
   #     export do; end
   #     # also see the create, update, modal and nested sections, which override edit in specific cases (resp. when creating, updating, modifying from another model in a popup modal or modifying from another model nested form)

@@ -22,16 +22,14 @@
 %>
 <%= (link_to "Volver al listado de presupuestos", trabajo_presupuestos_path(@trabajo), :class => 'btn btn-link') if @es_el_solicitante %>
 <h2 class="offset1 span10"><%= t '.title', :default => model_class.model_name.human %></h2>
-<section id="descripcion" class="offset1 span19">
-    <% if @es_el_solicitante %>
-    <h3 class="offset1"><%= @presupuesto.proveedor.nombre_empresa %></h3>
-    <% end %>
-    <div class="pull-right span6">
+<section id="descripcion" class="offset1 span21">
+    <div class="span5">
         <div id="precio">
             <p><span id="monto"><%= number_to_currency(@presupuesto.precio_minimo) %><br>a<br><%= number_to_currency(@presupuesto.precio_maximo) %></span><span id="con-iva"><%= @presupuesto.incluye_iva %></span><span class="mini-nota">(costo referencial)</span></p>
         </div>
     </div>
-    <div class="offset2 span10">
+    <div class="offset1 span13">
+        <div class="row">
         <div class="row">
             <p>
             <% if @presupuesto.rechazado %>
@@ -49,17 +47,15 @@
             <% end %>
             </p>
         </div>
-        <div class="row">
-            <%= image_tag @presupuesto.proveedor.avatar.mini.url, :class => 'pull-left' %>
-            
-            <blockquote class="pull-left span6">
-                <b>Descripción: </b>
+            <h3><%= @presupuesto.proveedor.nombre_empresa %> Reyes Ing y Asociados, C.A.: </h3>
+            <blockquote class="span13">
+                <%= image_tag @presupuesto.proveedor.avatar.mini.url, :class => 'pull-right', :style => "margin:2px;" %>
                 <pre><%= @presupuesto.resumen %></pre>
             </blockquote>
         </div>
         <div class="row">
-            <h4 class="offset1">Datos de contacto</h4>
-            <dl class="dl-horizontal offset2">
+            <h4>Datos de contacto</h4>
+            <dl class="dl-horizontal offset1">
                 <% unless @presupuesto.proveedor.telefono_local.blank? %>
                 <dt>
                     <strong><%= t('activerecord.attributes.proveedor.telefono_local') %>: </strong>
@@ -91,8 +87,8 @@
 </section>
 <div class="clearfix"></div>
 <div class="form-actions">
-<% if @es_el_solicitante %>
     <%= link_to "Ver solicitud", trabajo_path(@trabajo), :class => 'btn btn-large' %>
+<% if @es_el_solicitante %>
     <%= link_to "Ver perfil", perfil_proveedor_path(@presupuesto.proveedor), :class => 'btn btn-warning btn-large' %>
     <% unless @presupuesto.rechazado or @presupuesto.aprobado %>
         <%= link_to "Contratar proveedor", aceptar_presupuesto_path(@presupuesto, :format => 'json'), :remote => 'true', :method => 'put',
@@ -102,7 +98,6 @@
         <%= image_tag "tentu/generales/cargando.gif", {:class => "cargando cargando24", :id => "loading-aprobar-rechazar"} %>
     <% end %>
 <% elsif @es_el_proveedor %>
-    <%= link_to "Ver solicitud", trabajo_path(@trabajo), :class => 'btn btn-large' %>
     <% unless @presupuesto.rechazado or @presupuesto.aprobado %>
         <%= link_to t('.edit', :default => t("helpers.links.edit")),
         edit_presupuesto_path(@presupuesto), :class => 'btn btn-large' %>

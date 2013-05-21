@@ -13,16 +13,17 @@ textarea { height:10em; max-width:90%;}
 #presupuesto-trabajo header { padding:1%;}
 #presupuesto-trabajo header p { font-size:0.9em; margin-bottom:0.45em;}
 #presupuesto-trabajo #descripcion blockquote {min-height: 90px;}
-#presupuesto-trabajo #precio { background-color:#3A87AD; color:white; height:200px; margin:0.5em auto; width:200px; 
+#presupuesto-trabajo #precio { background-color:#3A87AD; color:white; height:150px; margin:0.5em auto; width:150px; 
 -o-border-radius:100%;
 -moz-border-radius:100%;
 -webkit-border-radius:100%;
 -khtml-border-radius:100%;
 border-radius:100%;
 }
-#presupuesto-trabajo #precio p {text-align: center; padding:40px 10px 0px 10px;}
-#presupuesto-trabajo #precio #monto { font-size:2em; font-weight:bold; line-height:1.25em; }
-#presupuesto-trabajo #precio #con-iva {display:block; font-size: 0.85em; line-height:1em;}
+#presupuesto-trabajo #precio p {text-align: center; padding:25px 10px 0px 10px;}
+#presupuesto-trabajo #precio #monto { font-size:1.5em; font-weight:bold; line-height:1.25em; }
+#presupuesto-trabajo #precio #con-iva {display:block; font-size: 0.85em; line-height:0.9em;}
+#presupuesto-trabajo #precio #mini-nota {display:block; font-size: 0.85em; line-height:0.9em;}
 #presupuesto-trabajo .form-actions { text-align:center; }
 
 @media screen and (max-width: 767px) { 
