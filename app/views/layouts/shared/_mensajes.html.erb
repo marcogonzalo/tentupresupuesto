@@ -22,4 +22,7 @@
     mensaje= ""
   end 
 %>
-<p id="mensaje-ttp" class="<%= clase %>"><%= mensaje%></p>
+<div id="mensaje-ttp" class="<%= clase %>"> 
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <%= mensaje.html_safe %>
+</div>

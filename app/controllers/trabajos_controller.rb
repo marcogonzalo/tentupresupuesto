@@ -138,12 +138,16 @@ class TrabajosController < ApplicationController
     end
     
     @trabajo = Trabajo.new(params[:trabajo])
-
+    @cant_proveedores = Categoria.find(@trabajo.categoria_id).proveedores.where(:estado_id => @trabajo.estado_id).size
     respond_to do |format|
       @trabajo.solicitante_id = current_solicitante.perfilable_id
       if @trabajo.save
-        TtpMailer.notificar_solicitud_publicada(@trabajo)
-        flash[:success] = "Solicitud publicada exitosamente"
+        if @cant_proveedores > 0
+          TtpMailer.notificar_solicitud_publicada(@trabajo)
+          flash[:success] = "Solicitud publicada exitosamente a <b>#{@cant_proveedores} en tu región</b>"
+        else
+          flash[:info] = "Tu solicitud ha sido publicada.<br>Por ahora <b>no tenemos proveedores registrados en tu región</b> para tu solicitud.<br>¡Trabajaremos para conseguirlos!"
+        end
         format.html { redirect_to @trabajo }
         format.json { render json: @trabajo, status: :created, location: @trabajo }
       else
