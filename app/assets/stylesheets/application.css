@@ -12,33 +12,78 @@
  *= require base_ttp
  *= require_self
  */
-select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input { font-size:1em; margin-bottom:0px; margin-right:5px; width:90%; }
-
-#cuerpo { background-color:white; clear:both; margin: 0px auto; max-width:1060px; overflow:hidden; padding-bottom:3em; }
-
-#caracteristicas { margin-top:1em; }
-#caracteristicas div { background:url('tentu/internas/estrellagrande.png') no-repeat top left; clear:both; display:block; min-height:48px; padding:17px 0px 0em 50px; }
-#caracteristicas .titulo { font-family:'Arial', sans-serif; font-weight:bold; font-size:1.4em; margin:0px;}
-#caracteristicas p { font-size:1em; margin-left:1.25em; text-align:justify;}
+select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
+    font-size: 1em;
+    margin-bottom: 0px;
+    margin-right: 5px;
+    width: 90%;
+}
+#cuerpo {
+    background-color: white;
+    clear: both;
+    margin: 0px auto;
+    max-width: 1060px;
+    overflow: hidden;
+    padding-bottom: 3em;
+}
+#caracteristicas {
+    margin-top: 1em;
+}
+#caracteristicas div {
+    background: url('tentu/internas/estrellagrande.png') no-repeat top left;
+    clear: both;
+    display: block;
+    min-height: 48px;
+    padding: 17px 0px 0em 50px;
+}
+#caracteristicas .titulo {
+    font-family: 'Arial', sans-serif;
+    font-weight: bold;
+    font-size: 1.4em;
+    margin: 0px;
+}
+#caracteristicas p {
+    font-size: 1em;
+    margin-left: 1.25em;
+    text-align: justify;
+}
 
 /* Dejar siempre debajo para sobreescribir en dispositivos */
-@media screen and (min-width: 1200px) { 
-  #cuerpo .container, #pie .container { padding:0px 3%; }
-  #cuerpo .container { max-width:995px; }
+@media screen and (min-width: 1200px) {
+    #cuerpo .container, #pie .container {
+        padding: 0px 3%;
+    }
+    #cuerpo .container {
+        max-width: 995px;
+    }
 }
 
-@media screen and (min-width: 980px) and (max-width: 1199px) { 
-  #cuerpo .container, #pie .container { padding:0 2%; }
-  #cuerpo .container { max-width:940px; }
+@media screen and (min-width: 980px) and (max-width: 1199px) {
+    #cuerpo .container, #pie .container {
+        padding: 0 2%;
+    }
+    #cuerpo .container {
+        max-width: 940px;
+    }
 }
 
-@media screen and (min-width: 768px) and (max-width: 979px) { 
-  #cuerpo .container, #pie .container { padding:0 1%; }
-  #cuerpo .container { max-width:748px; }
+@media screen and (min-width: 768px) and (max-width: 979px) {
+    #cuerpo .container, #pie .container {
+        padding: 0 1%;
+    }
+    #cuerpo .container {
+        max-width: 748px;
+    }
 }
 
-@media screen and (max-width: 767px) { 
-  #cuerpo .container, #pie .container { padding:0 5px; }
-  #cuerpo .container { max-width:480px; }
-  #caracteristicas { margin-top:0; } 
+@media screen and (max-width: 767px) {
+    #cuerpo .container, #pie .container {
+        padding: 0 5px;
+    }
+    #cuerpo .container {
+        max-width: 480px;
+    }
+    #caracteristicas {
+        margin-top: 0;
+    }
 }

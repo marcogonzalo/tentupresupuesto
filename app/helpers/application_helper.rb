@@ -1,4 +1,8 @@
 module ApplicationHelper
+  def current_user
+    return current_solicitante ? current_solicitante : current_proveedor
+  end
+  
   #Reescritura de helpers _signed_in?
   def solicitante_signed_in?
     if !!current_solicitante and current_solicitante.perfilable_type.downcase == "solicitante"
