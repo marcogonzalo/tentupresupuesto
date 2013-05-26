@@ -22,6 +22,11 @@ class Categoria < ActiveRecord::Base
     :conditions => "categorias_proveedores.proveedor_id IS NULL",
     :select     => "DISTINCT categorias.*"
   }
+  scope :con_solicitudes, {
+    :select     => "DISTINCT categorias.*",
+    :from       => "trabajos, categorias",
+    :conditions => "categorias.id = trabajos.categoria_id",
+  }
   
   # ACCIONES
   def self.reset_proveedores_asociados

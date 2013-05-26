@@ -42,6 +42,11 @@ class ProveedoresController < ApplicationController
     end
     @cant_resultados = @proveedores.size
     add_breadcrumb :index, :proveedores_path
+    @categorias = Categoria.con_proveedores
+    @categorias_meta = ""
+    for c in @categorias
+      @categorias_meta += c.nombre+", "
+    end
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @proveedores }

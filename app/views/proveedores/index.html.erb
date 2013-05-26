@@ -1,95 +1,100 @@
 <%- model_class = Proveedor -%>
 <%
-  content_for :head do
+ content_for :head do
     stylesheet_link_tag 'reputacion', 'categorias', 'proveedores'
   end
 
   content_for :title do
-    "Listado de solicitudes"
+    "Listado de proveedores"
+  end
+
+  content_for :meta_description do
+      @categorias_meta
   end
 %>
 <h1 class="page-header"><%= t '.title', :default => model_class.model_name.human.pluralize %></h1>
 <div class="span6">
-	<div id="filtros" class="well">
-		<% unless signed_in?  %>
-		<%= link_to "¿Provees algún servicio?", new_proveedor_registration_path, :class => 'btn btn-warning btn-block con-myriad-bold'%>
-		<br>
-		<% end %>
-		<h4>Categorías</h4>
-		<div class="listado">
-			<ul class=" nav nav-list">
-				<li>
-					<b><%= link_to "Todas", proveedores_path %></b>
-				</li>
-				<% for cat in Categoria.con_proveedores %>
-				<li>
-					<%= link_to cat.nombre, listar_proveedores_path('categoria', cat.friendly_id) %>
-				</li>
-				<% end %>
-			</ul>
-		</div>
-		<br>
-		<h4>Ubicación</h4>
-		<div class="listado">
-			<ul class=" nav nav-list">
-				<li>
-					<b><%= link_to "Todas", proveedores_path %></b>
-				</li>
-				<% for ug in UbicacionGeografica.where(:tipo => 'estado', :entidad_id => 1) %>
-				<li>
-					<%= link_to ug.nombre, listar_proveedores_path('ubicacion', ug.friendly_id) %>
-				</li>
-				<% end %>
-			</ul>
-		</div>
-		<br>
-		<h4>Tipo de empresa</h4>
-		<div class="listado">
-			<ul class=" nav nav-list">
-				<li>
-					<b><%= link_to "Todos", proveedores_path %></b>
-				</li>
-				<% for emp in Proveedor::TIPO_EMPRESA %>
-				<li>
-					<%= link_to t('activerecord.attributes.proveedor.tipos_proveedor.'+emp), listar_proveedores_path('tipo', emp) %>
-				</li>
-				<% end %>
-			</ul>
-		</div>
-	</div>
+    <div id="filtros" class="well">
+        <% unless signed_in?  %>
+        <%= link_to "¿Provees algún servicio?", new_proveedor_registration_path, :class => 'btn btn-warning btn-block con-myriad-bold'%>
+        <br>
+        <% end %>
+        <h4>Categorías</h4>
+        <div class="listado">
+            <ul class=" nav nav-list">
+                <li>
+                    <b><%= link_to "Todas", proveedores_path %></b>
+                </li>
+                <% for cat in @categorias %>
+                <li>
+                    <%= link_to cat.nombre, listar_proveedores_path('categoria', cat.friendly_id) %>
+                </li>
+                <% end %>
+            </ul>
+        </div>
+        <br>
+        <h4>Ubicación</h4>
+        <div class="listado">
+            <ul class=" nav nav-list">
+                <li>
+                    <b><%= link_to "Todas", proveedores_path %></b>
+                </li>
+                <% for ug in UbicacionGeografica.where(:tipo => 'estado', :entidad_id => 1) %>
+                <li>
+                    <%= link_to ug.nombre, listar_proveedores_path('ubicacion', ug.friendly_id) %>
+                </li>
+                <% end %>
+            </ul>
+        </div>
+        <br>
+        <h4>Tipo de empresa</h4>
+        <div class="listado">
+            <ul class=" nav nav-list">
+                <li>
+                    <b><%= link_to "Todos", proveedores_path %></b>
+                </li>
+                <% for emp in Proveedor::TIPO_EMPRESA %>
+                <li>
+                    <%= link_to t('activerecord.attributes.proveedor.tipos_proveedor.'+emp), listar_proveedores_path('tipo', emp) %>
+                </li>
+                <% end %>
+            </ul>
+        </div>
+    </div>
 </div>
 <div class="offset1 span15">
 <% if not @categoria.nil? %>
-	<h2 class="page-header"><%= @categoria.nombre %></h2>
+    <h2 class="page-header"><%= @categoria.nombre %></h2>
 <% elsif not @tipo.nil? %>
-	<h2 class="page-header"><%= t('activerecord.attributes.proveedor.tipos_proveedor.'+@tipo) %></h2>
+    <h2 class="page-header"><%= t('activerecord.attributes.proveedor.tipos_proveedor.'+@tipo) %></h2>
 <% elsif not @ubicacion.nil? %>
-	<h2 class="page-header"><%= @ubicacion.tipo.humanize+" "+@ubicacion.nombre %></h2>
+    <h2 class="page-header"><%= @ubicacion.tipo.humanize+" "+@ubicacion.nombre %></h2>
 <% else %>
-	<h2 class="page-header">Todos los proveedores</h2>
+    <h2 class="page-header">Todos los proveedores</h2>
 <% end %>
 <% if @cant_resultados > 0 %>
-	<%= page_entries_info @proveedores %>
-	<%= paginate @proveedores, :param_name => 'p' %> 
-	<% @proveedores.each do |proveedor| %>
-	<div class="row proveedor ">
-		<h4> <%= link_to proveedor.nombre_empresa, proveedor %> </h4>
-		<%= image_tag(proveedor.avatar.micro.url) %>
-		<section class="datos-proveedor">
-			<div class="datos-en-linea"> <%= link_to proveedor.translated_tipo_proveedor, listar_proveedores_path('tipo', proveedor.tipo_proveedor) %> | 
-				En <%= link_to proveedor.localidad.nombre, listar_proveedores_path('ubicacion', proveedor.localidad.friendly_id) %>, Municipio <%= link_to proveedor.municipio.nombre, listar_proveedores_path('ubicacion', proveedor.municipio.friendly_id) %>, Estado <%= link_to proveedor.estado.nombre, listar_proveedores_path('ubicacion', proveedor.estado.friendly_id) %>.
-			</div>
-			<%= raw mostrar_reputacion(proveedor.reputacion, proveedor.valoraciones, "proveedor") %>
-		</section>
-		<p class="descripcion">
-			<%= truncate(proveedor.descripcion, :length => 150, :separator => ' ') %>
-		</p>
-	</div>
-	<% end %>
-	<%= paginate @proveedores, :param_name => 'p' %> 
+    <%= page_entries_info @proveedores %>
+    <%= paginate @proveedores, :param_name => 'p' %>
+    <% @proveedores.each do |proveedor| %>
+    <div class="row proveedor ">
+        <h4> <%= link_to proveedor.nombre_empresa, proveedor %> </h4>
+        <%= image_tag(proveedor.avatar.micro.url) %>
+        <section class="datos-proveedor">
+            <div class="datos-en-linea">
+                <%= link_to proveedor.translated_tipo_proveedor, listar_proveedores_path('tipo', proveedor.tipo_proveedor) %> |
+                En <%= link_to proveedor.localidad.nombre, listar_proveedores_path('ubicacion', proveedor.localidad.friendly_id) %>, Municipio <%= link_to proveedor.municipio.nombre, listar_proveedores_path('ubicacion', proveedor.municipio.friendly_id) %>, Estado <%= link_to proveedor.estado.nombre, listar_proveedores_path('ubicacion', proveedor.estado.friendly_id) %>.
+            </div>
+            <%= raw mostrar_reputacion(proveedor.reputacion, proveedor.valoraciones, "proveedor") %>
+        </section>
+        <p class="descripcion">
+            <%= truncate(proveedor.descripcion, :length => 150, :separator => ' ') %>
+        </p>
+    </div>
+    <% end %>
+    <%= paginate @proveedores, :param_name => 'p' %>
 <% else %>
-	<p class="text-muted">
-		No se hallaron proveedores con el criterio seleccionado.
-	</p>
+    <p class="text-muted">
+        No se hallaron proveedores con el criterio seleccionado.
+    </p>
 <% end %>
 </div>

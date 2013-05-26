@@ -12,6 +12,10 @@
     "Solicitud: "+@trabajo.proposito
   end
 
+  content_for :meta_description do
+      "Trabajo en "+@trabajo.categoria.nombre+". Ubicado en Municipio "+@trabajo.municipio.nombre+", Estado "+@trabajo.estado.nombre+", "+@trabajo.pais.nombre+"."
+  end
+
   content_for :article_tag_id do
     "solicitud-trabajo"
   end
