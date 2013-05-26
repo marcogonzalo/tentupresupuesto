@@ -6,13 +6,13 @@
 /* :not(:checked) is a filter, so that browsers that don’t support :checked don’t 
    follow these rules. Every browser that supports :checked also supports :not(), so
    it doesn’t make the test unnecessarily selective */
-.rating:not(:checked) > input {
+.rating:not(:checked) > input, .rating:not(:checked) .field_with_errors > input {
     position:absolute;
     top:-9999px;
     clip:rect(0,0,0,0);
 }
 
-.rating:not(:checked) > label {
+.rating:not(:checked) > label, .rating:not(:checked) .field_with_errors > label {
     float:right;
     width:1em;
     padding:0 .1em;
@@ -25,13 +25,13 @@
     text-shadow:1px 1px #bbb, 2px 2px #666, .1em .1em .2em rgba(0,0,0,.5);
 }
 
-.rating:not(:checked) > label:before {
+.rating:not(:checked) > label:before, .rating:not(:checked) .field_with_errors > label:before {
     content: '★ ';
 }
 
 
 /* Color de seleccionados */
-.rating > input:checked ~ label {
+.rating > input:checked ~ label, .rating .field_with_errors > input:checked ~ label {
     color: yellow;
     text-shadow:1px 1px goldenrod, 2px 2px #B57340, .1em .1em .2em rgba(0,0,0,.5);
   /*
@@ -41,7 +41,9 @@
 
 /* Color hover de no seleccionados */
 .rating:not(:checked) > label:hover,
-.rating:not(:checked) > label:hover ~ label {
+.rating:not(:checked) > label:hover ~ label,
+.rating:not(:checked) .field_with_errors > label:hover,
+.rating:not(:checked) .field_with_errors > label:hover ~ label {
     color: gold;
     text-shadow:1px 1px goldenrod, 2px 2px #B57340, .1em .1em .2em rgba(0,0,0,.5);
 }
@@ -51,7 +53,7 @@
 .rating > input:checked + label:hover ~ label,/*
 .rating > input:checked ~ label:hover,
 .rating > input:checked ~ label:hover ~ label,*/
-.rating > label:hover ~ input:checked ~ label {
+.rating > label:hover ~ input:checked ~ label, .rating .field_with_errors > label:hover ~ input:checked ~ label {
     color: yellow;
     text-shadow:1px 1px goldenrod, 2px 2px #B57340, .1em .1em .2em rgba(0,0,0,.5);
   /* 
@@ -59,7 +61,7 @@
     text-shadow:1px 1px goldenrod, 2px 2px #B57340, .1em .1em .2em rgba(0,0,0,.5);*/
 }
 
-.rating > label:active {
+.rating > label:active, .rating .field_with_errors > label:active {
     position:relative;
     top:2px;
     left:2px;

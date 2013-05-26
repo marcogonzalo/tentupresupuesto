@@ -24,7 +24,7 @@
         <h2 class="sobre-color">Presupuesto</h2>
     </div>
     <div class="cuerpo-pendon">
-        <%= form_for @path do |f| %>
+        <%= form_for @path, :validate => true do |f| %>
             <div class="row">
                 <div class="control-group span4">
                     <%= f.label :precio_minimo, :class => 'control-label' %>

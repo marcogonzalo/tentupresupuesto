@@ -4,7 +4,7 @@
   <div class="control-group">
     <%= f.label :comentario, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_area :comentario, :class => 'text_field' %>
+      <%= f.text_area :comentario, :class => 'text_field', :validate => true %>
     </div>
   </div>
   <%= f.hidden_field :usuario, :value => @tipo_usuario %>

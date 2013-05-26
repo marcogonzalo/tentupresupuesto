@@ -1,4 +1,4 @@
-<%= form_for @trabajo, :url => finalizar_trabajo_path(@trabajo, :format => 'json'), :method => 'put', :remote => true, :html => {:id => "finalizacion-trabajo"} do |f| %>
+<%= form_for @trabajo, :url => finalizar_trabajo_path(@trabajo, :format => 'json'), :method => 'put', :remote => true, :html => {:id => "finalizacion-trabajo"}, :validate => true do |f| %>
     <div id="modal-finalizado" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
@@ -11,7 +11,7 @@
             </p>
             <div class="control-group">
                 <%= f.label :precio_final %>
-                <div class="controls"><%= f.number_field :precio_final, :min => 5%></div>
+                <div class="controls"><%= f.number_field :precio_final, :min => 5, :validate => true %></div>
             </div>
             <p>Esta información tiene fines estadísticos y en ningún momento se hará pública.</p>
         </div>

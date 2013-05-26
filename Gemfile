@@ -27,6 +27,7 @@ gem 'rails_admin'                     # Provides an interface for managing your 
 
 # Bibliotecas jQuery y CSS
 gem 'jquery-rails'
+gem 'client_side_validations'           # Validador del lado del cliente - https://github.com/bcardarella/client_side_validations
 
 # Gems used only for assets and not required
 # in production environments by default.

@@ -67,7 +67,7 @@ class Trabajo < ActiveRecord::Base
             :length => { :in => 10..250 }, 
             :presence => true
   validates :precio_final, 
-            :numericality =>  { :greater_than_or_equal_to => 0 }
+            :numericality =>  { :greater_than_or_equal_to => 5 }
   validates :slug, :presence => true
   
   # ACCIONES

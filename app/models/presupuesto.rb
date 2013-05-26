@@ -14,12 +14,12 @@ class Presupuesto < ActiveRecord::Base
             :presence => true
   validates :precio_minimo, 
             :numericality =>  {
-                                :greater_than_or_equal_to => 0
+                                :greater_than_or_equal_to => 5
                               },
             :presence => true
   validates :precio_maximo, 
             :numericality =>  {
-                                :greater_than_or_equal_to => 0
+                                :greater_than_or_equal_to => 5
                               },
             :presence => true
   validates :motivo_rechazo,
