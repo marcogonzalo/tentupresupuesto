@@ -1,4 +1,4 @@
-<%- model_class = Proveedor -%>
+<% - model_class = Proveedor -%>
 <%
  content_for :head do
     stylesheet_link_tag 'categorias', 'proveedores'
@@ -16,9 +16,11 @@
     Indícale a tus futuros clientes las direcciones donde pueden encontrarte en Internet.
 </p>
 <div class="formulario-general categorias">
-    <%= form_for @proveedor , :url => enlaces_de_proveedor_path, :method => :put do |f| %>
+    <%= form_for @proveedor , :url => enlaces_de_proveedor_path, :method => :put, :validate => true do |f| %>
         <fieldset>
-            <legend>Sitio web y perfiles sociales</legend>
+            <legend>
+                Sitio web y perfiles sociales
+            </legend>
     
             <div class="row">
                 <div class="control-group span9">
@@ -28,9 +30,9 @@
                         <%= f.url_field :web_url, :placeholder => 'http://www.tentuptesupuesto.com.ve' %>
                     </div>
                 </div>
-        
+    
                 <div class="control-group span9">
-                    <%= f.label :facebook_url %> 
+                    <%= f.label :facebook_url %>
                     <div class="controls">
                         <%= get_favicon('http://www.facebook.com') %>
                         <%= f.url_field :facebook_url, :placeholder => 'http://www.facebook.com/TenTuPresupuesto' %>
@@ -40,15 +42,15 @@
     
             <div class="row">
                 <div class="control-group span9">
-                    <%= f.label :twitter_url %> 
+                    <%= f.label :twitter_url %>
                     <div class="controls">
                         <%= get_favicon('http://www.twitter.com') %>
                         <%= f.url_field :twitter_url, :placeholder => 'http://www.twitter.com/TnTuPresupuesto' %>
                     </div>
                 </div>
-                
+    
                 <div class="control-group span9">
-                    <%= f.label :google_url %> 
+                    <%= f.label :google_url %>
                     <div class="controls">
                         <%= get_favicon('plus.google.com') %>
                         <%= f.url_field :google_url, :placeholder => 'http://plus.google.com/u/0/110823009356675456247' %>
@@ -58,13 +60,13 @@
     
             <div class="row">
                 <div class="control-group span9">
-                    <%= f.label :linkedin_url %> 
+                    <%= f.label :linkedin_url %>
                     <div class="controls">
                         <%= get_favicon('http://www.linkedin.com') %>
                         <%= f.url_field :linkedin_url, :placeholder => 'http://www.linkedin.com/company/tentupresupuesto' %>
                     </div>
                 </div>
-                
+    
                 <div class="control-group span9">
                     <%= f.label :youtube_url %>
                     <div class="controls">
@@ -76,15 +78,15 @@
     
             <div class="row">
                 <div class="control-group span9">
-                    <%= f.label :pinterest_url %> 
+                    <%= f.label :pinterest_url %>
                     <div class="controls">
                         <%= get_favicon('http://www.pinterest.com') %>
                         <%= f.url_field :pinterest_url, :placeholder => 'http://www.pinterest.com/TenTuPresupuesto' %>
                     </div>
                 </div>
-                
+    
                 <div class="control-group span9">
-                    <%= f.label :instagram_url %> 
+                    <%= f.label :instagram_url %>
                     <div class="controls">
                         <%= get_favicon('http://www.instagram.com') %>
                         <%= f.url_field :instagram_url, :placeholder => 'http://instagram.com/TenTuPresupuesto' %>

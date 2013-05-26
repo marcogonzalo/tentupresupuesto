@@ -667,7 +667,7 @@ RailsAdmin.config do |config|
       show do
         field :descripcion do
           pretty_value do
-            %{<pre>#{value}</pre>}.html_safe
+            %{<pre style="white-space: pre-wrap;">#{value}</pre>}.html_safe
           end
         end
         include_all_fields

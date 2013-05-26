@@ -15,7 +15,7 @@ if resource.errors.any?
         <h2 class="sobre-color">Como <%= resource_name %></h2>
     </div>
     <div class="cuerpo-pendon">
-        <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+        <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :validate => true) do |f| %>
             <span class="help-block"><i class="icon-white icon-asterisk"></i> Indica campo obligatorio</span>
             <div class="control-group">
                 <%= f.label :nombre %>
@@ -37,7 +37,7 @@ if resource.errors.any?
                 <%= f.label :password %>
                 <div class="controls">
                     <i class="icon-white icon-asterisk"></i>
-                    <%= f.password_field :password %>
+                    <%= f.password_field :password, :validate => true %>
                 </div>
             </div>
     
