@@ -11,6 +11,7 @@ gem 'foreigner'                       # Soporte para Claves Foraneas en las migr
 gem 'timeliness'                      # Manejo de fechas
 gem 'validates_timeliness', '~> 3.0'  # Validacion de fechas en el modelo
 gem "friendly_id", '~> 4.0.1'         # Identificadores amigables para url
+gem "delocalize"                      # Cambio de formato de números y fechas según localización de manera automática - https://github.com/clemens/delocalize.
 
 # Sesiones
 gem 'devise'

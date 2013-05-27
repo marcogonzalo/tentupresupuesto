@@ -1,7 +1,7 @@
 // Place all the styles related to the Presupuestos controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-textarea { height:10em; max-width:90%;}
+
 /* Estilos vista de lista de presupuestos a solicitud */
 #lista-presupuestos .presupuesto {background-color:#eee; border:1px solid #ccc; line-height:2em; margin:0.5em auto; padding:0.25em 0; vertical-align:center;}
 #lista-presupuestos .presupuesto.p-rechazado {background-color:#ecc; border:1px solid #b94a48; color:#b94a48;}
@@ -23,9 +23,15 @@ border-radius:100%;
 #presupuesto-trabajo #precio p {text-align: center; padding:25px 10px 0px 10px;}
 #presupuesto-trabajo #precio #monto { font-size:1.5em; font-weight:bold; line-height:1.25em; }
 #presupuesto-trabajo #precio #con-iva {display:block; font-size: 0.85em; line-height:0.9em;}
-#presupuesto-trabajo #precio #mini-nota {display:block; font-size: 0.85em; line-height:0.9em;}
+#presupuesto-trabajo #precio
 #presupuesto-trabajo .form-actions { text-align:center; }
 
+/* Crear/Editar presupuesto */
+#crear-presupuesto {
+  .text-field {text-align:right;}
+  .mini-nota {font-size: 0.75em; line-height:1.2em; text-align:center;}
+  textarea { height:7em; max-width:90%;}
+}
 @media screen and (max-width: 767px) { 
   #lista-presupuestos .presupuesto { text-align:center;}
   #lista-presupuestos .presupuesto img { display:block; float:none; margin:5px auto;}
