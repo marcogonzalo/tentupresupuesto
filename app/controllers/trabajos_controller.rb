@@ -156,7 +156,7 @@ class TrabajosController < ApplicationController
         format.html { redirect_to @trabajo }
         format.json { render json: @trabajo, status: :created, location: @trabajo }
       else
-        flash[:error] = "Ocurrió un error. Revisa el formulario."
+        flash[:error] = "Ocurrió un error. Revisa el formulario."+@trabajo.errors.full_messages.to_s
         format.html { render action: "new" }
         format.json { render json: @trabajo.errors, status: :unprocessable_entity }
       end

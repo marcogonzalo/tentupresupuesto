@@ -66,9 +66,6 @@ class Trabajo < ActiveRecord::Base
   validates :direccion,
             :length => { :in => 10..250 }, 
             :presence => true
-  validates :precio_final, 
-            :numericality =>  { :greater_than_or_equal_to => 10 },
-            :allow_blank => true
   validates :slug, :presence => true
   
   # ACCIONES

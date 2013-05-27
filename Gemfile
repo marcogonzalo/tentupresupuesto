@@ -2,33 +2,33 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.11'
 
-gem 'pg'
+gem 'pg', "~> 0.15.1"
 
-gem "seedbank"                        # Gestor de seeds para llenar la BD - https://github.com/james2m/seedbank
+gem "seedbank", "~> 0.2.1"                        # Gestor de seeds para llenar la BD - https://github.com/james2m/seedbank
 
 # Asociados a modelos
-gem 'foreigner'                       # Soporte para Claves Foraneas en las migraciones
-gem 'timeliness'                      # Manejo de fechas
+gem 'foreigner', "~> 1.4.1"                       # Soporte para Claves Foraneas en las migraciones
+gem 'timeliness', "~> 0.3.7"                      # Manejo de fechas
 gem 'validates_timeliness', '~> 3.0'  # Validacion de fechas en el modelo
 gem "friendly_id", '~> 4.0.1'         # Identificadores amigables para url
-gem "delocalize"                      # Cambio de formato de números y fechas según localización de manera automática - https://github.com/clemens/delocalize.
+gem "delocalize", "~> 0.3.1"                      # Cambio de formato de números y fechas según localización de manera automática - https://github.com/clemens/delocalize.
 
 # Sesiones
-gem 'devise'
-gem 'devise-encryptable'
+gem 'devise', "~> 2.2.4"
+gem 'devise-encryptable', "~> 0.1.2"
 
 # gem 'will_paginate'                   # Paginador de resultados - https://github.com/mislav/will_paginate
-gem 'kaminari'                          # Paginador de resultados - https://github.com/amatsuda/kaminari
+gem 'kaminari', "~> 0.14.1"                          # Paginador de resultados - https://github.com/amatsuda/kaminari
 
 # Manejo de imagenes
-gem "mini_magick"                     # A ruby wrapper for ImageMagick command line - https://github.com/minimagick/minimagick
-gem 'carrierwave'                     # Gestionar imágenes - https://github.com/jnicklas/carrierwave
+gem "mini_magick", "~> 3.6.0"                     # A ruby wrapper for ImageMagick command line - https://github.com/minimagick/minimagick
+gem 'carrierwave', "~> 0.8.0"                     # Gestionar imágenes - https://github.com/jnicklas/carrierwave
 
-gem 'rails_admin'                     # Provides an interface for managing your data - https://github.com/sferik/rails_admin
+gem 'rails_admin', "~> 0.4.8"                     # Provides an interface for managing your data - https://github.com/sferik/rails_admin
 
 # Bibliotecas jQuery y CSS
-gem 'jquery-rails'
-gem 'client_side_validations'           # Validador del lado del cliente - https://github.com/bcardarella/client_side_validations
+gem 'jquery-rails', "~> 2.2.1"
+gem 'client_side_validations', "~> 3.2.5"           # Validador del lado del cliente - https://github.com/bcardarella/client_side_validations
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -40,10 +40,10 @@ group :assets do
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   gem 'therubyracer', :platforms => :ruby
 
-  gem 'cssminify'
+  gem 'cssminify', "~> 1.0.2"
   gem 'uglifier', '>= 1.0.3'
 end
-gem 'twitter-bootstrap-rails'
+gem 'twitter-bootstrap-rails', "~> 2.2.6"
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
@@ -55,7 +55,7 @@ gem 'twitter-bootstrap-rails'
 # gem 'unicorn'
 
 # Deploy with Capistrano
-gem 'capistrano'
+gem 'capistrano', "~> 2.15.4"
 
 # To use debugger
 # gem 'debugger'
