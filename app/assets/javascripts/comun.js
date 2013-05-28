@@ -53,5 +53,5 @@ var cargando_en_boton = function(selector) {
     setTimeout(function(){ 
         jQuery(selector).removeAttr('disabled');
         jQuery(selector).val(val)
-    },3000);
+    },5000);
 }
