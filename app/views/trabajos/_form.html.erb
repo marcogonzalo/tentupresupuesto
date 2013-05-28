@@ -78,7 +78,7 @@
         </fieldset>
         <div class="botones">
             <%= link_to t('.cancel', :default => t("helpers.links.cancel")), panel_solicitante_path(@trabajo), :class => 'btn' %>
-            <%= f.submit nil, :class => 'btn btn-warning' %>
+            <%= f.submit nil, :class => 'btn btn-warning', "data-loading-text" => "Publicando...", :id => "crear-trabajo" %>
         </div>
     <% end %>
 </div>

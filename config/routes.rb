@@ -64,6 +64,8 @@ Ttp::Application.routes.draw do
     end
     resources :trabajos do
       member do
+        match 'abrir' => "trabajos#abrir_trabajo", :via => [:put, :post]
+        match 'cerrar' => "trabajos#cerrar_trabajo", :via => [:put, :post]
         match 'finalizar' => "trabajos#finalizar_trabajo", :via => [:put]
       end
       resources :presupuestos, :shallow => true do

@@ -45,3 +45,13 @@ var ocultar_cargando = function(id) {
 var mostrar_mensaje = function(id, tipo, mensaje) {
     $(id).html(mensaje).attr('class', "alert " + tipo).show()
 };
+
+var cargando_en_boton = function(selector) { 
+    var val = jQuery(selector).val();
+    jQuery(selector).val(jQuery(selector).data('loading-text'))
+    jQuery(selector).attr('disabled', 'disabled')
+    setTimeout(function(){ 
+        jQuery(selector).removeAttr('disabled');
+        jQuery(selector).val(val)
+    },3000);
+}

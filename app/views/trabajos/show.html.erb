@@ -66,6 +66,11 @@
     <%= link_to "Volver al panel", panel_solicitante_path, :class => 'btn btn-large' %>
     <%= link_to(t('.edit', :default => t("helpers.links.edit")), edit_trabajo_path(@trabajo), :class => 'btn btn-large') if @trabajo.buscando? or @trabajo.cerrado? %>
     <%= link_to("Marcar como finalizado", '#modal-finalizado', :id => 'finalizar-trabajo', :class => 'btn btn-success btn-large', "data-toggle"=>"modal", "data-backdrop"=>"static") if @trabajo.ejecutando? %>
+    <%= link_to "Cerrar solicitud", cerrar_trabajo_path(@trabajo), :method => 'put',
+        :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => '¿Deseas cerrar esta solicitud? Los proveedores no podran ofertarte.')) },
+        :id => 'cerrar-solicitud', :class => 'btn btn-large' if @trabajo.buscando? %>
+    <%= link_to "Reabrir solicitud", abrir_trabajo_path(@trabajo), :method => 'put',
+        :id => 'cerrar-solicitud', :class => 'btn btn-large' if @trabajo.cerrado? %>
     <%= link_to(t('.destroy', :default => t("helpers.links.destroy")),
         trabajo_path(@trabajo),
         :method => 'delete',
