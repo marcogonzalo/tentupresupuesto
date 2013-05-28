@@ -1,4 +1,7 @@
 jQuery(function($) {
+    
+    $(".proveedor-interesado").ellipsis();
+    
     $("#finalizar-trabajo-modal").click(function() {
         $("#finalizar-trabajo-modal").addClass("disabled")
         $("#finalizacion-trabajo").bind("ajax:loading", mostrar_cargando(".cargando")).bind("ajax:complete", function(event, data, status, xhr) {

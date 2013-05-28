@@ -5,7 +5,7 @@
   end
 
   content_for :foot do
-    javascript_include_tag 'trabajos_show'
+    javascript_include_tag 'jquery.autoellipsis.min','trabajos_show'
   end
 
   content_for :title do
@@ -89,7 +89,7 @@
     <div class="span4 presupuesto">
         <div class="separar-alrededor">
             <%= image_tag(@trabajo.contratado.avatar.mini.url) %>
-            <span class="proveedor-interesado"><b><%= @trabajo.contratado.nombre_empresa %></b></span>
+            <span class="proveedor-interesado" title="<%= @trabajo.contratado.nombre_empresa %>"><b><%= @trabajo.contratado.nombre_empresa %></b></span>
             <%= raw mostrar_reputacion(@trabajo.contratado.reputacion, @trabajo.contratado.valoraciones, "proveedor") %>
         </div>
         <div class="botones">

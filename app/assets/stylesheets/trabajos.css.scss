@@ -30,14 +30,11 @@ border-radius:20px;
 box-shadow: 1px 1px 5px #666;
 }
 
-.presupuesto.destacado { background-color:#999;
-/*-moz-box-shadow: inset 0 0 10em #fc3;
--webkit-box-shadow: inset 0 0 10em #fc3;
-box-shadow:  inset 0 0 10em #fc3;*/
+.presupuesto {
+  .proveedor-interesado { display:block; height:35px; line-height:1.15em; margin:0.25em auto;}
+  .reputacion {background-color:#666;margin:0.75em auto;}
 }
-.presupuesto .proveedor-interesado { display:block; margin:0.25em auto;}
-.presupuesto .reputacion {background-color:#666;margin:1em auto;}
-.separar-alrededor, .botones { margin:1em; }
+.separar-alrededor, .botones { margin:1em 0.25em; }
 
 /* Crear/Editar solicitud */
 #crear-solicitud textarea { height:10em; max-width:90%;}
