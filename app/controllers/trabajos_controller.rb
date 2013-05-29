@@ -1,5 +1,6 @@
 # coding: utf-8
 class TrabajosController < ApplicationController
+  before_filter :find_post
   before_filter :authenticated_solicitante, :except => [:show, :index]
   layout :resolve_layout
   add_breadcrumb :index, :trabajos_path
@@ -277,6 +278,17 @@ class TrabajosController < ApplicationController
       "interna-liston"
     else
       "application"
+    end
+  end
+  
+  def find_post
+    @post = Post.find params[:id]
+
+    # If an old id or a numeric id was used to find the record, then
+    # the request path will not match the post_path, and we should do
+    # a 301 redirect that uses the current friendly id.
+    if request.path != post_path(@post)
+      return redirect_to @post, :status => :moved_permanently
     end
   end
 end
