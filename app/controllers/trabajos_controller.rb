@@ -77,9 +77,6 @@ class TrabajosController < ApplicationController
   # GET /trabajos/1.json
   def show
     @trabajo = Trabajo.includes(:presupuestos,:contratado).find(params[:id])
-    if request.path != trabajo_path(@trabajo)
-      redirect_to @trabajo, status: :moved_permanently
-    end
     @es_el_solicitante = solicitante_signed_in? and current_solicitante.perfilable_id.eql?(@trabajo.solicitante_id)
     
     if @trabajo.ejecutando? and proveedor_signed_in?
