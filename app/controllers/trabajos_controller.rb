@@ -1,6 +1,5 @@
 # coding: utf-8
 class TrabajosController < ApplicationController
-  before_filter :find_post
   before_filter :authenticated_solicitante, :except => [:show, :index]
   layout :resolve_layout
   add_breadcrumb :index, :trabajos_path
