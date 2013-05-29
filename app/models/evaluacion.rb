@@ -1,5 +1,4 @@
 class Evaluacion < ActiveRecord::Base
-  before_create :set_total
   
   attr_accessible :atencion, :calidad, :limpieza, :observaciones, :precio, :responsabilidad, 
                   :respuesta_proveedor, :tiempo, :total
@@ -9,6 +8,21 @@ class Evaluacion < ActiveRecord::Base
   belongs_to :trabajo
   
   default_scope order('created_at DESC')
+  
+  validates :atencion,
+            :presence => true
+
+  validates :calidad,
+            :presence => true
+            
+  validates :precio,
+            :presence => true
+            
+  validates :responsabilidad,
+            :presence => true
+            
+  validates :tiempo,
+            :presence => true
   
   private
   def set_total
@@ -38,13 +52,13 @@ class Evaluacion < ActiveRecord::Base
       contados = contados+1
       contabilizacion = contabilizacion + self.precio
     end
-    if self.atencion.blank?
+    if self.reponsabilidad.blank?
       self.responsabilidad = nil 
     else
       contados = contados+1
       contabilizacion = contabilizacion + self.responsabilidad
     end
-    if self.atencion.blank?
+    if self.tiempo.blank?
       self.tiempo = nil 
     else
       contados = contados+1

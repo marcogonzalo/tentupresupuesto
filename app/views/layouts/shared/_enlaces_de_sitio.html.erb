@@ -1,0 +1,59 @@
+<% drop = (controller.send(:_layout) == "landing" ? "dropup" : "dropdown") %>
+                    <div id="enlaces-sitio">
+                        <ul class="nav nav-pills">
+                            <li>
+                                <%= link_to "Solicitudes", trabajos_path %>
+                            </li>
+                            <li>
+                                <%= link_to "Proveedores", proveedores_path %>
+                            </li>
+                            <li>
+                                <%= link_to "Contacto", "https://docs.google.com/forms/d/1RzBhILlcjBDTWt5ZACnaeAHCbbmmmJER3Fbb92NlqL4/viewform", :target => "_blank" %>
+                            </li>
+                            <li class="divider hidden-phone">&nbsp;&nbsp;&nbsp;</li>
+                            <% if solicitante_signed_in? %>
+                            <li class="<%= drop %>">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                  <%= current_user.nombre.split(' ').first %>
+                                  <b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu">
+                                  <li><%= link_to 'Panel', panel_solicitante_path %></li>
+                                  <li><%= link_to 'Salir', destroy_solicitante_session_path %></li>
+                                </ul>
+                            </li>
+                            <% elsif proveedor_signed_in? %>
+                            <li class="<%= drop %>">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                  <%= current_user.nombre.split(' ').first %>
+                                  <b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu">
+                                  <li><%= link_to 'Panel', panel_proveedor_path %></li>
+                                  <li><%= link_to 'Salir', destroy_proveedor_session_path %></li>
+                                </ul>
+                            </li>
+                            <% else %>
+                            <li class="<%= drop %>">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                  Iniciar Sesión
+                                  <b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu">
+                                  <li><%= link_to "Solicitante", new_session_path("solicitante") %></li>
+                                  <li><%= link_to "Proveedor", new_session_path("proveedor") %></li>
+                                </ul>
+                            </li>
+                            <li class="<%= drop %>">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                  Registro
+                                  <b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu">
+                                  <li><%= link_to "Solicitante", new_registration_path("solicitante") %></li>
+                                  <li><%= link_to "Proveedor", new_registration_path("proveedor") %></li>
+                                </ul>
+                            </li>
+                            <% end %>
+                        </ul>
+                    </div>

@@ -1,79 +1,84 @@
 <div id="crear-solicitud" class="formulario-general span21">
-	<h2 class="sobre-color">Crear solicitud</h2>
-	<%= form_for @trabajo do |f| %>
-		<fieldset>
-			<legend>
-				Detalles del trabajo
-			</legend>
-			<p class="help-block"><i class="icon-white icon-asterisk"></i> Todos los campos son obligatorios</p>
-			<div class="row">
-				<div class="control-group span9">
-					<%= f.label :categoria_id, "¿Qué tipo de trabajo es?", :class => 'control-label' %>
-					<div class="controls">
-						<%= f.select :categoria_id, Categoria.con_proveedores.collect {|c| [ c.nombre, c.id ] }, { :include_blank => "-- Selecciona --" } %>
-					</div>
-				</div>
-				<div class="control-group offset1 span9">
-					<%= f.label :proposito, "¿Qué necesitas?", :class => 'control-label' %>
-					<div class="controls">
-						<%= f.text_field :proposito, :class => 'text_field' %>
-					</div>
-				</div>
-			</div>
-			<div class="control-group span19">
-				<%= f.label :descripcion, :class => 'control-label' %>
-				<div class="controls">
-					<%= f.text_area :descripcion, :class => 'text_area' %>
-					<span class="help-block">Procura dar la mayor información que te sea posible.<br>Mientras más detalles des (material, medidas, actividades a realizar) más preciso será el presupuesto y más rápido podrás contratar.</span>
-				</div>
-			</div>
-		</fieldset>
-		<fieldset>
-			<legend>
-				Detalles de la ubicación
-			</legend>
-			<p class="help-block"><i class="icon-white icon-asterisk"></i> Todos los campos son obligatorios</p>
-			<div class="span9">
-				<div class="control-group hide">
-					<%= f.label :pais_id %>
-					<div class="controls">
-						<%= select_entidad(:trabajo,:pais_id,nil,"pais") %>
-					</div>
-				</div>
-	
-				<div class="control-group">
-					<%= f.label :estado_id %>
-					<div class="controls">
-						<%= select_entidad(:trabajo,:estado_id,1,"estado") %><%= image_tag "tentu/generales/cargando.gif", {:class => "cargando", :id => "loadingestado"} %>
-					</div>
-				</div>
-	
-				<div class="control-group">
-					<%= f.label :municipio_id %>
-					<div class="controls">
-						<%= select_entidad(:trabajo,:municipio_id,@trabajo.estado_id,"municipio") %><%= image_tag "tentu/generales/cargando.gif", {:class => "cargando", :id => "loadingmunicipio"} %>
-					</div>
-				</div>
-	
-				<div class="control-group">
-					<%= f.label :localidad_id %>
-					<div class="controls">
-						<%= text_entidad(:trabajo,:localidad_id,@localidad) %><%= image_tag "tentu/generales/cargando.gif", {:class => "cargando", :id => "loadinglocalidad"} %>
-					</div>
-				</div>
-			</div>
-			<div class="control-group offset1 span8">
-				<%= f.label :direccion, :class => 'control-label' %>
-				<div class="controls">
-					<%= f.text_area :direccion, :class => 'text_area' %>
-					<span class="help-block">Esta información no será pública, sólo se entregará al proveedor contratado.</span>
-				</div>
-			</div>
-		</fieldset>
-		<div class="botones">
-			<%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-			panel_solicitante_path(@trabajo), :class => 'btn' %>
-			<%= f.submit nil, :class => 'btn btn-warning' %>
-		</div>
-	<% end %>
+    <h2 class="sobre-color">Crear solicitud</h2>
+    <%= form_for @trabajo, :validate => true do |f| %>
+        <fieldset>
+            <legend>
+                Detalles del trabajo
+            </legend>
+            <p class="help-block">
+                <i class="icon-white icon-asterisk"></i> Todos los campos son obligatorios
+            </p>
+            <div class="row">
+                <div class="control-group span9">
+                    <%= f.label :categoria_id, "¿Qué tipo de trabajo es?", :class => 'control-label' %>
+                    <div class="controls">
+                        <%= f.select :categoria_id, Categoria.con_proveedores.collect {|c| [ c.nombre, c.id ] }, { :include_blank => "-- Selecciona --" } %>
+                    </div>
+                </div>
+                <div class="control-group offset1 span9">
+                    <%= f.label :proposito, "¿Qué necesitas?", :class => 'control-label' %>
+                    <div class="controls">
+                        <%= f.text_field :proposito, :class => 'text_field' %>
+                    </div>
+                </div>
+            </div>
+            <div class="control-group span19">
+                <%= f.label :descripcion, :class => 'control-label' %>
+                <div class="controls">
+                    <%= f.text_area :descripcion, :class => 'text_area' %>
+                    <span class="help-block">Procura dar la mayor información que te sea posible.
+                        <br>
+                        Mientras más detalles des (material, medidas, actividades a realizar) más preciso será el presupuesto y más rápido podrás contratar.</span>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend>
+                Detalles de la ubicación
+            </legend>
+            <p class="help-block">
+                <i class="icon-white icon-asterisk"></i> Todos los campos son obligatorios
+            </p>
+            <div class="span9">
+                <div class="control-group hide">
+                    <%= f.label :pais_id %>
+                    <div class="controls">
+                        <%= select_entidad(:trabajo,:pais_id,nil,"pais") %>
+                    </div>
+                </div>
+    
+                <div class="control-group">
+                    <%= f.label :estado_id %>
+                    <div class="controls">
+                        <%= select_entidad(:trabajo,:estado_id,1,"estado") %><%= image_tag "tentu/generales/cargando.gif", {:class => "cargando", :id => "loadingestado"} %>
+                    </div>
+                </div>
+    
+                <div class="control-group">
+                    <%= f.label :municipio_id %>
+                    <div class="controls">
+                        <%= select_entidad(:trabajo,:municipio_id,@trabajo.estado_id,"municipio") %><%= image_tag "tentu/generales/cargando.gif", {:class => "cargando", :id => "loadingmunicipio"} %>
+                    </div>
+                </div>
+    
+                <div class="control-group">
+                    <%= f.label :localidad_id %>
+                    <div class="controls">
+                        <%= text_entidad(:trabajo,:localidad_id,@localidad) %><%= image_tag "tentu/generales/cargando.gif", {:class => "cargando", :id => "loadinglocalidad"} %>
+                    </div>
+                </div>
+            </div>
+            <div class="control-group offset1 span8">
+                <%= f.label :direccion, :class => 'control-label' %>
+                <div class="controls">
+                    <%= f.text_area :direccion, :class => 'text_area' %>
+                    <span class="help-block">Esta información no será pública, sólo se entregará al proveedor contratado.</span>
+                </div>
+            </div>
+        </fieldset>
+        <div class="botones">
+            <%= link_to t('.cancel', :default => t("helpers.links.cancel")), panel_solicitante_path(@trabajo), :class => 'btn' %>
+            <%= f.submit nil, :class => 'btn btn-warning', "data-loading-text" => "Publicando...", :id => "crear-trabajo" %>
+        </div>
+    <% end %>
 </div>

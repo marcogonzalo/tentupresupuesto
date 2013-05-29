@@ -15,7 +15,7 @@ if resource.errors.any? %>
 		<h2 class="sobre-color">Como <%= resource_name %></h2>
 	</div>
 	<div class="cuerpo-pendon">
-		<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+		<%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :validate => true) do |f| %>
 		<div class="control-group">
 			<%= f.label :email %>
 			<div class="controls">

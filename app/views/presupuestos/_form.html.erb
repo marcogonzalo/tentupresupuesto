@@ -1,6 +1,6 @@
 <%
  content_for :head do
-    stylesheet_link_tag 'trabajos'
+    stylesheet_link_tag 'trabajos', 'presupuestos'
   end
 
   content_for :title do
@@ -19,26 +19,24 @@
     javascript_include_tag 'presupuestos'
   end
 %>
-<div id="registro" class="formulario-pendon offset1 span12">
+<div id="crear-presupuesto" class="formulario-pendon offset1 span12">
     <div class="titulo-pendon">
         <h2 class="sobre-color">Presupuesto</h2>
     </div>
     <div class="cuerpo-pendon">
-        <%= form_for @path do |f| %>
-            <div class="row">
-                <div class="control-group span4">
-                    <%= f.label :precio_minimo, :class => 'control-label' %>
-                    <div class="controls">
-                        <%= f.number_field :precio_minimo, :min => 5, :class => 'text_field' %>
-                    </div>
+        <%= form_for @path, :validate => true do |f| %>
+            <span class="help-block mini-nota">Se indicará al cliente que estos son montos estimados y no definitivos.</span>
+            <div class="control-group row">
+                <%= f.label :precio_minimo, :class => 'control-label' %>
+                <div class="span4 controls">
+                    <%= f.number_field :precio_minimo, :class => "text-field", :validate => true %>
                 </div>
-                <div class="control-group span4">
-                    <%= f.label :precio_maximo, :class => 'control-label' %>
-                    <div class="controls">
-                        <%= f.number_field :precio_maximo, :min => 5, :class => 'text_field' %>
-                    </div>
+            </div>
+            <div class="control-group row">
+                <%= f.label :precio_maximo, :class => 'control-label' %>
+                <div class="span4 controls">
+                    <%= f.number_field :precio_maximo, :class => "text-field", :validate => true %>
                 </div>
-                <span class="help-block">Se indicará al cliente que estos son montos estimados y no definitivos.</span>
             </div>
             <div class="control-group">
                 <label for="presupuesto_con_iva" class="checkbox" %> <%= f.check_box :con_iva, :class => 'check_box' %> El precio incluye <abbr title="Impuesto al Valor Agregado">IVA</abbr> </label>

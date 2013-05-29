@@ -8,6 +8,10 @@
     "Listado de solicitudes"
   end
 
+  content_for :meta_description do
+      @categorias_meta
+  end
+
 #  content_for :foot do
 #    javascript_include_tag 'trabajos'
 #  end
@@ -23,7 +27,7 @@
 		<div class="listado">
 			<ul class=" nav nav-list">
 				<li><b><%= link_to "Todas", trabajos_path %></b></li>
-				<% for cat in Categoria.con_proveedores %>  
+				<% for cat in @categorias %>  
 				<li><%= link_to cat.nombre, listar_trabajos_path('categoria', cat.friendly_id) %></li>
 				<% end %>
 			</ul>

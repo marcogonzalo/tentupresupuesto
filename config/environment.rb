@@ -4,14 +4,14 @@ require File.expand_path('../application', __FILE__)
 # Initialize the rails application
 Ttp::Application.initialize!
 
-ActionView::Base.field_error_proc = Proc.new do |html_tag, instance|
-  errors = Array(instance.error_message).join(', ')
-  if html_tag =~ /<(label)/
-    html_tag
-  else
-    %(#{html_tag} <span class="help-block label label-important">#{errors}</span> ).html_safe
-  end
-end
+# ActionView::Base.field_error_proc = Proc.new do |html_tag, instance|
+#   errors = Array(instance.error_message).join(', ')
+#   if html_tag =~ /<(label)/
+#     html_tag
+#   else
+#     %(#{html_tag} <span class="help-block label label-important">#{errors}</span> ).html_safe
+#   end
+# end
 
 ActionMailer::Base.smtp_settings = {
   :user_name => "tentupresupuesto",

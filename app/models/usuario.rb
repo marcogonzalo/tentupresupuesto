@@ -31,6 +31,7 @@ class Usuario < ActiveRecord::Base
                             },
             :allow_blank => true
   validates :email,
+            :presence => true,
             :uniqueness => { :case_sensitive => false }
   #validates :acepta_terminos, :acceptance  => { :accept => true, :message => "es obligatorio" }
   validates :perfilable_id, 

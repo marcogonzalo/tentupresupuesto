@@ -1,52 +1,50 @@
 <!DOCTYPE html>
 <html lang="es">
-	<head>
-		<%= render "layouts/shared/metatags" %>
-		<%= csrf_meta_tags %>
+    <head>
+        <%= render "layouts/shared/metatags" %>
+        <%= csrf_meta_tags %>
 
-		<!--[if lt IE 9]>
-		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
-		<![endif]-->
+        <!--[if lt IE 9]>
+        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+        <![endif]-->
 
-		<%= stylesheet_link_tag "interna-liston", :media => "all" %>
-		<%= yield :head %>
-	</head>
-	<body>
-		<div class="container">
-			<header id="cabecera-interna" class="span24">
-				<div class="navbar">
-					<div class="offset1 span22">
-						<a class="brand" href="/"><%= image_tag "tentu/generales/logo_tentupresupuesto.png", {:title => "TenTuPresupuesto", :alt => "TenTuPresupuesto"} %></a>
-						<div class="enlaces_usuario">
-							<%= render "layouts/shared/enlaces_de_usuario" %>
-						</div>
-					</div>
-				</div>
-				<%= render "layouts/shared/breadcrumbs" %>
-				<%= render "layouts/shared/mensajes" %>
-			</header>
-		</div>
-		<article id="<%= yield :article_tag_id %>">
-			<div id="liston" class="clearfix">
-				<div class="container">
-					<%= yield :liston %>
-				</div>
-			</div>
-			<div class="container">
-				<div id="cuerpo" class="span24">
-					<div class="container">
-						<%= yield %>
-					</div>
-					<!-- /container -->
-					<%= render "layouts/shared/mensajes" %>
-				</div>
-			</div>
-		</article>
-		<%= render "layouts/shared/pie_de_pagina" %>
-		<!-- Javascripts
-		================================================== -->
-		<!-- Placed at the end of the document so the pages load faster -->
-		<%= javascript_include_tag "interna-liston" %>
-		<%= yield :foot %>
-	</body>
+        <%= stylesheet_link_tag "interna-liston", :media => "all" %>
+        <%= yield :head %>
+    </head>
+    <body>
+        <div class="container">
+            <%= render "layouts/shared/enlaces_de_sitio" %>
+            <header id="cabecera-interna" class="span24">
+                <div class="navbar">
+                    <div class="offset1 span22">
+                        <a class="brand" href="/"><%= image_tag "tentu/generales/logo_tentupresupuesto.png", {:title => "TenTuPresupuesto", :alt => "TenTuPresupuesto"} %></a>
+                    </div>
+                </div>
+                <%= render "layouts/shared/breadcrumbs" %>
+                <%= render "layouts/shared/mensajes" %>
+            </header>
+        </div>
+        <article id="<%= yield :article_tag_id %>">
+            <div id="liston" class="clearfix">
+                <div class="container">
+                    <%= yield :liston %>
+                </div>
+            </div>
+            <div class="container">
+                <div id="cuerpo" class="span24">
+                    <div class="container">
+                        <%= yield %>
+                    </div>
+                    <!-- /container -->
+                    <%= render "layouts/shared/mensajes" %>
+                </div>
+            </div>
+        </article>
+        <%= render "layouts/shared/pie_de_pagina" %>
+        <!-- Javascripts
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <%= javascript_include_tag "interna-liston" %>
+        <%= yield :foot %>
+    </body>
 </html>

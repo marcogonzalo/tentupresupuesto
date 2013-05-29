@@ -61,6 +61,11 @@ class TrabajosController < ApplicationController
       @trabajos = Trabajo.page(params[:p])
       @cant_resultados = @trabajos.size
     end
+    @categorias = Categoria.con_solicitudes
+    @categorias_meta = ""
+    for c in @categorias
+      @categorias_meta += c.nombre+", "
+    end
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @trabajos }
@@ -151,7 +156,7 @@ class TrabajosController < ApplicationController
         format.html { redirect_to @trabajo }
         format.json { render json: @trabajo, status: :created, location: @trabajo }
       else
-        flash[:error] = "Ocurrió un error. Revisa el formulario."
+        flash[:error] = "Ocurrió un error. Revisa el formulario." #+@trabajo.errors.full_messages.to_s
         format.html { render action: "new" }
         format.json { render json: @trabajo.errors, status: :unprocessable_entity }
       end
@@ -192,6 +197,52 @@ class TrabajosController < ApplicationController
       flash[:success] = "Solicitud eliminada."
       format.html { redirect_to trabajos_url }
       format.json { head :no_content }
+    end
+  end
+  
+  def abrir_trabajo
+    @trabajo = Trabajo.find(params[:id])
+    es_el_solicitante = (@trabajo.solicitante_id == current_solicitante.perfilable_id)
+    
+    respond_to do |format|
+      if es_el_solicitante
+        if @trabajo.update_attribute('estatus','buscando')
+          flash[:success] = "Has reabierto la solicitud para recibir ofertas de proveedores."
+          format.html { redirect_to @trabajo }
+          format.json { render :json => { presupuesto: @trabajo, tipo_mensaje: :success, mensaje: flash[:success]}}
+        else
+          flash[:error] = "Ocurrió un error. No pudo abrir la solicitud."
+          format.html { redirect_to @trabajo }
+          format.json { render :json => { presupuesto: @trabajo.errors, tipo_mensaje: :error, mensaje: flash[:error]} }
+        end    
+      else
+        flash[:warning] = "Sólo el solicitante puede abrir la solicitud."
+        format.html { redirect_to @trabajo }
+        format.json { render :json => {tipo_mensaje: :warning, mensaje: flash[:warning]} }
+      end
+    end
+  end
+  
+  def cerrar_trabajo
+    @trabajo = Trabajo.find(params[:id])
+    es_el_solicitante = (@trabajo.solicitante_id == current_solicitante.perfilable_id)
+    
+    respond_to do |format|
+      if es_el_solicitante
+        if @trabajo.update_attribute('estatus','cerrado')
+          flash[:success] = "Has cerrado la solicitud y ya no recibirá más ofertas de proveedores."
+          format.html { redirect_to @trabajo }
+          format.json { render :json => { presupuesto: @trabajo, tipo_mensaje: :success, mensaje: flash[:success]}}
+        else
+          flash[:error] = "Ocurrió un error. No pudo cerrar la solicitud."
+          format.html { redirect_to @trabajo }
+          format.json { render :json => { presupuesto: @trabajo.errors, tipo_mensaje: :error, mensaje: flash[:error]} }
+        end    
+      else
+        flash[:warning] = "Sólo el solicitante puede cerrar la solicitud."
+        format.html { redirect_to @trabajo }
+        format.json { render :json => {tipo_mensaje: :warning, mensaje: flash[:warning]} }
+      end
     end
   end
   

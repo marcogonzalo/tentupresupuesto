@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
 # Mensajes Flash 
   def flash_messages
     return unless messages = flash.keys.select{|k| FLASH_NOTICE_KEYS.include?(k)}
-    formatted_messages = messages.map do |type|      
+    formatted_messages = messages.map do |type|
       content_tag :div, :class => type.to_s do
         message_for_item(flash[type], flash["#{type}_item".to_sym])
       end
@@ -46,7 +46,7 @@ class ApplicationController < ActionController::Base
   end
   
   def authenticated_solicitante
-    unless solicitante_signed_in?
+    unless solicitante_signed_in? or admin_signed_in?
       sign_out_all_scopes
       flash[:warning] = "Debes iniciar sesión con el usuario correcto" 
       redirect_to new_solicitante_session_path
@@ -55,7 +55,7 @@ class ApplicationController < ActionController::Base
   end
   
   def authenticated_proveedor
-    unless proveedor_signed_in?
+    unless proveedor_signed_in? or admin_signed_in?
       sign_out_all_scopes
       flash[:warning] = "Debes iniciar sesión con el usuario correcto" 
       redirect_to new_proveedor_session_path

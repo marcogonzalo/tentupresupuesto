@@ -2,7 +2,7 @@
         <meta charset="utf-8">
         <title>TenTuPresupuesto<%= content_for?(:title) ? " :: " : "" %><%= content_for?(:title) ? yield(:title) : "" %></title>
         <meta name="Title" content="TenTuPresupuesto - <%= yield(:title) if content_for?(:title) %>">
-        <meta name="Description" content="Búsqueda y contratación de servicios de reparación y remodelación por comparación de precios y calidad."
+        <meta name="Description" content="<%= content_for?(:meta_description) ? yield(:meta_description) : 'Solicita servicios de reparación y remodelación de manera sencilla, recibe presupuestos y contrata el mejor precio y calidad.' %>" >
         <meta name="Keywords" content="presupuestos, trabajadores a domicilio, contratación de servicios, reparación y remodelación, reparaciones, remodelaciones, licitaciones, hogar, casa, oficina, solicitudes, proveedores">
         <meta name="Author" content="Marco Gonzalo Gómez Pérez">
         <meta name="Language" content="Spanish">

@@ -27,6 +27,8 @@ class PresupuestosController < ApplicationController
     
     #Verificar si el trabajo existe y el usuario es el solicitante
     @es_el_solicitante = false
+    @tipo_usuario = "Solicitante"
+    m_u = 'proveedor'
     if solicitante_signed_in?
       @es_el_solicitante = @trabajo.solicitante_id.eql?(current_user.perfilable_id)
       @tipo_usuario = current_user.perfilable_type

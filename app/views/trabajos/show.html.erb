@@ -5,11 +5,15 @@
   end
 
   content_for :foot do
-    javascript_include_tag 'trabajos_show'
+    javascript_include_tag 'jquery.autoellipsis.min','trabajos_show'
   end
 
   content_for :title do
     "Solicitud: "+@trabajo.proposito
+  end
+
+  content_for :meta_description do
+      "Trabajo en "+@trabajo.categoria.nombre+". Ubicado en Municipio "+@trabajo.municipio.nombre+", Estado "+@trabajo.estado.nombre+", "+@trabajo.pais.nombre+"."
   end
 
   content_for :article_tag_id do
@@ -62,6 +66,11 @@
     <%= link_to "Volver al panel", panel_solicitante_path, :class => 'btn btn-large' %>
     <%= link_to(t('.edit', :default => t("helpers.links.edit")), edit_trabajo_path(@trabajo), :class => 'btn btn-large') if @trabajo.buscando? or @trabajo.cerrado? %>
     <%= link_to("Marcar como finalizado", '#modal-finalizado', :id => 'finalizar-trabajo', :class => 'btn btn-success btn-large', "data-toggle"=>"modal", "data-backdrop"=>"static") if @trabajo.ejecutando? %>
+    <%= link_to "Cerrar solicitud", cerrar_trabajo_path(@trabajo), :method => 'put',
+        :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => '¿Deseas cerrar esta solicitud? Los proveedores no podran ofertarte.')) },
+        :id => 'cerrar-solicitud', :class => 'btn btn-large' if @trabajo.buscando? %>
+    <%= link_to "Reabrir solicitud", abrir_trabajo_path(@trabajo), :method => 'put',
+        :id => 'cerrar-solicitud', :class => 'btn btn-large' if @trabajo.cerrado? %>
     <%= link_to(t('.destroy', :default => t("helpers.links.destroy")),
         trabajo_path(@trabajo),
         :method => 'delete',
@@ -85,7 +94,7 @@
     <div class="span4 presupuesto">
         <div class="separar-alrededor">
             <%= image_tag(@trabajo.contratado.avatar.mini.url) %>
-            <span class="proveedor-interesado"><b><%= @trabajo.contratado.nombre_empresa %></b></span>
+            <span class="proveedor-interesado" title="<%= @trabajo.contratado.nombre_empresa %>"><b><%= @trabajo.contratado.nombre_empresa %></b></span>
             <%= raw mostrar_reputacion(@trabajo.contratado.reputacion, @trabajo.contratado.valoraciones, "proveedor") %>
         </div>
         <div class="botones">

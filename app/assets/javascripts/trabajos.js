@@ -30,3 +30,7 @@ $('#trabajo_municipio_id').change(function() {
         cargar_entidades('trabajo', 'localidad', 'municipio');
     }
 });
+
+$('#crear-solicitud form').submit(function(){
+    cargando_en_boton('#crear-trabajo');
+});
