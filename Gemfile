@@ -60,6 +60,6 @@ gem 'capistrano', "~> 2.14.2"
 # To use debugger
 # gem 'debugger'
 group :development do
-  gem 'debugger', "~> 1.3.1"
-  gem 'ruby-debug-ide', "~> 0.4.16"
+  gem 'debugger'
+  gem 'ruby-debug-ide'
 end
