@@ -78,23 +78,29 @@ class SolicitantesController < ApplicationController
     @solicitante = Solicitante.new(params[:solicitante])
     
     respond_to do |format|
-      if current_solicitante.perfilable_id.nil? or current_solicitante.perfilable_id <= 0
-        if @solicitante.save
-          current_solicitante.update_attribute('perfilable_id', @solicitante.id)
-          
-          flash[:success] = "Datos de solicitante registrados."
-          format.html { redirect_to panel_solicitante_path }
-          format.json { render json: @solicitante, status: :created, location: @solicitante }
+      if solicitante_signed_in?
+        if current_solicitante.perfilable_id.nil? or current_solicitante.perfilable_id <= 0
+          if @solicitante.save
+            current_solicitante.update_attribute('perfilable_id', @solicitante.id)
+            
+            flash[:success] = "Datos de solicitante registrados."
+            format.html { redirect_to panel_solicitante_path }
+            format.json { render json: @solicitante, status: :created, location: @solicitante }
+          else
+            flash[:error] = "Ocurrió un error. Revisa el formulario."
+            format.html { render action: "new" }
+            format.json { render json: @solicitante.errors, status: :unprocessable_entity }
+          end
         else
-          flash[:error] = "Ocurrió un error. Revisa el formulario."
+          flash[:warning] = 'Ya posee un perfil asociado.'
           format.html { render action: "new" }
           format.json { render json: @solicitante.errors, status: :unprocessable_entity }
         end
       else
-        flash[:warning] = 'Ya posee un perfil asociado.'
-        format.html { render action: "new" }
-        format.json { render json: @solicitante.errors, status: :unprocessable_entity }
-      end 
+        flash[:info] = 'No ha iniciado sesión.'
+        format.html { redirect_to new_proveedor_session }
+        format.json { render json: @proveedor.errors, status: :unprocessable_entity }
+      end
     end
   end
 
