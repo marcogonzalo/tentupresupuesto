@@ -10,7 +10,7 @@ class Presupuesto < ActiveRecord::Base
   
   validate  :rango_precio_valido
   validates :resumen, 
-            :length => {  :in => 10..500 },
+            :length => {  :in => 10..1000 },
             :presence => true
   validates :precio_minimo, 
             :numericality =>  {
