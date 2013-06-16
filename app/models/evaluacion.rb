@@ -1,5 +1,5 @@
 class Evaluacion < ActiveRecord::Base
-  
+  before_create :set_total
   attr_accessible :atencion, :calidad, :limpieza, :observaciones, :precio, :responsabilidad, 
                   :respuesta_proveedor, :tiempo, :total
   
@@ -52,7 +52,7 @@ class Evaluacion < ActiveRecord::Base
       contados = contados+1
       contabilizacion = contabilizacion + self.precio
     end
-    if self.reponsabilidad.blank?
+    if self.responsabilidad.blank?
       self.responsabilidad = nil 
     else
       contados = contados+1
