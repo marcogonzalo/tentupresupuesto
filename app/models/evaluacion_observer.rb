@@ -6,14 +6,16 @@ class EvaluacionObserver < ActiveRecord::Observer
     if evaluacion.proveedor_id.present?
       p = Proveedor.find(evaluacion.proveedor_id)
       e = Evaluacion.where(:proveedor_id => p.id)
+      
+      t = evaluacion.trabajo
+      t.estatus = "evaluado"
+      t.save
+      
       valoraciones = e.count
       reputacion = e.average("total")
       p.valoraciones = valoraciones
       p.reputacion = reputacion
       p.save
-      puts valoraciones
-      puts reputacion
-      puts p.errors.full_messages.to_sentence
     end
   end
 end
