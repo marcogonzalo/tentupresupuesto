@@ -60,6 +60,8 @@ GEM
     debugger-linecache (1.1.2)
       debugger-ruby_core_source (>= 1.1.1)
     debugger-ruby_core_source (1.1.8)
+    delocalize (0.3.1)
+      rails (>= 3.0)
     devise (2.2.3)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
@@ -210,6 +212,7 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   cssminify (~> 1.0.2)
   debugger
+  delocalize (~> 0.3.1)
   devise (~> 2.2.3)
   devise-encryptable (~> 0.1.1)
   foreigner (~> 1.4.1)

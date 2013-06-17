@@ -147,11 +147,14 @@ class PresupuestosController < ApplicationController
   # PUT /presupuestos/1.json
   def update
     @presupuesto = Presupuesto.find(params[:id])
+    @trabajo = @presupuesto.trabajo
     
     es_el_proveedor = false
     if proveedor_signed_in?
       es_el_proveedor = @presupuesto.proveedor_id.eql?(current_proveedor.perfilable_id)
     end
+    
+    @path = @presupuesto
     respond_to do |format|
       if es_el_proveedor and not(@presupuesto.rechazado or @presupuesto.aprobado)
         if @presupuesto.update_attributes(params[:presupuesto])
