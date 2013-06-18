@@ -11,7 +11,7 @@ gem 'foreigner', "~> 1.4.1"                       # Soporte para Claves Foraneas
 gem 'timeliness', "~> 0.3.6"                      # Manejo de fechas
 gem 'validates_timeliness', '~> 3.0'  # Validacion de fechas en el modelo
 gem "friendly_id", '~> 4.0.9'         # Identificadores amigables para url
-# gem "delocalize", "~> 0.3.1"                      # Cambio de formato de números y fechas según localización de manera automática - https://github.com/clemens/delocalize.
+gem "delocalize", "~> 0.3.1"                      # Cambio de formato de números y fechas según localización de manera automática - https://github.com/clemens/delocalize.
 
 # Sesiones
 gem 'devise', "~> 2.2.3"

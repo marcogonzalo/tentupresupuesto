@@ -18,6 +18,7 @@
                 <div class="navbar">
                     <div class="offset1 span22">
                         <a class="brand" href="/"><%= image_tag "tentu/generales/logo_tentupresupuesto.png", {:title => "TenTuPresupuesto", :alt => "TenTuPresupuesto"} %></a>
+                        <%= render "layouts/shared/publicidad/cabecera_interna" %>
                     </div>
                 </div>
                 <%= render "layouts/shared/breadcrumbs" %>
@@ -37,6 +38,7 @@
                     </div>
                     <!-- /container -->
                     <%= render "layouts/shared/mensajes" %>
+                    <%= render "layouts/shared/publicidad/cuerpo_inferior" %>
                 </div>
             </div>
         </article>

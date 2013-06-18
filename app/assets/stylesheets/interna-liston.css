@@ -55,13 +55,7 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
 }
 
 #cuerpo {
-    background-color: white;
-    clear: both;
-    margin: 0px auto;
     margin-bottom: -20px;
-    max-width: 1060px;
-    overflow: hidden;
-    padding-bottom: 3em;
     padding-top: 1em;
     position: relative;
     top: -20px;

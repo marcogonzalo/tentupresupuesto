@@ -13,7 +13,7 @@
   end
 %>
 <h1 class="page-header"><%= t '.title', :default => model_class.model_name.human.pluralize %></h1>
-<div class="span6">
+<aside class="span6">
     <div id="filtros" class="well">
         <% unless signed_in?  %>
         <%= link_to "¿Provees algún servicio?", new_proveedor_registration_path, :class => 'btn btn-warning btn-block con-myriad-bold'%>
@@ -61,7 +61,10 @@
             </ul>
         </div>
     </div>
-</div>
+    <div style="text-align:center;">
+        <%= render "layouts/shared/publicidad/menu_lateral" %>
+    </div>
+</aside>
 <div class="offset1 span15">
 <% if not @categoria.nil? %>
     <h2 class="page-header"><%= @categoria.nombre %></h2>
