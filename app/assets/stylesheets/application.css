@@ -18,14 +18,6 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
     margin-right: 5px;
     width: 90%;
 }
-#cuerpo {
-    background-color: white;
-    clear: both;
-    margin: 0px auto;
-    max-width: 1060px;
-    overflow: hidden;
-    padding-bottom: 3em;
-}
 #caracteristicas {
     margin-top: 1em;
 }

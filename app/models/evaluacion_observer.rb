@@ -16,6 +16,8 @@ class EvaluacionObserver < ActiveRecord::Observer
       p.valoraciones = valoraciones
       p.reputacion = reputacion
       p.save
+      
+      #puts p.errors.full_messages.to_sentence
     end
   end
 end

@@ -9,80 +9,97 @@
   end
 
   content_for :meta_description do
-      @categorias_meta
+    @categorias_meta
   end
 
-#  content_for :foot do
-#    javascript_include_tag 'trabajos'
-#  end
+  #  content_for :foot do
+  #    javascript_include_tag 'trabajos'
+  #  end
 %>
 <h1 class="page-header">Solicitudes</h1>
-<div class="span6">
-	<div id="filtros" class="well">
-	<% unless proveedor_signed_in? %>
-		<%= link_to "Nueva solicitud", new_trabajo_path, :class => 'btn btn-warning btn-block con-myriad-bold'%>
-		<br>
-	<% end %>
-		<h4>Categorías</h4>
-		<div class="listado">
-			<ul class=" nav nav-list">
-				<li><b><%= link_to "Todas", trabajos_path %></b></li>
-				<% for cat in @categorias %>  
-				<li><%= link_to cat.nombre, listar_trabajos_path('categoria', cat.friendly_id) %></li>
-				<% end %>
-			</ul>
-		</div>
-		<br>
-		<h4>Ubicación</h4>
-		<div class="listado">
-			<ul class=" nav nav-list">
-				<li><b><%= link_to "Todas", trabajos_path %></b></li>
-				<% for ug in UbicacionGeografica.where(:tipo => 'estado', :entidad_id => 1) %>  
-				<li><%= link_to ug.nombre, listar_trabajos_path('ubicacion', ug.friendly_id) %></li>
-				<% end %>
-			</ul>
-		</div>
-		<br>
-		<h4>Estatus</h4>
-		<div class="listado">
-			<ul class=" nav nav-list">
-				<li><b><%= link_to "Todos", trabajos_path %></b></li>
-			<% for est in Trabajo::ESTATUS %>
-				<% unless est.eql?("cancelado") %>
-				<li><%= link_to est.humanize, listar_trabajos_path('estatus', est) %></li>
-				<% end %>
-			<% end %>
-			</ul>
-		</div>
-	</div>
-</div>
+<aside class="span6">
+    <div id="filtros" class="well">
+        <% unless proveedor_signed_in? %>
+        <%= link_to "Nueva solicitud", new_trabajo_path, :class => 'btn btn-warning btn-block con-myriad-bold'%>
+        <br>
+        <% end %>
+        <h4>Categorías</h4>
+        <div class="listado">
+            <ul class=" nav nav-list">
+                <li>
+                    <b><%= link_to "Todas", trabajos_path %></b>
+                </li>
+                <% for cat in @categorias %>
+                <li>
+                    <%= link_to cat.nombre, listar_trabajos_path('categoria', cat.friendly_id) %>
+                </li>
+                <% end %>
+            </ul>
+        </div>
+        <br>
+        <h4>Ubicación</h4>
+        <div class="listado">
+            <ul class=" nav nav-list">
+                <li>
+                    <b><%= link_to "Todas", trabajos_path %></b>
+                </li>
+                <% for ug in UbicacionGeografica.where(:tipo => 'estado', :entidad_id => 1) %>
+                <li>
+                    <%= link_to ug.nombre, listar_trabajos_path('ubicacion', ug.friendly_id) %>
+                </li>
+                <% end %>
+            </ul>
+        </div>
+        <br>
+        <h4>Estatus</h4>
+        <div class="listado">
+            <ul class=" nav nav-list">
+                <li>
+                    <b><%= link_to "Todos", trabajos_path %></b>
+                </li>
+                <% for est in Trabajo::ESTATUS %>
+                <% unless est.eql?("cancelado") %>
+                <li>
+                    <%= link_to est.humanize, listar_trabajos_path('estatus', est) %>
+                </li>
+                <% end %>
+                <% end %>
+            </ul>
+        </div>
+    </div>
+    <div style="text-align:center;">
+        <%= render "layouts/shared/publicidad/menu_lateral" %>
+    </div>
+</aside>
 <div class="offset1 span15">
-	<h2 class="page-header"><%= @titulo %></h2>
-<% if @cant_resultados > 0 %>
-	<%= page_entries_info @trabajos %>
-	<%= paginate @trabajos, :param_name => 'p' %> 
-	<% @trabajos.each do |trabajo| %>
-	<div class="row trabajo ">
-		<h4>
-			<%= link_to trabajo.proposito, trabajo %>
-		</h4>
-		<section class="datos-solicitud">
-			<div class="cat-p-n <%= trabajo.categoria.clase_css %>"></div>
-			<div class="datos-en-lista">
-				<%= link_to trabajo.categoria.nombre, listar_trabajos_path('categoria', trabajo.categoria.friendly_id) %> | <%= trabajo.estatus.capitalize %> | <%= link_to( t('extras.presupuestos', :count => trabajo.cant_presupuestos), trabajo_path(trabajo, :anchor => "presupuestos")) %>
-				<br>
-				<time datetime="<%= l trabajo.created_at, :format => :html5 %>" pubdate="pubdate">
-					<%= l trabajo.created_at, :format => :abrev %>
-				</time> | 
-				En <%= link_to trabajo.localidad.nombre, listar_trabajos_path('ubicacion', trabajo.localidad.friendly_id) %>, Municipio <%= link_to trabajo.municipio.nombre, listar_trabajos_path('ubicacion', trabajo.municipio.friendly_id) %>, Estado <%= link_to trabajo.estado.nombre, listar_trabajos_path('ubicacion', trabajo.estado.friendly_id) %>.
-			</div>
-		</section>
-		<p class="descripcion"><%= truncate(trabajo.descripcion, :length => 250, :separator => ' ') %></p>
-	</div>
-	<% end %>
-	<%= paginate @trabajos, :param_name => 'p' %> 
-<% else %>
-	<p class="text-muted">No se hallaron solicitudes con el criterio seleccionado.</p>
-<% end %>
+    <h2 class="page-header"><%= @titulo %></h2>
+    <% if @cant_resultados > 0 %>
+    <%= page_entries_info @trabajos %>
+    <%= paginate @trabajos, :param_name => 'p' %>
+    <% @trabajos.each do |trabajo| %>
+    <div class="row trabajo ">
+        <h4> <%= link_to trabajo.proposito, trabajo %> </h4>
+        <section class="datos-solicitud">
+            <div class="cat-p-n <%= trabajo.categoria.clase_css %>"></div>
+            <div class="datos-en-lista">
+                <%= link_to trabajo.categoria.nombre, listar_trabajos_path('categoria', trabajo.categoria.friendly_id) %> | <%= trabajo.estatus.capitalize %> | <%= link_to( t('extras.presupuestos', :count => trabajo.cant_presupuestos), trabajo_path(trabajo, :anchor => "presupuestos")) %>
+                <br>
+                <time datetime="<%= l trabajo.created_at, :format => :html5 %>" pubdate="pubdate">
+                    <%= l trabajo.created_at, :format => :abrev %>
+                </time> |
+                En <%= link_to trabajo.localidad.nombre, listar_trabajos_path('ubicacion', trabajo.localidad.friendly_id) %>, Municipio <%= link_to trabajo.municipio.nombre, listar_trabajos_path('ubicacion', trabajo.municipio.friendly_id) %>, Estado <%= link_to trabajo.estado.nombre, listar_trabajos_path('ubicacion', trabajo.estado.friendly_id) %>.
+            </div>
+        </section>
+        <p class="descripcion">
+            <%= truncate(trabajo.descripcion, :length => 250, :separator => ' ') %>
+        </p>
+    </div>
+    <% end %>
+    <%= paginate @trabajos, :param_name => 'p' %>
+    <% else %>
+    <p class="text-muted">
+        No se hallaron solicitudes con el criterio seleccionado.
+    </p>
+    <% end %>
 </div>
 
