@@ -22,7 +22,7 @@ RailsAdmin.config do |config|
   # config.audit_with :paper_trail, 'Admin'
 
   # Display empty fields in show views:
-  # config.compact_show_view = false
+  config.compact_show_view = false
 
   # Number of default rows per-page:
   config.default_items_per_page = 50
@@ -37,8 +37,14 @@ RailsAdmin.config do |config|
   # config.label_methods << :description # Default is [:name, :title]
   
   
-  def tipo_nombre_entidad
-    "#{self.tipo.capitalize} #{self.nombre}"
+  def ubicacion_tipo_nombre_entidad
+    if self.tipo.eql?("pais")
+      "#{self.nombre}"
+    elsif self.tipo.eql?("localidad")
+      "#{self.nombre} (#{self.entidad_superior.tipo.capitalize} #{self.entidad_superior.nombre})"
+    else
+      "#{self.tipo.capitalize} #{self.nombre} (#{self.entidad_superior.tipo.capitalize} #{self.entidad_superior.nombre})"
+    end
   end
 
 
@@ -60,7 +66,7 @@ RailsAdmin.config do |config|
 
   ###  Admin  ###
 
-  config.model 'Admin' do
+  # config.model 'Admin' do
 
   #   # You can copy this to a 'rails_admin do ... end' block inside your admin.rb model definition
 
@@ -97,36 +103,24 @@ RailsAdmin.config do |config|
 
   #   # Section specific configuration:
 
-      list do
-  #       # filters [:id, :email]  # Array of field names which filters should be shown by default in the table header
+  #     list do
+  #       # filters [:id, :name]  # Array of field names which filters should be shown by default in the table header
   #       # items_per_page 100    # Override default_items_per_page
-        sort_by :email           # Sort column (default is primary key)
+  #       # sort_by :id           # Sort column (default is primary key)
   #       # sort_reverse true     # Sort direction (default is true for primary key, last created first)
-        
-        field :id do
-          column_width 50
-        end
-        field :email
-        field :aprobado do
-          column_width 100
-        end
-        field :current_sign_in_at do
-          date_format :abrev
-        end
-        field :current_sign_in_ip
-      end
+  #     end
   #     show do; end
   #     edit do; end
   #     export do; end
   #     # also see the create, update, modal and nested sections, which override edit in specific cases (resp. when creating, updating, modifying from another model in a popup modal or modifying from another model nested form)
   #     # you can override a cross-section field configuration in any section with the same syntax `configure :field_name do ... end`
   #     # using `field` instead of `configure` will exclude all other fields and force the ordering
-  end
+  # end
 
 
   ###  Categoria  ###
 
-  config.model 'Categoria' do
+  # config.model 'Categoria' do
 
   #   # You can copy this to a 'rails_admin do ... end' block inside your categoria.rb model definition
 
@@ -151,7 +145,7 @@ RailsAdmin.config do |config|
 
   #   # Cross-section configuration:
 
-      object_label_method :nombre     # Name of the method called for pretty printing an *instance* of ModelName
+  #     # object_label_method :name     # Name of the method called for pretty printing an *instance* of ModelName
   #     # label 'My model'              # Name of ModelName (smartly defaults to ActiveRecord's I18n API)
   #     # label_plural 'My models'      # Same, plural
   #     # weight 0                      # Navigation priority. Bigger is higher.
@@ -160,34 +154,24 @@ RailsAdmin.config do |config|
 
   #   # Section specific configuration:
 
-      list do
+  #     list do
   #       # filters [:id, :name]  # Array of field names which filters should be shown by default in the table header
   #       # items_per_page 100    # Override default_items_per_page
-        sort_by :nombre           # Sort column (default is primary key)
+  #       # sort_by :id           # Sort column (default is primary key)
   #       # sort_reverse true     # Sort direction (default is true for primary key, last created first)
-        field :id do
-          column_width 50
-        end
-        field :nombre
-        field :proveedores_asociados do
-          column_width 100
-        end
-        field :trabajos_asociados do
-          column_width 100
-        end
-      end
+  #     end
   #     show do; end
   #     edit do; end
   #     export do; end
   #     # also see the create, update, modal and nested sections, which override edit in specific cases (resp. when creating, updating, modifying from another model in a popup modal or modifying from another model nested form)
   #     # you can override a cross-section field configuration in any section with the same syntax `configure :field_name do ... end`
   #     # using `field` instead of `configure` will exclude all other fields and force the ordering
-  end
+  # end
 
 
   ###  Evaluacion  ###
 
-  config.model 'Evaluacion' do
+  # config.model 'Evaluacion' do
 
   #   # You can copy this to a 'rails_admin do ... end' block inside your evaluacion.rb model definition
 
@@ -237,12 +221,12 @@ RailsAdmin.config do |config|
   #     # also see the create, update, modal and nested sections, which override edit in specific cases (resp. when creating, updating, modifying from another model in a popup modal or modifying from another model nested form)
   #     # you can override a cross-section field configuration in any section with the same syntax `configure :field_name do ... end`
   #     # using `field` instead of `configure` will exclude all other fields and force the ordering
-  end
+  # end
 
 
   ###  Imagen  ###
 
-  config.model 'Imagen' do
+  # config.model 'Imagen' do
 
   #   # You can copy this to a 'rails_admin do ... end' block inside your imagen.rb model definition
 
@@ -272,33 +256,24 @@ RailsAdmin.config do |config|
 
   #   # Section specific configuration:
 
-      list do
+  #     list do
   #       # filters [:id, :name]  # Array of field names which filters should be shown by default in the table header
   #       # items_per_page 100    # Override default_items_per_page
   #       # sort_by :id           # Sort column (default is primary key)
   #       # sort_reverse true     # Sort direction (default is true for primary key, last created first)
-        field :archivo
-        field :descripcion
-        field :proposito
-        field :imagenable do
-          column_width 100
-        end
-        field :created_at do
-          date_format :abrev
-        end
-      end
+  #     end
   #     show do; end
   #     edit do; end
   #     export do; end
   #     # also see the create, update, modal and nested sections, which override edit in specific cases (resp. when creating, updating, modifying from another model in a popup modal or modifying from another model nested form)
   #     # you can override a cross-section field configuration in any section with the same syntax `configure :field_name do ... end`
   #     # using `field` instead of `configure` will exclude all other fields and force the ordering
-  end
+  # end
 
 
   ###  Mensaje  ###
 
-  config.model 'Mensaje' do
+  # config.model 'Mensaje' do
 
   #   # You can copy this to a 'rails_admin do ... end' block inside your mensaje.rb model definition
 
@@ -327,34 +302,24 @@ RailsAdmin.config do |config|
 
   #   # Section specific configuration:
 
-      list do
+  #     list do
   #       # filters [:id, :name]  # Array of field names which filters should be shown by default in the table header
   #       # items_per_page 100    # Override default_items_per_page
   #       # sort_by :id           # Sort column (default is primary key)
   #       # sort_reverse true     # Sort direction (default is true for primary key, last created first)
-        field :presupuesto do
-          column_width 100
-        end
-        field :usuario do
-          column_width 100
-        end
-        field :comentario
-        field :created_at do
-          date_format :abrev
-        end
-      end
+  #     end
   #     show do; end
   #     edit do; end
   #     export do; end
   #     # also see the create, update, modal and nested sections, which override edit in specific cases (resp. when creating, updating, modifying from another model in a popup modal or modifying from another model nested form)
   #     # you can override a cross-section field configuration in any section with the same syntax `configure :field_name do ... end`
   #     # using `field` instead of `configure` will exclude all other fields and force the ordering
-  end
+  # end
 
 
   ###  Presupuesto  ###
 
-  config.model 'Presupuesto' do
+  # config.model 'Presupuesto' do
 
   #   # You can copy this to a 'rails_admin do ... end' block inside your presupuesto.rb model definition
 
@@ -392,45 +357,24 @@ RailsAdmin.config do |config|
 
   #   # Section specific configuration:
 
-      list do
+  #     list do
   #       # filters [:id, :name]  # Array of field names which filters should be shown by default in the table header
   #       # items_per_page 100    # Override default_items_per_page
   #       # sort_by :id           # Sort column (default is primary key)
   #       # sort_reverse true     # Sort direction (default is true for primary key, last created first)
-        field :id do
-          column_width 50
-        end
-        field :trabajo
-        field :proveedor do
-          column_width 100
-        end
-        field :precio_minimo do
-          column_width 75
-          label "Mínimo"
-        end
-        field :precio_maximo do
-          column_width 75
-          label "Máximo"
-        end
-        field :aprobado do
-          column_width 50
-        end
-        field :rechazado do
-          column_width 50
-        end
-      end
+  #     end
   #     show do; end
   #     edit do; end
   #     export do; end
   #     # also see the create, update, modal and nested sections, which override edit in specific cases (resp. when creating, updating, modifying from another model in a popup modal or modifying from another model nested form)
   #     # you can override a cross-section field configuration in any section with the same syntax `configure :field_name do ... end`
   #     # using `field` instead of `configure` will exclude all other fields and force the ordering
-  end
+  # end
 
 
   ###  Proveedor  ###
 
-  config.model 'Proveedor' do
+  # config.model 'Proveedor' do
 
   #   # You can copy this to a 'rails_admin do ... end' block inside your proveedor.rb model definition
 
@@ -445,6 +389,7 @@ RailsAdmin.config do |config|
   #     configure :imagenes, :has_many_association 
   #     configure :trabajos, :has_many_association 
   #     configure :presupuestos, :has_many_association 
+  #     configure :evaluaciones, :has_many_association 
   #     configure :categorias, :has_and_belongs_to_many_association 
 
   #   # Found columns:
@@ -475,7 +420,7 @@ RailsAdmin.config do |config|
 
   #   # Cross-section configuration:
 
-      object_label_method :nombre_empresa     # Name of the method called for pretty printing an *instance* of ModelName
+  #     # object_label_method :name     # Name of the method called for pretty printing an *instance* of ModelName
   #     # label 'My model'              # Name of ModelName (smartly defaults to ActiveRecord's I18n API)
   #     # label_plural 'My models'      # Same, plural
   #     # weight 0                      # Navigation priority. Bigger is higher.
@@ -484,40 +429,24 @@ RailsAdmin.config do |config|
 
   #   # Section specific configuration:
 
-      list do
+  #     list do
   #       # filters [:id, :name]  # Array of field names which filters should be shown by default in the table header
   #       # items_per_page 100    # Override default_items_per_page
   #       # sort_by :id           # Sort column (default is primary key)
   #       # sort_reverse true     # Sort direction (default is true for primary key, last created first)
-        field :id do
-          column_width 50
-        end
-        field :usuario do
-          inverse_of :perfilable
-        end
-        field :nombre_empresa
-        field :tipo_proveedor do
-          column_width 150
-        end
-        field :verificado do
-          column_width 75
-        end
-        field :created_at do
-          date_format :abrev
-        end
-      end
+  #     end
   #     show do; end
   #     edit do; end
   #     export do; end
   #     # also see the create, update, modal and nested sections, which override edit in specific cases (resp. when creating, updating, modifying from another model in a popup modal or modifying from another model nested form)
   #     # you can override a cross-section field configuration in any section with the same syntax `configure :field_name do ... end`
   #     # using `field` instead of `configure` will exclude all other fields and force the ordering
-  end
+  # end
 
 
   ###  Solicitante  ###
 
-  config.model 'Solicitante' do
+  # config.model 'Solicitante' do
 
   #   # You can copy this to a 'rails_admin do ... end' block inside your solicitante.rb model definition
 
@@ -559,39 +488,24 @@ RailsAdmin.config do |config|
 
   #   # Section specific configuration:
 
-      list do
+  #     list do
   #       # filters [:id, :name]  # Array of field names which filters should be shown by default in the table header
   #       # items_per_page 100    # Override default_items_per_page
-  #       sort_by :id           # Sort column (default is primary key)
+  #       # sort_by :id           # Sort column (default is primary key)
   #       # sort_reverse true     # Sort direction (default is true for primary key, last created first)
-        field :id do
-          column_width 50
-        end
-        field :usuario do
-          inverse_of :perfilable
-        end
-        field :solicitudes_realizadas do
-          column_width 50
-        end
-        field :trabajos_recibidos do
-          column_width 50
-        end
-        field :created_at do
-          date_format :abrev
-        end
-      end
+  #     end
   #     show do; end
   #     edit do; end
   #     export do; end
   #     # also see the create, update, modal and nested sections, which override edit in specific cases (resp. when creating, updating, modifying from another model in a popup modal or modifying from another model nested form)
   #     # you can override a cross-section field configuration in any section with the same syntax `configure :field_name do ... end`
   #     # using `field` instead of `configure` will exclude all other fields and force the ordering
-  end
+  # end
 
 
   ###  Trabajo  ###
 
-  config.model 'Trabajo' do
+  # config.model 'Trabajo' do
 
   #   # You can copy this to a 'rails_admin do ... end' block inside your trabajo.rb model definition
 
@@ -605,6 +519,7 @@ RailsAdmin.config do |config|
   #     configure :municipio, :belongs_to_association 
   #     configure :localidad, :belongs_to_association 
   #     configure :slugs, :has_many_association         # Hidden 
+  #     configure :evaluacion, :has_one_association 
   #     configure :presupuestos, :has_many_association 
 
   #   # Found columns:
@@ -629,7 +544,7 @@ RailsAdmin.config do |config|
 
   #   # Cross-section configuration:
 
-      object_label_method :proposito     # Name of the method called for pretty printing an *instance* of ModelName
+  #     # object_label_method :name     # Name of the method called for pretty printing an *instance* of ModelName
   #     # label 'My model'              # Name of ModelName (smartly defaults to ActiveRecord's I18n API)
   #     # label_plural 'My models'      # Same, plural
   #     # weight 0                      # Navigation priority. Bigger is higher.
@@ -638,37 +553,24 @@ RailsAdmin.config do |config|
 
   #   # Section specific configuration:
 
-      list do
+  #     list do
   #       # filters [:id, :name]  # Array of field names which filters should be shown by default in the table header
   #       # items_per_page 100    # Override default_items_per_page
   #       # sort_by :id           # Sort column (default is primary key)
   #       # sort_reverse true     # Sort direction (default is true for primary key, last created first)
-        field :id do
-          column_width 50
-        end
-        field :proposito
-        field :estatus do
-          column_width 100
-        end
-        field :solicitante do
-          column_width 100
-        end
-        field :contratado do
-          column_width 100
-        end
-      end
+  #     end
   #     show do; end
   #     edit do; end
   #     export do; end
   #     # also see the create, update, modal and nested sections, which override edit in specific cases (resp. when creating, updating, modifying from another model in a popup modal or modifying from another model nested form)
   #     # you can override a cross-section field configuration in any section with the same syntax `configure :field_name do ... end`
   #     # using `field` instead of `configure` will exclude all other fields and force the ordering
-  end
+  # end
 
 
   ###  UbicacionGeografica  ###
 
-  config.model 'UbicacionGeografica' do
+  # config.model 'UbicacionGeografica' do
 
   #   # You can copy this to a 'rails_admin do ... end' block inside your ubicacion_geografica.rb model definition
 
@@ -699,7 +601,7 @@ RailsAdmin.config do |config|
 
   #   # Cross-section configuration:
 
-      object_label_method :tipo_nombre_entidad     # Name of the method called for pretty printing an *instance* of ModelName
+  #     # object_label_method :name     # Name of the method called for pretty printing an *instance* of ModelName
   #     # label 'My model'              # Name of ModelName (smartly defaults to ActiveRecord's I18n API)
   #     # label_plural 'My models'      # Same, plural
   #     # weight 0                      # Navigation priority. Bigger is higher.
@@ -708,32 +610,24 @@ RailsAdmin.config do |config|
 
   #   # Section specific configuration:
 
-      list do
+  #     list do
   #       # filters [:id, :name]  # Array of field names which filters should be shown by default in the table header
   #       # items_per_page 100    # Override default_items_per_page
   #       # sort_by :id           # Sort column (default is primary key)
   #       # sort_reverse true     # Sort direction (default is true for primary key, last created first)
-        field :id do
-          column_width 50
-        end
-        field :nombre
-        field :tipo
-        field :entidad_superior
-      end
+  #     end
   #     show do; end
   #     edit do; end
   #     export do; end
   #     # also see the create, update, modal and nested sections, which override edit in specific cases (resp. when creating, updating, modifying from another model in a popup modal or modifying from another model nested form)
   #     # you can override a cross-section field configuration in any section with the same syntax `configure :field_name do ... end`
   #     # using `field` instead of `configure` will exclude all other fields and force the ordering
-  
-  
-  end
+  # end
 
 
   ###  Usuario  ###
 
-  config.model 'Usuario' do
+  # config.model 'Usuario' do
 
   #   # You can copy this to a 'rails_admin do ... end' block inside your usuario.rb model definition
 
@@ -776,7 +670,7 @@ RailsAdmin.config do |config|
 
   #   # Cross-section configuration:
 
-      object_label_method :email     # Name of the method called for pretty printing an *instance* of ModelName
+  #     # object_label_method :name     # Name of the method called for pretty printing an *instance* of ModelName
   #     # label 'My model'              # Name of ModelName (smartly defaults to ActiveRecord's I18n API)
   #     # label_plural 'My models'      # Same, plural
   #     # weight 0                      # Navigation priority. Bigger is higher.
@@ -785,36 +679,18 @@ RailsAdmin.config do |config|
 
   #   # Section specific configuration:
 
-      list do
+  #     list do
   #       # filters [:id, :name]  # Array of field names which filters should be shown by default in the table header
   #       # items_per_page 100    # Override default_items_per_page
-        sort_by :created_at           # Sort column (default is primary key)
-        sort_reverse true     # Sort direction (default is true for primary key, last created first)
-        field :id do
-          column_width 50
-        end
-        field :email
-        field :perfilable do
-          column_width 100
-        end
-        field :perfilable_type do
-          column_width 50
-          visible true
-          label "Tipo"
-        end
-        field :confirmed_at do
-          date_format :abrev
-        end
-        field :updated_at do
-          date_format :abrev
-        end
-      end
+  #       # sort_by :id           # Sort column (default is primary key)
+  #       # sort_reverse true     # Sort direction (default is true for primary key, last created first)
+  #     end
   #     show do; end
   #     edit do; end
   #     export do; end
   #     # also see the create, update, modal and nested sections, which override edit in specific cases (resp. when creating, updating, modifying from another model in a popup modal or modifying from another model nested form)
   #     # you can override a cross-section field configuration in any section with the same syntax `configure :field_name do ... end`
   #     # using `field` instead of `configure` will exclude all other fields and force the ordering
-  end
+  # end
 
 end

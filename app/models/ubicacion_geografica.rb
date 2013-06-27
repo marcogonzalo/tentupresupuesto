@@ -30,6 +30,93 @@ class UbicacionGeografica < ActiveRecord::Base
             :inclusion => { :in => TIPO_UBICACION },
             :presence => true
   
+  rails_admin do
+  #   # You can copy this to a 'rails_admin do ... end' block inside your ubicacion_geografica.rb model definition
+
+  #   # Found associations:
+
+  #     configure :entidad_superior, :belongs_to_association 
+  #     configure :entidades, :has_many_association 
+  #     configure :proveedores_de_pais, :has_many_association 
+  #     configure :proveedores_de_estado, :has_many_association 
+  #     configure :proveedores_de_municipio, :has_many_association 
+  #     configure :proveedores_de_localidad, :has_many_association 
+  #     configure :solicitantes_de_pais, :has_many_association 
+  #     configure :solicitantes_de_estado, :has_many_association 
+  #     configure :solicitantes_de_municipio, :has_many_association 
+  #     configure :solicitantes_de_localidad, :has_many_association 
+  #     configure :trabajos_de_pais, :has_many_association 
+  #     configure :trabajos_de_estado, :has_many_association 
+  #     configure :trabajos_de_municipio, :has_many_association 
+  #     configure :trabajos_de_localidad, :has_many_association 
+
+  #   # Found columns:
+
+  #     configure :id, :integer 
+  #     configure :nombre, :string 
+  #     configure :tipo, :string 
+  #     configure :entidad_id, :integer         # Hidden 
+  #     configure :slug, :string 
+
+  #   # Cross-section configuration:
+
+      object_label_method :ubicacion_tipo_nombre_entidad     # Name of the method called for pretty printing an *instance* of ModelName
+  #     # label 'My model'              # Name of ModelName (smartly defaults to ActiveRecord's I18n API)
+  #     # label_plural 'My models'      # Same, plural
+  #     # weight 0                      # Navigation priority. Bigger is higher.
+  #     # parent OtherModel             # Set parent model for navigation. MyModel will be nested below. OtherModel will be on first position of the dropdown
+  #     # navigation_label              # Sets dropdown entry's name in navigation. Only for parents!
+
+  #   # Section specific configuration:
+
+      list do
+  #       # filters [:id, :name]  # Array of field names which filters should be shown by default in the table header
+  #       # items_per_page 100    # Override default_items_per_page
+  #       # sort_by :id           # Sort column (default is primary key)
+  #       # sort_reverse true     # Sort direction (default is true for primary key, last created first)
+        field :id do
+          column_width 50
+        end
+        field :nombre
+        field :tipo
+        field :entidad_superior
+      end
+  #     show do; end
+      edit do
+        configure :entidad_superior do
+          associated_collection_cache_all false  # REQUIRED if you want to SORT the list as below
+          associated_collection_scope do
+            # bindings[:object] & bindings[:controller] are available, but not in scope's block!
+            elemento = bindings[:object]
+            Proc.new { |scope|
+              # scoping all Players currently, let's limit them to the team's league
+              # Be sure to limit if there are a lot of Players and order them by position
+              if elemento.present? and not elemento.tipo.eql?("pais")
+                case elemento.tipo
+                when "localidad"
+                  scope = scope.where(tipo: "municipio")
+                when "municipio"
+                  scope = scope.where(tipo: "estado")
+                when "estado"
+                  scope = scope.where(tipo: "pais")
+                end
+                scope = scope.limit(30).reorder('ubicacion_geografica.nombre DESC') # REorder, not ORDER
+              end
+            }
+          end
+        end
+      end
+  #     export do; end
+  #     # also see the create, update, modal and nested sections, which override edit in specific cases (resp. when creating, updating, modifying from another model in a popup modal or modifying from another model nested form)
+  #     # you can override a cross-section field configuration in any section with the same syntax `configure :field_name do ... end`
+  #     # using `field` instead of `configure` will exclude all other fields and force the ordering
+  end
+  
+  # RAILS_ADMIN
+  def tipo_enum
+    TIPO_UBICACION
+  end
+
   # ACCIONES    
   def self.buscar_o_crear_id_de_entidad(nombre,tipo,entidad_superior)
     nombre_entidad = nombre.split(' ').map {|w| w.capitalize }.join(' ')
