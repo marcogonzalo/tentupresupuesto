@@ -21,6 +21,99 @@ class Presupuesto < ActiveRecord::Base
   validates :motivo_rechazo,
             :inclusion => { :in => MOTIVO_RECHAZO },
             :allow_blank => true
+
+  rails_admin do
+    #   # You can copy this to a 'rails_admin do ... end' block inside your presupuesto.rb model definition
+
+    #   # Found associations:
+
+    #     configure :trabajo, :belongs_to_association
+    #     configure :proveedor, :belongs_to_association
+    #     configure :mensajes, :has_many_association
+
+    #   # Found columns:
+
+    #     configure :id, :integer
+    #     configure :precio_minimo, :float
+    #     configure :precio_maximo, :float
+    #     configure :resumen, :text
+    #     configure :con_iva, :boolean
+    #     configure :visto, :boolean
+    #     configure :aprobado, :boolean
+    #     configure :rechazado, :boolean
+    #     configure :motivo_rechazo, :string
+    #     configure :cant_mensajes, :integer
+    #     configure :created_at, :datetime
+    #     configure :updated_at, :datetime
+    #     configure :trabajo_id, :integer         # Hidden
+    #     configure :proveedor_id, :integer         # Hidden
+
+    #   # Cross-section configuration:
+
+    #     # object_label_method :name     # Name of the method called for pretty printing an *instance* of ModelName
+    #     # label 'My model'              # Name of ModelName (smartly defaults to ActiveRecord's I18n API)
+    #     # label_plural 'My models'      # Same, plural
+    #     # weight 0                      # Navigation priority. Bigger is higher.
+    #     # parent OtherModel             # Set parent model for navigation. MyModel will be nested below. OtherModel will be on first position of the dropdown
+    #     # navigation_label              # Sets dropdown entry's name in navigation. Only for parents!
+
+    #   # Section specific configuration:
+
+    list do
+    #       # filters [:id, :name]  # Array of field names which filters should be shown by default in the table header
+    #       # items_per_page 100    # Override default_items_per_page
+    #       # sort_by :id           # Sort column (default is primary key)
+    #       # sort_reverse true     # Sort direction (default is true for primary key, last created first)
+      field :id do
+        column_width 50
+      end
+      field :trabajo
+      field :proveedor do
+        column_width 100
+      end
+      field :precio_minimo do
+        column_width 75
+        label "Mínimo"
+      end
+      field :precio_maximo do
+        column_width 75
+        label "Máximo"
+      end
+      field :aprobado do
+        column_width 50
+      end
+      field :rechazado do
+        column_width 50
+      end
+    end
+    show do
+      configure :resumen do
+        pretty_value do
+          %{<pre>#{value}</pre>}.html_safe
+        end
+      end
+    end
+    edit do
+      configure :aprobado do
+        read_only false
+      end
+      configure :rechazado do
+        read_only false
+      end
+      configure :motivo_rechazo do
+        read_only false
+      end
+    end
+    #     export do; end
+    #     # also see the create, update, modal and nested sections, which override edit in specific cases (resp. when creating, updating, modifying from another model in a popup modal or modifying from another model nested form)
+    #     # you can override a cross-section field configuration in any section with the same syntax `configure :field_name do ... end`
+    #     # using `field` instead of `configure` will exclude all other fields and force the ordering
+  end
+
+  # RAILS_ADMIN
+  def motivo_rechazo_enum
+    MOTIVO_RECHAZO
+  end
   
   #ACCIONES
   def incluye_iva

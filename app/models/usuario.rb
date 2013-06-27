@@ -40,6 +40,90 @@ class Usuario < ActiveRecord::Base
                                 :greater_than => 0
                               }, 
             :allow_nil => true
+  
+  rails_admin do
+  #   # You can copy this to a 'rails_admin do ... end' block inside your usuario.rb model definition
+
+  #   # Found associations:
+
+  #     configure :perfilable, :polymorphic_association 
+
+  #   # Found columns:
+
+  #     configure :id, :integer 
+  #     configure :email, :string 
+  #     configure :password, :password         # Hidden 
+  #     configure :password_confirmation, :password         # Hidden 
+  #     configure :password_salt, :string         # Hidden 
+  #     configure :reset_password_token, :string         # Hidden 
+  #     configure :perfilable_id, :integer         # Hidden 
+  #     configure :perfilable_type, :string         # Hidden 
+  #     configure :nombre, :string 
+  #     configure :sexo, :string 
+  #     configure :fecha_nacimiento, :date 
+  #     configure :activo, :boolean 
+  #     configure :acepta_terminos, :boolean 
+  #     configure :ultimo_pago, :datetime 
+  #     configure :notificaciones, :boolean 
+  #     configure :plan_beneficio, :string 
+  #     configure :sign_in_count, :integer 
+  #     configure :current_sign_in_at, :datetime 
+  #     configure :last_sign_in_at, :datetime 
+  #     configure :current_sign_in_ip, :string 
+  #     configure :last_sign_in_ip, :string 
+  #     configure :confirmation_token, :string 
+  #     configure :confirmed_at, :datetime 
+  #     configure :confirmation_sent_at, :datetime 
+  #     configure :unconfirmed_email, :string 
+  #     configure :reset_password_sent_at, :datetime 
+  #     configure :remember_created_at, :datetime 
+  #     configure :authentication_token, :string 
+  #     configure :created_at, :datetime 
+  #     configure :updated_at, :datetime 
+
+  #   # Cross-section configuration:
+
+      object_label_method :email     # Name of the method called for pretty printing an *instance* of ModelName
+  #     # label 'My model'              # Name of ModelName (smartly defaults to ActiveRecord's I18n API)
+  #     # label_plural 'My models'      # Same, plural
+  #     # weight 0                      # Navigation priority. Bigger is higher.
+  #     # parent OtherModel             # Set parent model for navigation. MyModel will be nested below. OtherModel will be on first position of the dropdown
+  #     # navigation_label              # Sets dropdown entry's name in navigation. Only for parents!
+
+  #   # Section specific configuration:
+
+      list do
+  #       # filters [:id, :name]  # Array of field names which filters should be shown by default in the table header
+  #       # items_per_page 100    # Override default_items_per_page
+        sort_by :created_at           # Sort column (default is primary key)
+        sort_reverse true     # Sort direction (default is true for primary key, last created first)
+        field :id do
+          column_width 50
+        end
+        field :email
+        field :perfilable do
+          column_width 100
+        end
+        field :perfilable_type do
+          column_width 50
+          visible true
+          label "Tipo"
+        end
+        field :confirmed_at do
+          date_format :abrev
+        end
+        field :updated_at do
+          date_format :abrev
+        end
+      end
+  #     show do; end
+  #     edit do; end
+  #     export do; end
+  #     # also see the create, update, modal and nested sections, which override edit in specific cases (resp. when creating, updating, modifying from another model in a popup modal or modifying from another model nested form)
+  #     # you can override a cross-section field configuration in any section with the same syntax `configure :field_name do ... end`
+  #     # using `field` instead of `configure` will exclude all other fields and force the ordering
+  end
+  
   def datos
     self.attributes.select { |key,v| CAMPOS.include?(key) }
   end
