@@ -34,7 +34,7 @@
             <p></p>
             <p>
                 <%= t('activerecord.attributes.proveedor.tipos_proveedor.'+@proveedor.tipo_proveedor) %><br>
-                <strong><abbr title="Registro de Información Fiscal">RIF</abbr>:</strong> <%= @proveedor.rif unless @proveedor.rif.nil? %>
+                <% unless @proveedor.rif.nil? %><strong><abbr title="Registro de Información Fiscal">RIF</abbr>:</strong> <%= @proveedor.rif %><% end %>
                 <% if @proveedor.verificado %><span class="badge badge-warning" title="Proveedor verificado"><i class="icon-ok icon-white"></i></span><% end %>
             </p>
             <%= raw mostrar_reputacion(@proveedor.reputacion, @proveedor.valoraciones, "general") %>

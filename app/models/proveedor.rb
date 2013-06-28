@@ -167,6 +167,156 @@ class Proveedor < ActiveRecord::Base
   
   # validate :minimo_de_categorias # Removida por dar problemas al editar otros atributos 
   
+  rails_admin do
+  #   # You can copy this to a 'rails_admin do ... end' block inside your proveedor.rb model definition
+
+  #   # Found associations:
+
+  #     configure :pais, :belongs_to_association 
+  #     configure :estado, :belongs_to_association 
+  #     configure :municipio, :belongs_to_association 
+  #     configure :localidad, :belongs_to_association 
+  #     configure :slugs, :has_many_association         # Hidden 
+  #     configure :usuario, :has_one_association 
+  #     configure :imagenes, :has_many_association 
+  #     configure :trabajos, :has_many_association 
+  #     configure :presupuestos, :has_many_association 
+  #     configure :categorias, :has_and_belongs_to_many_association 
+
+  #   # Found columns:
+
+  #     configure :id, :integer 
+  #     configure :nombre_empresa, :string 
+  #     configure :tipo_proveedor, :string 
+  #     configure :rif, :string 
+  #     configure :descripcion, :text 
+  #     configure :verificado, :boolean 
+  #     configure :telefono_local, :string 
+  #     configure :telefono_movil, :string 
+  #     configure :telefono_alt, :string 
+  #     configure :direccion, :string 
+  #     configure :punto_referencia, :string 
+  #     configure :solicitudes_atendidas, :integer 
+  #     configure :trabajos_realizados, :integer 
+  #     configure :reputacion, :float 
+  #     configure :valoraciones, :integer 
+  #     configure :created_at, :datetime 
+  #     configure :updated_at, :datetime 
+  #     configure :slug, :string 
+  #     configure :pais_id, :integer         # Hidden 
+  #     configure :estado_id, :integer         # Hidden 
+  #     configure :municipio_id, :integer         # Hidden 
+  #     configure :localidad_id, :integer         # Hidden 
+  #     configure :avatar, :carrierwave 
+
+  #   # Cross-section configuration:
+
+      object_label_method :nombre_empresa     # Name of the method called for pretty printing an *instance* of ModelName
+  #     # label 'My model'              # Name of ModelName (smartly defaults to ActiveRecord's I18n API)
+  #     # label_plural 'My models'      # Same, plural
+  #     # weight 0                      # Navigation priority. Bigger is higher.
+  #     # parent OtherModel             # Set parent model for navigation. MyModel will be nested below. OtherModel will be on first position of the dropdown
+  #     # navigation_label              # Sets dropdown entry's name in navigation. Only for parents!
+
+  #   # Section specific configuration:
+
+      list do
+  #       # filters [:id, :name]  # Array of field names which filters should be shown by default in the table header
+  #       # items_per_page 100    # Override default_items_per_page
+  #       # sort_by :id           # Sort column (default is primary key)
+  #       # sort_reverse true     # Sort direction (default is true for primary key, last created first)
+        field :id do
+          column_width 50
+        end
+        field :usuario do
+          inverse_of :perfilable
+        end
+        field :nombre_empresa
+        field :tipo_proveedor do
+          column_width 150
+        end
+        field :verificado do
+          column_width 75
+        end
+        field :created_at do
+          date_format :abrev
+        end
+      end
+  #     show do; end
+      edit do
+        configure :verificado do
+          read_only false
+        end
+        
+        configure :pais do
+          associated_collection_cache_all false  # REQUIRED if you want to SORT the list as below
+          associated_collection_scope do
+            # bindings[:object] & bindings[:controller] are available, but not in scope's block!
+            elemento = bindings[:object]
+            Proc.new { |scope|
+              # scoping all Players currently, let's limit them to the team's league
+              # Be sure to limit if there are a lot of Players and order them by position
+              scope = scope.where(tipo: "pais")
+              scope = scope.limit(30).reorder('ubicacion_geografica.nombre DESC') # REorder, not ORDER
+            }
+          end
+        end
+        
+        configure :estado do
+          associated_collection_cache_all false  # REQUIRED if you want to SORT the list as below
+          associated_collection_scope do
+            # bindings[:object] & bindings[:controller] are available, but not in scope's block!
+            elemento = bindings[:object]
+            Proc.new { |scope|
+              # scoping all Players currently, let's limit them to the team's league
+              # Be sure to limit if there are a lot of Players and order them by position
+              scope = scope.where(tipo: "estado")
+              scope = scope.limit(30).reorder('ubicacion_geografica.nombre DESC') # REorder, not ORDER
+            }
+          end
+        end
+        
+        configure :municipio do
+          associated_collection_cache_all false  # REQUIRED if you want to SORT the list as below
+          associated_collection_scope do
+            # bindings[:object] & bindings[:controller] are available, but not in scope's block!
+            elemento = bindings[:object]
+            Proc.new { |scope|
+              # scoping all Players currently, let's limit them to the team's league
+              # Be sure to limit if there are a lot of Players and order them by position
+              scope = scope.where(tipo: "municipio")
+              scope = scope.where(entidad_id: elemento.estado_id) if elemento.present?
+              scope = scope.limit(30).reorder('ubicacion_geografica.nombre DESC') # REorder, not ORDER
+            }
+          end
+        end
+        
+        configure :localidad do
+          associated_collection_cache_all false  # REQUIRED if you want to SORT the list as below
+          associated_collection_scope do
+            # bindings[:object] & bindings[:controller] are available, but not in scope's block!
+            elemento = bindings[:object]
+            Proc.new { |scope|
+              # scoping all Players currently, let's limit them to the team's league
+              # Be sure to limit if there are a lot of Players and order them by position
+              scope = scope.where(tipo: "localidad")
+              scope = scope.where(entidad_id: elemento.municipio_id) if elemento.present?
+              scope = scope.limit(30).reorder('ubicacion_geografica.nombre DESC') # REorder, not ORDER
+            }
+          end
+        end
+      end
+  #     export do; end
+  #     # also see the create, update, modal and nested sections, which override edit in specific cases (resp. when creating, updating, modifying from another model in a popup modal or modifying from another model nested form)
+  #     # you can override a cross-section field configuration in any section with the same syntax `configure :field_name do ... end`
+  #     # using `field` instead of `configure` will exclude all other fields and force the ordering
+  end
+  
+  # RAILS_ADMIN
+  def tipo_proveedor_enum
+    TIPO_EMPRESA
+  end
+
   # ACCIONES
   def translated_tipo_proveedor
     I18n.t(tipo_proveedor, :scope => "activerecord.attributes.proveedor.tipos_proveedor")

@@ -3,10 +3,10 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 /* PANEL */
-#menu-panel.well {background:#1B80C1;
+#menu-panel.well {background:#1B80C1; overflow: hidden;
 -moz-box-shadow: inset 0 0 10em #2B598F;
 -webkit-box-shadow: inset 0 0 10em #2B598F;
-box-shadow:  inset 0 0 10em #2B598F;}
+box-shadow:  inset 0 0 10em #2B598F; }
 #menu-panel #imagen-proveedor { margin:0em auto 1em auto; max-height:140px; max-width:190px; min-height:140px; padding:5px; text-align:center;}
 #menu-panel #imagen-proveedor img { max-height:140px; }
 #menu-panel #imagen-proveedor img.transparente { height:auto; max-height:140px; width:100%;}
