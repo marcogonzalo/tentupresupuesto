@@ -57,6 +57,7 @@ Ttp::Application.configure do
   config.assets.precompile += ['application.css', 'base_ttp*', 'devise.css', 'email.css', 'errores.css', 'general.css', 'interna-liston.css', 'landing.css']
   config.assets.precompile += ['categorias*', 'evaluaciones*', 'mensajes*', 'presupuestos*', 'proveedores*', 'reputacion*', 'solicitantes*', 'trabajos*', 'ubicaciones_geograficas*']
   config.assets.precompile += ['rails_admin/rails_admin.css', 'rails_admin/rails_admin.js']
+  config.assets.precompile += ['jquery.autoellipsis.min.js']
   # %w( .svg .eot .woff .ttf .otf .js .css)
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
