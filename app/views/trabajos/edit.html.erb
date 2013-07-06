@@ -2,8 +2,8 @@
   <%= stylesheet_link_tag 'trabajos' %>
 <% end %>
 <% content_for :foot do %>
-  <%= javascript_include_tag 'ubicaciones_geograficas' %>
-  <%= javascript_include_tag 'trabajos' %>
+  <%= javascript_include_tag 'ubicaciones_geograficas', 'trabajos' %>
+  <script type="text/javascript">var _editando = true;</script>
 <% end %>
 <%- model_class = Trabajo -%>
 <div class="page-header">

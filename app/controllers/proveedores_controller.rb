@@ -123,10 +123,13 @@ class ProveedoresController < ApplicationController
   # POST /proveedores.json
   def create
     params[:proveedor][:pais_id] = 1 # Venezuela
-    @localidad = ""
-    unless params[:proveedor][:localidad_id].blank?
-      params[:proveedor][:localidad_id] = UbicacionGeografica.buscar_o_crear_id_de_entidad(params[:proveedor][:localidad_id],'localidad',params[:proveedor][:municipio_id])
+    
+    @localidad = params[:proveedor][:localidad_id]
+    @proveedor = Proveedor.new(params[:proveedor])
+    if Genericas::validar_parametros_a_objeto_sin_localidad(@proveedor, params[:proveedor])
+      params[:proveedor][:localidad_id] = UbicacionGeografica.buscar_o_crear_id_de_localidad(@localidad,params[:proveedor][:municipio_id])
     end
+
     @proveedor = Proveedor.new(params[:proveedor])
     
     respond_to do |format|
@@ -162,11 +165,12 @@ class ProveedoresController < ApplicationController
     @proveedor = Proveedor.find(current_proveedor.perfilable_id)
     
     params[:proveedor][:pais_id] = 1 # Venezuela
-    @localidad = ""
-    unless params[:proveedor][:localidad_id].blank?
-      @localidad = params[:proveedor][:localidad_id]
-      params[:proveedor][:localidad_id] = UbicacionGeografica.buscar_o_crear_id_de_entidad(params[:proveedor][:localidad_id],'localidad',params[:proveedor][:municipio_id])
+    
+    @localidad = params[:proveedor][:localidad_id]
+    if Genericas::validar_parametros_a_objeto_sin_localidad(@proveedor, params[:proveedor])
+      params[:proveedor][:localidad_id] = UbicacionGeografica.buscar_o_crear_id_de_localidad(@localidad,params[:proveedor][:municipio_id])
     end
+
     
     respond_to do |format|
       if @proveedor.update_attributes(params[:proveedor])

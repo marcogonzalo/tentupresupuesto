@@ -133,12 +133,12 @@ class TrabajosController < ApplicationController
   # POST /trabajos.json
   def create
     params[:trabajo][:pais_id] = 1 # Venezuela
-    @localidad = ""
-    unless params[:trabajo][:localidad_id].blank?
-      @localidad = params[:trabajo][:localidad_id]
-      params[:trabajo][:localidad_id] = UbicacionGeografica.buscar_o_crear_id_de_entidad(params[:trabajo][:localidad_id],'localidad',params[:trabajo][:municipio_id])
+    @localidad = params[:trabajo][:localidad_id]
+    @trabajo = Trabajo.new(params[:trabajo])
+    if Genericas::validar_parametros_a_objeto_sin_localidad(@trabajo, params[:trabajo])
+      params[:trabajo][:localidad_id] = UbicacionGeografica.buscar_o_crear_id_de_localidad(@localidad,params[:trabajo][:municipio_id])
     end
-    
+
     @trabajo = Trabajo.new(params[:trabajo])
     @cant_proveedores = Categoria.find(@trabajo.categoria_id).proveedores.where(:estado_id => @trabajo.estado_id).size
     respond_to do |format|
@@ -146,9 +146,9 @@ class TrabajosController < ApplicationController
       if @trabajo.save
         if @cant_proveedores > 0
           TtpMailer.notificar_solicitud_publicada(@trabajo)
-          flash[:success] = "Solicitud publicada exitosamente a <b>#{@cant_proveedores} en tu región</b>"
+          flash[:success] = "Solicitud publicada los proveedores exitosamente. Hay <b>#{@cant_proveedores} en tu región</b>"
         else
-          flash[:info] = "Tu solicitud ha sido publicada.<br>Por ahora <b>no tenemos proveedores registrados en tu región</b> para tu solicitud.<br>¡Trabajaremos para conseguirlos!"
+          flash[:info] = "Solicitud publicada los proveedores exitosamente.<br>Por ahora <b>no tenemos proveedores registrados en tu región</b> para tu solicitud. <br>¡Trabajaremos para conseguirlos!"
         end
         format.html { redirect_to @trabajo }
         format.json { render json: @trabajo, status: :created, location: @trabajo }
@@ -166,9 +166,10 @@ class TrabajosController < ApplicationController
     @trabajo = Trabajo.find(params[:id])
     
     params[:trabajo][:pais_id] = 1 # Venezuela
-    @localidad = ""
-    unless params[:trabajo][:localidad_id].blank?
-      params[:trabajo][:localidad_id] = UbicacionGeografica.buscar_o_crear_id_de_entidad(params[:trabajo][:localidad_id],'localidad',params[:trabajo][:municipio_id])
+    
+    @localidad = params[:trabajo][:localidad_id]
+    if Genericas::validar_parametros_a_objeto_sin_localidad(@trabajo, params[:trabajo])
+      params[:trabajo][:localidad_id] = UbicacionGeografica.buscar_o_crear_id_de_localidad(@localidad,params[:trabajo][:municipio_id])
     end
 
     respond_to do |format|
