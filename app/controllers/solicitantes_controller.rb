@@ -1,5 +1,6 @@
 # coding: utf-8
 class SolicitantesController < ApplicationController
+  require 'genericas'
   before_filter :no_authenticated, :only => [:new, :create]
   before_filter :authenticated_solicitante, :except => [:new, :create]
   # GET /solicitantes
@@ -69,12 +70,12 @@ class SolicitantesController < ApplicationController
   # POST /solicitantes.json
   def create
     params[:solicitante][:pais_id] = 1 # Venezuela
-    @localidad = ""
-    unless params[:solicitante][:localidad_id].blank?
-      @localidad = params[:solicitante][:localidad_id]
-      params[:solicitante][:localidad_id] = UbicacionGeografica.buscar_o_crear_id_de_entidad(params[:solicitante][:localidad_id],'localidad',params[:solicitante][:municipio_id])
-    end
     
+    @localidad = params[:solicitante][:localidad_id]
+    @solicitante = Solicitante.new(params[:solicitante])
+    if Genericas::validar_parametros_a_objeto_sin_localidad(@solicitante, params[:solicitante])
+      params[:solicitante][:localidad_id] = UbicacionGeografica.buscar_o_crear_id_de_localidad(@localidad,params[:solicitante][:municipio_id])
+    end
     @solicitante = Solicitante.new(params[:solicitante])
     
     respond_to do |format|
@@ -110,10 +111,10 @@ class SolicitantesController < ApplicationController
     @solicitante = Solicitante.find(current_solicitante.perfilable_id)
 
     params[:solicitante][:pais_id] = 1 # Venezuela
-    @localidad = ""
-    unless params[:solicitante][:localidad_id].blank?
-      @localidad = params[:solicitante][:localidad_id]
-      params[:solicitante][:localidad_id] = UbicacionGeografica.buscar_o_crear_id_de_entidad(params[:solicitante][:localidad_id],'localidad',params[:solicitante][:municipio_id])
+    
+    @localidad = params[:solicitante][:localidad_id]
+    if Genericas::validar_parametros_a_objeto_sin_localidad(@solicitante, params[:solicitante])
+      params[:solicitante][:localidad_id] = UbicacionGeografica.buscar_o_crear_id_de_localidad(@localidad,params[:solicitante][:municipio_id])
     end
     
     respond_to do |format|

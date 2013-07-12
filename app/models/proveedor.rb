@@ -84,8 +84,8 @@ class Proveedor < ActiveRecord::Base
 #                                :only_integer => true,
 #                                :greater_than => 0
 #                              }
-  validates :localidad_id,
-            :presence => true
+#  validates :localidad_id,
+#            :presence => true
 #            :numericality =>  {
 #                                :only_integer => true,
 #                                :greater_than => 0

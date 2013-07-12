@@ -12,6 +12,5 @@ class CreateSolicitantes < ActiveRecord::Migration
 
       t.timestamps
     end
-    add_index :solicitantes,  :cedula,               :unique => true
   end
 end
