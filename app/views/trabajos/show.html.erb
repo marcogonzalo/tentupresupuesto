@@ -5,7 +5,7 @@
   end
 
   content_for :foot do
-    javascript_include_tag 'jquery.autoellipsis.min','trabajos_show'
+    javascript_include_tag 'trabajos_show' #'jquery.autoellipsis.min',
   end
 
   content_for :title do
@@ -13,7 +13,7 @@
   end
 
   content_for :meta_description do
-      "Trabajo en "+@trabajo.categoria.nombre+". Ubicado en Municipio "+@trabajo.municipio.nombre+", Estado "+@trabajo.estado.nombre+", "+@trabajo.pais.nombre+"."
+      truncate(@trabajo.descripcion, length:150, separator:' ', omission:'... ')+" ["+@trabajo.categoria.nombre+" - Estado "+@trabajo.estado.nombre+", "+@trabajo.pais.nombre+" - "+@trabajo.estatus+"]"
   end
 
   content_for :article_tag_id do

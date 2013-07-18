@@ -62,10 +62,10 @@ class TrabajosController < ApplicationController
       @cant_resultados = @trabajos.size
     end
     @categorias = Categoria.con_solicitudes
-    @categorias_meta = ""
-    for c in @categorias
-      @categorias_meta += c.nombre+", "
-    end
+    # @categorias_meta = ""
+    # for c in @categorias
+    #   @categorias_meta += c.nombre+", "
+    # end
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @trabajos }

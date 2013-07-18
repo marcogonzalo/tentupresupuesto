@@ -5,11 +5,11 @@
   end
 
   content_for :title do
-    "Listado de proveedores"
+    "Listado de proveedores en "+@titulo
   end
 
   content_for :meta_description do
-      @categorias_meta
+    "Proveedores de servicios en "+@titulo
   end
 %>
 <h1 class="page-header"><%= t '.title', :default => model_class.model_name.human.pluralize %></h1>
@@ -66,15 +66,7 @@
     </div>
 </aside>
 <div class="offset1 span15">
-<% if not @categoria.nil? %>
-    <h2 class="page-header"><%= @categoria.nombre %></h2>
-<% elsif not @tipo.nil? %>
-    <h2 class="page-header"><%= t('activerecord.attributes.proveedor.tipos_proveedor.'+@tipo) %></h2>
-<% elsif not @ubicacion.nil? %>
-    <h2 class="page-header"><%= @ubicacion.tipo.humanize+" "+@ubicacion.nombre %></h2>
-<% else %>
-    <h2 class="page-header">Todos los proveedores</h2>
-<% end %>
+    <h2 class="page-header"><%= @titulo %></h2>
 <% if @cant_resultados > 0 %>
     <%= page_entries_info @proveedores %>
     <%= paginate @proveedores, :param_name => 'p' %>
