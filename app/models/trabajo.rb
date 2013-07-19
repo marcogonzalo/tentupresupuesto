@@ -1,7 +1,7 @@
 #encoding: utf-8
 class Trabajo < ActiveRecord::Base
   include FriendlyId
-  friendly_id :proposito, :use => :slugged
+  friendly_id :proposito, :use => [:slugged, :history]
   
   attr_accessible :descripcion, :direccion, :estatus, :precio_final, :proposito,
                   :categoria_id, :pais_id, :estado_id, :municipio_id, :localidad_id
