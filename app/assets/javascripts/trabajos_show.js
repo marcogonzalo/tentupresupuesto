@@ -1,6 +1,6 @@
 jQuery(function($) {
     
-    $(".proveedor-interesado").ellipsis();
+    //$(".proveedor-interesado").ellipsis();
     
     $("#finalizar-trabajo-modal").click(function() {
         $("#finalizar-trabajo-modal").addClass("disabled")

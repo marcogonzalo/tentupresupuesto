@@ -10,6 +10,7 @@ class ProveedoresController < ApplicationController
   # GET /proveedores
   # GET /proveedores.json
   def index
+    @titulo = "Todos los proveedores"
     unless params[:filtro].nil?
       @proveedores = []
       if FiltroListaProveedores::FILTROS.include?(params[:filtro]) and not params[:valor].nil?
@@ -17,10 +18,14 @@ class ProveedoresController < ApplicationController
         when "categoria"
           @categoria = Categoria.find(params[:valor])
           @proveedores =  @categoria.nil? ? [] : @categoria.proveedores.page(params[:p])
+          @cant_resultados = @proveedores.size
+          @titulo = @categoria.nombre+" ("+@cant_resultados.to_s+")"
         when "tipo"
           existe_tipo = Proveedor::TIPO_EMPRESA.include?(params[:valor])
-          @tipo = Proveedor::TIPO_EMPRESA.include?(params[:valor]) ? params[:valor].to_s : nil
+          @tipo = existe_tipo ? params[:valor].to_s.humanize : nil
           @proveedores = existe_tipo ? Proveedor.where(:tipo_proveedor => params[:valor]).page(params[:p]) : []
+          @cant_resultados = @proveedores.size
+          @titulo = existe_tipo ? @tipo+" ("+@cant_resultados.to_s+")" : "Por tipo"
         when "ubicacion"
           @ubicacion = UbicacionGeografica.find(params[:valor])
           unless @ubicacion.nil?
@@ -35,6 +40,8 @@ class ProveedoresController < ApplicationController
               @proveedores = @ubicacion.proveedores_de_localidad.page(params[:p])
             end
           end
+          @cant_resultados = @proveedores.size
+          @titulo = @ubicacion.tipo.humanize+" "+@ubicacion.nombre+" ("+@cant_resultados.to_s+")"
         end
       end
     else
