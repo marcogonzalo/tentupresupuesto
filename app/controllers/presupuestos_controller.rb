@@ -1,8 +1,8 @@
 # coding: utf-8
 class PresupuestosController < ApplicationController
   layout :resolve_layout
-  before_filter :authenticated_solicitante, :only => [:index, :aceptar_presupuesto, :rechazar_presupuesto]
-  before_filter :authenticated_proveedor, :except => [:index, :show, :aceptar_presupuesto, :rechazar_presupuesto]
+  before_filter :authenticated_solicitante, :only => [:index, :aceptar_presupuesto, :rechazar_presupuesto, :datos_de_solicitante_a_proveedor]
+  before_filter :authenticated_proveedor, :except => [:index, :show, :aceptar_presupuesto, :rechazar_presupuesto, :datos_de_solicitante_a_proveedor]
   before_filter :authenticated_any, :only => [:show]
   add_breadcrumb "Trabajos", :trabajos_path
   # GET /presupuestos
@@ -233,6 +233,27 @@ class PresupuestosController < ApplicationController
           format.json { render :json => { presupuesto: @presupuesto, tipo_mensaje: :success, mensaje: flash[:success]}}
         else
           flash[:error] = "Ocurrió un error. No pudo rechazarse el presupuesto."
+          format.json { render :json => { presupuesto: @presupuesto.errors, tipo_mensaje: :error, mensaje: flash[:error]} }
+        end    
+      else
+        flash[:warning] = "Sólo el solicitante puede aprobar o rechazar el presupuesto."
+        format.json { render :json => {tipo_mensaje: :warning, mensaje: flash[:warning]} }
+      end
+    end
+  end
+  
+  def datos_de_solicitante_a_proveedor
+    @presupuesto = Presupuesto.find(params[:id])
+    es_el_solicitante = Trabajo.exists?(:id => @presupuesto.trabajo_id, :solicitante_id => current_solicitante.perfilable_id)
+    
+    respond_to do |format|
+      if es_el_solicitante
+        if @presupuesto.update_attribute('enviar_datos',true)
+          TtpMailer.enviar_datos_de_solicitante_a_proveedor(@presupuesto)
+          flash[:success] = "Tus datos se han enviado al proveedor."
+          format.json { render :json => { presupuesto: @presupuesto, tipo_mensaje: :success, mensaje: flash[:success]}}
+        else
+          flash[:error] = "Ocurrió un error. No pudo realizarse el envío."
           format.json { render :json => { presupuesto: @presupuesto.errors, tipo_mensaje: :error, mensaje: flash[:error]} }
         end    
       else

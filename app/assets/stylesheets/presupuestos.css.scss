@@ -20,12 +20,13 @@
 -khtml-border-radius:100%;
 border-radius:100%;
 }
-#presupuesto-trabajo #precio p {text-align: center; padding:25px 10px 0px 10px;}
-#presupuesto-trabajo #precio #monto { font-size:1.5em; font-weight:bold; line-height:1.25em; }
-#presupuesto-trabajo #precio #con-iva {display:block; font-size: 0.85em; line-height:0.9em;}
-#presupuesto-trabajo #precio
+#presupuesto-trabajo #precio {
+  p {text-align: center; padding:25px 10px 0px 10px;}
+  #monto { font-size:1.5em; font-weight:bold; line-height:1.25em; }
+  #con-iva {display:block; font-size: 0.85em; line-height:0.9em;}
+}
+#presupuesto-trabajo .ficha {margin:0px; margin-bottom:1em; }
 #presupuesto-trabajo .form-actions { text-align:center; }
-
 /* Crear/Editar presupuesto */
 #crear-presupuesto {
   .text-field {text-align:right;}

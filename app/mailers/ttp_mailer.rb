@@ -6,6 +6,19 @@ class TtpMailer < ActionMailer::Base
   ### PLANTILLAS
   ###################
   
+  # notifica los datos del solicitante al proveedor
+  def datos_de_solicitante_a_proveedor(trabajo,solicitante,usuarios)
+    @trabajo        = trabajo
+    @categoria      = trabajo.categoria.nombre
+    @estado         = trabajo.estado.nombre
+    @municipio      = trabajo.municipio.nombre
+    @localidad      = trabajo.localidad.nombre
+    @solicitante    = solicitante
+    emails = usuarios.map(&:email)
+    mail( :to => emails,
+          :subject => "Un solicitante quiere que le contactes" )
+  end
+  
   # notifica la publicacion de una nueva solicitud
   def solicitud_publicada(trabajo,usuarios)
     @trabajo    = trabajo
@@ -94,6 +107,16 @@ class TtpMailer < ActionMailer::Base
   ###################
   ### ACCIONES
   ###################
+  
+  def enviar_datos_de_solicitante_a_proveedor(presupuesto)
+    # Enviar datos de contacto del solicitante al proveedor
+    proveedor     = presupuesto.proveedor
+    trabajo       = presupuesto.trabajo
+    solicitante   = trabajo.solicitante
+    
+    usuarios      = Usuario.where(:perfilable_type => "Proveedor", :perfilable_id => proveedor.id)
+    TtpMailer.datos_de_solicitante_a_proveedor(trabajo,solicitante,usuarios).deliver
+  end
   
   def notificar_solicitud_publicada(trabajo)
     # Notificar a proveedores

@@ -18,7 +18,7 @@ box-shadow:  inset 0 0 10em #2B598F;
 
 /* Vista de Trabajo */
 #proveedores-interesados {clear:both;}
-.presupuesto { background:#eee url('tentu/generales/fondopie.png') repeat-x center bottom; display:inline-block; height:250px; margin:0.75em; text-align:center; 
+.ficha { background:#eee url('tentu/generales/fondopie.png') repeat-x center bottom; display:inline-block; height:250px; margin:0.75em; text-align:center; 
 -o-border-radius:20px;
 -moz-border-radius:20px;
 -webkit-border-radius:20px;
@@ -30,7 +30,7 @@ border-radius:20px;
 box-shadow: 1px 1px 5px #666;
 }
 
-.presupuesto {
+.ficha {
   .proveedor-interesado { display:block; height:35px; line-height:1.15em; margin:0.25em auto;}
   .reputacion {background-color:#666;margin:0.75em auto;}
 }

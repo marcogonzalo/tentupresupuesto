@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130501195612) do
+ActiveRecord::Schema.define(:version => 20130728021817) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                  :default => "",    :null => false
@@ -123,6 +123,7 @@ ActiveRecord::Schema.define(:version => 20130501195612) do
     t.datetime "updated_at",                                      :null => false
     t.integer  "trabajo_id"
     t.integer  "proveedor_id"
+    t.boolean  "enviar_datos",                 :default => false
   end
 
   add_index "presupuestos", ["proveedor_id"], :name => "index_presupuestos_on_proveedor_id"
@@ -199,7 +200,6 @@ ActiveRecord::Schema.define(:version => 20130501195612) do
     t.integer  "localidad_id"
   end
 
-  add_index "solicitantes", ["cedula"], :name => "index_solicitantes_on_cedula", :unique => true
   add_index "solicitantes", ["estado_id"], :name => "index_solicitantes_on_estado_id"
   add_index "solicitantes", ["localidad_id"], :name => "index_solicitantes_on_localidad_id"
   add_index "solicitantes", ["municipio_id"], :name => "index_solicitantes_on_municipio_id"

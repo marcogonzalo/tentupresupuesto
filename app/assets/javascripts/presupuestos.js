@@ -34,5 +34,18 @@ jQuery(function($) {
         //ocultar_cargando("#loading-aprobar-rechazar")
         $("#modal-rechazo").modal('hide')
     });
+    
+    
+    $("#enviar-datos").bind("ajax:loading", mostrar_cargando("#loading-aprobar-rechazar")).bind("ajax:success", function(event, data, status, xhr) {
+        mostrar_mensaje("#mensaje-ttp", "alert alert-" + data.tipo_mensaje, data.mensaje)
+        if (data.tipo_mensaje == "success") {
+            $("#enviar-datos").addClass("disabled")
+            $("#enviar-datos").fadeOut()
+        }
+        ocultar_cargando("#loading-aprobar-rechazar")
+    }).bind("ajax:error", function(xhr, status, error) {
+        mostrar_mensaje("#mensaje-ttp", "alert-error", error)
+        ocultar_cargando("#loading-aprobar-rechazar")
+    });
     ocultar_cargando(".cargando")
 }); 
