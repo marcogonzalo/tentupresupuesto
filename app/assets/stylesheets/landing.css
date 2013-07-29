@@ -151,7 +151,6 @@ input[type="text"], input[type="password"], input[type="email"] {
     text-align: center;
 }
 #cuerpo {
-    background-color: #eee;
     clear: both;
     margin: 0px auto;
     margin-bottom: -20px;
@@ -161,7 +160,13 @@ input[type="text"], input[type="password"], input[type="email"] {
     position: relative;
     top: -20px;
 }
-#cuerpo .pendon {
+#pendones {
+    background-color:#eee;
+    overflow:hidden;
+    padding-bottom:1em;
+}
+    
+#pendones .pendon {
     background: url('tentu/landing/pendon.png') no-repeat center bottom;
     display: inline-block;
     float: left;
@@ -171,17 +176,17 @@ input[type="text"], input[type="password"], input[type="email"] {
     overflow: hidden;
     width: 33.3%;
 }
-#cuerpo .contenido-pendon {
+#pendones .pendon .contenido-pendon {
     font-size: 1em;
     margin: 2em 0px;
     padding: 1% 10%;
     text-align: center;
 }
-#cuerpo .contenido-pendon h2 {
+#pendones .pendon .contenido-pendon h2 {
     font-family: 'Chango', 'Trebuschet MS', sans-serif;
     margin-bottom: 0.5em;
 }
-#cuerpo .contenido-pendon .imagen {
+#pendones .pendon .contenido-pendon .imagen {
     display: table-cell;
     margin: 1.5em auto 0em auto;
     height: 140px;
@@ -189,6 +194,15 @@ input[type="text"], input[type="password"], input[type="email"] {
     vertical-align: bottom;
 }
 
+#feeds-sociales {
+    background-color:white;
+    overflow:hidden;
+    padding-bottom:1em;
+}
+
+#feeds-sociales h2 {
+    padding:1em 0.25em;
+}
 /* Dejar siempre debajo para sobreescribir en dispositivos */
 /* Large desktop */
 @media screen and (min-width: 1200px) {
