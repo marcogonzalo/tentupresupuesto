@@ -178,8 +178,8 @@ input[type="text"], input[type="password"], input[type="email"] {
 }
 #pendones .pendon .contenido-pendon {
     font-size: 1em;
-    margin: 2em 0px;
-    padding: 1% 10%;
+    margin: 1em 0px;
+    padding: 1% 15%;
     text-align: center;
 }
 #pendones .pendon .contenido-pendon h2 {
@@ -366,6 +366,6 @@ input[type="text"], input[type="password"], input[type="email"] {
     }
     #cuerpo .contenido-pendon {
         margin: 0px;
-        padding: 0px 20%
+        padding: 0px 20%;
     }
 }
