@@ -10,17 +10,17 @@ namespace :to_staging do
   task :migrations do
     desc "Migrating database"
     run 'cd #{current_path} && bundle update rake'
-    run "cd #{current_path} && bundle exec rake db:migrate RAILS_ENV=staging"
+    run "cd #{current_path} && bundle exec rake db:migrate RAILS_ENV=#{rails_env}"
   end
   
   task :seeds do
     desc "Inserting data from seeds"
-    run "cd #{current_path} && bundle exec rake db:seed RAILS_ENV=staging"
+    run "cd #{current_path} && bundle exec rake db:seed RAILS_ENV=#{rails_env}"
   end
   
   # Regenera el sitemap en la nueva version luego de hacer deploy
   task :refresh_sitemaps do
-    run "cd #{release_path} && RAILS_ENV=#{rails_env} rake sitemap:refresh:no_ping"
+    run "cd #{release_path} && bundle exec rake sitemap:refresh:no_ping RAILS_ENV=#{rails_env}"
   end
 end
 

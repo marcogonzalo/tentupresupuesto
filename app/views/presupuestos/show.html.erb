@@ -141,7 +141,7 @@
     <%= link_to "Rechazar presupuesto", '#modal-rechazo', :id => 'rechazar-presupuesto', :class => 'btn btn-danger btn-large', "data-toggle"=>"modal", "data-backdrop"=>"static" %>
     <%= image_tag "tentu/generales/cargando.gif", {:class => "cargando cargando24", :id => "loading-aprobar-rechazar"} %>
 <% end %>
-<% if @es_el_proveedor not (@presupuesto.rechazado or @presupuesto.aprobado) %>
+<% if @es_el_proveedor and not (@presupuesto.rechazado or @presupuesto.aprobado) %>
     <%= link_to t('.edit', :default => t("helpers.links.edit")),
     edit_presupuesto_path(@presupuesto), :class => 'btn btn-large' %>
     <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
