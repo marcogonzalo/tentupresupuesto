@@ -14,4 +14,12 @@ namespace :to_production do
     desc "Inserting data from seeds"
     run "cd #{current_path} && bundle exec rake db:seed RAILS_ENV=production"
   end
+  
+  # Regenera el sitemap en la nueva version luego de hacer deploy
+  task :refresh_sitemaps do
+    run "cd #{release_path} && RAILS_ENV=#{rails_env} rake sitemap:refresh"
+  end
 end
+
+after "deploy:finish", "to_production:migrations"
+after "deploy", "to_production:refresh_sitemaps"

@@ -90,7 +90,7 @@ ERROR!  You must have a file on your server with the database configuration.
   after "deploy:prepare_shared", "uploads"
   after "deploy:finalize_update", "deploy:finish"
   after "deploy:finish", "deploy:create_symlink", "deploy:cleanup"
-  after "deploy:finish", "deploy:restart"  
+  after "deploy", "deploy:restart"  
 end
 
 namespace :uploads do

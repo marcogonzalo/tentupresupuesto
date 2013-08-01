@@ -31,7 +31,7 @@
             <div class="centrado">
                 <p>
                 <% if @presupuesto.rechazado %>
-                        <span class="label label-important">rechazado</span><br><span class="text-error"><%= t('activerecord.attributes.presupuesto.motivos_rechazo.'+@presupuesto.motivo_rechazo.to_s) %></span>
+                        <span class="label label-important">RECHAZADO</span><br><span class="text-error"><%= t('activerecord.attributes.presupuesto.motivos_rechazo.'+@presupuesto.motivo_rechazo.to_s) %></span>
                 <% else %>
                     <% if not @presupuesto.aprobado.nil? %>
                         <%= @presupuesto.aprobado ? '<span class="label label-success">APROBADO</span>'.html_safe : '<span class="label label-important">no aprobado</span>'.html_safe %>
