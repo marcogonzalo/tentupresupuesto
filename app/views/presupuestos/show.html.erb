@@ -1,7 +1,7 @@
 <%- model_class = Presupuesto -%>
 <%
  content_for :head do
-    stylesheet_link_tag 'presupuestos', 'categorias', 'reputacion', 'mensajes'
+    stylesheet_link_tag 'trabajos', 'presupuestos', 'categorias', 'reputacion', 'mensajes'
   end
 
   content_for :title do
@@ -23,64 +23,110 @@
 <%= (link_to "Volver al listado de presupuestos", trabajo_presupuestos_path(@trabajo), :class => 'btn btn-link') if @es_el_solicitante %>
 <h2 class="offset1 span10"><%= t '.title', :default => model_class.model_name.human %></h2>
 <section id="descripcion" class="offset1 span21">
-    <div class="span5">
-        <div id="precio">
-            <p><span id="monto"><%= number_to_currency(@presupuesto.precio_minimo) %><br>a<br><%= number_to_currency(@presupuesto.precio_maximo) %></span><span id="con-iva"><%= @presupuesto.incluye_iva %></span><span class="mini-nota">(costo referencial)</span></p>
-        </div>
-    </div>
-    <div class="offset1 span13">
-        <div class="row">
-        <div class="row">
-            <p>
-            <% if @presupuesto.rechazado %>
-                    <span class="label label-important">rechazado</span> <span class="text-error"><%= t('activerecord.attributes.presupuesto.motivos_rechazo.'+@presupuesto.motivo_rechazo.to_s) %></span>.
-            <% else %>
-                <% if not @presupuesto.aprobado.nil? %>
-                    <%= @presupuesto.aprobado ? '<span class="label label-success">APROBADO</span>'.html_safe : '<span class="label label-important">no aprobado</span>'.html_safe %>
+    <div class="row">
+        <div class="span6">
+            <div id="precio">
+                <p><span id="monto"><%= number_to_currency(@presupuesto.precio_minimo) %><br>a<br><%= number_to_currency(@presupuesto.precio_maximo) %></span><span id="con-iva"><%= @presupuesto.incluye_iva %></span><span class="mini-nota">(costo referencial)</span></p>
+            </div>
+            <div class="centrado">
+                <p>
+                <% if @presupuesto.rechazado %>
+                        <span class="label label-important">RECHAZADO</span><br><span class="text-error"><%= t('activerecord.attributes.presupuesto.motivos_rechazo.'+@presupuesto.motivo_rechazo.to_s) %></span>
                 <% else %>
-                    <%  if @es_el_proveedor %>
-                <span class="label">
-                    <%= @presupuesto.fue_visto %>
-                </span>
+                    <% if not @presupuesto.aprobado.nil? %>
+                        <%= @presupuesto.aprobado ? '<span class="label label-success">APROBADO</span>'.html_safe : '<span class="label label-important">no aprobado</span>'.html_safe %>
+                    <% else %>
+                        <%  if @es_el_proveedor %>
+                    <span class="text-muted">
+                        <%= @presupuesto.fue_visto %>
+                    </span>
+                        <% end %>
+                    <% end %>
+                <% end %>
+                </p>
+            </div>
+        </div>
+        <div class="span15">
+            <div class="row">
+                <div class="span11 pull-right">
+                    <h3>Observaciones:</h3>
+                    <blockquote>
+                        <pre><%= @presupuesto.resumen %></pre>
+                    </blockquote>
+                </div>
+                <%= render(:partial => 'proveedores/info_en_trabajo', :locals => {:p => @presupuesto, :contratado => false, :es_el_solicitante => false}) %>
+            </div>
+            <div class="row">
+                <h4>Datos de contacto del proveedor</h4>
+                <dl class="dl-horizontal offset1">
+                    <% unless @presupuesto.proveedor.telefono_local.blank? %>
+                    <dt>
+                        <strong><%= t('activerecord.attributes.proveedor.telefono_local') %>: </strong>
+                    </dt>
+                    <dd>
+                        <%= @presupuesto.proveedor.telefono_local %>
+                    </dd>
+                    <% end %>
+                    <% unless @presupuesto.proveedor.telefono_movil.blank? %>
+                    <dt>
+                        <strong><%= t('activerecord.attributes.proveedor.telefono_movil') %>: </strong>
+                    </dt>
+                    <dd>
+                        <%= @presupuesto.proveedor.telefono_movil %>
+                    </dd>
+                    <% end %>
+                    <% unless @presupuesto.proveedor.telefono_alt.blank? %>
+                    <dt>
+                        <strong><%= t('activerecord.attributes.proveedor.telefono_alt') %>: </strong>
+                    </dt>
+                    <dd>
+                        <%= @presupuesto.proveedor.telefono_alt %>
+                    </dd>
+                    <% end %>
+                </dl>
+            <% unless @presupuesto.rechazado or @presupuesto.aprobado %>
+                <% if @es_el_solicitante %>
+                    <% if @presupuesto.enviar_datos %>
+                        <span class="text-info">Los datos del solicitante han sido enviados a este proveedor</span>
+                    <% else %>
+                    <%= link_to "Enviar mis datos al proveedor", enviar_datos_presupuesto_path(@presupuesto, :format => 'json'), :remote => 'true', :method => 'put',
+                        :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => '¿Deseas que este proveedor conozca tus datos de contacto?')) }, 
+                        :id => "enviar-datos", :class => 'btn btn-info btn-mini' %>
                     <% end %>
                 <% end %>
             <% end %>
-            </p>
-        </div>
-            <h3><%= @presupuesto.proveedor.nombre_empresa %>: </h3>
-            <blockquote class="span13">
-                <%= image_tag @presupuesto.proveedor.avatar.mini.url, :class => 'pull-right', :style => "margin:2px;" %>
-                <pre><%= @presupuesto.resumen %></pre>
-            </blockquote>
-        </div>
-        <div class="row">
-            <h4>Datos de contacto</h4>
-            <dl class="dl-horizontal offset1">
-                <% unless @presupuesto.proveedor.telefono_local.blank? %>
-                <dt>
-                    <strong><%= t('activerecord.attributes.proveedor.telefono_local') %>: </strong>
-                </dt>
-                <dd>
-                    <%= @presupuesto.proveedor.telefono_local %>
-                </dd>
-                <% end %>
-                <% unless @presupuesto.proveedor.telefono_movil.blank? %>
-                <dt>
-                    <strong><%= t('activerecord.attributes.proveedor.telefono_movil') %>: </strong>
-                </dt>
-                <dd>
-                    <%= @presupuesto.proveedor.telefono_movil %>
-                </dd>
-                <% end %>
-                <% unless @presupuesto.proveedor.telefono_alt.blank? %>
-                <dt>
-                    <strong><%= t('activerecord.attributes.proveedor.telefono_alt') %>: </strong>
-                </dt>
-                <dd>
-                    <%= @presupuesto.proveedor.telefono_alt %>
-                </dd>
-                <% end %>
-            </dl>
+            </div>
+        <% if @presupuesto.enviar_datos %>
+            <div class="row">
+                <h4>Datos de contacto del solicitante</h4>
+                <dl class="dl-horizontal offset1">
+                    <% unless @presupuesto.trabajo.solicitante.telefono_local.blank? %>
+                    <dt>
+                        <strong><%= t('activerecord.attributes.solicitante.telefono_local') %>: </strong>
+                    </dt>
+                    <dd>
+                        <%= @presupuesto.trabajo.solicitante.telefono_local %>
+                    </dd>
+                    <% end %>
+                    <% unless @presupuesto.trabajo.solicitante.telefono_movil.blank? %>
+                    <dt>
+                        <strong><%= t('activerecord.attributes.solicitante.telefono_movil') %>: </strong>
+                    </dt>
+                    <dd>
+                        <%= @presupuesto.trabajo.solicitante.telefono_movil %>
+                    </dd>
+                    <% end %>
+                    <% unless @presupuesto.trabajo.solicitante.telefono_alt.blank? %>
+                    <dt>
+                        <strong><%= t('activerecord.attributes.solicitante.telefono_alt') %>: </strong>
+                    </dt>
+                    <dd>
+                        <%= @presupuesto.trabajo.solicitante.telefono_alt %>
+                    </dd>
+                    <% end %>
+                </dl>
+            </div>
+        <% end %>
         </div>
     </div>
 
@@ -88,25 +134,21 @@
 <div class="clearfix"></div>
 <div class="form-actions">
     <%= link_to "Ver solicitud", trabajo_path(@trabajo), :class => 'btn btn-large' %>
-<% if @es_el_solicitante %>
-    <%= link_to "Ver perfil", perfil_proveedor_path(@presupuesto.proveedor), :class => 'btn btn-warning btn-large' %>
-    <% unless @presupuesto.rechazado or @presupuesto.aprobado %>
-        <%= link_to "Contratar proveedor", aceptar_presupuesto_path(@presupuesto, :format => 'json'), :remote => 'true', :method => 'put',
-            :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => '¿Deseas contratar a este proveedor? Esta acción es irreversible')) },
-            :id => 'aceptar-presupuesto', :class => 'btn btn-success btn-large' %>
-        <%= link_to "Rechazar presupuesto", '#modal-rechazo', :id => 'rechazar-presupuesto', :class => 'btn btn-danger btn-large', "data-toggle"=>"modal", "data-backdrop"=>"static" %>
-        <%= image_tag "tentu/generales/cargando.gif", {:class => "cargando cargando24", :id => "loading-aprobar-rechazar"} %>
-    <% end %>
-<% elsif @es_el_proveedor %>
-    <% unless @presupuesto.rechazado or @presupuesto.aprobado %>
-        <%= link_to t('.edit', :default => t("helpers.links.edit")),
-        edit_presupuesto_path(@presupuesto), :class => 'btn btn-large' %>
-        <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-            presupuesto_path(@presupuesto),
-            :method => 'delete',
-            :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => '¿Deseas borrar el presupuesto ofertado?')) },
-            :class => 'btn btn-danger btn-large' %>
-    <% end %>
+<% if @es_el_solicitante and not (@presupuesto.rechazado or @presupuesto.aprobado) %>
+    <%= link_to "Contratar proveedor", aceptar_presupuesto_path(@presupuesto, :format => 'json'), :remote => 'true', :method => 'put',
+        :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => '¿Deseas contratar a este proveedor? Esta acción es irreversible')) },
+        :id => 'aceptar-presupuesto', :class => 'btn btn-success btn-large' %>
+    <%= link_to "Rechazar presupuesto", '#modal-rechazo', :id => 'rechazar-presupuesto', :class => 'btn btn-danger btn-large', "data-toggle"=>"modal", "data-backdrop"=>"static" %>
+    <%= image_tag "tentu/generales/cargando.gif", {:class => "cargando cargando24", :id => "loading-aprobar-rechazar"} %>
+<% end %>
+<% if @es_el_proveedor and not (@presupuesto.rechazado or @presupuesto.aprobado) %>
+    <%= link_to t('.edit', :default => t("helpers.links.edit")),
+    edit_presupuesto_path(@presupuesto), :class => 'btn btn-large' %>
+    <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+        presupuesto_path(@presupuesto),
+        :method => 'delete',
+        :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => '¿Deseas borrar el presupuesto ofertado?')) },
+        :class => 'btn btn-danger btn-large' %>
 <% end %>
 </div>
 <%= render 'presupuestos/form_rechazo' unless @presupuesto.rechazado or @presupuesto.aprobado %>

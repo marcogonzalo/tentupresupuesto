@@ -1,28 +1,28 @@
 <!DOCTYPE html>
 <html lang="es">
-	<head>
-		<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
-	</head>
-	<body style="background-color:#adeb6e; padding:1em; width:100%;">
-			<div style="background-color:white; margin:1em auto; max-width:960px;">
-				<div style="min-height:180px; margin:25px auto -10px auto;">
-					<div style="background: url('<%= image_path("tentu/generales/head.png") %>') no-repeat center top; margin-bottom:0px; min-height:170px; overflow:hidden; position:relative; top:-19px;">
-						<div style="padding:1em;">
-							<%= image_tag image_path("tentu/generales/logo_tentupresupuesto.png"), {:title => "TenTuPresupuesto", :alt => "TenTuPresupuesto"} %>
-						</div>
-					</div>
-				</div>
-				<div style="padding:0 2em 1em 2em;">
-					<h1 style="display: table; font-size:2em; margin:0 auto 1em auto; text-align:center;"><%= yield :title %></h1>
-					<%= yield %>
-
-				</div>
-				<div style="background-color:#f8a433; color:white; max-width:960px; padding:1em; text-align:center;">
-					<p style="font-size:2em; font-weight:bold;"><%= link_to "TenTuPresupuesto", root_url, :style => "color:white; text-decoration:none;" %></b>
-					<div>
-						<b>Facebook</b>: <%= link_to "/TenTuPresupuesto", "http://www.facebook.com/TenTuPresupuesto", :style => "color:white; text-decoration:none;" %> | <b>Twitter</b>: <%= link_to "@TnTuPresupuesto", "http://www.twitter.com/TnTuPresupuesto", :style => "color:white; text-decoration:none;" %> | <b>Google+</b>: <%= link_to "/TenTuPresupuesto", "https://plus.google.com/b/110823009356675456247/110823009356675456247", :style => "color:white; text-decoration:none;" %> | <b>YouTube+</b>: <%= link_to "/TenTuPresupuesto", "http://www.youtube.com/user/TenTuPresupuesto", :style => "color:white; text-decoration:none;" %>
-					</div>
-				</div>
-			</div>
-	</body>
+    <head>
+        <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+    </head>
+    <body style="background-color:#adeb6e;width:100%;">
+        <div style="background-color:white; margin:auto; max-width:960px;">
+            <div style="min-height:180px; margin:25px auto -10px auto;">
+                <div style="background: url('<%= image_path("tentu/generales/head.png") %>') no-repeat center top; margin-bottom:0px; min-height:170px; overflow:hidden; position:relative; top:-19px;">
+                    <div style="padding:1em;">
+                        <%= image_tag image_path("tentu/generales/logo_tentupresupuesto.png"), {:title => "TenTuPresupuesto", :alt => "TenTuPresupuesto"} %>
+                    </div>
+                </div>
+            </div>
+            <div style="padding:0 2em 1em 2em;">
+                <h1 style="display: table; font-size:2em; margin:0 auto 1em auto; text-align:center;"><%= yield :title %></h1>
+                <%= yield %>
+            </div>
+            <div style="background-color:#f8a433; color:white; max-width:960px; padding:1em; text-align:center;">
+                <p style="font-size:2em; font-weight:bold;">
+                    <%= link_to "TenTuPresupuesto", root_url, :style => "color:white; text-decoration:none;" %></b>
+                    <div>
+                        <b>Facebook</b>: <%= link_to "/TenTuPresupuesto", "http://www.facebook.com/TenTuPresupuesto", :style => "color:white; text-decoration:none;" %> | <b>Twitter</b>: <%= link_to "@TnTuPresupuesto", "http://www.twitter.com/TnTuPresupuesto", :style => "color:white; text-decoration:none;" %> | <b>Google+</b>: <%= link_to "/TenTuPresupuesto", "https://plus.google.com/b/110823009356675456247/110823009356675456247", :style => "color:white; text-decoration:none;" %> | <b>YouTube+</b>: <%= link_to "/TenTuPresupuesto", "http://www.youtube.com/user/TenTuPresupuesto", :style => "color:white; text-decoration:none;" %>
+                    </div>
+            </div>
+        </div>
+    </body>
 </html>

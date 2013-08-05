@@ -31,30 +31,50 @@
 =end
 %>
       <% end %>
-<div id="pendon-solicita" class="pendon">
-  <div class="contenido-pendon">
-    <div class="imagen">
-      <%= image_tag "tentu/landing/paso1.jpg", {:title => "Paso 1", :alt => "Paso 1"} %>
+<div id="pendones" class="row">
+    <div id="pendon-solicita" class="pendon">
+      <div class="contenido-pendon">
+        <div class="imagen">
+          <%= image_tag "tentu/landing/paso1.jpg", {:title => "Paso 1", :alt => "Paso 1"} %>
+        </div>
+        <h2>Solicita</h2>
+        <p>Envía a los proveedores tu solicitud del trabajo que necesitas para tu hogar u oficina, de forma rápida y eficiente.</p>
+      </div>
     </div>
-    <h2>Solicita</h2>
-    <p>Envía a los proveedores tu solicitud del trabajo que necesitas para tu hogar u oficina, de forma rápida y eficiente.</p>
-  </div>
+    <div id="pendon-compara" class="pendon">
+      <div class="contenido-pendon">
+        <div class="imagen">
+          <%= image_tag "tentu/landing/paso2.jpg", {:title => "Paso 2", :alt => "Paso 2"} %>
+        </div>
+        <h2>Compara</h2>
+        <p>Recibe presupuestos de los proveedores, revisa sus trayectorias, y compara lo que te ofrecen.</p>
+      </div>
+    </div>
+    <div id="pendon-contrata" class="pendon">
+      <div class="contenido-pendon">
+        <div class="imagen">
+          <%= image_tag "tentu/landing/paso3.jpg", {:title => "Paso 3", :alt => "Paso 3"} %>
+        </div>
+        <h2>Contrata</h2>
+        <p>Escoge al proveedor que te ofrezca el mejor servicio al mejor precio.</p>
+      </div>
+    </div>
 </div>
-<div id="pendon-compara" class="pendon">
-  <div class="contenido-pendon">
-    <div class="imagen">
-      <%= image_tag "tentu/landing/paso2.jpg", {:title => "Paso 2", :alt => "Paso 2"} %>
+<div id="feeds-sociales" class="row hidden-phone">
+    <h2 class="span23 centrado">Entérate de trucos y consejos en nuestras Redes Sociales</h2>
+    <div class="span12 centrado">
+        <script>(function(d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) return;
+          js = d.createElement(s); js.id = id;
+          js.src = "//connect.facebook.net/es_LA/all.js#xfbml=1&appId=395217683915934";
+          fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
+        <div class="fb-like-box" data-href="https://www.facebook.com/TenTuPresupuesto" data-width="300" data-height="400" data-show-faces="true" data-stream="true" data-show-border="true" data-header="true"></div>
+        <div id="fb-root"></div>
     </div>
-    <h2>Compara</h2>
-    <p>Recibe presupuestos de los proveedores, revisa sus trayectorias, y compara lo que te ofrecen.</p>
-  </div>
-</div>
-<div id="pendon-contrata" class="pendon">
-  <div class="contenido-pendon">
-    <div class="imagen">
-      <%= image_tag "tentu/landing/paso3.jpg", {:title => "Paso 3", :alt => "Paso 3"} %>
+    <div class="span11 centrado">
+        <a class="twitter-timeline" href="https://twitter.com/TnTuPresupuesto" width="300" height="400" data-widget-id="334882893987987456">Tweets por @TnTuPresupuesto</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
     </div>
-    <h2>Contrata</h2>
-    <p>Escoge al proveedor que te ofrezca el mejor servicio al mejor precio.</p>
-  </div>
 </div>

@@ -54,6 +54,8 @@ gem 'twitter-bootstrap-rails', "~> 2.2.6"
 # Use unicorn as the app server
 # gem 'unicorn'
 
+gem 'sitemap_generator'                             # Generador de sitemaps - https://github.com/kjvarga/sitemap_generator
+
 # Deploy with Capistrano
 gem 'capistrano', "~> 2.14.2"
 

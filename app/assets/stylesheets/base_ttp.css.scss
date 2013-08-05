@@ -100,20 +100,22 @@ box-shadow:  inset 0 0 10em #2B598F;
 #piedepagina #mapa-sitio .doble li  { width:45%;}
 #piedepagina #mapa-sitio .triple li  { width:30%; }
 #piedepagina #logo-pie { display:none; background: url('tentu/generales/logo_tentupresupuesto_pie.png') no-repeat; height:100%; max-height:91px; max-width:244px; position:relative; top:15%; width:100%; }
-#piedepagina ul#botones-sociales { clear:both; height:50px; list-style:none; margin:0px auto; max-width: 225px; }
-#piedepagina ul#botones-sociales li { background:url('tentu/generales/botonessociales.png') repeat-x top left; cursor:pointer; display:inline-block; height:48px; margin:1px 2px; width:48px; }
-#piedepagina ul#botones-sociales li a { display:block; height:50px; text-decoration:none; width:50px; }
-#piedepagina ul#botones-sociales li span { display:none; }
-#piedepagina ul#botones-sociales li#youtube { background-position:-0px -0px;}
-#piedepagina ul#botones-sociales li#facebook { background-position:-58px -0px;}
-#piedepagina ul#botones-sociales li#twitter { background-position:-116px -0px;}
-#piedepagina ul#botones-sociales li#blog { background-position:-174px -0px;}
-#piedepagina ul#botones-sociales li#google { background-position:-233px -0px;}
-#piedepagina ul#botones-sociales li#youtube:hover { background-position:-0px -56px;}
-#piedepagina ul#botones-sociales li#facebook:hover { background-position:-58px -56px;}
-#piedepagina ul#botones-sociales li#twitter:hover { background-position:-116px -56px;}
-#piedepagina ul#botones-sociales li#blog:hover { background-position:-174px -56px;}
-#piedepagina ul#botones-sociales li#google:hover { background-position:-233px -56px;}
+ul#botones-sociales { clear:both; height:50px; list-style:none; margin:0px auto; max-width: 225px; }
+ul#botones-sociales { 
+  li { background:url('tentu/generales/botonessociales.png') repeat-x top left; cursor:pointer; display:inline-block; height:48px; margin:1px 2px; width:48px; }
+  li a { display:block; height:50px; text-decoration:none; width:50px; }
+  li span { display:none; }
+  li#youtube { background-position:-0px -0px;}
+  li#facebook { background-position:-58px -0px;}
+  li#twitter { background-position:-116px -0px;}
+  li#blog { background-position:-174px -0px;}
+  li#google { background-position:-233px -0px;}
+  li#youtube:hover { background-position:-0px -56px;}
+  li#facebook:hover { background-position:-58px -56px;}
+  li#twitter:hover { background-position:-116px -56px;}
+  li#blog:hover { background-position:-174px -56px;}
+  li#google:hover { background-position:-233px -56px;}
+}
 
 img.cargando { display:none; width: 16px; height: 16px;}
 img.cargando.cargando20 { display:none; width: 20px; height: 20px;}

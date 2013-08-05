@@ -13,29 +13,40 @@
     </head>
     <body>
         <div class="container">
-            <header id="cabecera" class="span24">
-                <div class="offset1 span10">
-                    <div id="logo-texto" class="span8">
+            <header id="cabecera" class="row">
+                <div class="offset1 span9">
+                    <div id="logo-texto" class="span9">
                         <h1><%= image_tag "tentu/generales/logo-texto.png", {:title => "TenTuPresupuesto", :alt => "TenTuPresupuesto"} %></h1>
                     </div>
-                    <h2 id="slogan" class="sobre-color span14">
-                        Y contrata a los
-                        <br>
-                        expertos en el hogar&hellip;
+                </div>
+                <div class="span8">
+                    <ul id="botones-sociales">
+                        <li id="facebook">
+                            <a href="http://www.facebook.com/TenTuPresupuesto" title="TenTuPresupuesto en Facebook"><span>TenTuPresupuesto en Facebook</span></a>
+                        </li>
+                        <li id="google">
+                            <a href="http://plus.google.com/u/0/b/110823009356675456247" title="TenTuPresupuesto en Google+"><span>TenTuPresupuesto en Google+</span></a>
+                        </li>
+                        <li id="twitter">
+                            <a href="http://twitter.com/TnTuPresupuesto" title="TenTuPresupuesto en Twitter"><span>@TnTuPresupuesto</span></a>
+                        </li>
+                        <li id="youtube">
+                            <a href="http://www.youtube.com/user/TenTuPresupuesto" title="TenTuPresupuesto en YouTube"><span>Videos de TenTuPresupuesto</span></a>
+                        </li>
+                    </ul>
+                    <h2 id="slogan" class="sobre-color">
+                        Y contrata a los expertos en el hogar&hellip;
                     </h2>
                 </div>
-                <div id="enlace-registro" class="span5">
-                    <%= link_to '¡Regístrate gratis aquí!', new_registration_path("proveedor") %>
-                </div>
-                <div id="personaje" class="offset1 span6 hidden-phone">
-                    <%= image_tag "tentu/landing/personaje.png" %>
-                </div>
-                <div id="texto" class="span22 hidden-phone">
-                    <p>
-                        <b>TenTuPresupuesto</b> es el punto de encuentro entre solicitantes y proveedores de servicios de reparación y remodelación de hogares y locales comerciales que facilita la contratación de servicios de calidad al mejor precio.
-                    </p>
+                <div id="personaje" class="offset0 span5 hidden-phone">
+                    <%= image_tag "tentu/landing/personaje-med.png" %>
                 </div>
                 <div id="enlaces-sitio-landing"><%= render "layouts/shared/enlaces_de_sitio" %></div>
+                <div id="texto" class="span22 hidden-phone">
+                    <p>
+                        <b>TenTuPresupuesto</b> es el punto de encuentro entre solicitantes y proveedores de servicios de reparación y remodelación de hogares y oficinas que facilita la contratación de servicios de calidad al mejor precio.
+                    </p>
+                </div>
             </header>
         </div>
         <div id="liston">
@@ -45,10 +56,7 @@
         </div>
         <div class="container">
             <div id="cuerpo" class="span24">
-                <div class="container">
-                    <%= yield %>
-                </div>
-                <!-- /container -->
+                <%= yield %>
                 <%= render "layouts/shared/publicidad/cuerpo_inferior" %>
             </div>
         </div>

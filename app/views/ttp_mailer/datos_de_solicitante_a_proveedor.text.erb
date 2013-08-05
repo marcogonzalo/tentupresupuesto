@@ -1,12 +1,15 @@
 <%
   content_for :title do
-    "¡Han aprobado tu presupuesto!"
+    "Un solicitante quiere que le contactes"
   end
 %>
 
-El presupuesto que presentaste a la solicitud "<%= @trabajo.proposito %>" de <%= @categoria %>, fue aprobado. Es momento de que entres en contacto con el cliente.
+La persona que generó la solicitud  "<%= @trabajo.proposito %>" de <%= @categoria %>, ha solicitado que te enviemos sus datos de contacto.
 
 Estos son sus datos:
+
+- Nombre: <%= @solicitante.usuario.nombre.to_s %>
+
 <% unless @solicitante.telefono_local.blank? %>
 - Teléfono Local: <%= @solicitante.telefono_local.to_s %>
 <% end %>
@@ -17,4 +20,4 @@ Estos son sus datos:
 - Teléfono Alternativo: <%= @solicitante.telefono_alt.to_s %>
 <% end %>
 
-¡Felicitaciones! Recuerda darle la mejor atención posible para que recibas una buena calificación y puedas recibir más contrataciones.
+Recuerda darle la mejor atención posible para que tengas más chance de ganar la contratación.

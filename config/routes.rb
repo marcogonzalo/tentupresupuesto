@@ -72,6 +72,7 @@ Ttp::Application.routes.draw do
         member do
           match 'aceptar' => "presupuestos#aceptar_presupuesto", :via => [:put, :post]
           match 'rechazar' => "presupuestos#rechazar_presupuesto", :via => [:put, :post]
+          match 'enviar_datos' => "presupuestos#datos_de_solicitante_a_proveedor", :via => [:put, :post]
         end
         resources :mensajes, :shallow => true # , :only => [:index, :create, :destroy]
       end

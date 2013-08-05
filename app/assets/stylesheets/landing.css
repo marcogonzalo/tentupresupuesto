@@ -18,7 +18,7 @@ input[type="text"], input[type="password"], input[type="email"] {
 #cabecera {
     background: #71C03A url('tentu/landing/fondo-cabecera.jpg') no-repeat center bottom;
     height: auto;
-    max-height: 390px;
+    max-height: 300px;
     max-width: 1060px;
     overflow: hidden;
     width: 100%;
@@ -31,11 +31,18 @@ input[type="text"], input[type="password"], input[type="email"] {
 #cabecera #logo-texto img {
     width: 100%;
 }
+
+#cabecera #botones-sociales {
+    margin-top:2.25em;
+    position:relative;
+    z-index:5;
+}
 #cabecera #slogan {
     font-family: 'Chango', 'Trebuschet MS', sans-serif;
     font-size: 1.5em;
-    margin-top: 1.5em;
-    margin-left: 0.5em;
+    margin-top: 0.5em;
+    margin-left: 0em;
+    text-align: center;
 }
 #cabecera #enlace-registro {
     background: url('tentu/landing/pestana.png') no-repeat center bottom;
@@ -56,6 +63,7 @@ input[type="text"], input[type="password"], input[type="email"] {
     font-size: 1.3em;
     padding: 1em 0.5em 50px 0.5em;
 }
+
 #cabecera #personaje {
     position: relative; /*top:25px;*/
     z-index: 5;
@@ -78,11 +86,11 @@ input[type="text"], input[type="password"], input[type="email"] {
     border-radius: 0.5em;
 }
 #cabecera #texto p {
-    font-size: 1.25em;
+    font-size: 1em;
     line-height: 1.5em;
     margin: 0px;
     padding: 1em;
-    width: 70%;
+    width: 80%;
 }
 /*#cabecera #enlaces-sitio {display:block; position:absolute;}
  #cabecera #enlaces-sitio ul {background-color:rgba(43,56,43,0.4); display:block; list-style:none; text-align:center;}
@@ -96,7 +104,7 @@ input[type="text"], input[type="password"], input[type="email"] {
  }*/
 #enlaces-sitio-landing {
     position: relative;
-    bottom: 110px;
+    bottom: 125px;
     text-align: center;
 }
 #enlaces-sitio-landing .dropdown-menu {
@@ -143,7 +151,6 @@ input[type="text"], input[type="password"], input[type="email"] {
     text-align: center;
 }
 #cuerpo {
-    background-color: #eee;
     clear: both;
     margin: 0px auto;
     margin-bottom: -20px;
@@ -153,7 +160,13 @@ input[type="text"], input[type="password"], input[type="email"] {
     position: relative;
     top: -20px;
 }
-#cuerpo .pendon {
+#pendones {
+    background-color:#eee;
+    overflow:hidden;
+    padding-bottom:1em;
+}
+    
+#pendones .pendon {
     background: url('tentu/landing/pendon.png') no-repeat center bottom;
     display: inline-block;
     float: left;
@@ -163,17 +176,17 @@ input[type="text"], input[type="password"], input[type="email"] {
     overflow: hidden;
     width: 33.3%;
 }
-#cuerpo .contenido-pendon {
+#pendones .pendon .contenido-pendon {
     font-size: 1em;
-    margin: 2em 0px;
-    padding: 1% 10%;
+    margin: 1em 0px;
+    padding: 1% 15%;
     text-align: center;
 }
-#cuerpo .contenido-pendon h2 {
+#pendones .pendon .contenido-pendon h2 {
     font-family: 'Chango', 'Trebuschet MS', sans-serif;
     margin-bottom: 0.5em;
 }
-#cuerpo .contenido-pendon .imagen {
+#pendones .pendon .contenido-pendon .imagen {
     display: table-cell;
     margin: 1.5em auto 0em auto;
     height: 140px;
@@ -181,6 +194,15 @@ input[type="text"], input[type="password"], input[type="email"] {
     vertical-align: bottom;
 }
 
+#feeds-sociales {
+    background-color:white;
+    overflow:hidden;
+    padding-bottom:1em;
+}
+
+#feeds-sociales h2 {
+    padding:1em 0.25em;
+}
 /* Dejar siempre debajo para sobreescribir en dispositivos */
 /* Large desktop */
 @media screen and (min-width: 1200px) {
@@ -198,14 +220,21 @@ input[type="text"], input[type="password"], input[type="email"] {
 @media screen and (min-width: 980px) and (max-width: 1199px) {
     #cabecera {
         margin: 0px auto;
-        max-height: 350px;
+        max-height: 300px;
+    }
+    #cabecera #botones-sociales {
+        margin-top:1.5em;
     }
     #cabecera #slogan {
-        margin-top: 1em;
-        margin-left: 0.5em;
+        margin-top: 0em;
+        margin-left: 0.25em;
     }
-    #cabecera #texto p {
-        font-size: 1.15em;
+    #enlaces-sitio-landing {
+        bottom:100px;
+        max-width: 750px;
+    }
+    #cabecera #texto {
+        bottom: 90px;
     }
     #cuerpo .container, #pie .container {
         padding: 0 2%;
@@ -222,21 +251,22 @@ input[type="text"], input[type="password"], input[type="email"] {
 @media screen and (min-width: 768px) and (max-width: 979px) {
     #cabecera {
         margin: 0px auto;
-        max-height: 335px;
+        max-height: 280px;
+    }
+    #cabecera #botones-sociales {
+        margin-top:1.5em;
     }
     #cabecera #slogan {
-        margin-top: 1em;
-        margin-left: 0.5em;
+        font-size:1.15em;
     }
     #cabecera #texto {
         bottom: 110px;
-        margin-top: 2em;
     }
     #cabecera #texto p {
-        font-size: 1.15em;
+        width:75%;
     }
     #enlaces-sitio-landing {
-        bottom: 105px;
+        bottom: -25px;
     }
     #cuerpo .container, #pie .container {
         padding: 0px;
@@ -273,7 +303,6 @@ input[type="text"], input[type="password"], input[type="email"] {
         display: none;
         margin-top: 1.5em;
         margin-left: 0.5em;
-        text-align: center;
     }
     #cabecera #enlace-registro {
         left: 0;
@@ -288,11 +317,9 @@ input[type="text"], input[type="password"], input[type="email"] {
         bottom: 110px;
         margin-top: 2em;
     }
-    #cabecera #texto p {
-        font-size: 1.15em;
-    }
     #enlaces-sitio-landing {
-        position: initial;
+        bottom:0;
+        margin:0.5em auto;
     }
     #liston {
         background-color: #1077BC;
@@ -339,6 +366,6 @@ input[type="text"], input[type="password"], input[type="email"] {
     }
     #cuerpo .contenido-pendon {
         margin: 0px;
-        padding: 0px 20%
+        padding: 0px 20%;
     }
 }
