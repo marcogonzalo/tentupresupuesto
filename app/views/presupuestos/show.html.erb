@@ -24,7 +24,7 @@
 <h2 class="offset1 span10"><%= t '.title', :default => model_class.model_name.human %></h2>
 <section id="descripcion" class="offset1 span21">
     <div class="row">
-        <div class="span5">
+        <div class="span6">
             <div id="precio">
                 <p><span id="monto"><%= number_to_currency(@presupuesto.precio_minimo) %><br>a<br><%= number_to_currency(@presupuesto.precio_maximo) %></span><span id="con-iva"><%= @presupuesto.incluye_iva %></span><span class="mini-nota">(costo referencial)</span></p>
             </div>
