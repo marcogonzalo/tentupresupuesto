@@ -3,8 +3,8 @@ set :keep_releases, 2                                         # Number of old re
 
 set :branch, 'master'
 
-set :rails_env,      "staging"
-set :migrate_env,    "staging"
+set :rails_env,      "production"
+set :migrate_env,    "production"
 
 namespace :to_production do
   task :migrations do
@@ -20,9 +20,9 @@ namespace :to_production do
   
   # Regenera el sitemap en la nueva version luego de hacer deploy
   task :refresh_sitemaps do
-    run "cd #{release_path} && bundle exec rake sitemap:refresh:no_ping RAILS_ENV=#{rails_env}"
+    run "cd #{current_path} && bundle exec rake sitemap:refresh RAILS_ENV=#{rails_env}"
   end
 end
 
-after "deploy:finish", "to_production:migrations"
+after "deploy:update_code", "to_production:migrations"
 after "deploy", "to_production:refresh_sitemaps"
