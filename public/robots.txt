@@ -4,3 +4,6 @@
 # User-Agent: *
 # Disallow: /
 Sitemap: http://www.tentupresupuesto.com.ve/shared/sitemap.xml.gz
+
+User-Agent: *
+Disallow: http://trapichito.tentupresupuesto.com.ve
