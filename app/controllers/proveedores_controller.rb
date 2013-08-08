@@ -1,6 +1,6 @@
 # coding: utf-8
 class ProveedoresController < ApplicationController
-  before_filter :no_authenticated, :only => [:new, :create]
+  #before_filter :no_authenticated, :only => [:new, :create]
   before_filter :authenticated_proveedor, :except => [:index, :show]
 
 ################  
@@ -203,6 +203,20 @@ class ProveedoresController < ApplicationController
       format.html { redirect_to root_path }
       format.json { head :no_content }
     end
+  end
+
+  def no_soy_proveedor
+    usuario = current_proveedor
+    
+    unless usuario.perfilable_id.blank?
+      redirect_to panel_proveedor_path
+      return
+    end
+    
+    usuario.update_attribute('perfilable_type','Solicitante')
+    Devise.sign_out_all_scopes
+    redirect_to new_solicitante_path
+    return
   end
 
   def cambiar_imagen
