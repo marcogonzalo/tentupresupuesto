@@ -3,4 +3,7 @@
 # To ban all spiders from the entire site uncomment the next two lines:
 # User-Agent: *
 # Disallow: /
-Sitemap: http://www.tentupresupuesto.com.ve/sitemap.xml.gz
+Sitemap: http://www.tentupresupuesto.com.ve/shared/sitemap.xml.gz
+
+User-Agent: *
+Disallow: http://trapichito.tentupresupuesto.com.ve

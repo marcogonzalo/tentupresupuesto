@@ -20,6 +20,8 @@ namespace :to_staging do
   
   # Regenera el sitemap en la nueva version luego de hacer deploy
   task :refresh_sitemaps do
+    run "mkdir -p #{shared_path}/sitemaps"
+    run "ln -nfs #{shared_path}/sitemaps #{release_path}/public/sitemaps"
     run "cd #{current_path} && bundle exec rake sitemap:refresh:no_ping RAILS_ENV=#{rails_env}"
   end
 end

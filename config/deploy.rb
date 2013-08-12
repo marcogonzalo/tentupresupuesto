@@ -47,6 +47,7 @@ namespace :deploy do
   task :prepare_shared do
     run "mkdir -p #{shared_path}/config"
     run "mkdir -p #{shared_path}/db"
+    run "mkdir -p #{shared_path}/sitemaps"
   end
   
   desc "Upload config/database.yml to server's shared directory"

@@ -29,20 +29,19 @@ Ttp::Application.routes.draw do
     end
 
     scope "/solicitante" do
-      get     "/" => "solicitantes#panel", :as => "panel_solicitante"
       get     "nuevo-perfil" => "solicitantes#new", :as => "new_solicitante"
       get     "editar-perfil" => "solicitantes#edit", :as => "edit_solicitante"
-#      post    "nuevo-perfil(.:id)" => "solicitantes#create", :as => "solicitantes"
-#      put     "editar-perfil(.:id)" => "solicitantes#update", :as => "solicitante"
+      get     "no-soy-solicitante" => "solicitantes#no_soy_solicitante", :as => "no_soy_solicitante"
+      get     "/" => "solicitantes#panel", :as => "panel_solicitante"
     end
     resources :solicitantes, :only => [:create, :update]
     
     scope "/proveedor" do
-      get     "/" => "proveedores#panel", :as => "panel_proveedor"
+      get     "nuevo-perfil" => "proveedores#new", :as => "new_proveedor"
+      get     "editar-perfil" => "proveedores#edit", :as => "edit_proveedor"
+      get     "no-soy-proveedor" => "proveedores#no_soy_proveedor", :as => "no_soy_proveedor"
       get     'categorias' => "proveedores#categorias_de_proveedor", :as => "categorias_de_proveedor"
       put     'categorias(/:id)' => "proveedores#update_categorias_de_proveedor", :as => "update_categorias_de_proveedor"
-      get     "editar-perfil" => "proveedores#edit", :as => "edit_proveedor"
-#      put     "editar-perfil(.:id)" => "proveedores#update", :as => "proveedores"
       get     'enlaces' => "proveedores#enlaces_de_proveedor", :as => "enlaces_de_proveedor"
       put     'enlaces(/:id)' => "proveedores#update_enlaces_de_proveedor", :as => "enlaces_de_proveedor"
       get     "imagen" => "proveedores#imagen", :as => "imagen_proveedor"
@@ -50,8 +49,7 @@ Ttp::Application.routes.draw do
       get     "imagenes_galeria" => "imagenes#galeria", :as => "galeria_proveedor"
       put     "imagenes_galeria(/:id)" => "imagenes#editar_galeria", :as => "editar_galeria_proveedor"
       delete  "imagenes_galeria(/:id)" => "imagenes#borrar_galeria", :as => "borrar_galeria_proveedor"
-      get     "nuevo-perfil" => "proveedores#new", :as => "new_proveedor"
-#      post    "nuevo-perfil(.:id)" => "proveedores#create", :as => "proveedores"
+      get     "/" => "proveedores#panel", :as => "panel_proveedor"
     end
     scope :proveedores do
       get     'proveedores/:filtro/:valor' => "proveedores#index", :as => "listar_proveedores", :constraints => FiltroListaProveedores

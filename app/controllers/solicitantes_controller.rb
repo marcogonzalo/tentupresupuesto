@@ -1,7 +1,7 @@
 # coding: utf-8
 class SolicitantesController < ApplicationController
   require 'genericas'
-  before_filter :no_authenticated, :only => [:new, :create]
+  #before_filter :no_authenticated, :only => [:new, :create]
   before_filter :authenticated_solicitante, :except => [:new, :create]
   # GET /solicitantes
   # GET /solicitantes.json
@@ -143,5 +143,18 @@ class SolicitantesController < ApplicationController
     end
   end
 
+  def no_soy_solicitante
+    usuario = current_solicitante
+    
+    unless usuario.perfilable_id.blank?
+      redirect_to panel_solicitante_path 
+      return
+    end
+    
+    usuario.update_attribute('perfilable_type','Proveedor')
+    Devise.sign_out_all_scopes
+    redirect_to new_proveedor_path
+    return
+  end
 
 end
