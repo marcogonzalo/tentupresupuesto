@@ -271,13 +271,13 @@ es-VE:
         precio_minimo: "Precio mínimo"
         precio_maximo: "Precio máximo"
         resumen: "Resumen"
-        trabajo_id: "Solicitud"
-        unidad: "Estimación con base en"
-        unidades:
+        tipo_estimacion: "Tipo de estimación" 
+        tipos_estimacion:
           metro_cuadrado: "Precio por metro cuadrado"
           metro_cubico: "Precio por metro cúbico"
           metro_lineal: "Precio por metro lineal"
           total: "Precio total"
+        trabajo_id: "Solicitud"
       proveedor:
         correo_electronico: "Correo electrónico"
         descripcion: "Descripción"
