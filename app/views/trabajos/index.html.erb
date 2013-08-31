@@ -79,10 +79,13 @@
     <% @trabajos.each do |trabajo| %>
     <div class="row trabajo ">
         <h4> <%= link_to trabajo.proposito, trabajo %> </h4>
+    <% if trabajo.buscando? %>
+        <p class="intencion"><b><%= t('intencion', :scope => 'activerecord.attributes.trabajo') %>:</b> <%= t(trabajo.intencion, :scope => 'activerecord.attributes.trabajo.intenciones') %></p>
+    <% end %>
         <section class="datos-solicitud">
             <div class="cat-p-n <%= trabajo.categoria.clase_css %>"></div>
             <div class="datos-en-lista">
-                <%= link_to trabajo.categoria.nombre, listar_trabajos_path('categoria', trabajo.categoria.friendly_id) %> | <%= trabajo.estatus.capitalize %> | <%= link_to( t('extras.presupuestos', :count => trabajo.cant_presupuestos), trabajo_path(trabajo, :anchor => "presupuestos")) %>
+                <%= link_to trabajo.categoria.nombre, listar_trabajos_path('categoria', trabajo.categoria.friendly_id) %> | <%= trabajo.estatus.capitalize %> | <%= link_to( t('activerecord.attributes.trabajo.cant_presupuestos'), trabajo_path(trabajo, :anchor => "presupuestos")) %> <span class="badge badge-info"><%= trabajo.cant_presupuestos %></span>
                 <br>
                 <time datetime="<%= l trabajo.created_at, :format => :html5 %>" pubdate="pubdate">
                     <%= l trabajo.created_at, :format => :abrev %>

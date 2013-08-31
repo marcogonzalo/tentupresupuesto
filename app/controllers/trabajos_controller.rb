@@ -1,5 +1,6 @@
 # coding: utf-8
 class TrabajosController < ApplicationController
+  require 'genericas'
   before_filter :authenticated_solicitante, :except => [:show, :index]
   before_filter :find_trabajo, :only => [:show]
   layout :resolve_layout

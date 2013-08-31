@@ -25,8 +25,14 @@
   end
 %>
 <section id="descripcion" class="offset1 span20">
-    <h2>Descripci&oacute;n del trabajo solicitado</h3>     <pre><%= @trabajo.descripcion %></pre>
-    <p><%= "<b>Estatus</b>: ".html_safe+@trabajo.estatus unless @trabajo.buscando? %></p>
+    <h2>Descripci&oacute;n del trabajo solicitado</h3>
+<% if @trabajo.buscando? %>
+    <p class="intencion"><b><%= t('intencion', :scope => 'activerecord.attributes.trabajo') %>:</b> <%= t(@trabajo.intencion, :scope => 'activerecord.attributes.trabajo.intenciones') %></p>
+<% end %>
+    <pre><%= @trabajo.descripcion %></pre>
+<% unless @trabajo.buscando? %>
+    <p><%= "<b>Estatus</b>: ".html_safe+@trabajo.estatus %></p>
+<% end %>
 <% if @trabajo.ejecutando? %>
     <% if @es_el_proveedor %>
     <h4>Datos del solicitante</h4>

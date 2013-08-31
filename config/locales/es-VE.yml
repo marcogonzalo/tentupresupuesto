@@ -272,6 +272,12 @@ es-VE:
         precio_maximo: "Precio máximo"
         resumen: "Resumen"
         trabajo_id: "Solicitud"
+        unidad: "Estimación con base en"
+        unidades:
+          metro_cuadrado: "Precio por metro cuadrado"
+          metro_cubico: "Precio por metro cúbico"
+          metro_lineal: "Precio por metro lineal"
+          total: "Precio total"
       proveedor:
         correo_electronico: "Correo electrónico"
         descripcion: "Descripción"
@@ -325,11 +331,17 @@ es-VE:
         telefono_local: "Teléfono local"
         telefono_movil: "Teléfono móvil"
       trabajo:
+        cant_presupuestos: "Presupuestos"
         categoria_id: "Categoría"
         descripcion: "Descripción"
         direccion: "Dirección"
         estado_id: "Estado"
         estatus: "Estatus del trabajo"
+        intencion: "Propósito"
+        intenciones:
+          averiguar: "Averiguar precios"
+          interes: "Interés en contratar"
+          contratar: "Contratar el servicio"
         localidad_id: "Localidad (Urbanización, Zona, Sector)"
         municipio_id: "Municipio"
         pais_id: "País"

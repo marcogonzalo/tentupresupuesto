@@ -3,8 +3,11 @@ class Trabajo < ActiveRecord::Base
   include FriendlyId
   friendly_id :proposito, :use => [:slugged, :history]
   
-  attr_accessible :descripcion, :direccion, :estatus, :precio_final, :proposito,
+  attr_accessible :descripcion, :direccion, :estatus, :precio_final, :proposito, :intencion,
                   :categoria_id, :pais_id, :estado_id, :municipio_id, :localidad_id
+  
+  ESTATUS   = ["buscando","ejecutando","finalizado","evaluado","cerrado"]
+  INTENCION = [:averiguar,:interes,:contratar]
   
   has_one :evaluacion
   has_many :presupuestos
@@ -16,7 +19,6 @@ class Trabajo < ActiveRecord::Base
   belongs_to :municipio, :class_name => "UbicacionGeografica", :foreign_key => "municipio_id", :conditions => "tipo = 'municipio'"
   belongs_to :localidad, :class_name => "UbicacionGeografica", :foreign_key => "localidad_id", :conditions => "tipo = 'localidad'"
   
-  ESTATUS = ["buscando","ejecutando","finalizado", "evaluado","cerrado"]
   default_scope order('created_at DESC')
   scope :estatus_buscando, where(:estatus => 'buscando')
   scope :estatus_ejecutando, where(:estatus => 'ejecutando')

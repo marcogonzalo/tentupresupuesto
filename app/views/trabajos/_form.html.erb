@@ -31,6 +31,14 @@
                         Mientras más detalles des (material, medidas, actividades a realizar) más preciso será el presupuesto y más rápido podrás contratar.</span>
                 </div>
             </div>
+            <div class="row">
+                <div class="control-group span9">
+                    <%= f.label :intencion, "¿Cuál es tu intención con esta publicación?", :class => 'control-label' %>
+                    <div class="controls">
+                        <%= f.select :intencion, intenciones %>
+                    </div>
+                </div>
+            </div>
         </fieldset>
         <fieldset>
             <legend>
