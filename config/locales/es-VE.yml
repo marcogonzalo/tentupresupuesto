@@ -331,6 +331,10 @@ es-VE:
         telefono_local: "Teléfono local"
         telefono_movil: "Teléfono móvil"
       trabajo:
+        cant_presupuestos:
+          zero: Sin presupuestos
+          one: Con 1 presupuesto
+          other: 'Con %{count} presupuestos'
         cant_presupuestos: "Presupuestos"
         categoria_id: "Categoría"
         descripcion: "Descripción"
