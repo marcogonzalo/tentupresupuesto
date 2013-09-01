@@ -33,7 +33,7 @@
     </div>
 </section>
 <% end %>
-    <h2>Descripci&oacute;n del trabajo solicitado</h3>
+    <h2>Descripci&oacute;n del trabajo solicitado</h2>
 <% if @trabajo.buscando? %>
     <p class="intencion"><b><%= t('intencion', :scope => 'activerecord.attributes.trabajo') %>:</b> <%= t(@trabajo.intencion, :scope => 'activerecord.attributes.trabajo.intenciones') %></p>
 <% end %>
@@ -107,11 +107,11 @@ if (@trabajo.presupuestos.size == 1 and not @trabajo.contratado) or @trabajo.pre
 <section id="proveedores-interesados">
     <h2>Proveedores interesados</h2>
 <% if @trabajo.presupuestos %>
+    <div id="fichas" class="offset1">
     <% for presupuesto in @trabajo.presupuestos %>
-    <div class="offset1 span6">
         <%= render(:partial => 'proveedores/ficha', :locals => {:p => presupuesto.proveedor, :pre => presupuesto, :contratado => (@trabajo.contratado and false), :es_el_solicitante => @es_el_solicitante}) %>
-    </div>
     <% end %>
+    </div>
 <% else %>
     No hay presupuestos presentados
 <% end %>
