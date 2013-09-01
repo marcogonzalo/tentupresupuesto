@@ -40,8 +40,7 @@ group :assets do
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   gem 'therubyracer', :platforms => :ruby
 
-  #gem 'cssminify', "~> 1.0.2"
-  gem "yui-compressor", "~> 0.11.0"
+  gem 'cssminify', "~> 1.0.2"
   gem 'uglifier', '>= 1.0.3'
 end
 gem 'twitter-bootstrap-rails', "~> 2.2.6"
