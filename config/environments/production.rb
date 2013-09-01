@@ -1,4 +1,4 @@
-require 'cssminify'
+#require 'cssminify'
 
 Ttp::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
@@ -15,7 +15,7 @@ Ttp::Application.configure do
 
   # Compress JavaScripts and CSS
   config.assets.compress = true
-  config.assets.css_compressor = CSSminify.new
+  config.assets.css_compressor = :yui #CSSminify.new
   config.assets.js_compressor = :uglifier
 
   # Don't fallback to assets pipeline if a precompiled asset is missed

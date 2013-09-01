@@ -1,4 +1,4 @@
-require 'cssminify'
+#require 'cssminify'
 
 Ttp::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
@@ -15,11 +15,11 @@ Ttp::Application.configure do
 
   # Compress JavaScripts and CSS
   config.assets.compress = true
-  config.assets.css_compressor = CSSminify.new
+  config.assets.css_compressor = :yui #CSSminify.new
   config.assets.js_compressor = :uglifier
 
   # Don't fallback to assets pipeline if a precompiled asset is missed
-  config.assets.compile = false
+  config.assets.compile = true
 
   # Generate digests for assets URLs
   config.assets.digest = true
@@ -57,7 +57,6 @@ Ttp::Application.configure do
   config.assets.precompile += ['application.css', 'base_ttp*', 'devise.css', 'email.css', 'errores.css', 'general.css', 'interna-liston.css', 'landing.css']
   config.assets.precompile += ['categorias*', 'evaluaciones*', 'mensajes*', 'presupuestos*', 'proveedores*', 'reputacion*', 'solicitantes*', 'trabajos*', 'ubicaciones_geograficas*']
   config.assets.precompile += ['rails_admin/rails_admin.css', 'rails_admin/rails_admin.js']
-  config.assets.precompile += ['jquery.autoellipsis.min.js']
   # %w( .svg .eot .woff .ttf .otf .js .css)
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
