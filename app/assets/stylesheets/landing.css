@@ -160,13 +160,13 @@ input[type="text"], input[type="password"], input[type="email"] {
     position: relative;
     top: -20px;
 }
-#pendones {
+#pasos-generales {
     background-color:#eee;
     overflow:hidden;
     padding-bottom:1em;
 }
     
-#pendones .pendon {
+#pasos-generales .pendon {
     background: url('tentu/landing/pendon.png') no-repeat center bottom;
     display: inline-block;
     float: left;
@@ -176,22 +176,33 @@ input[type="text"], input[type="password"], input[type="email"] {
     overflow: hidden;
     width: 33.3%;
 }
-#pendones .pendon .contenido-pendon {
+#pasos-generales .pendon .contenido-pendon {
     font-size: 1em;
     margin: 1em 0px;
     padding: 1% 15%;
     text-align: center;
 }
-#pendones .pendon .contenido-pendon h2 {
+#pasos-generales .pendon .contenido-pendon h2 {
     font-family: 'Chango', 'Trebuschet MS', sans-serif;
     margin-bottom: 0.5em;
 }
-#pendones .pendon .contenido-pendon .imagen {
+#pasos-generales .pendon .contenido-pendon .imagen {
     display: table-cell;
     margin: 1.5em auto 0em auto;
     height: 140px;
     width: 60%;
     vertical-align: bottom;
+}
+
+#datos-categorias {
+    background-color:white;
+    color:#333;
+    padding-top:1em;
+}
+#datos-categorias h1 {color:#F59526; font-size:2.5em; text-shadow:0 1px 3px #000;}
+#datos-categorias ul { list-style: none; font-size:small; }
+#datos-categorias ul a {
+    color:#333;
 }
 
 #feeds-sociales {
@@ -200,9 +211,7 @@ input[type="text"], input[type="password"], input[type="email"] {
     padding-bottom:1em;
 }
 
-#feeds-sociales h2 {
-    padding:1em 0.25em;
-}
+#feeds-sociales h1 { color:#1B80C1; font-size:2.5em; text-shadow:0 1px 3px #000; padding-bottom:1em; }
 /* Dejar siempre debajo para sobreescribir en dispositivos */
 /* Large desktop */
 @media screen and (min-width: 1200px) {

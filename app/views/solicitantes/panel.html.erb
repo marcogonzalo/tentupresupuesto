@@ -12,7 +12,7 @@
     end
 %>
 <h1 class="page-header">Panel de solicitante</h1>
-<div class="alert alert-info alert-block">
+<div class="alert alert-info alert-block hide">
     <h4>¡Ayúdanos a mejorar!</h2>
     <p>
         Estamos realizando una encuesta a todos nuestros usuarios solicitantes para conocer acerca de su experiencia con TenTuPresupuesto.
@@ -61,7 +61,7 @@
 </aside>
 <div class="span16">
     <div class="row">
-        <%= link_to "Nueva solicitud", new_trabajo_path, :class => 'btn btn-warning pull-right'%>
+        <%= link_to "Publicar una nueva solicitud", new_trabajo_path, :class => 'btn btn-warning pull-right'%>
         <h2 class="page-header">Mis solicitudes</h2>
     </div>
     <section id="solicitudes-abiertas" class="well">
