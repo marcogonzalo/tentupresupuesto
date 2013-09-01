@@ -18,14 +18,14 @@
                 <div class="control-group offset1 span9">
                     <%= f.label :proposito, "¿Qué necesitas?", :class => 'control-label' %>
                     <div class="controls">
-                        <%= f.text_field :proposito, :class => 'text_field' %>
+                        <%= f.text_field :proposito, :class => 'text_field', 'rel' => 'tooltip', 'title' => 'Ej: Pintar 4 paredes de un cuarto; Remodelar una sala de 60mts2;' %>
                     </div>
                 </div>
             </div>
             <div class="control-group span19">
                 <%= f.label :descripcion, :class => 'control-label' %>
                 <div class="controls">
-                    <%= f.text_area :descripcion, :class => 'text_area' %>
+                    <%= f.text_area :descripcion, :class => 'text_area', 'rel' => 'tooltip', 'title' => 'Da una descripción detallada: qué quieres exactamente, dimensiones, cantidad de espacios, posibles colores y materiales...' %>
                     <span class="help-block">Procura dar la mayor información que te sea posible.
                         <br>
                         Mientras más detalles des (material, medidas, actividades a realizar) más preciso será el presupuesto y más rápido podrás contratar.</span>

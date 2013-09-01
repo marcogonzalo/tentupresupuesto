@@ -14,6 +14,14 @@
 //= require jquery_ujs
 //= require twitter/bootstrap/bootstrap-alert
 //= require twitter/bootstrap/bootstrap-modal
+//= require twitter/bootstrap/bootstrap-tooltip
 //= require twitter/bootstrap/bootstrap-typeahead
 //= require comun
 //= require rails.validations
+
+$(document).ready(function () {
+  $('a').tooltip({trigger:'focus'});
+  $('input').tooltip({trigger:'focus'});
+  $('textarea').tooltip({trigger:'focus'});
+  $('select').tooltip({trigger:'click'});
+});
