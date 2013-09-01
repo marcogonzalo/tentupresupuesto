@@ -1,0 +1,16 @@
+<% unless p == contratado %>
+<div class="ficha">
+    <div class="row">
+        <div class="imagen pull-left">
+            <%= image_tag(p.avatar.mini.url) %>
+        </div>
+        <span class="nombre" title="<%= p.nombre_empresa %>"><b><%= truncate(p.nombre_empresa, length:30, separator:' ', omission:'...') %></b></span>
+        <span class="tipo-empresa"><%= t(p.tipo_proveedor, :scope => 'activerecord.attributes.proveedor') %></span>
+        <%= raw mostrar_reputacion(p.reputacion, p.valoraciones, "proveedor") %>
+     </div>
+    <div class="botones row clearfix">
+        <%= link_to("Ver oferta", presupuesto_path(pre), :class=>"btn btn-small") if es_el_solicitante and pre %>
+        <%= link_to "Ver perfil", perfil_proveedor_path(p), :class => 'btn btn-small' %><br>
+    </div>
+</div>
+<% end %>

@@ -344,7 +344,7 @@ es-VE:
         intencion: "Propósito"
         intenciones:
           averiguar: "Averiguar precios"
-          interes: "Interés en contratar"
+          interes: "Posiblemente contratar"
           contratar: "Contratar el servicio"
         localidad_id: "Localidad (Urbanización, Zona, Sector)"
         municipio_id: "Municipio"
