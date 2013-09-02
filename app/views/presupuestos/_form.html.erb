@@ -26,25 +26,38 @@
     <div class="cuerpo-pendon">
         <%= form_for @path, :validate => true do |f| %>
             <span class="help-block mini-nota">Se indicará al cliente que estos son montos estimados y no definitivos.</span>
-            <div class="control-group row">
-                <%= f.label :precio_minimo, :class => 'control-label' %>
-                <div class="span4 controls">
-                    <%= f.text_field :precio_minimo, :class => "text-field" %>
+            <div class="row">
+                <div class="control-group span3">
+                    <%= f.label :precio_minimo, :class => 'control-label' %>
+                    <div class="controls">
+                        <%= f.text_field :precio_minimo, :class => "text-field" %>
+                    </div>
+                </div>
+                <div class="control-group offset1 span3">
+                    <%= f.label :precio_maximo, :class => 'control-label' %>
+                    <div class=" controls">
+                        <%= f.text_field :precio_maximo, :class => "text-field" %>
+                    </div>
                 </div>
             </div>
-            <div class="control-group row">
-                <%= f.label :precio_maximo, :class => 'control-label' %>
-                <div class="span4 controls">
-                    <%= f.text_field :precio_maximo, :class => "text-field" %>
+            <div class="span10">
+                <div class="control-group">
+                    <label for="presupuesto_con_iva" class="checkbox" %> <%= f.check_box :con_iva, :class => 'check_box' %> El precio incluye <abbr title="Impuesto al Valor Agregado">IVA</abbr> </label>
                 </div>
             </div>
-            <div class="control-group">
-                <label for="presupuesto_con_iva" class="checkbox" %> <%= f.check_box :con_iva, :class => 'check_box' %> El precio incluye <abbr title="Impuesto al Valor Agregado">IVA</abbr> </label>
+            <br>
+            <div class="clearfix">
+                <div class="control-group">
+                    <%= f.label :tipo_estimacion, :class => 'control-label' %>
+                    <div class="controls">
+                        <%= f.select :tipo_estimacion, tipos_estimacion %>
+                    </div>
+                </div>
             </div>
             <div class="control-group">
                 <%= f.label :resumen, :class => 'control-label' %>
                 <div class="controls">
-                    <%= f.text_area :resumen, :class => 'text_area' %>
+                    <%= f.text_area :resumen, :class => 'text_area', 'rel' => 'tooltip', 'title' => 'Procura dar información de tu servicio, las actividades necesarias. Evita sólo decir que debe visitarse el lugar.' %>
                 </div>
             </div>
             <div class="botones">

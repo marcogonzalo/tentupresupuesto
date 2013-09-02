@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130728021817) do
+ActiveRecord::Schema.define(:version => 20130812021012) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                  :default => "",    :null => false
@@ -110,20 +110,21 @@ ActiveRecord::Schema.define(:version => 20130728021817) do
   add_index "mensajes", ["presupuesto_id"], :name => "index_mensajes_on_presupuesto_id"
 
   create_table "presupuestos", :force => true do |t|
-    t.float    "precio_minimo",                :default => 0.0,   :null => false
-    t.float    "precio_maximo",                :default => 0.0,   :null => false
-    t.text     "resumen",                      :default => "",    :null => false
-    t.boolean  "con_iva",                      :default => true,  :null => false
-    t.boolean  "visto",                        :default => false, :null => false
+    t.float    "precio_minimo",                :default => 0.0,     :null => false
+    t.float    "precio_maximo",                :default => 0.0,     :null => false
+    t.text     "resumen",                      :default => "",      :null => false
+    t.boolean  "con_iva",                      :default => true,    :null => false
+    t.boolean  "visto",                        :default => false,   :null => false
     t.boolean  "aprobado"
-    t.boolean  "rechazado",                    :default => false, :null => false
+    t.boolean  "rechazado",                    :default => false,   :null => false
     t.string   "motivo_rechazo", :limit => 20
-    t.integer  "cant_mensajes",                :default => 0,     :null => false
-    t.datetime "created_at",                                      :null => false
-    t.datetime "updated_at",                                      :null => false
+    t.integer  "cant_mensajes",                :default => 0,       :null => false
+    t.datetime "created_at",                                        :null => false
+    t.datetime "updated_at",                                        :null => false
     t.integer  "trabajo_id"
     t.integer  "proveedor_id"
     t.boolean  "enviar_datos",                 :default => false
+    t.string   "unidad",                       :default => "total"
   end
 
   add_index "presupuestos", ["proveedor_id"], :name => "index_presupuestos_on_proveedor_id"
@@ -206,22 +207,23 @@ ActiveRecord::Schema.define(:version => 20130728021817) do
   add_index "solicitantes", ["pais_id"], :name => "index_solicitantes_on_pais_id"
 
   create_table "trabajos", :force => true do |t|
-    t.string   "proposito",         :limit => 100,                               :default => "",         :null => false
-    t.text     "descripcion",                                                    :default => "",         :null => false
-    t.string   "estatus",           :limit => 15,                                :default => "buscando", :null => false
-    t.text     "direccion",                                                      :default => "",         :null => false
-    t.decimal  "precio_final",                     :precision => 8, :scale => 2, :default => 0.0,        :null => false
-    t.integer  "cant_presupuestos",                                              :default => 0,          :null => false
-    t.datetime "created_at",                                                                             :null => false
-    t.datetime "updated_at",                                                                             :null => false
+    t.string   "proposito",         :limit => 100,                               :default => "",            :null => false
+    t.text     "descripcion",                                                    :default => "",            :null => false
+    t.string   "estatus",           :limit => 15,                                :default => "buscando",    :null => false
+    t.text     "direccion",                                                      :default => "",            :null => false
+    t.decimal  "precio_final",                     :precision => 8, :scale => 2, :default => 0.0,           :null => false
+    t.integer  "cant_presupuestos",                                              :default => 0,             :null => false
+    t.datetime "created_at",                                                                                :null => false
+    t.datetime "updated_at",                                                                                :null => false
     t.integer  "solicitante_id"
     t.integer  "contratado_id"
-    t.string   "slug",                                                           :default => "",         :null => false
+    t.string   "slug",                                                           :default => "",            :null => false
     t.integer  "categoria_id"
     t.integer  "pais_id"
     t.integer  "estado_id"
     t.integer  "municipio_id"
     t.integer  "localidad_id"
+    t.string   "intencion",                                                      :default => "averiguando"
   end
 
   add_index "trabajos", ["categoria_id"], :name => "index_trabajos_on_categoria_id"

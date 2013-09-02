@@ -1,4 +1,4 @@
-<%- model_class = Presupuesto -%>
+<%-model_class = Presupuesto -%>
 <%
  content_for :head do
     stylesheet_link_tag 'trabajos', 'presupuestos', 'categorias', 'reputacion', 'mensajes'
@@ -26,20 +26,20 @@
     <div class="row">
         <div class="span6">
             <div id="precio">
-                <p><span id="monto"><%= number_to_currency(@presupuesto.precio_minimo) %><br>a<br><%= number_to_currency(@presupuesto.precio_maximo) %></span><span id="con-iva"><%= @presupuesto.incluye_iva %></span><span class="mini-nota">(costo referencial)</span></p>
+                <p><span id="monto"><%= number_to_currency(@presupuesto.precio_minimo) %><br>a<br><%= number_to_currency(@presupuesto.precio_maximo) %></span><br><span class="mini-nota">(costo referencial)</span></p>
             </div>
             <div class="centrado">
+                <p><span class="badge"><small><%= @presupuesto.incluye_iva %></small></span></p>
+                <p><span class="badge"><small><%= t(@presupuesto.tipo_estimacion, :scope => 'activerecord.attributes.presupuesto.tipos_estimacion') %></small></span></p>
                 <p>
                 <% if @presupuesto.rechazado %>
-                        <span class="label label-important">RECHAZADO</span><br><span class="text-error"><%= t('activerecord.attributes.presupuesto.motivos_rechazo.'+@presupuesto.motivo_rechazo.to_s) %></span>
+                        <span class="label label-important">RECHAZADO</span><br><span class="text-error"><%= t(@presupuesto.motivo_rechazo.to_s, :scope => 'activerecord.attributes.presupuesto.motivos_rechazo') %></span>
                 <% else %>
                     <% if not @presupuesto.aprobado.nil? %>
                         <%= @presupuesto.aprobado ? '<span class="label label-success">APROBADO</span>'.html_safe : '<span class="label label-important">no aprobado</span>'.html_safe %>
                     <% else %>
                         <%  if @es_el_proveedor %>
-                    <span class="text-muted">
-                        <%= @presupuesto.fue_visto %>
-                    </span>
+                    <span class="badge <%= "badge-success" if @presupuesto.visto %>"><small><%= @presupuesto.fue_visto %></small></span>
                         <% end %>
                     <% end %>
                 <% end %>
@@ -48,13 +48,15 @@
         </div>
         <div class="span15">
             <div class="row">
-                <div class="span11 pull-right">
+                <div class="span8 pull-right">
                     <h3>Observaciones:</h3>
                     <blockquote>
                         <pre><%= @presupuesto.resumen %></pre>
                     </blockquote>
                 </div>
-                <%= render(:partial => 'proveedores/info_en_trabajo', :locals => {:p => @presupuesto, :contratado => false, :es_el_solicitante => false}) %>
+                <div class="span6">
+                    <%= render(:partial => 'proveedores/ficha', :locals => {:p => @presupuesto.proveedor, :pre => @presupuesto, :contratado => false, :es_el_solicitante => false}) %>
+                </div>
             </div>
             <div class="row">
                 <h4>Datos de contacto del proveedor</h4>

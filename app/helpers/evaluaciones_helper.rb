@@ -17,9 +17,9 @@ module EvaluacionesHelper
       end
     else
       if tipo == "proveedor"
-        return '' #'<div class="reputacion"><span class="sin-evaluar">Sin evaluaciones</span></div>'
+        return '<div class="reputacion"><span class="sin-evaluar">0 evaluaciones</span></div>'
       else
-        return '<div class="reputacion"><div class="'+rep+'" title="Sin evaluar"><span style="width:0%;"><i>Sin evaluar</i></span></div></div>'
+        return '<div class="reputacion"><div class="'+rep+'" title="Sin evaluar"><span style="width:0%;"><i>0 evaluaciones</i></span></div></div>'
       end
     end
   end

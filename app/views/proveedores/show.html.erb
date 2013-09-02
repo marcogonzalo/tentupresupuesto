@@ -9,15 +9,13 @@
   end
 
   content_for :title do
-    "Perfil de: "+@proveedor.nombre_empresa
+    @proveedor.nombre_empresa+" - "+t('activerecord.attributes.proveedor.tipos_proveedor.'+@proveedor.tipo_proveedor)+" :: TenTuPresupuesto"
   end
 
   content_for :meta_description do
     truncate(@proveedor.descripcion, :length => 250, :separator => ' ')
   end
 %>
-<h1>Ficha de proveedor</h1>
-<br>
 <div id="perfil" class="row">
     <aside id="perfil-proveedor" class="span6 pull-right">
         <div id="ficha-proveedor">
@@ -30,7 +28,7 @@
                 <%= image_tag @proveedor.avatar.url, :alt => "Logo de "+@proveedor.nombre_empresa, :title => "Logo de "+@proveedor.nombre_empresa %>
             <% end %>
             </div>
-            <h4 id="nombre-proveedor" class="con-chango sobre-color"><%= @proveedor.nombre_empresa %></h4>
+            <h1 id="nombre-proveedor" class="con-chango sobre-color"><%= @proveedor.nombre_empresa %></h1>
             <p></p>
             <p>
                 <%= t('activerecord.attributes.proveedor.tipos_proveedor.'+@proveedor.tipo_proveedor) %><br>

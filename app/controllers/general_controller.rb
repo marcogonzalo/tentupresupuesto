@@ -3,6 +3,9 @@ class GeneralController < ApplicationController
   # before_filter :no_authenticated, :only => [:home]
   
   def home
+    @categorias = Categoria.all
+    cuenta = rand(Proveedor.count-3)
+    @proveedores = Proveedor.limit(4).offset(cuenta)
   end
   
   def consejos_solicitante

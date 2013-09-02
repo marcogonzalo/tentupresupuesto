@@ -1,4 +1,9 @@
-<% content_for :liston do %>
+<% 
+content_for :head do
+    stylesheet_link_tag 'reputacion'
+end
+
+content_for :liston do %>
   <div class="offset3 span7"><div id="iniciar-sesion" class="con-chango"><p>Iniciar como:</p></div></div>
   <div class="span4"><div id="iniciar-solicitante"><%= link_to "Solicitante", new_session_path("solicitante"), :class => "btn btn-large btn-success" %></div></div>
   <div class="span4"><div id="iniciar-proveedor"><%= link_to "Proveedor", new_session_path("proveedor"), :class => "btn btn-large btn-warning" %></div></div>
@@ -31,7 +36,7 @@
 =end
 %>
       <% end %>
-<div id="pendones" class="row">
+<section id="pasos-generales" class="row">
     <div id="pendon-solicita" class="pendon">
       <div class="contenido-pendon">
         <div class="imagen">
@@ -59,9 +64,30 @@
         <p>Escoge al proveedor que te ofrezca el mejor servicio al mejor precio.</p>
       </div>
     </div>
-</div>
-<div id="feeds-sociales" class="row hidden-phone">
-    <h2 class="span23 centrado">Entérate de trucos y consejos en nuestras Redes Sociales</h2>
+</section>
+<section id="datos-categorias" class="row hidden-phone">
+    <h1 class="centrado con-chango">Forma parte de TenTuPresupuesto</h1>
+    <br>
+    <div class="offset3 span9">
+        <h2><%= link_to "Ofrece", new_registration_path("proveedor") %> tu servicio</h2>
+        <% for ficha in @proveedores %>
+        <div class="offset0 span7">
+            <%= render(:partial => 'proveedores/ficha', :locals => {:p => ficha, :contratado => false, :es_el_solicitante => false}) %>
+        </div>
+        <% end %>
+    </div>
+    <div class="offset2 span9">
+        <h2><%= link_to "Publica", new_registration_path("solicitante") %> tu solicitud</h2>
+        <ul>
+        <% for cat in @categorias %>
+            <li><%= link_to (' <span class="badge badge">'+cat.trabajos_asociados.to_s+"</span> "+cat.nombre).html_safe, listar_trabajos_path('categoria', cat.friendly_id) %></li>
+        <% end %>
+        </ul>
+    </div>
+</section>
+<section id="feeds-sociales" class="row hidden-phone">
+    <hr>
+    <h1 class="centrado con-chango">Únete a nuestras Redes Sociales<br><small>entérate de trucos y consejos</small></h1>
     <div class="span12 centrado">
         <script>(function(d, s, id) {
           var js, fjs = d.getElementsByTagName(s)[0];
@@ -77,4 +103,4 @@
         <a class="twitter-timeline" href="https://twitter.com/TnTuPresupuesto" width="300" height="400" data-widget-id="334882893987987456">Tweets por @TnTuPresupuesto</a>
         <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
     </div>
-</div>
+</section>

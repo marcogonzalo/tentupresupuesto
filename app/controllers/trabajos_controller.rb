@@ -1,5 +1,6 @@
 # coding: utf-8
 class TrabajosController < ApplicationController
+  require 'genericas'
   before_filter :authenticated_solicitante, :except => [:show, :index]
   before_filter :find_trabajo, :only => [:show]
   layout :resolve_layout
@@ -18,15 +19,12 @@ class TrabajosController < ApplicationController
       if FiltroListaTrabajos::FILTROS.include?(params[:filtro]) and not params[:valor].nil?
         case params[:filtro]
         when "categoria"
-          if params[:valor].eql?("mis-categorias")
+          if proveedor_signed_in? and params[:valor].eql?("mis-categorias")
             
-            @trabajos = []
-            if proveedor_signed_in?
-              categorias = current_proveedor.perfilable.categorias
-              @trabajos = Trabajo.where(:categoria_id => categorias).page(params[:p])
-            end
+            categorias = current_proveedor.perfilable.categorias
+            @trabajos = Trabajo.where(:categoria_id => categorias).page(params[:p])
             @cant_resultados = @trabajos.size
-            @titulo ="Mis categorías ("+@cant_resultados.to_s+")"
+            @titulo = "Mis categorías ("+@cant_resultados.to_s+")"
           else
             @categoria = Categoria.find(params[:valor])
             @trabajos =  @categoria.nil? ? [] : @categoria.trabajos.page(params[:p])

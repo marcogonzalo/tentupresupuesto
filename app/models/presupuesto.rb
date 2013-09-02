@@ -2,13 +2,15 @@
 class Presupuesto < ActiveRecord::Base
   #before_validation :notacion_float
   
-  attr_accessible :con_iva, :precio_maximo, :precio_minimo, :resumen, :visto
+  attr_accessible :con_iva, :precio_maximo, :precio_minimo, :resumen, :visto, :tipo_estimacion, 
+  
+  MOTIVO_RECHAZO  = [:da_pocos_detalles, :muy_barato, :muy_caro, :no_confiable, :no_responde, :ubicacion_lejana, :otro]
+  TIPO_ESTIMACION = [:metro_lineal,:metro_cuadrado,:metro_cubico,:total]
   
   belongs_to :trabajo
   belongs_to :proveedor
   has_many :mensajes
   
-  MOTIVO_RECHAZO = [:da_pocos_detalles, :muy_barato, :muy_caro, :no_confiable, :no_responde, :ubicacion_lejana, :otro]
   
   validate  :rango_precio_valido
   validates :resumen, 
@@ -117,14 +119,14 @@ class Presupuesto < ActiveRecord::Base
   
   #ACCIONES
   def incluye_iva
-    if con_iva then "IVA incluído"
-    else "IVA no incluído"
+    if con_iva then "Con IVA"
+    else "Sin IVA"
     end
   end
   
   def fue_visto
-    if visto then "El cliente ha visto el presupuesto"
-    else "El cliente aún no ha visto el presupuesto"
+    if visto then "Visto por el cliente"
+    else "No ha sido visto por el cliente"
     end
   end
   

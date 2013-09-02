@@ -1,14 +1,12 @@
 
         <meta charset="utf-8">
-        <title>TenTuPresupuesto<%= content_for?(:title) ? " :: " : "" %><%= content_for?(:title) ? yield(:title) : "" %></title>
-        <meta name="Title" content="TenTuPresupuesto - <%= yield(:title) if content_for?(:title) %>">
-        <meta name="Description" content="<%= content_for?(:meta_description) ? yield(:meta_description) : 'Solicita servicios de reparación y remodelación de manera sencilla, recibe presupuestos y contrata el mejor precio y calidad.' %>" >
-        <meta name="Keywords" content="presupuestos, trabajadores a domicilio, contratación de servicios, reparación y remodelación, reparaciones, remodelaciones, licitaciones, hogar, casa, oficina, solicitudes, proveedores">
-        <meta name="Author" content="Marco Gonzalo Gómez Pérez">
-        <meta name="Language" content="Spanish">
-        <meta name="Robots" content="all">
-        <meta name="Revisit" content="1 day">
-        <meta name="Distribution" content="Global">
+        <title><%= content_for?(:title) ? yield(:title) : "TenTuPresupuesto: Solicita servicios de reparación y remodelación" %></title>
+        <meta name="title" content="TenTuPresupuesto - <%= yield(:title) if content_for?(:title) %>">
+        <meta name="description" content="<%= content_for?(:meta_description) ? yield(:meta_description) : 'Servicios de reparación y remodelación: decoracion de interiores, cocinas, baños, plomeria, carpinteria, construccion, impermeabilizacion, jardineria... ¡y más!' %>" >
+        <meta name="keywords" content="filtraciones, carpinteros, construcciones, remodelaciones, reparaciones, mecanicos, ascensores, bombas de agua, decoracion de interiores, topes, pisos, puertas, rejas, ventanas, cocinas, baños">
+        <meta name="author" content="@MarcoGonzalo">
+        <meta name="application-name" content="TenTuPresupuesto">
+        <meta name="robots" content="all">
         <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
         <meta name="google-site-verification" content="LHZYdYVTJf5atQT3Ye4-gn4xnS26feS3sJdBifmoeuY">

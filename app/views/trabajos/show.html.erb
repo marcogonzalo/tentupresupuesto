@@ -25,8 +25,22 @@
   end
 %>
 <section id="descripcion" class="offset1 span20">
-    <h2>Descripci&oacute;n del trabajo solicitado</h3>     <pre><%= @trabajo.descripcion %></pre>
-    <p><%= "<b>Estatus</b>: ".html_safe+@trabajo.estatus unless @trabajo.buscando? %></p>
+<% if @trabajo.contratado %>
+<section id="contratado" class="offset1 span7 pull-right">
+    <h2>Proveedor contratado</h2>
+    <div class="span6">
+        <%= render(:partial => 'proveedores/ficha', :locals => {:p => @trabajo.contratado, :pre => false, :contratado => true, :es_el_solicitante => @es_el_solicitante}) %>
+    </div>
+</section>
+<% end %>
+    <h2>Descripci&oacute;n del trabajo solicitado</h2>
+<% if @trabajo.buscando? %>
+    <p class="intencion"><b><%= t('intencion', :scope => 'activerecord.attributes.trabajo') %>:</b> <%= t(@trabajo.intencion, :scope => 'activerecord.attributes.trabajo.intenciones') %></p>
+<% end %>
+    <pre><%= @trabajo.descripcion %></pre>
+<% unless @trabajo.buscando? %>
+    <p><%= "<b>Estatus</b>: ".html_safe+@trabajo.estatus %></p>
+<% end %>
 <% if @trabajo.ejecutando? %>
     <% if @es_el_proveedor %>
     <h4>Datos del solicitante</h4>
@@ -88,27 +102,18 @@
 </div>
 <%= render 'trabajos/form_finalizacion' if @trabajo.ejecutando? %>
 <a name="presupuestos"></a>
-<% if @trabajo.contratado %>
-<section id="contratado">
-    <h2>Proveedor contratado</h2>
-    <div class="span4 presupuesto">
-        <div class="separar-alrededor">
-            <%= image_tag(@trabajo.contratado.avatar.mini.url) %>
-            <span class="proveedor-interesado" title="<%= @trabajo.contratado.nombre_empresa %>"><b><%= @trabajo.contratado.nombre_empresa %></b></span>
-            <%= raw mostrar_reputacion(@trabajo.contratado.reputacion, @trabajo.contratado.valoraciones, "proveedor") %>
-        </div>
-        <div class="botones">
-            <%= link_to "Ver perfil", perfil_proveedor_path(@trabajo.contratado), :class => 'btn btn-warning btn-small' %>
-        </div>
-    </div>
-</section>
-<% end %>
 <% # No se muestra si el trabajo fue asignado y era el unico proveedor
 if (@trabajo.presupuestos.size == 1 and not @trabajo.contratado) or @trabajo.presupuestos.size > 1 %>
 <section id="proveedores-interesados">
     <h2>Proveedores interesados</h2>
-    <%= render(:partial => 'proveedores/info_en_trabajo',
-    :collection => @trabajo.presupuestos, :as => :p,
-    :locals => {:contratado => @trabajo.contratado, :es_el_solicitante => @es_el_solicitante}) or 'No hay presupuestos presentados.' %>
+<% if @trabajo.presupuestos %>
+    <div id="fichas" class="offset1">
+    <% for presupuesto in @trabajo.presupuestos %>
+        <%= render(:partial => 'proveedores/ficha', :locals => {:p => presupuesto.proveedor, :pre => presupuesto, :contratado => (@trabajo.contratado and false), :es_el_solicitante => @es_el_solicitante}) %>
+    <% end %>
+    </div>
+<% else %>
+    No hay presupuestos presentados
+<% end %>
 </section>
 <% end %>
