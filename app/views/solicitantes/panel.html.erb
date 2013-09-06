@@ -12,6 +12,15 @@
     end
 %>
 <h1 class="page-header">Panel de solicitante</h1>
+<% if current_user.confirmed_at.nil? %>
+<div class="alert alert-info alert-block">
+    <p>
+        <b>¡No has verificado tu cuenta de correo!</b><br> 
+        Tu dirección de correo electrónico <b><%= current_solicitante.email %></b> aún no ha sido verificada. Esto podría ocasionar que no te lleguen las notificaciones al recibir un presupuesto y el posible bloqueo de tu cuenta.        
+    </p>
+    <p style="text-align: right;"><%= link_to "Verificar mi correo", new_confirmation_path(current_solicitante), :class => 'btn btn-info' %></p>
+</div>
+<% end %>
 <div class="alert alert-info alert-block hide">
     <h4>¡Ayúdanos a mejorar!</h2>
     <p>
