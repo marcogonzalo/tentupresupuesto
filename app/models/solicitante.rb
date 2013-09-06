@@ -146,7 +146,17 @@ class Solicitante < ActiveRecord::Base
           date_format :abrev
         end
       end
-  #     show do; end
+      
+      show do
+        configure :created_at do
+          date_format :abrev
+        end
+        
+        configure :updated_at do
+          date_format :abrev
+        end
+      end
+      
       edit do
         configure :pais do
           associated_collection_cache_all false  # REQUIRED if you want to SORT the list as below

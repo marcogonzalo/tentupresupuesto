@@ -22,10 +22,12 @@ RailsAdmin.config do |config|
   # config.audit_with :paper_trail, 'Admin'
 
   # Display empty fields in show views:
-  config.compact_show_view = false
+  config.compact_show_view = true
 
   # Number of default rows per-page:
   config.default_items_per_page = 50
+  
+  config.total_columns_width = 600
 
   # Exclude specific models (keep the others):
   # config.excluded_models = ['Admin', 'Categoria', 'Imagen', 'Mensaje', 'Presupuesto', 'Proveedor', 'Solicitante', 'Trabajo', 'UbicacionGeografica', 'Usuario']

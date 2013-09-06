@@ -230,19 +230,33 @@ class Proveedor < ActiveRecord::Base
         end
         field :usuario do
           inverse_of :perfilable
+          column_width 100
         end
-        field :nombre_empresa
+        field :nombre_empresa do
+          column_width 200
+        end
         field :tipo_proveedor do
-          column_width 150
+          column_width 100
         end
         field :verificado do
-          column_width 75
+          column_width 50
         end
-        field :created_at do
+        field :updated_at do
+          date_format :abrev
+          column_width 150
+        end
+        field :twitter_url 
+      end
+      show do 
+      
+        configure :created_at do
+          date_format :abrev
+        end
+        
+        configure :updated_at do
           date_format :abrev
         end
       end
-  #     show do; end
       edit do
         configure :verificado do
           read_only false
