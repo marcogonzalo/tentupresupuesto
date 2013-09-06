@@ -140,10 +140,10 @@ input[type="text"], input[type="password"], input[type="email"] {
     width: 200px;
 }
 #liston #iniciar-solicitante {
-    margin: 2.75em 0px 0px 0px;
+    margin: 22.5% 0px 0px 0px;
 }
 #liston #iniciar-proveedor {
-    margin: 2.75em 0px 0px 0px;
+    margin: 22.5% 0px 0px 0px;
 }
 #liston #iniciar-sesion p {
     font-size: 1.25em;
@@ -347,7 +347,7 @@ input[type="text"], input[type="password"], input[type="email"] {
         text-align: center;
     }
     #liston #iniciar-sesion, #liston #iniciar-solicitante, #liston #iniciar-proveedor {
-        margin: 0.75em auto;
+        margin: 6.5% auto 0 auto;
     }
     #liston .container, #cuerpo .container {
         max-width: 100%;
@@ -365,7 +365,7 @@ input[type="text"], input[type="password"], input[type="email"] {
         width: 90%;
     }
     #liston #iniciar-sesion, #liston #iniciar-solicitante, #liston #iniciar-proveedor {
-        margin: 0.75em auto;
+        margin: 6.5% auto 0 auto;
     }
     #cuerpo .pendon {
         display: block;
