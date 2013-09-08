@@ -80,6 +80,8 @@ class TrabajosController < ApplicationController
     if @trabajo.ejecutando? and proveedor_signed_in?
       @es_el_proveedor = current_proveedor.perfilable_id.eql?(@trabajo.contratado_id)
     end
+    
+    Trabajo.increment_counter(:visitas,@trabajo.id)
     add_breadcrumb @trabajo.proposito
     respond_to do |format|
       format.html # show.html.erb

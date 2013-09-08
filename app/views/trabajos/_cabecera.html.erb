@@ -2,7 +2,7 @@
   <h1 id="titulo"><%= trabajo.proposito %></h1>
   <div class="cat-m-<%= color %> <%= trabajo.categoria.clase_css %>"></div>
   <section id="datos-solicitud">
-    <p>Trabajo en <%= link_to trabajo.categoria.nombre, listar_trabajos_path('categoria', trabajo.categoria.friendly_id) %>. <%= t('extras.presupuestos', :count => cantidad_presupuestos) %>.</p>
+    <p>Trabajo en <%= link_to trabajo.categoria.nombre, listar_trabajos_path('categoria', trabajo.categoria.friendly_id) %>. <%= t('extras.presupuestos', :count => cantidad_presupuestos) %>. <i class="icon-eye-open icon-white"></i> <abbr title="<%= t('activerecord.attributes.trabajo.visitas') %>"><%= trabajo.visitas %></abbr></p>
     <p>Ubicado en <%= trabajo.localidad.nombre %>, Municipio <%= trabajo.municipio.nombre %>, Estado <%= trabajo.estado.nombre %>.</p>
     <p>Publicado el <time datetime="<%= l trabajo.created_at, :format => :html5 %>" pubdate="pubdate"><%= l trabajo.created_at, :format => :long %></time>.</p>
   </section>

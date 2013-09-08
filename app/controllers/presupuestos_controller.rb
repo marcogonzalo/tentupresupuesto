@@ -53,6 +53,9 @@ class PresupuestosController < ApplicationController
       @presupuesto.update_attribute('visto', true)
     end
     
+    
+    Presupuesto.increment_counter(:visitas,@presupuesto.id) unless @es_el_proveedor
+    
     add_breadcrumb @trabajo.proposito, trabajo_path(@trabajo)
     add_breadcrumb :index, trabajo_presupuestos_path(@trabajo)
     add_breadcrumb :show

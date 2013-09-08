@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130812021012) do
+ActiveRecord::Schema.define(:version => 20130908000023) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                  :default => "",    :null => false
@@ -110,21 +110,22 @@ ActiveRecord::Schema.define(:version => 20130812021012) do
   add_index "mensajes", ["presupuesto_id"], :name => "index_mensajes_on_presupuesto_id"
 
   create_table "presupuestos", :force => true do |t|
-    t.float    "precio_minimo",                :default => 0.0,     :null => false
-    t.float    "precio_maximo",                :default => 0.0,     :null => false
-    t.text     "resumen",                      :default => "",      :null => false
-    t.boolean  "con_iva",                      :default => true,    :null => false
-    t.boolean  "visto",                        :default => false,   :null => false
+    t.float    "precio_minimo",                 :default => 0.0,     :null => false
+    t.float    "precio_maximo",                 :default => 0.0,     :null => false
+    t.text     "resumen",                       :default => "",      :null => false
+    t.boolean  "con_iva",                       :default => true,    :null => false
+    t.boolean  "visto",                         :default => false,   :null => false
     t.boolean  "aprobado"
-    t.boolean  "rechazado",                    :default => false,   :null => false
-    t.string   "motivo_rechazo", :limit => 20
-    t.integer  "cant_mensajes",                :default => 0,       :null => false
-    t.datetime "created_at",                                        :null => false
-    t.datetime "updated_at",                                        :null => false
+    t.boolean  "rechazado",                     :default => false,   :null => false
+    t.string   "motivo_rechazo",  :limit => 20
+    t.integer  "cant_mensajes",                 :default => 0,       :null => false
+    t.datetime "created_at",                                         :null => false
+    t.datetime "updated_at",                                         :null => false
     t.integer  "trabajo_id"
     t.integer  "proveedor_id"
-    t.boolean  "enviar_datos",                 :default => false
-    t.string   "unidad",                       :default => "total"
+    t.boolean  "enviar_datos",                  :default => false
+    t.string   "tipo_estimacion",               :default => "total"
+    t.integer  "visitas",                       :default => 0
   end
 
   add_index "presupuestos", ["proveedor_id"], :name => "index_presupuestos_on_proveedor_id"
@@ -161,6 +162,7 @@ ActiveRecord::Schema.define(:version => 20130812021012) do
     t.string   "youtube_url"
     t.string   "pinterest_url"
     t.string   "instagram_url"
+    t.integer  "visitas",                             :default => 0
   end
 
   add_index "proveedores", ["avatar"], :name => "index_proveedores_on_avatar"
@@ -224,6 +226,7 @@ ActiveRecord::Schema.define(:version => 20130812021012) do
     t.integer  "municipio_id"
     t.integer  "localidad_id"
     t.string   "intencion",                                                      :default => "averiguando"
+    t.integer  "visitas",                                                        :default => 0
   end
 
   add_index "trabajos", ["categoria_id"], :name => "index_trabajos_on_categoria_id"

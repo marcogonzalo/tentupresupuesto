@@ -278,6 +278,7 @@ es-VE:
           metro_lineal: "Precio por metro lineal"
           total: "Precio total"
         trabajo_id: "Solicitud"
+        visitas: "Número de veces que se ha visto el presupuesto"
       proveedor:
         correo_electronico: "Correo electrónico"
         descripcion: "Descripción"
@@ -319,6 +320,7 @@ es-VE:
         youtube_url: "Canal en YouTube"
         pinterest_url: "Cuenta en Pinterest"
         instagram_url: "Cuenta en Instagram"
+        visitas: "Número de veces que se ha visto el perfil"
       solicitante:
         cedula: "Cédula"
         direccion: "Dirección"
@@ -341,7 +343,7 @@ es-VE:
         direccion: "Dirección"
         estado_id: "Estado"
         estatus: "Estatus del trabajo"
-        intencion: "Propósito"
+        intencion: "Intención"
         intenciones:
           averiguar: "Averiguar precios"
           interes: "Posiblemente contratar"
@@ -351,6 +353,7 @@ es-VE:
         pais_id: "País"
         precio_final: "Precio final"
         proposito: "Propósito"
+        visitas: "Número de veces que se ha visto la solicitud"
       usuario:
         acepta_terminos: "Acepto los Términos y Condiciones"
         email: "Correo electrónico"

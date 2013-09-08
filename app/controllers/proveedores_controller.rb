@@ -66,6 +66,8 @@ class ProveedoresController < ApplicationController
     @proveedor = Proveedor.find(params[:id])
     @evaluaciones = @proveedor.evaluaciones
     @imagenes = @proveedor.imagenes
+    
+    Proveedor.increment_counter(:visitas,@proveedor.id)
     if request.path != proveedor_path(@proveedor)
       redirect_to @proveedor, status: :moved_permanently
     else
