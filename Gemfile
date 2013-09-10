@@ -64,4 +64,5 @@ gem 'capistrano', "~> 2.14.2"
 group :development do
   gem 'debugger'
   gem 'ruby-debug-ide'
+  gem 'bullet'
 end

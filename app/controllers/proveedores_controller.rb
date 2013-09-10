@@ -12,42 +12,44 @@ class ProveedoresController < ApplicationController
   def index
     @titulo = "Todos los proveedores"
     unless params[:filtro].nil?
-      @proveedores = []
+      proveedores = []
       if FiltroListaProveedores::FILTROS.include?(params[:filtro]) and not params[:valor].nil?
         case params[:filtro]
         when "categoria"
           @categoria = Categoria.find(params[:valor])
-          @proveedores =  @categoria.nil? ? [] : @categoria.proveedores.page(params[:p])
-          @cant_resultados = @proveedores.size
-          @titulo = @categoria.nombre+" ("+@cant_resultados.to_s+")"
+          proveedores =  @categoria.nil? ? [] : @categoria.proveedores
+          @cant_resultados = proveedores.size
+          @titulo = @categoria.nombre
         when "tipo"
           existe_tipo = Proveedor::TIPO_EMPRESA.include?(params[:valor])
           @tipo = existe_tipo ? params[:valor].to_s.humanize : nil
-          @proveedores = existe_tipo ? Proveedor.where(:tipo_proveedor => params[:valor]).page(params[:p]) : []
-          @cant_resultados = @proveedores.size
-          @titulo = existe_tipo ? @tipo+" ("+@cant_resultados.to_s+")" : "Por tipo"
+          proveedores = existe_tipo ? Proveedor.where(:tipo_proveedor => params[:valor]) : []
+          @cant_resultados = proveedores.size
+          @titulo = existe_tipo ? @tipo : "Por tipo"
         when "ubicacion"
           @ubicacion = UbicacionGeografica.find(params[:valor])
           unless @ubicacion.nil?
             case @ubicacion.tipo
             when 'pais'
-              @proveedores = @ubicacion.proveedores_de_pais.page(params[:p])
+              proveedores = @ubicacion.proveedores_de_pais
             when 'estado'
-              @proveedores = @ubicacion.proveedores_de_estado.page(params[:p])
+              proveedores = @ubicacion.proveedores_de_estado
             when 'municipio'
-              @proveedores = @ubicacion.proveedores_de_municipio.page(params[:p])
+              proveedores = @ubicacion.proveedores_de_municipio
             when 'localidad'
-              @proveedores = @ubicacion.proveedores_de_localidad.page(params[:p])
+              proveedores = @ubicacion.proveedores_de_localidad
             end
           end
-          @cant_resultados = @proveedores.size
-          @titulo = @ubicacion.tipo.humanize+" "+@ubicacion.nombre+" ("+@cant_resultados.to_s+")"
+          @cant_resultados = proveedores.size
+          @titulo = @ubicacion.tipo.humanize+" "+@ubicacion.nombre
         end
       end
     else
-      @proveedores = Proveedor.order('created_at DESC').page(params[:p])
+      proveedores = Proveedor.order('created_at DESC')
     end
-    @cant_resultados = @proveedores.size
+    @cant_resultados = proveedores.size
+    @proveedores = proveedores.includes(:localidad,:municipio,:estado).order('created_at DESC').page(params[:p])
+    @titulo += " ("+@cant_resultados.to_s+")"
     add_breadcrumb :index, :proveedores_path
     @categorias = Categoria.con_proveedores
     @categorias_meta = ""
@@ -64,8 +66,8 @@ class ProveedoresController < ApplicationController
   # GET /proveedores/1.json
   def show
     @proveedor = Proveedor.find(params[:id])
-    @evaluaciones = @proveedor.evaluaciones
-    @imagenes = @proveedor.imagenes
+    @evaluaciones = @proveedor.evaluaciones.includes(:trabajo => :categoria)
+    @imagenes = @proveedor.imagenes.includes(:imagenable)
     
     Proveedor.increment_counter(:visitas,@proveedor.id)
     if request.path != proveedor_path(@proveedor)

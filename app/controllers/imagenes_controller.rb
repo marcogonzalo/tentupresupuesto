@@ -5,7 +5,7 @@ class ImagenesController < ApplicationController
   # GET /proveedor/galeria
   def galeria
     @proveedor = Proveedor.find(current_proveedor.perfilable_id)
-    @imagenes = @proveedor.imagenes
+    @imagenes = @proveedor.imagenes.includes(:imagenable)
     render "galeria_imagenes"
   end
   

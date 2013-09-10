@@ -23,8 +23,7 @@ class PresupuestosController < ApplicationController
   # GET /presupuestos/1.json
   def show
     @presupuesto = Presupuesto.includes(:proveedor).find(params[:id])
-    @trabajo = Trabajo.includes(:presupuestos,:contratado).find(@presupuesto.trabajo_id)
-    
+    @trabajo = Trabajo.find(@presupuesto.trabajo_id)
     #Verificar si el trabajo existe y el usuario es el solicitante
     @es_el_solicitante = false
     @tipo_usuario = "Solicitante"
