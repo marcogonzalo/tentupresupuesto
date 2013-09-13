@@ -1,6 +1,6 @@
 #encoding: utf-8
 class Solicitante < ActiveRecord::Base
-  attr_accessible :cedula, :calle_avenida, :casa_edificio, :numero_apto, :direccion, :punto_referencia,
+  attr_accessible :calle_avenida, :casa_edificio, :numero_apto, :direccion, :punto_referencia,
                   :telefono_local, :telefono_movil, :telefono_alt, :pais_id, :estado_id, :municipio_id, :localidad_id
   
   has_one :usuario, :as => :perfilable
@@ -9,13 +9,7 @@ class Solicitante < ActiveRecord::Base
   belongs_to :estado, :class_name => "UbicacionGeografica", :foreign_key => "estado_id", :conditions => "tipo = 'estado'"
   belongs_to :municipio, :class_name => "UbicacionGeografica", :foreign_key => "municipio_id", :conditions => "tipo = 'municipio'"
   belongs_to :localidad, :class_name => "UbicacionGeografica", :foreign_key => "localidad_id", :conditions => "tipo = 'localidad'"
-  
-  validates :cedula, 
-            :length => { :in => 5..10 }, 
-            :numericality =>  { 
-                                :only_integer => true,
-                                :greater_than => 50000
-                              }
+
   validates :telefono_local, 
             :presence => { 
                           :message => "debe completarse si no posee teléfono móvil", 

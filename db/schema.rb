@@ -112,57 +112,63 @@ ActiveRecord::Schema.define(:version => 20130908000023) do
   create_table "presupuestos", :force => true do |t|
     t.float    "precio_minimo",                 :default => 0.0,     :null => false
     t.float    "precio_maximo",                 :default => 0.0,     :null => false
-    t.text     "resumen",                       :default => "",      :null => false
     t.boolean  "con_iva",                       :default => true,    :null => false
+    t.string   "tipo_estimacion",               :default => "total"
+    t.text     "resumen",                       :default => "",      :null => false
     t.boolean  "visto",                         :default => false,   :null => false
+    t.boolean  "enviar_datos",                  :default => false
+    t.integer  "cant_mensajes",                 :default => 0,       :null => false
     t.boolean  "aprobado"
     t.boolean  "rechazado",                     :default => false,   :null => false
     t.string   "motivo_rechazo",  :limit => 20
-    t.integer  "cant_mensajes",                 :default => 0,       :null => false
     t.datetime "created_at",                                         :null => false
     t.datetime "updated_at",                                         :null => false
     t.integer  "trabajo_id"
     t.integer  "proveedor_id"
-    t.boolean  "enviar_datos",                  :default => false
-    t.string   "tipo_estimacion",               :default => "total"
     t.integer  "visitas",                       :default => 0
   end
 
+  add_index "presupuestos", ["aprobado"], :name => "index_presupuestos_on_aprobado"
+  add_index "presupuestos", ["con_iva"], :name => "index_presupuestos_on_con_iva"
+  add_index "presupuestos", ["motivo_rechazo"], :name => "index_presupuestos_on_motivo_rechazo"
   add_index "presupuestos", ["proveedor_id"], :name => "index_presupuestos_on_proveedor_id"
+  add_index "presupuestos", ["rechazado"], :name => "index_presupuestos_on_rechazado"
+  add_index "presupuestos", ["tipo_estimacion"], :name => "index_presupuestos_on_tipo_estimacion"
   add_index "presupuestos", ["trabajo_id"], :name => "index_presupuestos_on_trabajo_id"
+  add_index "presupuestos", ["visto"], :name => "index_presupuestos_on_visto"
 
   create_table "proveedores", :force => true do |t|
-    t.string   "nombre_empresa",        :limit => 50, :default => "",              :null => false
-    t.string   "tipo_proveedor",        :limit => 30, :default => "independiente", :null => false
-    t.string   "rif",                   :limit => 20, :default => ""
-    t.text     "descripcion",                         :default => "",              :null => false
-    t.boolean  "verificado",                          :default => false,           :null => false
-    t.string   "telefono_local",        :limit => 20, :default => "",              :null => false
-    t.string   "telefono_movil",        :limit => 20, :default => "",              :null => false
-    t.string   "telefono_alt",          :limit => 20, :default => "",              :null => false
-    t.string   "direccion",                           :default => ""
-    t.string   "punto_referencia",      :limit => 50, :default => ""
-    t.integer  "solicitudes_atendidas",               :default => 0,               :null => false
-    t.integer  "trabajos_realizados",                 :default => 0,               :null => false
-    t.float    "reputacion",                          :default => 0.0,             :null => false
-    t.integer  "valoraciones",                        :default => 0,               :null => false
-    t.datetime "created_at",                                                       :null => false
-    t.datetime "updated_at",                                                       :null => false
-    t.string   "slug",                                :default => "",              :null => false
+    t.string   "nombre_empresa",        :limit => 50,  :default => "",              :null => false
+    t.string   "tipo_proveedor",        :limit => 30,  :default => "independiente", :null => false
+    t.string   "rif",                   :limit => 20,  :default => ""
+    t.text     "descripcion",                          :default => "",              :null => false
+    t.boolean  "verificado",                           :default => false,           :null => false
+    t.string   "telefono_local",        :limit => 20,  :default => "",              :null => false
+    t.string   "telefono_movil",        :limit => 20,  :default => "",              :null => false
+    t.string   "telefono_alt",          :limit => 20,  :default => "",              :null => false
+    t.string   "direccion",                            :default => ""
+    t.string   "punto_referencia",      :limit => 50,  :default => ""
+    t.integer  "solicitudes_atendidas",                :default => 0,               :null => false
+    t.integer  "trabajos_realizados",                  :default => 0,               :null => false
+    t.float    "reputacion",                           :default => 0.0,             :null => false
+    t.integer  "valoraciones",                         :default => 0,               :null => false
+    t.string   "avatar"
+    t.string   "web_url",               :limit => 150
+    t.string   "twitter_url",           :limit => 100
+    t.string   "facebook_url",          :limit => 100
+    t.string   "google_url",            :limit => 150
+    t.string   "linkedin_url",          :limit => 100
+    t.string   "youtube_url",           :limit => 100
+    t.string   "pinterest_url",         :limit => 100
+    t.string   "instagram_url",         :limit => 100
+    t.datetime "created_at",                                                        :null => false
+    t.datetime "updated_at",                                                        :null => false
+    t.string   "slug",                                 :default => "",              :null => false
     t.integer  "pais_id"
     t.integer  "estado_id"
     t.integer  "municipio_id"
     t.integer  "localidad_id"
-    t.string   "avatar"
-    t.string   "web_url"
-    t.string   "twitter_url"
-    t.string   "facebook_url"
-    t.string   "google_url"
-    t.string   "linkedin_url"
-    t.string   "youtube_url"
-    t.string   "pinterest_url"
-    t.string   "instagram_url"
-    t.integer  "visitas",                             :default => 0
+    t.integer  "visitas",                              :default => 0
   end
 
   add_index "proveedores", ["avatar"], :name => "index_proveedores_on_avatar"
@@ -170,8 +176,13 @@ ActiveRecord::Schema.define(:version => 20130908000023) do
   add_index "proveedores", ["localidad_id"], :name => "index_proveedores_on_localidad_id"
   add_index "proveedores", ["municipio_id"], :name => "index_proveedores_on_municipio_id"
   add_index "proveedores", ["pais_id"], :name => "index_proveedores_on_pais_id"
+  add_index "proveedores", ["reputacion"], :name => "index_proveedores_on_reputacion"
   add_index "proveedores", ["rif"], :name => "index_proveedores_on_rif", :unique => true
   add_index "proveedores", ["slug"], :name => "index_proveedores_on_slug", :unique => true
+  add_index "proveedores", ["solicitudes_atendidas"], :name => "index_proveedores_on_solicitudes_atendidas"
+  add_index "proveedores", ["tipo_proveedor"], :name => "index_proveedores_on_tipo_proveedor"
+  add_index "proveedores", ["trabajos_realizados"], :name => "index_proveedores_on_trabajos_realizados"
+  add_index "proveedores", ["valoraciones"], :name => "index_proveedores_on_valoraciones"
 
   create_table "rails_admin_histories", :force => true do |t|
     t.text     "message"
@@ -187,7 +198,6 @@ ActiveRecord::Schema.define(:version => 20130908000023) do
   add_index "rails_admin_histories", ["item", "table", "month", "year"], :name => "index_rails_admin_histories"
 
   create_table "solicitantes", :force => true do |t|
-    t.string   "cedula",                 :limit => 20, :default => "", :null => false
     t.string   "telefono_local",         :limit => 20, :default => ""
     t.string   "telefono_movil",         :limit => 20, :default => ""
     t.string   "telefono_alt",           :limit => 20, :default => ""
@@ -207,35 +217,40 @@ ActiveRecord::Schema.define(:version => 20130908000023) do
   add_index "solicitantes", ["localidad_id"], :name => "index_solicitantes_on_localidad_id"
   add_index "solicitantes", ["municipio_id"], :name => "index_solicitantes_on_municipio_id"
   add_index "solicitantes", ["pais_id"], :name => "index_solicitantes_on_pais_id"
+  add_index "solicitantes", ["solicitudes_realizadas"], :name => "index_solicitantes_on_solicitudes_realizadas"
+  add_index "solicitantes", ["trabajos_recibidos"], :name => "index_solicitantes_on_trabajos_recibidos"
 
   create_table "trabajos", :force => true do |t|
-    t.string   "proposito",         :limit => 100,                               :default => "",            :null => false
-    t.text     "descripcion",                                                    :default => "",            :null => false
-    t.string   "estatus",           :limit => 15,                                :default => "buscando",    :null => false
-    t.text     "direccion",                                                      :default => "",            :null => false
-    t.decimal  "precio_final",                     :precision => 8, :scale => 2, :default => 0.0,           :null => false
-    t.integer  "cant_presupuestos",                                              :default => 0,             :null => false
-    t.datetime "created_at",                                                                                :null => false
-    t.datetime "updated_at",                                                                                :null => false
+    t.string   "proposito",         :limit => 100,                               :default => "",          :null => false
+    t.text     "descripcion",                                                    :default => "",          :null => false
+    t.string   "intencion",                                                      :default => "averiguar"
+    t.string   "estatus",           :limit => 15,                                :default => "buscando",  :null => false
+    t.text     "direccion",                                                      :default => "",          :null => false
+    t.decimal  "precio_final",                     :precision => 8, :scale => 2, :default => 0.0,         :null => false
+    t.integer  "cant_presupuestos",                                              :default => 0,           :null => false
+    t.datetime "created_at",                                                                              :null => false
+    t.datetime "updated_at",                                                                              :null => false
     t.integer  "solicitante_id"
     t.integer  "contratado_id"
-    t.string   "slug",                                                           :default => "",            :null => false
+    t.string   "slug",                                                           :default => "",          :null => false
     t.integer  "categoria_id"
     t.integer  "pais_id"
     t.integer  "estado_id"
     t.integer  "municipio_id"
     t.integer  "localidad_id"
-    t.string   "intencion",                                                      :default => "averiguando"
     t.integer  "visitas",                                                        :default => 0
   end
 
+  add_index "trabajos", ["cant_presupuestos"], :name => "index_trabajos_on_cant_presupuestos"
   add_index "trabajos", ["categoria_id"], :name => "index_trabajos_on_categoria_id"
   add_index "trabajos", ["contratado_id"], :name => "index_trabajos_on_contratado_id"
   add_index "trabajos", ["estado_id"], :name => "index_trabajos_on_estado_id"
   add_index "trabajos", ["estatus"], :name => "index_trabajos_on_estatus"
+  add_index "trabajos", ["intencion"], :name => "index_trabajos_on_intencion"
   add_index "trabajos", ["localidad_id"], :name => "index_trabajos_on_localidad_id"
   add_index "trabajos", ["municipio_id"], :name => "index_trabajos_on_municipio_id"
   add_index "trabajos", ["pais_id"], :name => "index_trabajos_on_pais_id"
+  add_index "trabajos", ["precio_final"], :name => "index_trabajos_on_precio_final"
   add_index "trabajos", ["slug"], :name => "index_trabajos_on_slug", :unique => true
   add_index "trabajos", ["solicitante_id"], :name => "index_trabajos_on_solicitante_id"
 
@@ -285,6 +300,7 @@ ActiveRecord::Schema.define(:version => 20130908000023) do
   add_index "usuarios", ["confirmation_token"], :name => "index_usuarios_on_confirmation_token", :unique => true
   add_index "usuarios", ["email"], :name => "index_usuarios_on_email", :unique => true
   add_index "usuarios", ["perfilable_id"], :name => "index_usuarios_on_perfilable_id"
+  add_index "usuarios", ["perfilable_type", "perfilable_id"], :name => "index_usuarios_on_perfilable_type_and_perfilable_id"
   add_index "usuarios", ["perfilable_type"], :name => "index_usuarios_on_perfilable_type"
   add_index "usuarios", ["reset_password_token"], :name => "index_usuarios_on_reset_password_token", :unique => true
 
