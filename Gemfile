@@ -9,16 +9,16 @@ gem "seedbank", "~> 0.2.0"                        # Gestor de seeds para llenar 
 # Asociados a modelos
 gem 'foreigner', "~> 1.4.1"                       # Soporte para Claves Foraneas en las migraciones
 gem 'timeliness', "~> 0.3.6"                      # Manejo de fechas
-gem 'validates_timeliness', '~> 3.0'  # Validacion de fechas en el modelo
-gem "friendly_id", '~> 4.0.9'         # Identificadores amigables para url
+gem 'validates_timeliness', '~> 3.0'              # Validacion de fechas en el modelo
+gem "friendly_id", '~> 4.0.9'                     # Identificadores amigables para url
 gem "delocalize", "~> 0.3.1"                      # Cambio de formato de números y fechas según localización de manera automática - https://github.com/clemens/delocalize.
 
 # Sesiones
 gem 'devise', "~> 2.2.3"
 gem 'devise-encryptable', "~> 0.1.1"
 
-# gem 'will_paginate'                   # Paginador de resultados - https://github.com/mislav/will_paginate
-gem 'kaminari', "~> 0.14.1"                          # Paginador de resultados - https://github.com/amatsuda/kaminari
+# gem 'will_paginate'                             # Paginador de resultados - https://github.com/mislav/will_paginate
+gem 'kaminari', "~> 0.14.1"                       # Paginador de resultados - https://github.com/amatsuda/kaminari
 
 # Manejo de imagenes
 gem "mini_magick", "~> 3.5.0"                     # A ruby wrapper for ImageMagick command line - https://github.com/minimagick/minimagick
@@ -28,7 +28,7 @@ gem 'rails_admin', "~> 0.4.8"                     # Provides an interface for ma
 
 # Bibliotecas jQuery y CSS
 gem 'jquery-rails', "~> 2.2.1"
-gem 'client_side_validations', "~> 3.2.5"           # Validador del lado del cliente - https://github.com/bcardarella/client_side_validations
+gem 'client_side_validations', "~> 3.2.5"         # Validador del lado del cliente - https://github.com/bcardarella/client_side_validations
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -54,7 +54,10 @@ gem 'twitter-bootstrap-rails', "~> 2.2.6"
 # Use unicorn as the app server
 # gem 'unicorn'
 
-gem 'sitemap_generator'                             # Generador de sitemaps - https://github.com/kjvarga/sitemap_generator
+gem 'sitemap_generator'                           # Generador de sitemaps - https://github.com/kjvarga/sitemap_generator
+
+# Integracion con servicios
+gem 'mailchimp-api'                               # Gema oficial de MailChimp - https://bitbucket.org/mailchimp/mailchimp-api-ruby
 
 # Deploy with Capistrano
 gem 'capistrano', "~> 2.14.2"

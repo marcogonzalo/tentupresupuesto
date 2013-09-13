@@ -149,6 +149,10 @@ class ProveedoresController < ApplicationController
           if @proveedor.save
             current_proveedor.update_attribute('perfilable_id', @proveedor.id)
             
+            if Rails.env.production?
+              MailchimpController.subscribe(current_proveedor.email,'proveedores')
+            end
+            
             flash[:success] = "Datos de proveedor registrados."
             format.html { redirect_to categorias_de_proveedor_path }
             format.json { render json: @proveedor, status: :created, location: @proveedor }

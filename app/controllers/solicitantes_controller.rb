@@ -84,6 +84,10 @@ class SolicitantesController < ApplicationController
           if @solicitante.save
             current_solicitante.update_attribute('perfilable_id', @solicitante.id)
             
+            if Rails.env.production?
+              MailchimpController.subscribe(current_solicitante.email,'solicitantes')
+            end
+            
             flash[:success] = "Datos de solicitante registrados."
             format.html { redirect_to panel_solicitante_path }
             format.json { render json: @solicitante, status: :created, location: @solicitante }
