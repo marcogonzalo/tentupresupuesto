@@ -14,6 +14,9 @@ class GeneralController < ApplicationController
   def consejos_proveedor
   end
   
+  def tyc
+  end
+  
   private
   def resolve_layout
     case action_name
