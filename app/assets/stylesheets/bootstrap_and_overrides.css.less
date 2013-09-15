@@ -68,7 +68,11 @@
 
 @font-face {
   font-family: 'Chango';
-  src:url('Chango-Regular.ttf');
+  src: url('Chango/chango-regular.eot');
+  src: url('Chango/chango-regular.eot') format('embedded-opentype'),
+       url('Chango/chango-regular.woff') format('woff'),
+       url('Chango/chango-regular.ttf') format('truetype'),
+       url('Chango/chango-regular.svg#ChangoRegular') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -83,6 +87,17 @@
 @font-face {
   font-family: Arial, sans-serif;
   src:url('MyriadPro-Regular.otf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+    font-family: 'MyriadProRegular';
+    src: url('MyriadPro-Regular/myriadpro-regular.eot');
+    src: url('MyriadPro-Regular/myriadpro-regular.eot') format('embedded-opentype'),
+         url('MyriadPro-Regular/myriadpro-regular.woff') format('woff'),
+         url('MyriadPro-Regular/myriadpro-regular.ttf') format('truetype'),
+         url('MyriadPro-Regular/myriadpro-regular.svg#MyriadProRegular') format('svg');
   font-weight: normal;
   font-style: normal;
 }*/
@@ -114,7 +129,7 @@
 //@blue: #1B80C1;
 //@green: #67B627;
 //@orange: #F59526;
-body { background:#adeb6e url('tentu/generales/fondoconcat.png') repeat center top; font-family:'Arial',sans-serif; padding:0px; }
+body { background:#adeb6e url('tentu/generales/fondoconcat.png') repeat center top; font-family:'MyriadProRegular',sans-serif; padding:0px; }
 h1, h2, h3, h4, h5, h6 { color:#333; font-family:'Arial',sans-serif; line-height:1.25em; margin:0px; }
 h1 { font-family:'Chango','Trebuchet MS', sans-serif; font-size:1.85em; font-weight:normal; text-align:center; }
 h2 { font-size:1.75em; }

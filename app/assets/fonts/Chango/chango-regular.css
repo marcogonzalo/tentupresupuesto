@@ -1,0 +1,8 @@
+@font-face {
+    font-family: 'ChangoRegular';
+    src: url('chango-regular.eot');
+    src: url('chango-regular.eot') format('embedded-opentype'),
+         url('chango-regular.woff') format('woff'),
+         url('chango-regular.ttf') format('truetype'),
+         url('chango-regular.svg#ChangoRegular') format('svg');
+}
