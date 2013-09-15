@@ -1,6 +1,6 @@
 #encoding: utf-8
 class Solicitante < ActiveRecord::Base
-  attr_accessible :calle_avenida, :casa_edificio, :numero_apto, :direccion, :punto_referencia,
+  attr_accessible :nombre_persona, :fecha_nacimiento, :sexo, :calle_avenida, :casa_edificio, :numero_apto, :direccion, :punto_referencia,
                   :telefono_local, :telefono_movil, :telefono_alt, :pais_id, :estado_id, :municipio_id, :localidad_id
   
   has_one :usuario, :as => :perfilable
@@ -10,6 +10,19 @@ class Solicitante < ActiveRecord::Base
   belongs_to :municipio, :class_name => "UbicacionGeografica", :foreign_key => "municipio_id", :conditions => "tipo = 'municipio'"
   belongs_to :localidad, :class_name => "UbicacionGeografica", :foreign_key => "localidad_id", :conditions => "tipo = 'localidad'"
 
+  validates :nombre_persona, 
+            :length => { :in => 3..50 }, 
+            :presence => true
+  validates :sexo,
+            :inclusion => { :in => SEXO },
+            :allow_blank => true 
+  validates :fecha_nacimiento,
+            :timeliness =>  {
+                              :on_or_before => lambda { 16.years.ago },
+                              :type => :date,
+                              :on_or_before_message => 'debe tener 16 años o más'
+                            },
+            :allow_blank => true
   validates :telefono_local, 
             :presence => { 
                           :message => "debe completarse si no posee teléfono móvil", 

@@ -143,6 +143,9 @@ ActiveRecord::Schema.define(:version => 20130908000023) do
     t.string   "rif",                   :limit => 20,  :default => ""
     t.text     "descripcion",                          :default => "",              :null => false
     t.boolean  "verificado",                           :default => false,           :null => false
+    t.string   "nombre_persona",        :limit => 50,  :default => "",              :null => false
+    t.string   "sexo",                  :limit => 10
+    t.date     "fecha_nacimiento"
     t.string   "telefono_local",        :limit => 20,  :default => "",              :null => false
     t.string   "telefono_movil",        :limit => 20,  :default => "",              :null => false
     t.string   "telefono_alt",          :limit => 20,  :default => "",              :null => false
@@ -152,7 +155,7 @@ ActiveRecord::Schema.define(:version => 20130908000023) do
     t.integer  "trabajos_realizados",                  :default => 0,               :null => false
     t.float    "reputacion",                           :default => 0.0,             :null => false
     t.integer  "valoraciones",                         :default => 0,               :null => false
-    t.string   "avatar"
+    t.string   "avatar",                :limit => 150
     t.string   "web_url",               :limit => 150
     t.string   "twitter_url",           :limit => 100
     t.string   "facebook_url",          :limit => 100
@@ -178,6 +181,7 @@ ActiveRecord::Schema.define(:version => 20130908000023) do
   add_index "proveedores", ["pais_id"], :name => "index_proveedores_on_pais_id"
   add_index "proveedores", ["reputacion"], :name => "index_proveedores_on_reputacion"
   add_index "proveedores", ["rif"], :name => "index_proveedores_on_rif", :unique => true
+  add_index "proveedores", ["sexo"], :name => "index_proveedores_on_sexo"
   add_index "proveedores", ["slug"], :name => "index_proveedores_on_slug", :unique => true
   add_index "proveedores", ["solicitudes_atendidas"], :name => "index_proveedores_on_solicitudes_atendidas"
   add_index "proveedores", ["tipo_proveedor"], :name => "index_proveedores_on_tipo_proveedor"
@@ -198,6 +202,9 @@ ActiveRecord::Schema.define(:version => 20130908000023) do
   add_index "rails_admin_histories", ["item", "table", "month", "year"], :name => "index_rails_admin_histories"
 
   create_table "solicitantes", :force => true do |t|
+    t.string   "nombre_persona",         :limit => 50, :default => "", :null => false
+    t.string   "sexo",                   :limit => 10
+    t.date     "fecha_nacimiento"
     t.string   "telefono_local",         :limit => 20, :default => ""
     t.string   "telefono_movil",         :limit => 20, :default => ""
     t.string   "telefono_alt",           :limit => 20, :default => ""
@@ -214,9 +221,11 @@ ActiveRecord::Schema.define(:version => 20130908000023) do
   end
 
   add_index "solicitantes", ["estado_id"], :name => "index_solicitantes_on_estado_id"
+  add_index "solicitantes", ["fecha_nacimiento"], :name => "index_solicitantes_on_fecha_nacimiento"
   add_index "solicitantes", ["localidad_id"], :name => "index_solicitantes_on_localidad_id"
   add_index "solicitantes", ["municipio_id"], :name => "index_solicitantes_on_municipio_id"
   add_index "solicitantes", ["pais_id"], :name => "index_solicitantes_on_pais_id"
+  add_index "solicitantes", ["sexo"], :name => "index_solicitantes_on_sexo"
   add_index "solicitantes", ["solicitudes_realizadas"], :name => "index_solicitantes_on_solicitudes_realizadas"
   add_index "solicitantes", ["trabajos_recibidos"], :name => "index_solicitantes_on_trabajos_recibidos"
 
@@ -266,20 +275,17 @@ ActiveRecord::Schema.define(:version => 20130908000023) do
   add_index "ubicaciones_geograficas", ["slug"], :name => "index_ubicaciones_geograficas_on_slug", :unique => true
 
   create_table "usuarios", :force => true do |t|
-    t.string   "email",                                :default => "",    :null => false
-    t.string   "encrypted_password",                   :default => "",    :null => false
+    t.string   "email",                  :default => "",    :null => false
+    t.string   "encrypted_password",     :default => "",    :null => false
     t.integer  "perfilable_id"
     t.string   "perfilable_type"
     t.string   "password_salt"
-    t.string   "nombre",                 :limit => 50, :default => "",    :null => false
-    t.string   "sexo",                   :limit => 10
-    t.date     "fecha_nacimiento"
-    t.boolean  "activo",                               :default => true,  :null => false
-    t.boolean  "acepta_terminos",                      :default => false, :null => false
+    t.boolean  "activo",                 :default => true,  :null => false
+    t.boolean  "acepta_terminos",        :default => false, :null => false
     t.datetime "ultimo_pago"
-    t.boolean  "notificaciones",                       :default => false, :null => false
+    t.boolean  "notificaciones",         :default => false, :null => false
     t.string   "plan_beneficio"
-    t.integer  "sign_in_count",                        :default => 0
+    t.integer  "sign_in_count",          :default => 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -292,8 +298,8 @@ ActiveRecord::Schema.define(:version => 20130908000023) do
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.string   "authentication_token"
-    t.datetime "created_at",                                              :null => false
-    t.datetime "updated_at",                                              :null => false
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
   end
 
   add_index "usuarios", ["authentication_token"], :name => "index_usuarios_on_authentication_token", :unique => true

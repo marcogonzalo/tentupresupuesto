@@ -4,7 +4,7 @@
   end
 	resource_type = @resource.perfilable_type.downcase
 %>
-<p>&iexcl;Hola, <%= @resource.nombre %>!</p>
+<p>&iexcl;Hola, te damos la bienvendia a TenTuPresupuesto!</p>
 
 <p>Puedes confirmar tu correo a trav&eacute;s del siguiente enlace: <%= link_to 'confirmar mi cuenta', confirmation_url(resource_type, :confirmation_token => @resource.confirmation_token) %></p>
 

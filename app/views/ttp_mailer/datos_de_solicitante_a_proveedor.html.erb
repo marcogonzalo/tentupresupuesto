@@ -7,7 +7,7 @@
 <p>La persona que generó la solicitud <b><%= @trabajo.proposito %></b> de <%= @categoria %>, ha solicitado que te enviemos sus datos de contacto.</p>
 <p>Estos son sus datos:</p>
 <p>
-<b>Nombre</b>: <%= @solicitante.usuario.nombre.to_s %><br>
+<b>Nombre</b>: <%= @solicitante.nombre.to_s %><br>
 <% unless @solicitante.telefono_local.blank? %>
 <b>Teléfono Local</b>: <%= @solicitante.telefono_local.to_s %><br>
 <% end %>

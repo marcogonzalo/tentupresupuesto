@@ -12,9 +12,6 @@ class DeviseCreateUsuarios < ActiveRecord::Migration
       t.string :password_salt
       
       ## Atributos adicionales
-      t.string    :nombre,            :limit => 50, :null => false, :default => ""
-      t.string    :sexo,              :limit => 10, :null => true,  :default => nil
-      t.date      :fecha_nacimiento,                :null => true
       t.boolean   :activo,                          :null => false, :default => true
       t.boolean   :acepta_terminos,                 :null => false, :default => false
       t.datetime  :ultimo_pago,                     :null => true

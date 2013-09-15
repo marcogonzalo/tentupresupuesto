@@ -299,6 +299,8 @@ es-VE:
           zero: "No ha sido contratado"
           one: "1 trabajo realizado"
           other: "%{count} trabajos realizados"
+        nombre_persona: "Persona de contacto"
+        fecha_nacimiento: "Fecha de nacimiento"
         telefono_alt: "Teléfono alternativo"
         telefono_local: "Teléfono local"
         telefono_movil: "Teléfono móvil"
@@ -322,7 +324,8 @@ es-VE:
         instagram_url: "Cuenta en Instagram"
         visitas: "Número de veces que se ha visto el perfil"
       solicitante:
-        cedula: "Cédula"
+        nombre_persona: "Nombre y apellido"
+        fecha_nacimiento: "Fecha de nacimiento"
         direccion: "Dirección"
         estado_id: "Estado"
         localidad_id: "Localidad (Urbanización, Zona, Sector)"
@@ -358,8 +361,6 @@ es-VE:
         acepta_terminos: "Acepto los Términos y Condiciones"
         email: "Correo electrónico"
         email_confirmation: "Confirmar correo electrónico"
-        fecha_nacimiento: "Fecha de nacimiento"
-        nombre: "Nombre y Apellido"
         password: "Clave"
         password_confirmation: "Confirmar clave"
         remember_me: 'Recordarme'
