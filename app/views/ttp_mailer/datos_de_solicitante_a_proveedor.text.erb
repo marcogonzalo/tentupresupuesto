@@ -8,7 +8,7 @@ La persona que generó la solicitud  "<%= @trabajo.proposito %>" de <%= @categor
 
 Estos son sus datos:
 
-- Nombre: <%= @solicitante.nombre.to_s %>
+- Nombre: <%= @solicitante.nombre_persona.to_s %>
 
 <% unless @solicitante.telefono_local.blank? %>
 - Teléfono Local: <%= @solicitante.telefono_local.to_s %>
