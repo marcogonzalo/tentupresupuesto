@@ -7,6 +7,13 @@
 <div class="page-header">
   <h1><%=t '.title', :default => t('helpers.titles.new', :model => model_class.model_name.human,
                                  :default => "Perfil de #{model_class.model_name.human}") %></h1>
+</div
+<div class="alert alert-info alert-block">
+    <p>
+        <b>¡Verifica tu cuenta de correo!</b><br> 
+        Tu dirección de correo electrónico <b><%= current_solicitante.email %></b> debe ser verificada. De no hacerlo podría ocasionar que no te lleguen las notificaciones al recibir un presupuesto y el posible bloqueo de tu cuenta dentro de 30 minutos.        
+    </p>
+    <p style="text-align: right;"><%= link_to "Verificar mi correo", new_confirmation_path(current_solicitante), :class => 'btn btn-info' %></p>
 </div>
 <p class="centrado">Estás a punto de registrar un perfil como SOLICITANTE de servicios.<br>Si llegaste aquí por error, aún estás a tiempo de <%= link_to "cerrar sesión y crear un perfil de PROVEEDOR", no_soy_solicitante_path %></p>
 <%= render :partial => 'form' %>

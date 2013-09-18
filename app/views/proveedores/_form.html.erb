@@ -52,19 +52,7 @@
                 <%= f.text_field :nombre_persona %>
             </div>
         </div>
-        <div class="control-group">
-            <%= f.label :fecha_nacimiento %>
-            <div class="controls">
-                <%= f.date_select :fecha_nacimiento, :end_year => Time.now.year - 85, :start_year => Time.now.year - 18, :class => 'date_field' %>
-            </div>
-        </div>
 
-        <div class="control-group">
-            <%= f.label :sexo %>
-            <div class="controls">
-                <%= f.select(:sexo, SEXO, {:prompt => 'Selecciona'}) %>
-            </div>
-        </div>
         <div class="control-group">
             <%= f.label :telefono_local %>
             <div class="controls">
@@ -86,6 +74,18 @@
             <%= f.label :telefono_alt %>
             <div class="controls">
                 <%= f.text_field :telefono_alt %>
+            </div>
+        </div>
+        <div class="control-group">
+            <%= f.label :sexo %>
+            <div class="controls">
+                <%= f.select(:sexo, SEXO, {:prompt => 'Selecciona'}) %>
+            </div>
+        </div>
+        <div class="control-group">
+            <%= f.label :fecha_nacimiento %>
+            <div class="controls">
+                <%= f.date_select :fecha_nacimiento, :end_year => Time.now.year - 85, :start_year => Time.now.year - 18, :class => 'date_field' %>
             </div>
         </div>
     </fieldset>
