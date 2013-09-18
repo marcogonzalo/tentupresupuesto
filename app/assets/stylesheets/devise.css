@@ -60,6 +60,9 @@
     padding-right: 0.5em;
 }
 
+#registro a {color:white; text-decoration:underline;}
+#registro p {color:white;}
+
 /* Dejar siempre debajo para sobreescribir en dispositivos */
 @media screen and (min-width: 1200px) {
     #cuerpo .container, #pie .container {

@@ -86,11 +86,12 @@ input[type="text"], input[type="password"], input[type="email"] {
     border-radius: 0.5em;
 }
 #cabecera #texto p {
-    font-size: 1em;
+    font-size: 1.5em;
     line-height: 1.5em;
-    margin: 0px;
-    padding: 1em;
-    width: 80%;
+    margin: 0;
+    padding: 0.5em 1em;
+    width: 75%;
+    text-align: center;
 }
 /*#cabecera #enlaces-sitio {display:block; position:absolute;}
  #cabecera #enlaces-sitio ul {background-color:rgba(43,56,43,0.4); display:block; list-style:none; text-align:center;}

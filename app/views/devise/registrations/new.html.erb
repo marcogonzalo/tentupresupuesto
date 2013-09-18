@@ -37,9 +37,12 @@ if resource.errors.any?
                 </div>
             </div>
     
-            <label for="<%= resource_name %>_acepta_terminos" class="checkbox">
-            <%= f.check_box :acepta_terminos %>He leído y acepto los <%= link_to "Términos y Condiciones del servicio", general_tyc_path %></a>
-            </label>
+            <% 
+            #<label for="<%= resource_name % >_acepta_terminos" class="checkbox">
+            #<%= f.check_box :acepta_terminos % >He leído y acepto los <%= link_to "Términos y Condiciones del servicio", general_tyc_path % ></a>
+            #</label> 
+            %>
+            <p class="centrado sobre-color">El registro es considerado expresión de la aceptación total de los <%= link_to "Términos y Condiciones del servicio", general_tyc_path, :target => "_blank" %></p>
             <%= f.hidden_field :acepta_terminos, :value => true %>
             <%= f.hidden_field :perfilable_type, :value => resource_name %>
     

@@ -19,7 +19,7 @@ class Usuario < ActiveRecord::Base
   validates :email,
             :presence => true,
             :uniqueness => { :case_sensitive => false }
-  validates :acepta_terminos, :acceptance  => { :accept => true, :message => "es obligatorio" }
+  # validates :acepta_terminos, :acceptance  => { :accept => true, :message => "es obligatorio" }
   validates :perfilable_id, 
             :numericality =>  { 
                                 :only_integer => true,
