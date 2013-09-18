@@ -15,7 +15,7 @@
         </li>
         <% if solicitante_signed_in? %>
         <li class="<%= drop %>">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= glyph(:user, 'white') %> <%= current_user.nombre.split(' ').first %> <b class="caret"></b> </a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= glyph(:user, 'white') %> <%= current_solicitante.perfilable.nil? ? current_user.email.split('@').first : current_user.perfilable.nombre_persona.split(' ').first %> <b class="caret"></b> </a>
             <ul class="dropdown-menu">
                 <li>
                     <%= link_to 'Panel', panel_solicitante_path %>
@@ -27,7 +27,7 @@
         </li>
         <% elsif proveedor_signed_in? %>
         <li class="<%= drop %>">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-user icon-white"></i> <%= current_user.nombre.split(' ').first %> <b class="caret"></b> </a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-user icon-white"></i> <%= current_user.perfilable.nil? ? current_user.email.split('@').first : current_user.perfilable.nombre_persona.split(' ').first %> <b class="caret"></b> </a>
             <ul class="dropdown-menu">
                 <li>
                     <%= link_to 'Panel', panel_proveedor_path %>
@@ -39,7 +39,7 @@
         </li>
         <% else %>
         <li class="<%= drop %>">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Iniciar Sesión <b class="caret"></b> </a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Iniciar sesión <i class="caret"></i> </a>
             <ul class="dropdown-menu">
                 <li>
                     <%= link_to "Solicitante", new_session_path("solicitante") %>
@@ -50,7 +50,7 @@
             </ul>
         </li>
         <li class="<%= drop %>">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Registro <b class="caret"></b> </a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Registrarme <i class="caret"></i> </a>
             <ul class="dropdown-menu">
                 <li>
                     <%= link_to "Solicitante", new_registration_path("solicitante") %>

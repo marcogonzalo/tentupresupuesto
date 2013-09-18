@@ -8,32 +8,18 @@ class Usuario < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email,:password, :password_confirmation, :remember_me,
-                  :perfilable_type, :perfilable_id, :nombre, :apellido, :sexo, :fecha_nacimiento, :acepta_terminos
+                  :perfilable_type, :perfilable_id, :acepta_terminos
 
-  SEXO = ["masculino", "femenino"] # Constante para valores de sexo
-  CAMPOS = ["email","nombre","apellido","sexo","fecha_nacimiento"]
+  CAMPOS = ["email"]
   
   before_save :correct_perfilable_type
 
   belongs_to :perfilable, :polymorphic => true
   
-  validates :nombre, 
-            :length => { :in => 3..50 }, 
-            :presence => true
-  validates :sexo,
-            :inclusion => { :in => SEXO},
-            :allow_blank => true 
-  validates :fecha_nacimiento,
-            :timeliness =>  {
-                              :on_or_before => lambda { 16.years.ago },
-                              :type => :date,
-                              :on_or_before_message => 'debe tener 16 años o más'
-                            },
-            :allow_blank => true
   validates :email,
             :presence => true,
             :uniqueness => { :case_sensitive => false }
-  #validates :acepta_terminos, :acceptance  => { :accept => true, :message => "es obligatorio" }
+  # validates :acepta_terminos, :acceptance  => { :accept => true, :message => "es obligatorio" }
   validates :perfilable_id, 
             :numericality =>  { 
                                 :only_integer => true,
@@ -116,7 +102,16 @@ class Usuario < ActiveRecord::Base
           date_format :abrev
         end
       end
-  #     show do; end
+      
+      show do
+        configure :created_at do
+          date_format :abrev
+        end
+        
+        configure :updated_at do
+          date_format :abrev
+        end
+      end
   #     edit do; end
   #     export do; end
   #     # also see the create, update, modal and nested sections, which override edit in specific cases (resp. when creating, updating, modifying from another model in a popup modal or modifying from another model nested form)

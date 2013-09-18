@@ -17,19 +17,6 @@
         <div class="control-group"><%= f.label :email %>
           <div class="controls"><%= f.email_field :email, {:readonly => true} %></div>
         </div>
-    
-        <div class="control-group"><%= f.label :nombre %>
-          <div class="controls"><%= f.text_field :nombre %></div>
-        </div>
-      
-        <div class="control-group"><%= f.label :fecha_nacimiento %>
-          <div class="controls"><%= f.date_select :fecha_nacimiento, :start_year => Time.now.year - 85, :end_year => Time.now.year - 16, :class => 'date_field' %></div>
-        </div>
-        
-        <div class="control-group"><%= f.label :sexo %>
-          <div class="controls"><%= f.select(:sexo, Usuario::SEXO, {:prompt => 'Selecciona'}) %></div>
-        </div>
-        
         <div class="botones">
           <%= f.submit "Cambiar datos", :class => 'btn btn-warning' %>
         </div>

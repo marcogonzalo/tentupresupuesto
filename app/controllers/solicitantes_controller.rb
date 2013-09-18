@@ -55,8 +55,8 @@ class SolicitantesController < ApplicationController
   end
   
   def panel
-    @solicitudes = Trabajo.includes(:presupuestos).where(:solicitante_id => current_solicitante.perfilable_id).estatus_buscando
-    @en_ejecucion = Trabajo.includes(:presupuestos).where(:solicitante_id => current_solicitante.perfilable_id).estatus_ejecutando
+    @solicitudes = Trabajo.where(:solicitante_id => current_solicitante.perfilable_id).includes(:presupuestos).estatus_buscando
+    @en_ejecucion = Trabajo.where(:solicitante_id => current_solicitante.perfilable_id).estatus_ejecutando
     @por_evaluar = Trabajo.sin_evaluar.where(:solicitante_id => current_solicitante.perfilable_id).estatus_finalizado
 
     render "panel"
@@ -83,6 +83,10 @@ class SolicitantesController < ApplicationController
         if current_solicitante.perfilable_id.nil? or current_solicitante.perfilable_id <= 0
           if @solicitante.save
             current_solicitante.update_attribute('perfilable_id', @solicitante.id)
+            
+            if Rails.env.production?
+              MailchimpController.subscribe(current_solicitante.email,'solicitantes')
+            end
             
             flash[:success] = "Datos de solicitante registrados."
             format.html { redirect_to panel_solicitante_path }

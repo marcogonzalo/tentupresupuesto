@@ -71,7 +71,7 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def after_inactive_sign_up_path_for(resource)
-    new_confirmation_path(resource)
+    new_confirmation_path(resource.perfilable_type.downcase)
   end
   
   

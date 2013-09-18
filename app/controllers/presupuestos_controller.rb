@@ -23,8 +23,7 @@ class PresupuestosController < ApplicationController
   # GET /presupuestos/1.json
   def show
     @presupuesto = Presupuesto.includes(:proveedor).find(params[:id])
-    @trabajo = Trabajo.includes(:presupuestos,:contratado).find(@presupuesto.trabajo_id)
-    
+    @trabajo = Trabajo.find(@presupuesto.trabajo_id)
     #Verificar si el trabajo existe y el usuario es el solicitante
     @es_el_solicitante = false
     @tipo_usuario = "Solicitante"
@@ -52,6 +51,9 @@ class PresupuestosController < ApplicationController
       # Actualiza como visto el presupuesto
       @presupuesto.update_attribute('visto', true)
     end
+    
+    
+    Presupuesto.increment_counter(:visitas,@presupuesto.id) unless @es_el_proveedor
     
     add_breadcrumb @trabajo.proposito, trabajo_path(@trabajo)
     add_breadcrumb :index, trabajo_presupuestos_path(@trabajo)

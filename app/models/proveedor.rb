@@ -7,6 +7,7 @@ class Proveedor < ActiveRecord::Base
   mount_uploader :avatar, AvatarUploader
   
   attr_accessible :nombre_empresa, :tipo_proveedor, :rif, :descripcion,
+                  :nombre_persona, :fecha_nacimiento, :sexo,
                   :telefono_local, :telefono_movil, :telefono_alt,
                   :direccion, :punto_referencia, :correo_electronico,
                   :categoria_ids, :pais_id, :estado_id, :municipio_id, :localidad_id,
@@ -38,6 +39,19 @@ class Proveedor < ActiveRecord::Base
                           :with => /^((V|J)-([0-9]{8})-([0-9]{1}))$/,
                           :message => "no coincide con el formato (V-########-# ó J-########-#)" 
                        }, 
+            :allow_blank => true
+  validates :nombre_persona, 
+            :length => { :in => 3..50 }, 
+            :presence => true
+  validates :sexo,
+            :inclusion => { :in => SEXO },
+            :allow_blank => true 
+  validates :fecha_nacimiento,
+            :timeliness =>  {
+                              :on_or_before => lambda { 18.years.ago },
+                              :type => :date,
+                              :on_or_before_message => 'debe ser mayor de edad'
+                            },
             :allow_blank => true
    validates :telefono_local, 
             :presence => { 
@@ -230,19 +244,33 @@ class Proveedor < ActiveRecord::Base
         end
         field :usuario do
           inverse_of :perfilable
+          column_width 100
         end
-        field :nombre_empresa
+        field :nombre_empresa do
+          column_width 200
+        end
         field :tipo_proveedor do
-          column_width 150
+          column_width 100
         end
         field :verificado do
-          column_width 75
+          column_width 50
         end
-        field :created_at do
+        field :updated_at do
+          date_format :abrev
+          column_width 150
+        end
+        field :twitter_url 
+      end
+      show do 
+      
+        configure :created_at do
+          date_format :abrev
+        end
+        
+        configure :updated_at do
           date_format :abrev
         end
       end
-  #     show do; end
       edit do
         configure :verificado do
           read_only false

@@ -91,7 +91,7 @@ Ttp::Application.routes.draw do
       get "consejos_proveedor" => "general#consejos_proveedor", :as => "consejos_proveedor"
       get "consejos_solicitante" => "general#consejos_solicitante", :as => "consejos_solicitante"
       get "home" => "general#home", :as => "general_home"
-      get "terminos-y-condiciones" => "general#home", :as => "general_terminos"
+      get "terminos-y-condiciones" => "general#tyc", :as => "general_tyc"
     end
    
   end

@@ -2,6 +2,17 @@
     <h2 class="sobre-color">Crear solicitud</h2>
     <%= form_for @trabajo, :validate => true do |f| %>
         <fieldset>
+            <br>
+            <div class="row">
+                <div class="control-group span9">
+                    <%= f.label :intencion, "¿Cuál es tu intención con esta publicación?", :class => 'control-label' %>
+                    <div class="controls">
+                        <%= f.select :intencion, intenciones, { :include_blank => "-- Selecciona --" } %>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset>
             <legend>
                 Detalles del trabajo
             </legend>
@@ -29,14 +40,6 @@
                     <span class="help-block">Procura dar la mayor información que te sea posible.
                         <br>
                         Mientras más detalles des (material, medidas, actividades a realizar) más preciso será el presupuesto y más rápido podrás contratar.</span>
-                </div>
-            </div>
-            <div class="row">
-                <div class="control-group span9">
-                    <%= f.label :intencion, "¿Cuál es tu intención con esta publicación?", :class => 'control-label' %>
-                    <div class="controls">
-                        <%= f.select :intencion, intenciones %>
-                    </div>
                 </div>
             </div>
         </fieldset>

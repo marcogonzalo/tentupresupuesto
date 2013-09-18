@@ -119,7 +119,7 @@ class Trabajo < ActiveRecord::Base
       list do
   #       # filters [:id, :name]  # Array of field names which filters should be shown by default in the table header
   #       # items_per_page 100    # Override default_items_per_page
-  #       # sort_by :id           # Sort column (default is primary key)
+        sort_by :updated_at           # Sort column (default is primary key)
   #       # sort_reverse true     # Sort direction (default is true for primary key, last created first)
         field :id do
           column_width 50
@@ -137,14 +137,26 @@ class Trabajo < ActiveRecord::Base
         field :cant_presupuestos do
           column_width 50
         end
+        field :updated_at do
+          date_format :abrev
+        end
       end
+      
       show do
         configure :descripcion do
           pretty_value do
             %{<pre style="white-space: pre-wrap;">#{value}</pre>}.html_safe
           end
         end
+        configure :created_at do
+          date_format :abrev
+        end
+        
+        configure :updated_at do
+          date_format :abrev
+        end
       end
+      
       edit do
         configure :pais do
           associated_collection_cache_all false  # REQUIRED if you want to SORT the list as below

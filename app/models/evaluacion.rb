@@ -61,13 +61,52 @@ class Evaluacion < ActiveRecord::Base
 
   #   # Section specific configuration:
 
-  #     list do
+      list do
   #       # filters [:id, :name]  # Array of field names which filters should be shown by default in the table header
   #       # items_per_page 100    # Override default_items_per_page
   #       # sort_by :id           # Sort column (default is primary key)
   #       # sort_reverse true     # Sort direction (default is true for primary key, last created first)
-  #     end
-  #     show do; end
+        
+        field :trabajo do
+          column_width 150
+        end
+        field :proveedor do
+          column_width 150
+        end
+        field :total do
+          column_width 50
+        end
+        field :atencion do
+          column_width 50
+        end
+        field :calidad do
+          column_width 50
+        end
+        field :limpieza do
+          column_width 50
+        end
+        field :precio do
+          column_width 50
+        end
+        field :responsabilidad do
+          column_width 50
+        end
+        field :tiempo do
+          column_width 50
+        end
+        field :updated_at do
+          date_format :abrev
+        end
+      end
+      show do
+        configure :created_at do
+          date_format :abrev
+        end
+        
+        configure :updated_at do
+          date_format :abrev
+        end
+      end
   #     edit do; end
   #     export do; end
   #     # also see the create, update, modal and nested sections, which override edit in specific cases (resp. when creating, updating, modifying from another model in a popup modal or modifying from another model nested form)

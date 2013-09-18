@@ -15,51 +15,53 @@ class TrabajosController < ApplicationController
   def index
     @titulo = "Todas las solicitudes"
     unless params[:filtro].nil?
-      @trabajos = []
+      trabajos = []
       if FiltroListaTrabajos::FILTROS.include?(params[:filtro]) and not params[:valor].nil?
         case params[:filtro]
         when "categoria"
           if proveedor_signed_in? and params[:valor].eql?("mis-categorias")
             
             categorias = current_proveedor.perfilable.categorias
-            @trabajos = Trabajo.where(:categoria_id => categorias).page(params[:p])
-            @cant_resultados = @trabajos.size
-            @titulo = "Mis categorías ("+@cant_resultados.to_s+")"
+            trabajos = Trabajo.where(:categoria_id => categorias)
+            @cant_resultados = trabajos.size
+            @titulo = "Mis categorías"
           else
             @categoria = Categoria.find(params[:valor])
-            @trabajos =  @categoria.nil? ? [] : @categoria.trabajos.page(params[:p])
-            @cant_resultados = @trabajos.size
-            @titulo = @categoria.nombre+" ("+@cant_resultados.to_s+")"
+            trabajos =  @categoria.nil? ? [] : @categoria.trabajos
+            @cant_resultados = trabajos.size
+            @titulo = @categoria.nombre
           end
         when "estatus"
           existe_estatus = Trabajo::ESTATUS.include?(params[:valor])
           @estatus = Trabajo::ESTATUS.include?(params[:valor]) ? params[:valor].to_s.humanize : nil
-          @trabajos = existe_estatus ? Trabajo.where(:estatus => params[:valor]).page(params[:p]) : []
-          @cant_resultados = @trabajos.size
-          @titulo = @estatus+" ("+@cant_resultados.to_s+")"
+          trabajos = existe_estatus ? Trabajo.where(:estatus => params[:valor]) : []
+          @cant_resultados = trabajos.size
+          @titulo = @estatus
         when "ubicacion"
           @ubicacion = UbicacionGeografica.find(params[:valor])
-          @trabajos = [] if @ubicacion.nil?
+          trabajos = [] if @ubicacion.nil?
           unless @ubicacion.nil?
             case @ubicacion.tipo
             when 'pais'
-              @trabajos = @ubicacion.trabajos_de_pais.page(params[:p])
+              trabajos = @ubicacion.trabajos_de_pais
             when 'estado'
-              @trabajos = @ubicacion.trabajos_de_estado.page(params[:p])
+              trabajos = @ubicacion.trabajos_de_estado
             when 'municipio'
-              @trabajos = @ubicacion.trabajos_de_municipio.page(params[:p])
+              trabajos = @ubicacion.trabajos_de_municipio
             when 'localidad'
-              @trabajos = @ubicacion.trabajos_de_localidad.page(params[:p])
+              trabajos = @ubicacion.trabajos_de_localidad
             end
           end
-          @cant_resultados = @trabajos.size
-          @titulo = @ubicacion.tipo.humanize+" "+@ubicacion.nombre+" ("+@cant_resultados.to_s+")"
+          @cant_resultados = trabajos.size
+          @titulo = @ubicacion.tipo.humanize+" "+@ubicacion.nombre
         end
       end
     else
-      @trabajos = Trabajo.page(params[:p])
-      @cant_resultados = @trabajos.size
+      trabajos = Trabajo.order('created_at DESC')
     end
+    @cant_resultados = trabajos.size
+    @trabajos = trabajos.includes(:categoria,:localidad,:municipio,:estado).order('created_at DESC').page(params[:p])
+    @titulo += " ("+@cant_resultados.to_s+")"
     @categorias = Categoria.con_solicitudes
     # @categorias_meta = ""
     # for c in @categorias
@@ -74,12 +76,14 @@ class TrabajosController < ApplicationController
   # GET /trabajos/1
   # GET /trabajos/1.json
   def show
-    @trabajo = Trabajo.includes(:presupuestos,:contratado).find(params[:id])
+    @trabajo = Trabajo.includes({:presupuestos => :proveedor},:contratado).find(params[:id])
     @es_el_solicitante = solicitante_signed_in? and current_solicitante.perfilable_id.eql?(@trabajo.solicitante_id)
     
     if @trabajo.ejecutando? and proveedor_signed_in?
       @es_el_proveedor = current_proveedor.perfilable_id.eql?(@trabajo.contratado_id)
     end
+    
+    Trabajo.increment_counter(:visitas,@trabajo.id)
     add_breadcrumb @trabajo.proposito
     respond_to do |format|
       format.html # show.html.erb

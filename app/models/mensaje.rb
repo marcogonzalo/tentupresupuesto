@@ -59,7 +59,15 @@ class Mensaje < ActiveRecord::Base
         date_format :abrev
       end
     end
-  #     show do; end
+      show do
+        configure :created_at do
+          date_format :abrev
+        end
+        
+        configure :updated_at do
+          date_format :abrev
+        end
+      end
   #     edit do; end
   #     export do; end
   #     # also see the create, update, modal and nested sections, which override edit in specific cases (resp. when creating, updating, modifying from another model in a popup modal or modifying from another model nested form)

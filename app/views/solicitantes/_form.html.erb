@@ -1,14 +1,6 @@
 <div class="formulario-general offset1 span9">
     <%= form_for(@solicitante) do |f| %>
         <span class="help-block"><i class="icon-white icon-asterisk"></i> Indica campo obligatorio</span>
-    
-        <div class="control-group">
-            <% # = f.label :cedula
-    %>
-            <div class="controls">
-                <%= f.hidden_field :cedula, :value => "111111" %>
-            </div>
-        </div>
         <fieldset>
             <legend>
                 Datos de contacto
@@ -16,6 +8,13 @@
             <p>
                 (Ser&aacute; entregado al proveedor si apruebas su presupuesto)
             </p>
+            <div class="control-group">
+                <%= f.label :nombre_persona %>
+                <div class="controls">
+                    <i class="icon-white icon-asterisk"></i>
+                    <%= f.text_field :nombre_persona %>
+                </div>
+            </div>
             <div class="control-group">
                 <%= f.label :telefono_local %>
                 <div class="controls">
@@ -32,11 +31,22 @@
                 </div>
                 <span class="help-block">Ej.: 04162232323</span>
             </div>
-    
             <div class="control-group">
                 <%= f.label :telefono_alt %>
                 <div class="controls">
                     <%= f.text_field :telefono_alt %>
+                </div>
+            </div>
+            <div class="control-group">
+                <%= f.label :sexo %>
+                <div class="controls">
+                    <%= f.select(:sexo, SEXO, {:prompt => 'Selecciona'}) %>
+                </div>
+            </div>
+            <div class="control-group">
+                <%= f.label :fecha_nacimiento %>
+                <div class="controls">
+                    <%= f.date_select :fecha_nacimiento, :end_year => Time.now.year - 85, :start_year => Time.now.year - 18, :class => 'date_field' %>
                 </div>
             </div>
         </fieldset>

@@ -18,6 +18,10 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
     margin-right: 5px;
     width: 90%;
 }
+
+select#solicitante_fecha_nacimiento_3i, select#proveedor_fecha_nacimiento_3i { width:5em; }
+select#solicitante_fecha_nacimiento_2i, select#proveedor_fecha_nacimiento_2i { width:11em; }
+select#solicitante_fecha_nacimiento_1i, select#proveedor_fecha_nacimiento_1i { width:6em; }
 #caracteristicas {
     margin-top: 1em;
 }

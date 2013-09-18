@@ -107,7 +107,7 @@ if (@trabajo.presupuestos.size == 1 and not @trabajo.contratado) or @trabajo.pre
 <section id="proveedores-interesados">
     <h2>Proveedores interesados</h2>
 <% if @trabajo.presupuestos %>
-    <div id="fichas" class="offset1">
+    <div id="fichas" class="offset0">
     <% for presupuesto in @trabajo.presupuestos %>
         <%= render(:partial => 'proveedores/ficha', :locals => {:p => presupuesto.proveedor, :pre => presupuesto, :contratado => (@trabajo.contratado and false), :es_el_solicitante => @es_el_solicitante}) %>
     <% end %>

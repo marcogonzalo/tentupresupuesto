@@ -68,7 +68,11 @@
 
 @font-face {
   font-family: 'Chango';
-  src:url('Chango-Regular.ttf');
+  src: url('Chango/chango-regular.eot');
+  src: url('Chango/chango-regular.eot') format('embedded-opentype'),
+       url('Chango/chango-regular.woff') format('woff'),
+       url('Chango/chango-regular.ttf') format('truetype'),
+       url('Chango/chango-regular.svg#ChangoRegular') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -85,7 +89,18 @@
   src:url('MyriadPro-Regular.otf');
   font-weight: normal;
   font-style: normal;
-}*/
+}
+*/
+@font-face {
+    font-family: 'MyriadProRegular';
+    src: url('MyriadPro-Regular/myriadpro-regular.eot');
+    src: url('MyriadPro-Regular/myriadpro-regular.eot') format('embedded-opentype'),
+         url('MyriadPro-Regular/myriadpro-regular.woff') format('woff'),
+         url('MyriadPro-Regular/myriadpro-regular.ttf') format('truetype'),
+         url('MyriadPro-Regular/myriadpro-regular.svg#MyriadProRegular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
 
 
 // Your custom LESS stylesheets goes here

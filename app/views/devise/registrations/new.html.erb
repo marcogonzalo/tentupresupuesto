@@ -16,19 +16,9 @@ if resource.errors.any?
     </div>
     <div class="cuerpo-pendon">
         <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :validate => true) do |f| %>
-            <span class="help-block"><i class="icon-white icon-asterisk"></i> Indica campo obligatorio</span>
-            <div class="control-group">
-                <%= f.label :nombre %>
-                <div class="controls">
-                    <i class="icon-white icon-asterisk"></i>
-                    <%= f.text_field :nombre %>
-                </div>
-            </div>
-    
             <div class="control-group">
                 <%= f.label :email %>
                 <div class="controls">
-                    <i class="icon-white icon-asterisk"></i>
                     <%= f.email_field :email %>
                 </div>
             </div>
@@ -36,7 +26,6 @@ if resource.errors.any?
             <div class="control-group">
                 <%= f.label :password %>
                 <div class="controls">
-                    <i class="icon-white icon-asterisk"></i>
                     <%= f.password_field :password, :validate => true %>
                 </div>
             </div>
@@ -44,30 +33,16 @@ if resource.errors.any?
             <div class="control-group">
                 <%= f.label :password_confirmation %>
                 <div class="controls">
-                    <i class="icon-white icon-asterisk"></i>
                     <%= f.password_field :password_confirmation %>
                 </div>
             </div>
     
-            <div class="control-group">
-                <%= f.label :fecha_nacimiento %>
-                <div class="controls">
-                    <%= f.date_select :fecha_nacimiento, :end_year => Time.now.year - 85, :start_year => Time.now.year - 18, :class => 'date_field' %>
-                </div>
-            </div>
-    
-            <div class="control-group">
-                <%= f.label :sexo %>
-                <div class="controls">
-                    <%= f.select(:sexo, Usuario::SEXO, {:prompt => 'Selecciona'}) %>
-                </div>
-            </div>
-    
-            <!-- <label for="<%= resource_name %>_acepta_terminos" class="checkbox">
-            <%# = f.check_box :acepta_terminos %> Acepto los <%= link_to "Términos y Condiciones", general_terminos_path
-            %></a>
-            </label> -->
-    
+            <% 
+            #<label for="<%= resource_name % >_acepta_terminos" class="checkbox">
+            #<%= f.check_box :acepta_terminos % >He leído y acepto los <%= link_to "Términos y Condiciones del servicio", general_tyc_path % ></a>
+            #</label> 
+            %>
+            <p class="centrado sobre-color">El registro es considerado expresión de la aceptación total de los <%= link_to "Términos y Condiciones del servicio", general_tyc_path, :target => "_blank" %></p>
             <%= f.hidden_field :acepta_terminos, :value => true %>
             <%= f.hidden_field :perfilable_type, :value => resource_name %>
     

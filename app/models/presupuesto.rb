@@ -87,6 +87,9 @@ class Presupuesto < ActiveRecord::Base
       field :rechazado do
         column_width 50
       end
+      field :updated_at do
+        date_format :abrev
+      end
     end
     show do
       configure :resumen do
@@ -94,7 +97,16 @@ class Presupuesto < ActiveRecord::Base
           %{<pre>#{value}</pre>}.html_safe
         end
       end
+      
+      configure :created_at do
+        date_format :abrev
+      end
+      
+      configure :updated_at do
+        date_format :abrev
+      end
     end
+    
     edit do
       configure :aprobado do
         read_only false

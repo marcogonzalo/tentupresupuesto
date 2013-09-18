@@ -1,6 +1,6 @@
 #encoding: utf-8
 class Solicitante < ActiveRecord::Base
-  attr_accessible :cedula, :calle_avenida, :casa_edificio, :numero_apto, :direccion, :punto_referencia,
+  attr_accessible :nombre_persona, :fecha_nacimiento, :sexo, :calle_avenida, :casa_edificio, :numero_apto, :direccion, :punto_referencia,
                   :telefono_local, :telefono_movil, :telefono_alt, :pais_id, :estado_id, :municipio_id, :localidad_id
   
   has_one :usuario, :as => :perfilable
@@ -9,13 +9,20 @@ class Solicitante < ActiveRecord::Base
   belongs_to :estado, :class_name => "UbicacionGeografica", :foreign_key => "estado_id", :conditions => "tipo = 'estado'"
   belongs_to :municipio, :class_name => "UbicacionGeografica", :foreign_key => "municipio_id", :conditions => "tipo = 'municipio'"
   belongs_to :localidad, :class_name => "UbicacionGeografica", :foreign_key => "localidad_id", :conditions => "tipo = 'localidad'"
-  
-  validates :cedula, 
-            :length => { :in => 5..10 }, 
-            :numericality =>  { 
-                                :only_integer => true,
-                                :greater_than => 50000
-                              }
+
+  validates :nombre_persona, 
+            :length => { :in => 3..50 }, 
+            :presence => true
+  validates :sexo,
+            :inclusion => { :in => SEXO },
+            :allow_blank => true 
+  validates :fecha_nacimiento,
+            :timeliness =>  {
+                              :on_or_before => lambda { 16.years.ago },
+                              :type => :date,
+                              :on_or_before_message => 'debe tener 16 años o más'
+                            },
+            :allow_blank => true
   validates :telefono_local, 
             :presence => { 
                           :message => "debe completarse si no posee teléfono móvil", 
@@ -146,7 +153,17 @@ class Solicitante < ActiveRecord::Base
           date_format :abrev
         end
       end
-  #     show do; end
+      
+      show do
+        configure :created_at do
+          date_format :abrev
+        end
+        
+        configure :updated_at do
+          date_format :abrev
+        end
+      end
+      
       edit do
         configure :pais do
           associated_collection_cache_all false  # REQUIRED if you want to SORT the list as below

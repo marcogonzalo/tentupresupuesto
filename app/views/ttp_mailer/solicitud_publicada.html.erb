@@ -3,8 +3,8 @@
     "¡Han publicado una nueva solicitud de tu interés!"
   end
 %>
-<p>Fue publicada en la categoría <b><%= @categoria %></b> y se ubica en <%= @localidad %>, Municipio <%= @municipio %>, Estado <%= @estado %>.</p>
+<p>Fue publicada en la categoría <b><%= @categoria %></b> y se ubica en <%= @localidad %>, municipio <%= @municipio %>, estado <%= @estado %>.</p>
 
-<p><%= link_to 'Revisa la solicitud', trabajo_url(@trabajo) %></p>
+<p><%= link_to @trabajo.proposito, trabajo_url(@trabajo) %></p>
 
 <p>Recuerda, responder pronto le demuestra tu interés a tu futuro cliente.</p>

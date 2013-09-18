@@ -25,6 +25,7 @@
 <section id="descripcion" class="offset1 span21">
     <div class="row">
         <div class="span6">
+            <p><small><i class="icon-eye-open"></i> <abbr title="<%= t('activerecord.attributes.presupuesto.visitas') %>"><%= @presupuesto.visitas %></abbr></small></p>
             <div id="precio">
                 <p><span id="monto"><%= number_to_currency(@presupuesto.precio_minimo) %><br>a<br><%= number_to_currency(@presupuesto.precio_maximo) %></span><br><span class="mini-nota">(costo referencial)</span></p>
             </div>
