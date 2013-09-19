@@ -46,7 +46,11 @@ class ApplicationController < ActionController::Base
   end
   
   def authenticated_solicitante
-    unless solicitante_signed_in? or admin_signed_in?
+    if solicitante_signed_in? or admin_signed_in?
+      if current_solicitante.perfilable_id.nil? and request.fullpath != new_solicitante_path
+        redirect_to new_solicitante_path
+      end
+    else
       sign_out_all_scopes
       flash[:warning] = "Debes iniciar sesión con el usuario correcto" 
       redirect_to new_solicitante_session_path
@@ -55,7 +59,11 @@ class ApplicationController < ActionController::Base
   end
   
   def authenticated_proveedor
-    unless proveedor_signed_in? or admin_signed_in?
+    if proveedor_signed_in? or admin_signed_in?
+      if current_proveedor.perfilable_id.nil? and request.fullpath != new_proveedor_path
+        redirect_to new_proveedor_path
+      end
+    else
       sign_out_all_scopes
       flash[:warning] = "Debes iniciar sesión con el usuario correcto" 
       redirect_to new_proveedor_session_path
