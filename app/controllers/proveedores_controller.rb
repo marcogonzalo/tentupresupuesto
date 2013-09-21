@@ -1,5 +1,6 @@
 # coding: utf-8
 class ProveedoresController < ApplicationController
+  require 'genericas'
   #before_filter :no_authenticated, :only => [:new, :create]
   before_filter :authenticated_proveedor, :except => [:index, :show]
 
@@ -158,11 +159,13 @@ class ProveedoresController < ApplicationController
             format.json { render json: @proveedor, status: :created, location: @proveedor }
           else
             flash[:error] = "Ocurrió un error. Revisa el formulario."
+            debug @proveedor.errors
             format.html { render action: "new" }
             format.json { render json: @proveedor.errors, status: :unprocessable_entity }
           end
         else
           flash[:warning] = 'Ya posee un perfil asociado.'
+          debug @proveedor.errors
           format.html { render action: "new"  }
           format.json { render json: @proveedor.errors, status: :unprocessable_entity }
         end 
