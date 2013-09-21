@@ -3,7 +3,7 @@ pais = UbicacionGeografica.find_or_create_by_nombre_and_entidad_id('Venezuela', 
 if pais
   estado = nil
 #1
-  estado = UbicacionGeografica.find_or_create_by_nombre_and_entidad_id('Area Metropolitana de Caracas', :tipo => 'estado', :entidad_id => pais.id)
+  estado = UbicacionGeografica.find_or_create_by_nombre_and_entidad_id('Área Metropolitana de Caracas', :tipo => 'estado', :entidad_id => pais.id)
   if estado
     municipio = nil
     municipio = UbicacionGeografica.find_or_create_by_nombre_and_entidad_id('Baruta', :tipo => 'municipio', :entidad_id =>  estado.id)

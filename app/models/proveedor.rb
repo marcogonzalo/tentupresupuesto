@@ -10,7 +10,7 @@ class Proveedor < ActiveRecord::Base
                   :nombre_persona, :fecha_nacimiento, :sexo,
                   :telefono_local, :telefono_movil, :telefono_alt,
                   :direccion, :punto_referencia, :correo_electronico,
-                  :categoria_ids, :pais_id, :estado_id, :municipio_id, :localidad_id,
+                  :categoria_ids, :ubicacion_geografica_ids, :pais_id, :estado_id, :municipio_id, :localidad_id,
                   :web_url, :twitter_url, :facebook_url, :google_url, :linkedin_url, 
                   :youtube_url, :pinterest_url, :instagram_url
   
@@ -26,6 +26,7 @@ class Proveedor < ActiveRecord::Base
   belongs_to :estado, :class_name => "UbicacionGeografica", :foreign_key => "estado_id", :conditions => "tipo = 'estado'"
   belongs_to :municipio, :class_name => "UbicacionGeografica", :foreign_key => "municipio_id", :conditions => "tipo = 'municipio'"
   belongs_to :localidad, :class_name => "UbicacionGeografica", :foreign_key => "localidad_id", :conditions => "tipo = 'localidad'"
+  has_and_belongs_to_many :ubicaciones_geograficas
   
   TIPO_EMPRESA = ["independiente", "cooperativa","empresa_produccion_social","empresa_privada"] 
 

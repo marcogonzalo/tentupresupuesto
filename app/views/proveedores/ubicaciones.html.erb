@@ -1,0 +1,39 @@
+<%- model_class = Proveedor -%>
+<%
+ content_for :head do
+    stylesheet_link_tag 'proveedores'
+  end
+
+  content_for :foot do
+    javascript_include_tag 'proveedores'
+  end
+
+  content_for :title do
+    "Ubicaciones de servicios ofrecidos"
+  end
+%>
+<div class="page-header">
+    <h1><%= t '.title', :default => t('helpers.titles.new', :model => model_class.model_name.human,
+    :default => "¿En qué estados ofreces servicios?") %></h1>
+</div>
+<p class="centrado">
+    Selecciona aquellas regiones donde ofreces tus servicios. Esto te permitirá recibir solicitudes de esas regiones.
+    <br>
+    <b>Tu perfil está registrado en <%= @proveedor.ubicaciones_geograficas.count %></b>.
+</p>
+<div class="formulario-general ubicaciones">
+    <%= form_for @proveedor , :url => update_ubicaciones_de_proveedor_path, :method => :put do |f| %>
+    <div id="ubicaciones" class="listado">
+        <% for ug in UbicacionGeografica.where(:tipo => 'estado') %>
+        <label class="checkbox"> <%= check_box_tag :ubicacion_geografica_ids,
+            ug.id,
+            @proveedor.ubicaciones_geograficas.include?(ug),
+            :name => @proveedor.class.name.downcase+'[ubicacion_geografica_ids][]' %>
+            <%= ug.nombre %> </label>
+        <% end %>
+    </div>
+    <div class="botones">
+        <%= link_to "Volver al panel", panel_proveedor_path, :class => 'btn' %> <%= f.submit "Actualizar", :class => 'btn btn-warning' %>
+    </div>
+    <% end %>
+</div>
