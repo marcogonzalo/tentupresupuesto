@@ -47,7 +47,7 @@ class ApplicationController < ActionController::Base
   
   def authenticated_solicitante
     if solicitante_signed_in? or admin_signed_in?
-      if current_solicitante.perfilable_id.nil? and request.fullpath != new_solicitante_path
+      if current_solicitante.perfilable_id.nil? and (request.fullpath != new_solicitante_path and request.fullpath != solicitantes_path)
         redirect_to new_solicitante_path
       end
     else
@@ -60,7 +60,7 @@ class ApplicationController < ActionController::Base
   
   def authenticated_proveedor
     if proveedor_signed_in? or admin_signed_in?
-      if current_proveedor.perfilable_id.nil? and request.fullpath != new_proveedor_path
+      if current_proveedor.perfilable_id.nil? and (request.fullpath != new_proveedor_path and request.fullpath != proveedores_path)
         redirect_to new_proveedor_path
       end
     else
