@@ -42,6 +42,8 @@ Ttp::Application.routes.draw do
       get     "no-soy-proveedor" => "proveedores#no_soy_proveedor", :as => "no_soy_proveedor"
       get     'categorias' => "proveedores#categorias_de_proveedor", :as => "categorias_de_proveedor"
       put     'categorias(/:id)' => "proveedores#update_categorias_de_proveedor", :as => "update_categorias_de_proveedor"
+      get     'ubicaciones' => "proveedores#ubicaciones_de_proveedor", :as => "ubicaciones_de_proveedor"
+      put     'ubicaciones(/:id)' => "proveedores#update_ubicaciones_de_proveedor", :as => "update_ubicaciones_de_proveedor"
       get     'enlaces' => "proveedores#enlaces_de_proveedor", :as => "enlaces_de_proveedor"
       put     'enlaces(/:id)' => "proveedores#update_enlaces_de_proveedor", :as => "enlaces_de_proveedor"
       get     "imagen" => "proveedores#imagen", :as => "imagen_proveedor"

@@ -61,19 +61,29 @@
                     <h4 class="con-myriad-bold">Descripción</h4>
                     <pre><%= @proveedor.descripcion %></pre>
                     <br>
-                    <h4 class="con-myriad-bold">Ubicación</h4>
+                <% if false %>
+                    <h4 class="con-myriad-bold">Se encuentra en</h4>
                     <address class="span11">
                         <p>
                             <b>Localidad:</b>
                             Estado <%= @proveedor.estado.nombre %>. Municipio <%= @proveedor.municipio.nombre %>, <%= @proveedor.localidad.nombre %>
                         </p>
-                        <% unless @proveedor.tipo_proveedor.eql?("independiente") %>
+                        <% unless @proveedor.tipo_proveedor.eql?("independiente") or @proveedor.punto_referencia.blank?  %>
                         <p>
                             <strong><%= model_class.human_attribute_name(:direccion) %>:</strong>
-                            <%= @proveedor.direccion %><%= ". Punto de referencia: "+@proveedor.punto_referencia unless @proveedor.punto_referencia.blank?  %>
+                            <%= @proveedor.direccion %><%= ". Punto de referencia: "+@proveedor.punto_referencia %>
                         </p>
                         <% end %>
                     </address>
+                <% end %>
+                </div>
+                <div class="row">
+                    <h4 class="con-myriad-bold">Presta servicio en</h4>
+                    <p>
+                    <% @proveedor.ubicaciones_geograficas.each do |ug| %>
+                        <span class="badge"><%= ug.nombre %></span>
+                    <% end %>
+                    </p>
                 </div>
                 <div class="row">
                     <div id="datos-ubicacion" class="span10">

@@ -13,27 +13,27 @@
   end
 %>
 <div class="page-header">
-	<h1><%= t '.title', :default => t('helpers.titles.new', :model => model_class.model_name.human,
-	:default => "Categorías de #{model_class.model_name.human}") %></h1>
+    <h1><%= t '.title', :default => t('helpers.titles.new', :model => model_class.model_name.human,
+    :default => "Categorías de #{model_class.model_name.human}") %></h1>
 </div>
 <p class="centrado">
-	Selecciona aquellas categorías que se correspondan con las actividades y servicios que ofreces.
-	<br>
-	<b>Tu perfil está registrado en <%= @proveedor.categorias.count %></b>.
+    Selecciona aquellas categorías que se correspondan con las actividades y servicios que ofreces.
+    <br>
+    <b>Tu perfil está registrado en <%= @proveedor.categorias.count %></b>.
 </p>
 <div class="formulario-general categorias">
-	<%= form_for @proveedor , :url => update_categorias_de_proveedor_path, :method => :put do |f| %>
-		<div id="categorias">
-			<% for cat in Categoria.find(:all) %>
-			<label class="checkbox"> <%= check_box_tag :categoria_ids,
-				cat.id,
-				@proveedor.categorias.include?(cat),
-				:name => @proveedor.class.name.downcase+'[categoria_ids][]' %>
-				<%= cat.nombre %> </label>
-			<% end %>
-		</div>
-		<div class="botones">
-			<%= link_to "Volver al panel", panel_proveedor_path, :class => 'btn' %> <%= f.submit "Actualizar", :class => 'btn btn-warning' %>
-		</div>
-	<% end %>
+    <%= form_for @proveedor , :url => update_categorias_de_proveedor_path, :method => :put do |f| %>
+    <div id="categorias" class="listado">
+        <% for cat in Categoria.find(:all) %>
+        <label class="checkbox"> <%= check_box_tag :categoria_ids,
+            cat.id,
+            @proveedor.categorias.include?(cat),
+            :name => @proveedor.class.name.downcase+'[categoria_ids][]' %>
+            <%= cat.nombre %> </label>
+        <% end %>
+    </div>
+    <div class="botones">
+        <%= link_to "Volver al panel", panel_proveedor_path, :class => 'btn' %> <%= f.submit "Actualizar", :class => 'btn btn-warning' %>
+    </div>
+    <% end %>
 </div>

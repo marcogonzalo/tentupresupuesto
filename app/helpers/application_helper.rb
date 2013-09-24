@@ -1,3 +1,4 @@
+# coding: utf-8
 module ApplicationHelper
   def current_user
     return current_solicitante ? current_solicitante : current_proveedor

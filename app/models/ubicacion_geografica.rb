@@ -21,6 +21,7 @@ class UbicacionGeografica < ActiveRecord::Base
   has_many :trabajos_de_estado, :class_name => "Trabajo", :foreign_key => "estado_id"
   has_many :trabajos_de_municipio, :class_name => "Trabajo", :foreign_key => "municipio_id"
   has_many :trabajos_de_localidad, :class_name => "Trabajo", :foreign_key => "localidad_id"
+  has_and_belongs_to_many :proveedores
   
   TIPO_UBICACION = ["pais","estado","municipio","localidad"]
   

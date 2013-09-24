@@ -21,7 +21,7 @@
 //= require rails.validations
 
 $(document).ready(function () {
-  $('a').tooltip({trigger:'focus'});
+  $('a').tooltip({trigger:'hover'});
   $('input').tooltip({trigger:'focus'});
   $('textarea').tooltip({trigger:'focus'});
   $('select').tooltip({trigger:'click'});

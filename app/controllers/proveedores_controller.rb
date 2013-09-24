@@ -29,17 +29,17 @@ class ProveedoresController < ApplicationController
           @titulo = existe_tipo ? @tipo : "Por tipo"
         when "ubicacion"
           @ubicacion = UbicacionGeografica.find(params[:valor])
-          unless @ubicacion.nil?
-            case @ubicacion.tipo
-            when 'pais'
-              proveedores = @ubicacion.proveedores_de_pais
-            when 'estado'
-              proveedores = @ubicacion.proveedores_de_estado
-            when 'municipio'
-              proveedores = @ubicacion.proveedores_de_municipio
-            when 'localidad'
-              proveedores = @ubicacion.proveedores_de_localidad
-            end
+          unless @ubicacion.nil? or @ubicacion.tipo != 'estado'
+            #case @ubicacion.tipo
+            #when 'pais'
+            #  proveedores = @ubicacion.proveedores_de_pais
+            #when 'estado'
+              proveedores = @ubicacion.proveedores
+            #when 'municipio'
+            #  proveedores = @ubicacion.proveedores_de_municipio
+            #when 'localidad'
+            #  proveedores = @ubicacion.proveedores_de_localidad
+            #end
           end
           @cant_resultados = proveedores.size
           @titulo = @ubicacion.tipo.humanize+" "+@ubicacion.nombre
@@ -119,6 +119,12 @@ class ProveedoresController < ApplicationController
   def categorias_de_proveedor
     @proveedor = Proveedor.find(current_proveedor.perfilable_id)
     render "categorias"
+  end
+  
+  # GET /proveedor/ubicaciones
+  def ubicaciones_de_proveedor
+    @proveedor = Proveedor.find(current_proveedor.perfilable_id)
+    render "ubicaciones"
   end
   
   # GET /proveedor/enlaces
@@ -284,6 +290,38 @@ class ProveedoresController < ApplicationController
         else
           flash[:error] = "Ocurrió un error. Revisa el formulario."
           format.html { render action: "categorias_de_proveedor" }
+          format.json { render :json => {tipo_mensaje: :danger, mensaje: flash[:error], errores: @proveedor.errors, status: :unprocessable_entity} }
+        end
+      else
+        flash[:info] = 'No ha iniciado sesión.'
+        format.html { redirect_to new_proveedor_session }
+        format.json { render :json => {tipo_mensaje: :info, mensaje: flash[:info]} }
+      end
+    end
+  end
+  
+  # PUT /proveedor/ubicaciones
+  def update_ubicaciones_de_proveedor
+    if proveedor_signed_in?
+      @proveedor = Proveedor.find(current_proveedor.perfilable_id)
+      if params[:proveedor].nil?
+        params[:proveedor] ||= {}
+      end
+    end
+    respond_to do |format|
+      if proveedor_signed_in?
+        if params[:proveedor][:ubicacion_geografica_ids].nil?
+          @proveedor.categorias.clear
+          flash[:success] = "Ubicaciones actualizadas."
+          format.html { redirect_to panel_proveedor_path }
+          format.json { render :json => {tipo_mensaje: :success, mensaje: flash[:success]} }
+        elsif @proveedor.update_attributes(params[:proveedor])
+          flash[:success] = "Ubicaciones actualizadas."
+          format.html { redirect_to panel_proveedor_path }
+          format.json { render :json => {tipo_mensaje: :success, mensaje: flash[:success]} }
+        else
+          flash[:error] = "Ocurrió un error. Revisa el formulario."
+          format.html { render action: "ubicaciones_de_proveedor" }
           format.json { render :json => {tipo_mensaje: :danger, mensaje: flash[:error], errores: @proveedor.errors, status: :unprocessable_entity} }
         end
       else

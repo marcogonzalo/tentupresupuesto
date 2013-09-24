@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130908000023) do
+ActiveRecord::Schema.define(:version => 20130921152149) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                  :default => "",    :null => false
@@ -187,6 +187,14 @@ ActiveRecord::Schema.define(:version => 20130908000023) do
   add_index "proveedores", ["tipo_proveedor"], :name => "index_proveedores_on_tipo_proveedor"
   add_index "proveedores", ["trabajos_realizados"], :name => "index_proveedores_on_trabajos_realizados"
   add_index "proveedores", ["valoraciones"], :name => "index_proveedores_on_valoraciones"
+
+  create_table "proveedores_ubicaciones_geograficas", :id => false, :force => true do |t|
+    t.integer "proveedor_id"
+    t.integer "ubicacion_geografica_id"
+  end
+
+  add_index "proveedores_ubicaciones_geograficas", ["proveedor_id", "ubicacion_geografica_id"], :name => "index_proveedores_ubicaciones_proveedor_ubicacion", :unique => true
+  add_index "proveedores_ubicaciones_geograficas", ["ubicacion_geografica_id", "proveedor_id"], :name => "index_proveedores_ubicaciones_ubicacion_proveedor", :unique => true
 
   create_table "rails_admin_histories", :force => true do |t|
     t.text     "message"
