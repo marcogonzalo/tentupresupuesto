@@ -22,6 +22,7 @@ Categoria.find_or_create_by_nombre('Puertas y Rejas', :clase_css => 'puertas-rej
 Categoria.find_or_create_by_nombre('Remodelaciones de cocinas', :clase_css => 'cocinas', :descripcion => 'Trabajos de restauración y reforma de cocinas.')
 Categoria.find_or_create_by_nombre('Remodelaciones de baños', :clase_css => 'banos', :descripcion => 'Trabajos de restauración y reforma de baños.')
 Categoria.find_or_create_by_nombre('Sistemas de bombeo y Tanques de agua', :clase_css => 'bombeo-tanques', :descripcion => 'Instalación, mantenimiento y reparación de tanques de agua y sistemas de bombeo.')
+Categoria.find_or_create_by_nombre('Sistemas de seguridad', :clase_css => 'seguridad', :descripcion => 'Sistemas de circuito cerrado de televisión y videovilgilancia, cercados eléctricos, sistemas de acceso.')
 Categoria.find_or_create_by_nombre('Tapicería y Cortinas', :clase_css => 'tapiceria-cortinas', :descripcion => 'Instalación, mantenimiento y restauración de cortinas y muebles tapizados.')
 Categoria.find_or_create_by_nombre('Techos y Toldos', :clase_css => 'techos-toldos', :descripcion => 'Instalación, mantenimiento y reparación de techos y toldos.')
 Categoria.find_or_create_by_nombre('Transporte y Mudanzas', :clase_css => 'transporte-mudanzas', :descripcion => 'Embalaje, transporte y movilización de bienes.')
