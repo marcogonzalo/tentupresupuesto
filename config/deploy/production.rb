@@ -1,4 +1,4 @@
-set :deploy_to, "/home/agapito/html/tetepe/"
+set :deploy_to, "/var/www/tentupresupuesto.com.ve/tetepe/"
 set :keep_releases, 2                                         # Number of old releases to keep
 
 set :branch, 'master'

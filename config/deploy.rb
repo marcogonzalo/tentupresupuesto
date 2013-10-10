@@ -6,15 +6,15 @@ set :stages, Dir["config/deploy/*.rb"].map{|t| File.basename(t, ".rb")}
 set :default_stage, "staging"
 
 set :application, "Ttp"
-set :domain, "tentupresupuesto.com.ve" 
+set :domain, "198.199.105.186" 
 role :web, domain                                             # Your HTTP server, Apache/etc
 role :app, domain                                             # This may be the same as your `Web` server
 role :db,  domain, :primary => true                           # This is where Rails migrations will run
 
-set :deploy_to, "/home/agapito/html/tetepe/"
-set :user, "agapito"                                          # SSH user
+set :deploy_to, "/var/www/tentupresupuesto.com.ve/trapiche/"
+set :user, "trapichero"                                          # SSH user
 set :password, "str4d1.v4r1us"                                # SSH user password
-set :port, "2411"                                             # SSH port
+set :port, "35962"                                             # SSH port
 set :use_sudo, false                                          # Is server user a sudoer?
 set :deploy_via, :remote_cache                                # Keep a local git repo on the server and simply run a fetch from that
 set :keep_releases, 3                                         # Number of old releases to keep
@@ -87,9 +87,10 @@ ERROR!  You must have a file on your server with the database configuration.
   # Hooks
   after "deploy:setup", "deploy:prepare_shared"
   after "deploy:prepare_shared", "deploy:upload_database_yml"
-#  after "deploy:prepare_shared", "uploads:setup"
-  after "deploy:prepare_shared", "uploads"
+  after "deploy:prepare_shared", "uploads:register_dirs"
+  after "deploy:prepare_shared", "uploads:setup"
   after "deploy:finalize_update", "deploy:finish"
+  after "deploy:finalize_update", "uploads:symlink"
   after "deploy:finish", "deploy:create_symlink", "deploy:cleanup"
   after "deploy", "deploy:restart"  
 end
