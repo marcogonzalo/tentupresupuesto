@@ -162,9 +162,9 @@ img.cargando.cargando30 { display:none; width: 30px; height: 30px;}
 .sobre-color { color:white; font-weight:normal; text-shadow:0 2px 5px #333; }
 
 /* Rails validations */
-.field_with_errors{display: inline;}
+/*.field_with_errors{display: inline;}*/
 .field_with_errors label {display: inline;}
-.field_with_errors label.message {margin-left:5px;}
+.field_with_errors .message {margin-left:5px;}
 
 /* PUBLICIDAD */
 #publicidad-cabecera-interna { height: 120px; position:relative; text-align:right; top:40px; }

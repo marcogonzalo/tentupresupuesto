@@ -9,8 +9,8 @@
     Algo pas&oacute;. Revisa el formulario para verificar errores.
   </div>
 <% end %>
-<h1>Editar datos de usuario</h1>
-  <div id="registro" class="formulario-pendon span12 al-centro">
+<h1>Cambio de clave</h1>
+  <div id="registro" class="hide formulario-pendon span12 al-centro">
     <div class="titulo-pendon"><h2 class="sobre-color">Editar mis datos</h2></div>
     <div class="cuerpo-pendon">
       <%= form_for(@usuario, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }, :validate => true) do |f| %>
@@ -24,23 +24,15 @@
     </div>
   </div>
 
-  <div id="cambiar-clave" class="formulario-pendon al-centro span12">
+  <div id="cambiar-clave" class="formulario-pendon al-centro">
     <div class="titulo-pendon"><h2 class="sobre-color">Cambiar clave</h2></div>
     <div class="cuerpo-pendon">
-      <%= form_for(@usuario, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }, :validate => true) do |f| %>
+      <%= simple_form_for(@usuario, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }, :validate => true) do |f| %>
         <%= f.hidden_field :email %>
-      
-        <div class="control-group"><%= f.label :current_password, "Clave actual" %>
-          <div class="controls"><%= f.password_field :current_password, :validate => true %></div>
-        </div>
+        <%= f.input :current_password, required: true %>
         <hr>
-        <div class="control-group"><%= f.label :password, "Nueva clave" %>
-          <div class="controls"><%= f.password_field :password, :validate => true %></div>
-        </div>
-      
-        <div class="control-group"><%= f.label :password_confirmation, "Confirma la nueva clave" %>
-          <div class="controls"><%= f.password_field :password_confirmation %></div>
-        </div>
+        <%= f.input :password, required: true %>
+        <%= f.input :password_confirmation, required: true %>
         <div class="botones">
           <%= f.submit "Cambiar clave", :class => 'btn btn-warning' %>
         </div>
