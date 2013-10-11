@@ -359,6 +359,7 @@ es-VE:
         visitas: "Número de veces que se ha visto la solicitud"
       usuario:
         acepta_terminos: "Acepto los Términos y Condiciones"
+        current_password: "Clave actual"
         email: "Correo electrónico"
         email_confirmation: "Confirmar correo electrónico"
         password: "Clave"
