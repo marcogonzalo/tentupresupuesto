@@ -1,6 +1,6 @@
 <div class="formulario-general offset1 span9">
-    <%= form_for(@solicitante) do |f| %>
-        <span class="help-block"><i class="icon-white icon-asterisk"></i> Indica campo obligatorio</span>
+    <%= simple_form_for @solicitante do |f| %>
+        <span class="help-block">* Indica campo obligatorio</span>
         <fieldset>
             <legend>
                 Datos de contacto
@@ -8,47 +8,16 @@
             <p>
                 (Ser&aacute; entregado al proveedor si apruebas su presupuesto)
             </p>
-            <div class="control-group">
-                <%= f.label :nombre_persona %>
-                <div class="controls">
-                    <i class="icon-white icon-asterisk"></i>
-                    <%= f.text_field :nombre_persona %>
-                </div>
-            </div>
-            <div class="control-group">
-                <%= f.label :telefono_local %>
-                <div class="controls">
-                    <%= f.text_field :telefono_local %>
-                </div>
-                <span class="help-block">Ej.: 02122561515</span>
-            </div>
-    
-            <div class="control-group">
-                <%= f.label :telefono_movil %>
-                <div class="controls">
-                    <i class="icon-white icon-asterisk"></i>
-                    <%= f.text_field :telefono_movil %>
-                </div>
-                <span class="help-block">Ej.: 04162232323</span>
-            </div>
-            <div class="control-group">
-                <%= f.label :telefono_alt %>
-                <div class="controls">
-                    <%= f.text_field :telefono_alt %>
-                </div>
-            </div>
-            <div class="control-group">
-                <%= f.label :sexo %>
-                <div class="controls">
+            <%= f.input :nombre_persona, :placeholder => 'Ej.: Pedro Pérez' %>
+            <%= f.input :telefono_movil, :placeholder => 'Ej.: 04162232323', :required => true %>
+            <%= f.input :telefono_local, :placeholder => 'Ej.: 02122561515' %>
+            <%= f.input :telefono_alt %>
+            <% unless @solicitante.new_record? %>
+                <%= f.input :sexo do %>
                     <%= f.select(:sexo, SEXO, {:prompt => 'Selecciona'}) %>
-                </div>
-            </div>
-            <div class="control-group">
-                <%= f.label :fecha_nacimiento %>
-                <div class="controls">
-                    <%= f.date_select :fecha_nacimiento, :end_year => Time.now.year - 85, :start_year => Time.now.year - 18, :class => 'date_field' %>
-                </div>
-            </div>
+                <% end %>
+                <%= f.input :fecha_nacimiento, :end_year => Time.now.year - 85, :start_year => Time.now.year - 18, :class => 'date_field' %>
+            <% end %>
         </fieldset>
         <fieldset>
             <legend>
@@ -58,46 +27,23 @@
                 (Facilita la publicaci&oacute;n de solicitudes)
             </p>
     
-            <div class="control-group">
-                <%= f.label :pais_id, "País" %>
-                <div class="controls">
-                    <%= select_entidad(:solicitante,:pais_id,nil,"pais") %>
-                </div>
-            </div>
+            <%= f.input :pais, :required => true do %>
+                <%= select_entidad(:solicitante,:pais_id,nil,"pais") %>
+            <% end %>
     
-            <div class="control-group">
-                <%= f.label :estado_id, "Estado" %>
-                <div class="controls">
-                    <%= select_entidad(:solicitante,:estado_id,1,"estado") %><%= image_tag "tentu/generales/cargando.gif", {:class => "cargando", :id => "loadingestado"} %>
-                </div>
-            </div>
+            <%= f.input :estado, :required => true do %>
+                <%= select_entidad(:solicitante,:estado_id,1,"estado") %><%= image_tag "tentu/generales/cargando.gif", {:class => "cargando", :id => "loadingestado"} %>
+            <% end %>
     
-            <div class="control-group">
-                <%= f.label :municipio_id, "Municipio" %>
-                <div class="controls">
-                    <%= select_entidad(:solicitante,:municipio_id,@solicitante.estado_id,"municipio") %><%= image_tag "tentu/generales/cargando.gif", {:class => "cargando", :id => "loadingmunicipio"} %>
-                </div>
-            </div>
-    
-            <div class="control-group">
-                <%= f.label :localidad_id, "Localidad (Urbanización, Zona, Sector)" %>
-                <div class="controls">
-                    <%= text_entidad(:solicitante,:localidad_id,@localidad) %><%= image_tag "tentu/generales/cargando.gif", {:class => "cargando", :id => "loadinglocalidad"} %>
-                </div>
-            </div>
-    
-            <div class="control-group">
-                <%= f.label :direccion %>
-                <div class="controls">
-                    <%= f.text_area :direccion, :validate => true %>
-                </div>
-            </div>
-            <div class="control-group">
-                <%= f.label :punto_referencia %>
-                <div class="controls">
-                    <%= f.text_field :punto_referencia, :validate => true %>
-                </div>
-            </div>
+            <%= f.input :municipio, :required => true do %>
+                <%= select_entidad(:solicitante,:municipio_id,@solicitante.estado_id,"municipio") %><%= image_tag "tentu/generales/cargando.gif", {:class => "cargando", :id => "loadingmunicipio"} %>
+            <% end %>
+            
+            <%= f.input :localidad, :required => true do %>
+                <%= text_entidad(:solicitante,:localidad_id,@localidad) %><%= image_tag "tentu/generales/cargando.gif", {:class => "cargando", :id => "loadinglocalidad"} %>
+            <% end %>
+            <%= f.input :direccion, :as => :text %>
+            <%= f.input :punto_referencia, :placeholder => 'Ej.: Diagonal al puesto de bomberos' %>
         </fieldset>
         <div class="botones">
             <%= f.submit "Guardar perfil", :disable_with => "Enviando...", :class => 'btn btn-warning' %>

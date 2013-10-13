@@ -29,7 +29,8 @@ gem 'rails_admin', "~> 0.4.8"                     # Provides an interface for ma
 # Bibliotecas jQuery y CSS
 gem 'jquery-rails', "~> 2.2.1"
 gem 'simple_form'
-gem 'client_side_validations', "~> 3.2.5"         # Validador del lado del cliente - https://github.com/bcardarella/client_side_validations
+# gem 'client_side_validations', "~> 3.2.5"         # Validador del lado del cliente - https://github.com/bcardarella/client_side_validations
+# gem 'client_side_validations-simple_form'         # SimpleForm plugin for ClientSideValidations - https://github.com/dockyard/client_side_validations-simple_form
 
 # Gems used only for assets and not required
 # in production environments by default.

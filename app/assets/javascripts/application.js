@@ -18,7 +18,6 @@
 //= require twitter/bootstrap/bootstrap-transition
 //= require twitter/bootstrap/bootstrap-typeahead
 //= require comun
-//= require rails.validations
 
 $(document).ready(function () {
   $('a').tooltip({trigger:'hover'});
