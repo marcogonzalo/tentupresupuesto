@@ -42,7 +42,8 @@
                     <%= select_entidad(:proveedor,:pais_id,nil,"pais") %>
             <% end %>
     
-            <%= f.input :estado, :required => true do %><%= select_entidad(:proveedor,:estado_id,1,"estado") %><%= image_tag "tentu/generales/cargando.gif", {:class => "cargando", :id => "loadingestado"} %>
+            <%= f.input :estado, :required => true do %>
+                <%= select_entidad(:proveedor,:estado_id,1,"estado") %><%= image_tag "tentu/generales/cargando.gif", {:class => "cargando", :id => "loadingestado"} %>
             <% end %>
     
             <%= f.input :municipio, :required => true do %>

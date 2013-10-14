@@ -24,42 +24,24 @@
         <h2 class="sobre-color">Presupuesto</h2>
     </div>
     <div class="cuerpo-pendon">
-        <%= form_for @path, :validate => true do |f| %>
+        <%= simple_form_for @path do |f| %>
             <span class="help-block mini-nota">Se indicará al cliente que estos son montos estimados y no definitivos.</span>
             <div class="row">
-                <div class="control-group span3">
-                    <%= f.label :precio_minimo, :class => 'control-label' %>
-                    <div class="controls">
-                        <%= f.text_field :precio_minimo, :class => "text-field" %>
-                    </div>
+                <div class="span3">
+                    <%= f.input :precio_minimo, :as => :string %>
                 </div>
-                <div class="control-group offset1 span3">
-                    <%= f.label :precio_maximo, :class => 'control-label' %>
-                    <div class=" controls">
-                        <%= f.text_field :precio_maximo, :class => "text-field" %>
-                    </div>
+                <div class="offset1 span3">
+                    <%= f.input :precio_maximo, :as => :string %>
                 </div>
             </div>
-            <div class="span10">
-                <div class="control-group">
-                    <label for="presupuesto_con_iva" class="checkbox" %> <%= f.check_box :con_iva, :class => 'check_box' %> El precio incluye <abbr title="Impuesto al Valor Agregado">IVA</abbr> </label>
-                </div>
+            <div class="row">
+                <%= f.input :con_iva, :label => false, :inline_label => 'El precio incluye <abbr title="Impuesto al Valor Agregado">IVA</abbr>'.html_safe %>
             </div>
             <br>
             <div class="clearfix">
-                <div class="control-group">
-                    <%= f.label :tipo_estimacion, :class => 'control-label' %>
-                    <div class="controls">
-                        <%= f.select :tipo_estimacion, tipos_estimacion %>
-                    </div>
-                </div>
+                <%= f.input :tipo_estimacion, :collection => tipos_estimacion, :include_blank => false %>
             </div>
-            <div class="control-group">
-                <%= f.label :resumen, :class => 'control-label' %>
-                <div class="controls">
-                    <%= f.text_area :resumen, :class => 'text_area', 'rel' => 'tooltip', 'title' => 'Procura dar información de tu servicio, las actividades necesarias. Evita sólo decir que debe visitarse el lugar.' %>
-                </div>
-            </div>
+            <%= f.input :resumen, :as => :text, :input_html => { :class => 'text_area', 'rel' => 'tooltip', 'title' => 'Procura dar información de tu servicio, las actividades necesarias. Evita sólo decir que debe visitarse el lugar.' } %>
             <div class="botones">
                 <%= link_to t('.cancel', :default => t("helpers.links.cancel")), trabajo_path(@trabajo), :class => 'btn' %>
                 <%= f.submit 'Enviar presupuesto', :class => 'btn btn-warning' %>

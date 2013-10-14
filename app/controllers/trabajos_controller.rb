@@ -143,10 +143,10 @@ class TrabajosController < ApplicationController
     end
 
     @trabajo = Trabajo.new(params[:trabajo])
-    @cant_proveedores = Categoria.find(@trabajo.categoria_id).proveedores.where(:estado_id => @trabajo.estado_id).size
     respond_to do |format|
       @trabajo.solicitante_id = current_solicitante.perfilable_id
       if @trabajo.save
+        @cant_proveedores = Categoria.find(@trabajo.categoria_id).proveedores.where(:estado_id => @trabajo.estado_id).size
         if @cant_proveedores > 0
           TtpMailer.notificar_solicitud_publicada(@trabajo)
           flash[:success] = "Solicitud publicada los proveedores exitosamente. Hay <b>#{@cant_proveedores} en tu región</b>"

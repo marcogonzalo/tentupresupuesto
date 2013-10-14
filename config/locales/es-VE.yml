@@ -167,7 +167,8 @@ es-VE:
       previous: Anterior
       send: Enviar
     select:
-      prompt: Por favor selecciona
+      prompt: "-- Selecciona --"
+      include_blank: "-- Selecciona --"
     submit:
       create: Crear %{model}
       submit: Enviar %{model}
