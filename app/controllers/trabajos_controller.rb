@@ -1,7 +1,8 @@
 # coding: utf-8
 class TrabajosController < ApplicationController
   require 'genericas'
-  before_filter :authenticated_solicitante, :except => [:show, :index]
+  before_filter :authenticated_solicitante, :except => [:show, :index, :finalizar_trabajo]
+  before_filter :authenticated_proveedor, :only => [:finalizar_trabajo]
   before_filter :find_trabajo, :only => [:show]
   layout :resolve_layout
   add_breadcrumb :index, :trabajos_path
@@ -249,23 +250,23 @@ class TrabajosController < ApplicationController
   
   def finalizar_trabajo
     @trabajo = Trabajo.find(params[:id])
-    es_el_solicitante = @trabajo.solicitante_id == current_solicitante.perfilable_id
+    es_el_proveedor = @trabajo.contratado_id == current_proveedor.perfilable_id
     @trabajo.estatus = 'finalizado'
-    @trabajo.precio_final = params[:trabajo][:precio_final].to_f
+    @trabajo.precio_final = params[:trabajo][:precio_final]
     
     respond_to do |format|
-      if es_el_solicitante
+      if es_el_proveedor
         if @trabajo.save
           TtpMailer.notificar_trabajo_finalizado(@trabajo)
-          flash[:success] = "Has marcado como finalizado el trabajo. Recuerda evaluar al proveedor en cuanto sea posible."
+          flash[:success] = "Has marcado como finalizado el trabajo. Hemos solicitado a tu cliente que te evalúe en cuanto le sea posible."
           format.json { render :json => { trabajo: @trabajo, tipo_mensaje: :success, mensaje: flash[:success]}}
           #redirect_to new_trabajo_evaluacion_path(@trabajo)
         else
-          flash[:error] = "Ocurrió un error. No pudo finalizarse el trabajo."
+          flash[:error] = "Ocurrió un error. No se pudo finalizar el trabajo."
           format.json { render :json => { trabajo: @trabajo.errors, tipo_mensaje: :error, mensaje: flash[:error]} }
         end    
       else
-        flash[:warning] = "Sólo el solicitante puede finalizar."
+        flash[:warning] = "Sólo el proveedor contratado puede finalizar."
         format.json { render :json => {tipo_mensaje: :warning, mensaje: flash[:warning]} }
       end
     end

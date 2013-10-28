@@ -7,14 +7,15 @@
 <p>El presupuesto que presentaste a la solicitud <b><%= @trabajo.proposito %></b> de <%= @categoria %>, fue aprobado. Es momento de que entres en contacto con el cliente.</p>
 <p>Estos son sus datos:</p>
 <p>
-<% unless @solicitante.telefono_local.blank? %>
-<b>Teléfono Local</b>: <%= @solicitante.telefono_local.to_s %><br>
-<% end %>
-<% unless @solicitante.telefono_movil.blank? %>
-<b>Teléfono Móvil</b>: <%= @solicitante.telefono_movil.to_s %><br>
-<% end %>
-<% unless @solicitante.telefono_alt.blank? %>
-<b>Teléfono Alternativo</b>: <%= @solicitante.telefono_alt.to_s %>
-<% end %>
+    <% unless @solicitante.telefono_local.blank? %>
+    <b>Teléfono Local</b>: <%= @solicitante.telefono_local.to_s %><br>
+    <% end %>
+    <% unless @solicitante.telefono_movil.blank? %>
+    <b>Teléfono Móvil</b>: <%= @solicitante.telefono_movil.to_s %><br>
+    <% end %>
+    <% unless @solicitante.telefono_alt.blank? %>
+    <b>Teléfono Alternativo</b>: <%= @solicitante.telefono_alt.to_s %>
+    <% end %>
 </p>
 <p><b>¡Felicitaciones!</b> Recuerda darle la mejor atención posible para que recibas una buena calificación y puedas recibir más contrataciones.</p>
+<p>Al terminar no olvides marcar como finalizado el trabajo para que puedas recibir la evaluación de tu cliente. ¡Éxito!</p>

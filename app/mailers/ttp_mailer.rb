@@ -1,3 +1,4 @@
+# coding: utf-8
 class TtpMailer < ActionMailer::Base
   layout 'email' # use email.(html|text).erb as the layout
   default :from => "TenTuPresupuesto <notificaciones@tentupresupuesto.com.ve>"
@@ -97,11 +98,20 @@ class TtpMailer < ActionMailer::Base
   def trabajo_finalizado(trabajo,usuarios)
     @trabajo    = trabajo.proposito
     @categoria  = trabajo.categoria.nombre
+    @proveedor  = trabajo.contratado.nombre_empresa
     emails = usuarios.map(&:email)
     mail( :to => emails,
-          :subject => "Trabajo finalizado" )
+          :subject => "Trabajo finalizado, ¡hora de evaluar al proveedor!" )
   end
   
+  def evaluacion_recibida(trabajo, usuarios)
+    @trabajo    = trabajo.proposito
+    @categoria  = trabajo.categoria.nombre
+    @proveedor  = trabajo.contratado.nombre_empresa
+    emails = usuarios.map(&:email)
+    mail( :to => emails,
+          :subject => "¡Recibidste una evaluación!" )
+  end
   
   
   ###################
@@ -176,6 +186,12 @@ class TtpMailer < ActionMailer::Base
   end
   
   def notificar_trabajo_finalizado(trabajo)
+    # Notificar al proveedor
+    usuarios      = Usuario.where(:perfilable_type => "Solicitante", :perfilable_id => trabajo.solicitante_id)
+    TtpMailer.trabajo_finalizado(trabajo,usuarios).deliver
+  end
+  
+  def notificar_evaluacion_recibida(trabajo)
     # Notificar al proveedor
     usuarios      = Usuario.where(:perfilable_type => "Proveedor", :perfilable_id => trabajo.contratado_id)
     TtpMailer.trabajo_finalizado(trabajo,usuarios).deliver
