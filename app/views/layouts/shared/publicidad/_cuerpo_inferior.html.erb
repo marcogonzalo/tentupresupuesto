@@ -3,20 +3,32 @@
                                 google_ad_client = "ca-pub-0382949075530690";
                                 width = document.documentElement.clientWidth;
                                 if (width > 760) {
-                                    /* TTP - Cuerpo 728x90 */
+                                    /* TTP - Cuerpo 728x90 
                                     google_ad_slot = "9310682049";
                                     google_ad_width = 728;
-                                    google_ad_height = 90;
+                                    google_ad_height = 90;*/
+                                    document.write("<!-- TTP_Cuerpo_inferior_728x90 -->");
+                                    document.write("<div id='div-gpt-ad-1382933763084-0' style='width:728px; height:90px;'>");
+                                    googletag.cmd.push(function() { googletag.display('div-gpt-ad-1382933763084-0'); });
+                                    document.write("</div>");
                                 } else if(width > 468) {
-                                    /* TTP - Cuerpo inferior (tablet) 468x60 */
+                                    /* TTP - Cuerpo inferior (tablet) 468x60 
                                     google_ad_slot = "3264148440";
                                     google_ad_width = 468;
-                                    google_ad_height = 60;
+                                    google_ad_height = 60; */
+                                    document.write("<!-- TTP_Cuerpo_inferior_tablet_468x60 -->");
+                                    document.write("<div id='div-gpt-ad-1382934119484-0' style='width:468px; height:60px;'>");
+                                    googletag.cmd.push(function() { googletag.display('div-gpt-ad-1382934119484-0'); });
+                                    document.write("</div>");
                                 } else {
-                                    /* TTP - Cuerpo inferior (móvil) 320x50 */
+                                    /* TTP - Cuerpo inferior (móvil) 320x50 
                                     google_ad_slot = "4740881642";
                                     google_ad_width = 320;
-                                    google_ad_height = 50;
+                                    google_ad_height = 50;*/
+                                    document.write("<!-- TTP_Cuerpo_inferior_movil_320x50 -->");
+                                    document.write("<div id='div-gpt-ad-1382934315357-0' style='width:320px; height:50px;'>");
+                                    googletag.cmd.push(function() { googletag.display('div-gpt-ad-1382934315357-0'); });
+                                    document.write("</div>");
                                 }
                                 //-->
                             </script>
