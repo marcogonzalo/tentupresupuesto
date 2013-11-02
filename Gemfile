@@ -55,7 +55,7 @@ gem 'twitter-bootstrap-rails', "~> 2.2.6"
 
 # Use unicorn as the app server
 # gem 'unicorn'
-
+#gem 'newrelic_rpm'                                # New Relic
 gem 'sitemap_generator'                           # Generador de sitemaps - https://github.com/kjvarga/sitemap_generator
 
 # Integracion con servicios

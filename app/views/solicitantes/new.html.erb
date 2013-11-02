@@ -1,14 +1,14 @@
+<%- model_class = Solicitante -%>
 <% content_for :foot do %>
   <%= javascript_include_tag 'ubicaciones_geograficas' %>
   <%= javascript_include_tag 'solicitantes' %>
   <script type="text/javascript">var _editando = false;</script>
 <% end %>
-<%- model_class = Solicitante -%>
 <div class="page-header">
   <h1><%=t '.title', :default => t('helpers.titles.new', :model => model_class.model_name.human,
                                  :default => "Perfil de #{model_class.model_name.human}") %></h1>
 </div
-<% if current_user.confirmed_at.nil? %>
+<% if current_solicitante.confirmed_at.nil? %>
 <div class="alert alert-info alert-block">
     <p>
         <b>¡Verifica tu cuenta de correo!</b><br> 
