@@ -258,7 +258,7 @@ class TrabajosController < ApplicationController
       if es_el_proveedor
         if @trabajo.save
           TtpMailer.notificar_trabajo_finalizado(@trabajo)
-          flash[:success] = "Has marcado como finalizado el trabajo. Hemos solicitado a tu cliente que te evalúe en cuanto le sea posible."
+          flash[:success] = "¡Finalizado el trabajo!. Hemos solicitado a tu cliente que te evalúe en cuanto le sea posible."
           format.json { render :json => { trabajo: @trabajo, tipo_mensaje: :success, mensaje: flash[:success]}}
           #redirect_to new_trabajo_evaluacion_path(@trabajo)
         else
