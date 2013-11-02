@@ -13,12 +13,13 @@ jQuery(function($) {
                 
                 //$("#finalizar-trabajo").removeAttr('data-method')
                 //$("#finalizar-trabajo").removeAttr('data-remote')
-                $("#finalizar-trabajo").attr('id', 'evaluar-trabajo')
+                /*$("#finalizar-trabajo").attr('id', 'evaluar-trabajo')
                 $("#evaluar-trabajo").attr('href', '/trabajos/' + r.trabajo.slug + '/evaluar')
                 $("#evaluar-trabajo").text('Evaluar trabajo')
                 $("#evaluar-trabajo").removeClass("btn-success")
-                $("#evaluar-trabajo").addClass("btn-warning")
+                $("#evaluar-trabajo").addClass("btn-warning")*/
                 //$("#evaluar-trabajo").removeClass("disabled")
+                $("#finalizacion-trabajo").fadeOut();
                 $("#modal-finalizado").modal('hide')
             } 
             mostrar_mensaje("#mensaje-ttp", "alert-success", r.mensaje)

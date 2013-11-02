@@ -31,7 +31,7 @@
                 <i class="icon-white icon-certificate"></i> Usuario
             </li>
             <li>
-                <%= link_to "Datos de cuenta", edit_proveedor_registration_path %>
+                <%= link_to "Cambiar clave", edit_proveedor_registration_path %>
             </li>
             <li>
                 <%= link_to "Ver perfil público", perfil_proveedor_path(current_proveedor.perfil) %>
@@ -138,24 +138,29 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>Trabajo</th>
-                    <th>Precio ofrecido</th>
+                    <th>Trabajo y oferta</th>
                     <th>Mensajes</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
                 <% @trabajos_asignados.each do |p|
                 t = p.trabajo
                 m = p.mensajes
+                @trabajo = t
                 %>
                 <tr>
-                    <td> <%= t.proposito %>
-                    <br>
-                    <%= link_to "Ver solicitud", trabajo_path(t) %> </td>
-                    <td style="vertical-align: middle;"><%= link_to((number_to_currency(p.precio_minimo)+" a "+number_to_currency(p.precio_maximo)), p) %></td>
-                    <td> <%= link_to(t('extras.mensajes', :count =>p.cant_mensajes), presupuesto_path(p, :anchor => "mensajes")) %>
-                    <br>
-                    (<%= m.where(:usuario => :solicitante, :visto => false).size %> sin leer) </td>
+                    <td>
+                        <%= link_to t.proposito, trabajo_path(t) %><br>
+                        Presupuesto: <%= link_to((number_to_currency(p.precio_minimo)+" a "+number_to_currency(p.precio_maximo)), p) %>
+                    </td>
+                    <td style="vertical-align: middle;">
+                        <%= link_to(t('extras.mensajes', :count =>p.cant_mensajes), presupuesto_path(p, :anchor => "mensajes")) %><br>
+                        (<%= m.where(:usuario => :solicitante, :visto => false).size %> sin leer)
+                    </td>
+                    <td style="vertical-align: middle; text-align:right;"> 
+                        <%= link_to("Finalizar", trabajo_path(t), :id => 'finalizar-trabajo', :class => 'btn btn-success', "data-toggle"=>"modal", "data-backdrop"=>"static") if t.ejecutando? %>
+                    </td>
                 </tr>
                 <% end %>
             </tbody>

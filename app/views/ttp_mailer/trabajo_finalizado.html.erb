@@ -1,8 +1,12 @@
 <%
   content_for :title do
-    "¡Has finalizado un trabajo!"
+    "¡Ha finalizado el trabajo que solicitaste!"
   end
 %>
 
-<p>El trabajo de <%= @categoria %> <b><%= @trabajo %></b> fue marcado como finalizado por el solicitante.</p>
-<p>Ahora queda esperar la calificación que dé el solicitante por el servicio que prestaste.<br><b>¡Felicitaciones!</b></p>
+<p><i><%= @proveedor %></i> ha marcado como finalizado el trabajo de <%= @categoria %> <b><%= @trabajo %></b> que solicitaste.</p>
+<p>
+    Ahora es necesario que ingreses a <%= link_to "TenTupresupuesto", root_url() %> y evalúes al proveedor.<br>
+    <b>¡Gracias por contribuir con la comunidad de TenTuPresupuesto!</b><br>
+    Te esperamos de vuelta pronto.
+</p>

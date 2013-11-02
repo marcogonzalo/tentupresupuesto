@@ -16,7 +16,6 @@
 //= require twitter/bootstrap/bootstrap-modal
 //= require twitter/bootstrap/bootstrap-tooltip
 //= require comun
-//= require rails.validations
 
 $(document).ready(function () {
   $('a').tooltip({trigger:'focus'});

@@ -1,0 +1,36 @@
+es-VE:
+  simple_form:
+    "yes": 'Sí'
+    "no": 'No'
+    required:
+      text: 'requerido'
+      mark: '*'
+      # You can uncomment the line below if you need to overwrite the whole required html.
+      # When using html, text and mark won't be used.
+      # html: '<abbr title="required">*</abbr>'
+    include_blanks:
+      selecciona: "-- Selecciona --"
+    error_notification:
+      default_message: "Por favor, revisa los errores debajo"
+    # Labels and hints examples
+    labels:
+    #   defaults:
+    #     password: 'Password'
+    #   user:
+    #     new:
+    #       email: 'E-mail to sign in.'
+    #     edit:
+    #       email: 'E-mail.'
+        trabajo:
+          intencion: "¿Cuál es tu intención con esta publicación?"
+          categoria_id: "¿Qué tipo de trabajo es?"
+          proposito: "¿Qué necesitas?"
+          descripcion: "Describe detalladamente tu solicitud"
+    hints:
+    #   defaults:
+    #     username: 'User name to sign in.'
+    #     password: 'No special characters, please.'
+        trabajo:
+          descripcion: "Procura dar la mayor información que te sea posible. <br> Mientras más detalles des (material, medidas, actividades a realizar) más preciso será el presupuesto y más rápido podrás contratar."
+          direccion: "Esta información no será pública, sólo se entregará al proveedor contratado."
+

@@ -1,148 +1,66 @@
 <div class="formulario-general offset1 span9">
-    <%= form_for(@proveedor, :validate => true) do |f| %>
-    <span class="help-block"><i class="icon-white icon-asterisk"></i> Indica campo obligatorio</span>
-    <fieldset>
-        <legend>
-            Datos de la empresa
-        </legend>
-
-        <div class="control-group">
-            <%= f.label :nombre_empresa %> <span class="informacion-campo">(También puedes colocar el nombre que sueles usar o el servicio ofrecido)</span>
-            <div class="controls">
-                <i class="icon-white icon-asterisk"></i>
-                <%= f.text_field :nombre_empresa, 'data-toggle' => 'tooltip', 'data-placement'=>'right', 'title' => 'Ej: Obras TenTuPresupuesto; Jorge Pérez, limpieza y fumigación; PintaRapido' %>
-            </div>
-        </div>
-
-        <div class="control-group">
-            <%= f.label :tipo_proveedor %>
-            <div class="controls">
-                <i class="icon-white icon-asterisk"></i>
+    <%= simple_form_for @proveedor do |f| %>
+        <span class="help-block">* Indica campo obligatorio</span>
+        <fieldset>
+            <legend>
+                Datos de la empresa
+            </legend>
+            
+            <%= f.input :nombre_empresa, 'data-toggle' => 'tooltip', 'data-placement'=>'right', 'title' => 'Ej: Obras TenTuPresupuesto; Jorge Pérez, limpieza y fumigación; PintaRapido', :hint => '(Puede ser el nombre que sueles usar o el servicio ofrecido)', :required => true %>
+            
+            <%= f.input :tipo_proveedor, :required => true do %>
                 <%= f.select :tipo_proveedor, tipos_proveedor %>
-            </div>
-        </div>
-
-        <div class="control-group">
-            <%= f.label :rif %> <span class="informacion-campo">Ej.: X-########-# (Si no tiene, dejar en blanco)</span>
-            <div class="controls">
-                <%= f.text_field :rif, 'rel' => 'tooltip', 'data-placement'=>'right', 'title' => 'Tener RIF genera una imagen más profesional ante la persona solicitante' %>
-            </div>
-        </div>
-
-        <div class="control-group">
-            <%= f.label :descripcion %>
-            <div class="controls">
-                <i class="icon-white icon-asterisk"></i>
-                <%= f.text_area :descripcion, 'rel' => 'tooltip', 'data-placement'=>'right', 'title' => 'Colocar la descripión de tus servicios, tu experiencia y trayectoria ayuda a mejorar tu impresión.' %>
-            </div>
-        </div>
-
-    </fieldset>
-    <fieldset>
-        <legend>
-            Datos de contacto
-        </legend>
-        <p>
-            (Ser&aacute; entregado al cliente al aceptar el presupuesto)
-        </p>
-        <div class="control-group">
-            <%= f.label :nombre_persona %>
-            <div class="controls">
-                <i class="icon-white icon-asterisk"></i>
-                <%= f.text_field :nombre_persona %>
-            </div>
-        </div>
-
-        <div class="control-group">
-            <%= f.label :telefono_local %>
-            <div class="controls">
-                <%= f.text_field :telefono_local %>
-            </div>
-            <span class="help-block">Ej.: 02122561515</span>
-        </div>
-
-        <div class="control-group">
-            <%= f.label :telefono_movil %>
-            <div class="controls">
-                <i class="icon-white icon-asterisk"></i>
-                <%= f.text_field :telefono_movil %>
-            </div>
-            <span class="help-block">Ej.: 04162232323</span>
-        </div>
-
-        <div class="control-group">
-            <%= f.label :telefono_alt %>
-            <div class="controls">
-                <%= f.text_field :telefono_alt %>
-            </div>
-        </div>
-        <div class="control-group">
-            <%= f.label :sexo %>
-            <div class="controls">
-                <%= f.select(:sexo, SEXO, {:prompt => 'Selecciona'}) %>
-            </div>
-        </div>
-        <div class="control-group">
-            <%= f.label :fecha_nacimiento %>
-            <div class="controls">
-                <%= f.date_select :fecha_nacimiento, :end_year => Time.now.year - 85, :start_year => Time.now.year - 18, :class => 'date_field' %>
-            </div>
-        </div>
-    </fieldset>
-    <fieldset>
-        <legend>
-            Datos de ubicaci&oacute;n
-        </legend>
-        <div class="control-group">
-            <%= f.label :pais_id, "País" %>
-            <div class="controls">
-                <%= select_entidad(:proveedor,:pais_id,nil,"pais") %>
-            </div>
-        </div>
-
-        <div class="control-group">
-            <%= f.label :estado_id, "Estado" %>
-            <div class="controls">
-                <i class="icon-white icon-asterisk"></i>
+            <% end %>
+            <%= f.input :rif, :placeholder => 'Ej.: J-12345678-9', 'rel' => 'tooltip', 'data-placement'=>'right', 'title' => 'Tener RIF genera una imagen más profesional ante la persona solicitante' %>
+    
+            <%= f.input :descripcion, 'rel' => 'tooltip', 'data-placement'=>'right', 'title' => 'Colocar la descripión de tus servicios, tu experiencia y trayectoria ayuda a mejorar tu impresión.', :required => true %>
+    
+        </fieldset>
+        <fieldset>
+            <legend>
+                Datos de contacto
+            </legend>
+            <p>
+                (Ser&aacute; entregado al cliente al aceptar el presupuesto)
+            </p>
+            <%= f.input :nombre_persona, :placeholder => 'Ej.: Pedro Pérez' %>
+            <%= f.input :telefono_movil, :placeholder => 'Ej.: 04162232323', :required => true %>
+            <%= f.input :telefono_local, :placeholder => 'Ej.: 02122561515' %>
+            <%= f.input :telefono_alt %>
+            <% unless @proveedor.new_record? %>
+                <%= f.input :sexo do %>
+                    <%= f.select(:sexo, SEXO, {:prompt => 'Selecciona'}) %>
+                <% end %>
+                <%= f.input :fecha_nacimiento, :end_year => Time.now.year - 85, :start_year => Time.now.year - 18, :class => 'date_field' %>
+            <% end %>
+        </fieldset>
+        <fieldset>
+            <legend>
+                Datos de ubicaci&oacute;n
+            </legend>
+            <%= f.input :pais, :required => true do %>
+                    <%= select_entidad(:proveedor,:pais_id,nil,"pais") %>
+            <% end %>
+    
+            <%= f.input :estado, :required => true do %>
                 <%= select_entidad(:proveedor,:estado_id,1,"estado") %><%= image_tag "tentu/generales/cargando.gif", {:class => "cargando", :id => "loadingestado"} %>
-            </div>
-        </div>
-
-        <div class="control-group">
-            <%= f.label :municipio_id, "Municipio" %>
-            <div class="controls">
-                <i class="icon-white icon-asterisk"></i>
+            <% end %>
+    
+            <%= f.input :municipio, :required => true do %>
                 <%= select_entidad(:proveedor,:municipio_id,@proveedor.estado_id,"municipio") %><%= image_tag "tentu/generales/cargando.gif", {:class => "cargando", :id => "loadingmunicipio"} %>
-            </div>
+            <% end %>
+            
+            <%= f.input :localidad, :required => true do %>
+                    <%= text_entidad(:proveedor,:localidad_id,@localidad) %><%= image_tag "tentu/generales/cargando.gif", {:class => "cargando", :id => "loadinglocalidad"} %>
+            <% end %>
+            <%= f.input :direccion, :as => :text %>
+            <%= f.input :punto_referencia, :placeholder => 'Ej.: Diagonal al puesto de bomberos' %>
+            
+            <span class="mini-nota">Desde tu panel podrás específicar en qué regiones prestas servicio</span>
+        </fieldset>
+        <div class="botones">
+            <%= f.submit "Guardar perfil", :class => 'btn btn-warning' %>
         </div>
-
-        <div class="control-group">
-            <%= f.label :localidad_id, "Localidad (Urbanización, Zona, Sector)" %>
-            <div class="controls">
-                <i class="icon-white icon-asterisk"></i>
-                <%= text_entidad(:proveedor,:localidad_id,@localidad) %><%= image_tag "tentu/generales/cargando.gif", {:class => "cargando", :id => "loadinglocalidad"} %>
-            </div>
-        </div>
-
-        <div class="control-group">
-            <%= f.label :direccion %>
-            <div class="controls">
-                <%= f.text_area :direccion %>
-                <span class="help-block">(En caso de que tengas oficina o local)</span>
-            </div>
-        </div>
-        <div class="control-group">
-            <%= f.label :punto_referencia %>
-            <div class="controls">
-                <%= f.text_field :punto_referencia %>
-            </div>
-        </div>
-        
-        <span class="mini-nota">Desde tu panel podrás específicar en qué regiones prestas servicio</span>
-    </fieldset>
-    <div class="botones">
-        <%= f.submit "Guardar perfil", :class => 'btn btn-warning' %>
-    </div>
     <% end %>
 </div>
 <div id="caracteristicas" class="offset1 span10">

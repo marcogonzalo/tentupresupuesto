@@ -12,12 +12,10 @@
 
 <p>Un correo te ha sido enviado con instrucciones para desbloquear la cuenta. Por favor, sigue las instrucciones que all&iacute; te indicamos.</p>
 <p>Si no recibiste el mensaje ingresa la direcci&oacute;n de correo electr&oacute;nico con la que te registraste y lo enviaremos de nuevo.</p>
-<%= form_for(resource, :as => resource_name, :url => unlock_path(resource_name), :html => { :method => :post }) do |f| %>
-  <div class="control-group"><%= f.label :email %>
-    <div class="controls"><%= f.email_field :email %></div>
-  </div>
+<%= simple_form_for(resource, :as => resource_name, :url => unlock_path(resource_name), :html => { :method => :post }) do |f| %>
+  <%= f.input :email %>
 
-  <div class="form-actions">
+  <div class="form-actions botones">
     <p><%= f.submit "Enviar instrucciones", :class => 'btn btn-primary' %></p>
     <%= render "devise/shared/links" %>
   </div>

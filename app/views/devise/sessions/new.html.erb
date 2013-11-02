@@ -5,53 +5,42 @@ end
 
 if resource.errors.any? %>
 <div class="alert alert-error">
-	Algo pas&oacute;. Revisa el formulario para verificar errores.
+    Algo pas&oacute;. Revisa el formulario para verificar errores.
 </div>
 <% end %>
 
 <h1>Iniciar sesi&oacute;n</h1>
 <div id="iniciar-sesion" class="formulario-pendon offset1 span12">
-	<div class="titulo-pendon">
-		<h2 class="sobre-color">Como <%= resource_name %></h2>
-	</div>
-	<div class="cuerpo-pendon">
-		<%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :validate => true) do |f| %>
-		<div class="control-group">
-			<%= f.label :email %>
-			<div class="controls">
-				<%= f.email_field :email, :autofocus => true %>
-			</div>
-		</div>
+    <div class="titulo-pendon">
+        <h2 class="sobre-color">Como <%= resource_name %></h2>
+    </div>
+    <div class="cuerpo-pendon">
+        <%= simple_form_for(resource, :as => resource_name, :url => session_path(resource_name), :validate => true) do |f| %>
+            <%= f.input :email, :autofocus => true %>
+            <%= f.input :password %>
 
-		<div class="control-group">
-			<%= f.label :password %>
-			<div class="controls">
-				<%= f.password_field :password %>
-			</div>
-		</div>
-
-		<% if devise_mapping.rememberable? -%>
-		<label for="<%= resource_name %>_remember_me" class="checkbox"> <%= f.check_box :remember_me %> Recordarme </label>
-		<% end -%>
-
-		<div class="botones">
-			<%= f.submit "Iniciar sesión", :class => 'btn btn-warning' %>
-		</div>
-		<% end %>
-	</div>
+            <% if devise_mapping.rememberable? -%>
+            <label for="<%= resource_name %>_remember_me" class="checkbox"> <%= f.check_box :remember_me %> Recordarme </label>
+            <% end -%>
+    
+            <div class="botones">
+                <%= f.submit "Iniciar sesión", :class => 'btn btn-warning' %>
+            </div>
+        <% end %>
+    </div>
 </div>
 
 <div id="caracteristicas" class="offset1 span8 registro">
-	<%- if controller_name == 'sessions'
-	# Enlace para iniciar sesion con otro tipo de usuario
-	mensaje = "Iniciar sesión como "
-	mensaje += resource_name.to_s == 'solicitante' ? "proveedor" : "solicitante"
-	path = resource_name.to_s == 'solicitante' ? new_proveedor_session_path : new_solicitante_session_path
-	%>
-	<p>
-		<%= link_to mensaje, path, :class => "cambio-tipo-usuario btn btn-success btn-large btn-block" %>
-	</p>
-	<% end -%>
-	<hr>
-	<%= render "devise/shared/links" %>
+    <%- if controller_name == 'sessions'
+    # Enlace para iniciar sesion con otro tipo de usuario
+    mensaje = "Iniciar sesión como "
+    mensaje += resource_name.to_s == 'solicitante' ? "proveedor" : "solicitante"
+    path = resource_name.to_s == 'solicitante' ? new_proveedor_session_path : new_solicitante_session_path
+    %>
+    <p>
+        <%= link_to mensaje, path, :class => "cambio-tipo-usuario btn btn-success btn-large btn-block" %>
+    </p>
+    <% end -%>
+    <hr>
+    <%= render "devise/shared/links" %>
 </div>
