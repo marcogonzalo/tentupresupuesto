@@ -5,7 +5,7 @@ class GeneralController < ApplicationController
   def home
     @categorias = Categoria.all
     cuenta = rand(Proveedor.count-3)
-    @proveedores = Proveedor.limit(4).offset(cuenta)
+    @proveedores = Proveedor.where("avatar IS NOT NULL").limit(4).offset(cuenta)
   end
   
   def consejos_solicitante
