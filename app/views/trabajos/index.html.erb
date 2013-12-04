@@ -90,7 +90,7 @@
                 <time datetime="<%= l trabajo.created_at, :format => :html5 %>" pubdate="pubdate">
                     <%= l trabajo.created_at, :format => :abrev %>
                 </time> |
-                En <%= link_to trabajo.localidad.nombre, listar_trabajos_path('ubicacion', trabajo.localidad.friendly_id) %>, Municipio <%= link_to trabajo.municipio.nombre, listar_trabajos_path('ubicacion', trabajo.municipio.friendly_id) %>, Estado <%= link_to trabajo.estado.nombre, listar_trabajos_path('ubicacion', trabajo.estado.friendly_id) %>.
+                En <%= link_to trabajo.localidad.nombre, listar_trabajos_path('ubicacion', trabajo.localidad.friendly_id) if trabajo.localidad %>, Municipio <%= link_to trabajo.municipio.nombre, listar_trabajos_path('ubicacion', trabajo.municipio.friendly_id) %>, Estado <%= link_to trabajo.estado.nombre, listar_trabajos_path('ubicacion', trabajo.estado.friendly_id) %>.
             </div>
         </section>
         <p class="descripcion">
