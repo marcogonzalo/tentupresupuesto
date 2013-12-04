@@ -32,13 +32,16 @@ class Trabajo < ActiveRecord::Base
   }
   
   validates :proposito, 
-            :length => { :in => 10..100 }, 
+            :length => { :in => 10..100 },
             :presence => true
   validates :descripcion,
             :length => { :in => 25..500 }, 
             :presence => true
   validates :estatus,
             :inclusion => { :in => ESTATUS }
+  validates :intencion,
+            :inclusion => { :in => INTENCION }, 
+            :presence => true
   validates :pais_id, 
             :presence => true
 #            :numericality =>  {
