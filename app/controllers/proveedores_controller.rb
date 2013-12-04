@@ -46,17 +46,20 @@ class ProveedoresController < ApplicationController
         end
       end
     else
-      proveedores = Proveedor.order('created_at DESC')
+      proveedores = Proveedor.joins(:categorias).order('created_at DESC').uniq
     end
     @cant_resultados = proveedores.size
     @proveedores = proveedores.includes(:localidad,:municipio,:estado).order('created_at DESC').page(params[:p])
     @titulo += " ("+@cant_resultados.to_s+")"
     add_breadcrumb :index, :proveedores_path
-    @categorias = Categoria.con_proveedores
+    @categorias = Categoria.joins(:proveedores).order('nombre ASC').uniq
     @categorias_meta = ""
     for c in @categorias
       @categorias_meta += c.nombre+", "
     end
+    
+    @ubicaciones = UbicacionGeografica.where(:tipo => 'estado', :entidad_id => 1)
+    
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @proveedores }

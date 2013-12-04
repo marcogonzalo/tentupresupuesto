@@ -63,11 +63,14 @@ class TrabajosController < ApplicationController
     @cant_resultados = trabajos.size
     @trabajos = trabajos.includes(:categoria,:localidad,:municipio,:estado).order('created_at DESC').page(params[:p])
     @titulo += " ("+@cant_resultados.to_s+")"
-    @categorias = Categoria.con_solicitudes
+    @categorias = Categoria.joins(:trabajos).order('nombre ASC').uniq
     # @categorias_meta = ""
     # for c in @categorias
     #   @categorias_meta += c.nombre+", "
     # end
+    
+    @ubicaciones = UbicacionGeografica.where(:tipo => 'estado', :entidad_id => 1)
+    
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @trabajos }

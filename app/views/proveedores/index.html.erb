@@ -39,7 +39,7 @@
                 <li>
                     <b><%= link_to "Todas", proveedores_path %></b>
                 </li>
-                <% for ug in UbicacionGeografica.where(:tipo => 'estado', :entidad_id => 1) %>
+                <% for ug in @ubicaciones %>
                 <li>
                     <%= link_to ug.nombre, listar_proveedores_path('ubicacion', ug.friendly_id) %>
                 </li>
