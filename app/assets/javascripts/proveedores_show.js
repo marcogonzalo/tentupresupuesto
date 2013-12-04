@@ -9,19 +9,19 @@ $('#perfil-tabs a').click(function(e) {
             $('#perfil ' + href).show();
             $('#perfil #trabajos').hide();
             $('#perfil #evaluaciones').hide();
-            $('#titulo-pestana h3').text("Información del proveedor")
+            $('#titulo-pestana h3').text("Información del proveedor");
             break;
         case '#trabajos':
             $('#perfil ' + href).show();
             $('#perfil #informacion').hide();
             $('#perfil #evaluaciones').hide();
-            $('#titulo-pestana h3').text("Imágenes de trabajos")
+            $('#titulo-pestana h3').text("Imágenes de trabajos");
             break;
         case '#evaluaciones':
             $('#perfil ' + href).show();
             $('#perfil #informacion').hide();
             $('#perfil #trabajos').hide();
-            $('#titulo-pestana h3').text("Valoraciones")
+            $('#titulo-pestana h3').text("Valoraciones");
             break;
     }
 }); 
