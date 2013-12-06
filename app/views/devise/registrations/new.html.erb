@@ -3,6 +3,9 @@ content_for :title do
     "Registro de #{resource_name}"
 end
 
+content_for :foot do
+end
+
 if resource.errors.any? 
 %>
 <div class="alert alert-error">

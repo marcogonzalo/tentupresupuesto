@@ -28,7 +28,7 @@ jQuery(function($) {
     
     
     $(document).on('click', '.alert .close', function() {
-        $('.alert').fadeOut()
+        $('.alert').fadeOut();
     })
 });
 
