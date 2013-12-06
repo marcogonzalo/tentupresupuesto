@@ -232,7 +232,7 @@ class ProveedoresController < ApplicationController
     
     usuario.update_attribute('perfilable_type','Solicitante')
     Devise.sign_out_all_scopes
-    redirect_to new_solicitante_path
+    redirect_to new_session_path('solicitante')
     return
   end
 
