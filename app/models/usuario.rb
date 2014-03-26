@@ -12,7 +12,7 @@ class Usuario < ActiveRecord::Base
 
   CAMPOS = ["email"]
   
-  before_save :correct_perfilable_type
+#  before_save :correct_perfilable_type
 
   belongs_to :perfilable, :polymorphic => true
   
@@ -125,8 +125,8 @@ class Usuario < ActiveRecord::Base
 
   def perfil
     unless self.perfilable_id.nil? or self.perfilable_id <= 0
-		p = self.perfilable_type.classify.constantize.find(self.perfilable_id)
-		return p
+      p = self.perfilable_type.classify.constantize.find(self.perfilable_id)
+      return p
     end
   end
   
@@ -137,6 +137,9 @@ class Usuario < ActiveRecord::Base
     return usu
   end
   
+  def tipo?(tipo)
+    (tipo.downcase).include? self.perfilable_type.downcase
+  end
   # Sobreescritura de acciones Devise
 #  def password_required?
 #    super if confirmed?
@@ -149,8 +152,8 @@ class Usuario < ActiveRecord::Base
 #    password == password_confirmation && !password.blank?
 #  end
   
-  private
-  def correct_perfilable_type
-    self.perfilable_type = self.perfilable_type.capitalize unless self.perfilable_type.nil?
-  end
+#  private
+#  def correct_perfilable_type
+#    self.perfilable_type = self.perfilable_type.capitalize unless self.perfilable_type.nil?
+#  end
 end

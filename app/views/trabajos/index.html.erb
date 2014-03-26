@@ -19,7 +19,7 @@
 <h1 class="page-header">Solicitudes para trabajos</h1>
 <aside class="span6">
     <div id="filtros" class="well">
-        <% unless proveedor_signed_in? %>
+        <% unless usuario_signed_in? and current_usuario.tipo?("proveedor")%>
         <%= link_to "Nueva solicitud", new_trabajo_path, :class => 'btn btn-warning btn-block con-myriad-bold'%>
         <br>
         <% end %>

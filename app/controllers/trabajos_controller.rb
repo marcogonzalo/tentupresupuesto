@@ -1,8 +1,8 @@
 # coding: utf-8
 class TrabajosController < ApplicationController
   require 'genericas'
-  before_filter :authenticated_solicitante, :except => [:show, :index, :finalizar_trabajo]
-  before_filter :authenticated_proveedor, :only => [:finalizar_trabajo]
+  before_filter :authenticate_solicitante!, :except => [:show, :index, :finalizar_trabajo]
+  before_filter :authenticate_proveedor!, :only => [:finalizar_trabajo]
   before_filter :find_trabajo, :only => [:show]
   layout :resolve_layout
   add_breadcrumb :index, :trabajos_path
@@ -20,9 +20,9 @@ class TrabajosController < ApplicationController
       if FiltroListaTrabajos::FILTROS.include?(params[:filtro]) and not params[:valor].nil?
         case params[:filtro]
         when "categoria"
-          if proveedor_signed_in? and params[:valor].eql?("mis-categorias")
+          if usuario_signed_in? and current_usuario.tipo?("proveedor") and params[:valor].eql?("mis-categorias")
             
-            categorias = current_proveedor.perfilable.categorias
+            categorias = current_usuario.perfilable.categorias
             trabajos = Trabajo.where(:categoria_id => categorias)
             @cant_resultados = trabajos.size
             @titulo = "Mis categorías"
@@ -78,10 +78,10 @@ class TrabajosController < ApplicationController
   # GET /trabajos/1.json
   def show
     @trabajo = Trabajo.includes({:presupuestos => :proveedor},:contratado).find(params[:id])
-    @es_el_solicitante = solicitante_signed_in? and current_solicitante.perfilable_id.eql?(@trabajo.solicitante_id)
+    @es_el_solicitante = (usuario_signed_in? and current_usuario.tipo?("solicitante")) and current_usuario.perfilable_id.eql?(@trabajo.solicitante_id)
     
-    if @trabajo.ejecutando? and proveedor_signed_in?
-      @es_el_proveedor = current_proveedor.perfilable_id.eql?(@trabajo.contratado_id)
+    if @trabajo.ejecutando? and (usuario_signed_in? and current_usuario.tipo?("proveedor")) 
+      @es_el_proveedor = current_usuario.perfilable_id.eql?(@trabajo.contratado_id)
     end
     
     Trabajo.increment_counter(:visitas,@trabajo.id)
@@ -95,7 +95,7 @@ class TrabajosController < ApplicationController
   # GET /trabajos/new
   # GET /trabajos/new.json
   def new
-    perfil = current_solicitante.perfil
+    perfil = current_usuario.perfil
     
     @trabajo = Trabajo.new
     
@@ -145,7 +145,7 @@ class TrabajosController < ApplicationController
 
     @trabajo = Trabajo.new(params[:trabajo])
     respond_to do |format|
-      @trabajo.solicitante_id = current_solicitante.perfilable_id
+      @trabajo.solicitante_id = current_usuario.perfilable_id
       if @trabajo.save
         @cant_proveedores = Categoria.find(@trabajo.categoria_id).proveedores.where(:estado_id => @trabajo.estado_id).size
         if @cant_proveedores > 0
@@ -176,15 +176,23 @@ class TrabajosController < ApplicationController
       params[:trabajo][:localidad_id] = UbicacionGeografica.buscar_o_crear_id_de_localidad(@localidad,params[:trabajo][:municipio_id])
     end
 
+    es_el_solicitante = (admin_signed_in? or (@trabajo.solicitante_id == current_usuario.perfilable_id))
+    
     respond_to do |format|
-      if @trabajo.update_attributes(params[:trabajo])
-        flash[:success] = "Solicitud actualizada."
-        format.html { redirect_to @trabajo }
-        format.json { head :no_content }
+      if es_el_solicitante
+        if @trabajo.update_attributes(params[:trabajo])
+          flash[:success] = "Solicitud actualizada."
+          format.html { redirect_to @trabajo }
+          format.json { head :no_content }
+        else
+          flash[:error] = "Ocurrió un error. Revisa el formulario."
+          format.html { render action: "edit" }
+          format.json { render json: @trabajo.errors, status: :unprocessable_entity }
+        end
       else
-        flash[:warning] = "Ocurrió un error. Revisa el formulario."
-        format.html { render action: "edit" }
-        format.json { render json: @trabajo.errors, status: :unprocessable_entity }
+        flash[:warning] = "Sólo el solicitante puede abrir la solicitud."
+        format.html { redirect_to @trabajo }
+        format.json { render :json => {tipo_mensaje: :warning, mensaje: flash[:warning]} }
       end
     end
   end
@@ -193,8 +201,9 @@ class TrabajosController < ApplicationController
   # DELETE /trabajos/1.json
   def destroy
     @trabajo = Trabajo.find(params[:id])
-    @trabajo.destroy
-
+    if admin_signed_in? or (@trabajo.solicitante_id == current_usuario.perfilable_id)
+      @trabajo.destroy
+    end
     respond_to do |format|
       flash[:success] = "Solicitud eliminada."
       format.html { redirect_to trabajos_url }
@@ -204,7 +213,7 @@ class TrabajosController < ApplicationController
   
   def abrir_trabajo
     @trabajo = Trabajo.find(params[:id])
-    es_el_solicitante = (@trabajo.solicitante_id == current_solicitante.perfilable_id)
+    es_el_solicitante = (@trabajo.solicitante_id == current_usuario.perfilable_id)
     
     respond_to do |format|
       if es_el_solicitante
@@ -227,7 +236,7 @@ class TrabajosController < ApplicationController
   
   def cerrar_trabajo
     @trabajo = Trabajo.find(params[:id])
-    es_el_solicitante = (@trabajo.solicitante_id == current_solicitante.perfilable_id)
+    es_el_solicitante = (@trabajo.solicitante_id == current_usuario.perfilable_id)
     
     respond_to do |format|
       if es_el_solicitante
@@ -250,7 +259,7 @@ class TrabajosController < ApplicationController
   
   def finalizar_trabajo
     @trabajo = Trabajo.find(params[:id])
-    es_el_proveedor = @trabajo.contratado_id == current_proveedor.perfilable_id
+    es_el_proveedor = (@trabajo.contratado_id == current_usuario.perfilable_id)
     @trabajo.estatus = 'finalizado'
     @trabajo.precio_final = params[:trabajo][:precio_final]
     

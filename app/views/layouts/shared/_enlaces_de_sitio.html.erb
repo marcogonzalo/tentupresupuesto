@@ -13,42 +13,20 @@
         <li class="divider hidden-phone">
             &nbsp;&nbsp;&nbsp;
         </li>
-        <% if solicitante_signed_in? %>
+        <% if usuario_signed_in? %>
         <li class="<%= drop %>">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= glyph(:user, 'white') %> <%= current_solicitante.perfilable.nil? ? current_user.email.split('@').first : current_user.perfilable.nombre_persona.split(' ').first %> <b class="caret"></b> </a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= glyph(:user, 'white') %> <%= current_usuario.perfilable.nil? ? current_usuario.email.split('@').first : current_usuario.perfilable.nombre_persona.split(' ').first %> <b class="caret"></b> </a>
             <ul class="dropdown-menu">
                 <li>
-                    <%= link_to 'Panel', panel_solicitante_path %>
+                    <%= link_to 'Panel', polymorphic_path([:panel,current_usuario.perfilable_type.downcase.to_sym]) %>
                 </li>
                 <li>
-                    <%= link_to 'Salir', destroy_solicitante_session_path %>
-                </li>
-            </ul>
-        </li>
-        <% elsif proveedor_signed_in? %>
-        <li class="<%= drop %>">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-user icon-white"></i> <%= current_user.perfilable.nil? ? current_user.email.split('@').first : current_user.perfilable.nombre_persona.split(' ').first %> <b class="caret"></b> </a>
-            <ul class="dropdown-menu">
-                <li>
-                    <%= link_to 'Panel', panel_proveedor_path %>
-                </li>
-                <li>
-                    <%= link_to 'Salir', destroy_proveedor_session_path %>
+                    <%= link_to 'Salir', destroy_usuario_session_path %>
                 </li>
             </ul>
         </li>
         <% else %>
-        <li class="<%= drop %>">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Iniciar sesión <i class="caret"></i> </a>
-            <ul class="dropdown-menu">
-                <li>
-                    <%= link_to "Solicitante", new_session_path("solicitante") %>
-                </li>
-                <li>
-                    <%= link_to "Proveedor", new_session_path("proveedor") %>
-                </li>
-            </ul>
-        </li>
+        <li><%= link_to "Iniciar sesión", new_usuario_session_path %></li>
         <li class="<%= drop %>">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Registrarme <i class="caret"></i> </a>
             <ul class="dropdown-menu">

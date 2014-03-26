@@ -1,17 +1,10 @@
 # coding: utf-8
 class RegistrationsController < Devise::RegistrationsController
-  before_filter :no_authenticated, :only => [:new, :create]
+  before_filter :authenticate_usuario!, :except => [:new, :create]
   def edit
-    if solicitante_signed_in? or proveedor_signed_in?
-      if solicitante_signed_in?
-        parametros = params[:solicitante]
-        current_usuario = current_solicitante
-        add_breadcrumb "Panel", panel_solicitante_path
-      elsif proveedor_signed_in?
-        parametros = params[:proveedor]
-        current_usuario = current_proveedor
-        add_breadcrumb "Panel", panel_proveedor_path
-      end
+    if usuario_signed_in?
+      parametros = params[:usuario]
+      add_breadcrumb "Panel", polymorphic_path([:panel,current_usuario.perfilable_type.downcase.to_sym])
       @usuario = Usuario.find(current_usuario.id)
       add_breadcrumb "Editar datos de cuenta"
     end
@@ -19,14 +12,8 @@ class RegistrationsController < Devise::RegistrationsController
   
   def update
     # required for settings form to submit when password is left blank
-    if solicitante_signed_in? or proveedor_signed_in?
-      if solicitante_signed_in?
-        parametros = params[:solicitante]
-        current_usuario = current_solicitante
-      elsif proveedor_signed_in?
-        parametros = params[:proveedor]
-        current_usuario = current_proveedor
-      end
+    if usuario_signed_in?
+      parametros = params[:usuario]
       @usuario = Usuario.find(current_usuario.id)
       email_changed = @usuario.email != parametros[:email]
       password_changed = true
@@ -73,18 +60,12 @@ class RegistrationsController < Devise::RegistrationsController
   def after_inactive_sign_up_path_for(resource)
     new_confirmation_path(resource.perfilable_type.downcase)
   end
-  
-  
-  
+
   def after_update_path_for(resource)
-    case resource.perfilable_type.downcase
-      when "solicitante"
-        return panel_solicitante_path
-      when "proveedor"
-        return panel_proveedor_path
-      else
-        return root_path
-      end
-    return root_path
+    if ["solicitante", "proveedor"].include? resource.perfilable_type.downcase
+      return polymorphic_path([:panel,resource.perfilable_type.downcase.to_sym])
+    else
+      root_path
+    end
   end
 end

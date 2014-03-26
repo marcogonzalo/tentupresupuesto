@@ -79,10 +79,7 @@
             <% end %>
         </div>
         <div class="botones">
-            <%= link_to 'Volver al panel', panel_solicitante_path, :class => "btn" if solicitante_signed_in? %>
-            <%
-     #= link_to 'Volver al panel', panel_proveedor_path, :class => "btn" if proveedor_signed_in?
-    %>
+            <%= link_to 'Volver al panel', panel_solicitante_path, :class => "btn" if current_usuario.tipo?("solicitante") %>
             <%= f.submit 'Enviar evaluación', :class => 'btn btn-warning' %>
         </div>
     <% end %>

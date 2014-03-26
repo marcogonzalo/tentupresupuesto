@@ -35,42 +35,22 @@ $(document).ready(function() {
         trigger : 'click'
     });
 
-    var validaciones_proveedor = {
+    var validaciones_usuario = {
         rules : {
-            "proveedor[email]" : {
+            "usuario[email]" : {
                 required : true,
                 email : true
             },
-            "proveedor[password]" : {
+            "usuario[password]" : {
                 required : true,
                 minlength : 8
             },
-            "proveedor[password_confirmation]" : {
+            "usuario[password_confirmation]" : {
                 required : true,
                 minlength : 8,
-                equalTo : "#proveedor_password"
+                equalTo : "#usuario_password"
             }
         }
     };
-    var validator = $("#new_proveedor").validate(validaciones_proveedor);
-    
-    
-    var validaciones_solicitante = {
-        rules : {
-            "solicitante[email]" : {
-                required : true,
-                email : true
-            },
-            "solicitante[password]" : {
-                required : true,
-                minlength : 8
-            },
-            "solicitante[password_confirmation]" : {
-                required : true,
-                minlength : 8,
-                equalTo : "#solicitante_password"
-            }
-        }
-    };
-    var validator = $("#new_solicitante").validate(validaciones_solicitante);
+    var validator = $("#new_usuario").validate(validaciones_usuario);
 });

@@ -1,17 +1,8 @@
-<%- if controller_name == 'sessions' and false
-    # Enlace para iniciar sesion con otro tipo de usuario
-    mensaje = "Iniciar sesión como "
-    mensaje += resource_name.to_s == 'solicitante' ? "proveedor" : "solicitante"
-    path = resource_name.to_s == 'solicitante' ? new_proveedor_session_path : new_solicitante_session_path
-  %>
-  <div><%= link_to mensaje, path %></div>
-<% end -%>
-
 <%- if devise_mapping.registerable? && controller_name == 'registrations'
     # Enlace para registrarse como otro tipo de usuario
     mensaje = "Registrarse como "
-    mensaje += resource_name.to_s == 'solicitante' ? "proveedor" : "solicitante"
-    path = resource_name.to_s == 'solicitante' ? new_proveedor_registration_path : new_solicitante_registration_path
+    mensaje += resource_name.to_s.downcase == 'solicitante' ? "proveedor" : "solicitante"
+    path = resource_name.to_s.downcase == 'solicitante' ? new_proveedor_registration_path : new_solicitante_registration_path
   %>
   <div><%= link_to mensaje, path %></div>
 <% end -%>
@@ -19,11 +10,11 @@
 <%- if controller_name != 'sessions'  
     mensaje = "Iniciar sesión como "+resource_name.to_s
   %>
-  <div><%= link_to mensaje, new_session_path(resource_name) %></div>
+  <div><%= link_to "Iniciar sesión", new_session_path(resource_name) %></div>
 <% end -%>
 
 <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
-  <div><%= link_to "¡Regístrate!", new_registration_path(resource_name) %></div>
+  <div>¡Regístrate! (<%= link_to "Solicitante", new_registration_path("solicitante") %> | <%= link_to "Proveedor", new_registration_path("proveedor") %>)</div>
 <% end -%>
 
 <%- if devise_mapping.recoverable? && controller_name != 'passwords' %>
