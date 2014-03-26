@@ -16,15 +16,16 @@ Ttp::Application.routes.draw do
 
   scope :path_names => { :new => "nuevo", :edit => "editar" } do
     scope :path_names => { :sign_in => 'iniciar_sesion', :sign_up => 'registro', :sign_out => 'cerrar_sesion', :password => 'clave', :confirmation => 'verificacion', :edit => 'editar' } do
+      devise_for :usuarios, :controllers => { :registrations => 'registrations' }
       devise_for :admins
-      devise_for :proveedor, :class_name => 'Usuario', :controllers => { :registrations => "registrations"}
-      devise_for :solicitante, :class_name => 'Usuario', :controllers => { :registrations => "registrations"}
+      #devise_for :proveedor, :class_name => 'Usuario', :controllers => { :registrations => "registrations"}
+      #devise_for :solicitante, :class_name => 'Usuario', :controllers => { :registrations => "registrations"}
     end
 
-    devise_scope :solicitante do
+    devise_scope :usuario do
+      get '/solicitante/registro' => 'registrations#new', :usuario => { :perfilable_type => 'Solicitante' }, :as => :new_solicitante_registration
+      get '/proveedor/registro' => 'registrations#new', :usuario => { :perfilable_type => 'Proveedor' }, :as => :new_proveedor_registration
       put "/solicitante/verificacion" => "confirmations#confirm", :as => :solicitante_confirm
-    end
-    devise_scope :proveedor do
       put "/proveedor/verificacion" => "confirmations#confirm", :as => :proveedor_confirm
     end
 
@@ -32,7 +33,7 @@ Ttp::Application.routes.draw do
       get     "nuevo-perfil" => "solicitantes#new", :as => "new_solicitante"
       get     "editar-perfil" => "solicitantes#edit", :as => "edit_solicitante"
       get     "no-soy-solicitante" => "solicitantes#no_soy_solicitante", :as => "no_soy_solicitante"
-      get     "/" => "solicitantes#panel", :as => "panel_solicitante"
+      get     "/" => "solicitantes#panel", :as => :panel_solicitante
     end
     resources :solicitantes, :only => [:create, :update]
     
@@ -51,7 +52,7 @@ Ttp::Application.routes.draw do
       get     "imagenes_galeria" => "imagenes#galeria", :as => "galeria_proveedor"
       put     "imagenes_galeria(/:id)" => "imagenes#editar_galeria", :as => "editar_galeria_proveedor"
       delete  "imagenes_galeria(/:id)" => "imagenes#borrar_galeria", :as => "borrar_galeria_proveedor"
-      get     "/" => "proveedores#panel", :as => "panel_proveedor"
+      get     "/" => "proveedores#panel", :as => :panel_proveedor
     end
     scope :proveedores do
       get     'proveedores/:filtro/:valor' => "proveedores#index", :as => "listar_proveedores", :constraints => FiltroListaProveedores

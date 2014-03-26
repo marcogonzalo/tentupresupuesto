@@ -31,16 +31,7 @@ if resource.errors.any? %>
 </div>
 
 <div id="caracteristicas" class="offset1 span8 registro">
-    <%- if controller_name == 'sessions'
-    # Enlace para iniciar sesion con otro tipo de usuario
-    mensaje = "Iniciar sesión como "
-    mensaje += resource_name.to_s == 'solicitante' ? "proveedor" : "solicitante"
-    path = resource_name.to_s == 'solicitante' ? new_proveedor_session_path : new_solicitante_session_path
-    %>
-    <p>
-        <%= link_to mensaje, path, :class => "cambio-tipo-usuario btn btn-success btn-large btn-block" %>
-    </p>
-    <% end -%>
     <hr>
     <%= render "devise/shared/links" %>
+    <hr>
 </div>

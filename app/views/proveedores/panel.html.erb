@@ -12,29 +12,29 @@
     end
 %>
 <h1 class="page-header">Panel de proveedor</h1>
-<% if current_user.confirmed_at.nil? %>
+<% if current_usuario.confirmed_at.nil? %>
 <div class="alert alert-info alert-block">
     <p>
         <b>¡No has verificado tu cuenta de correo!</b><br> 
-        Tu dirección de correo electrónico <b><%= current_proveedor.email %></b> aún no ha sido verificada. Esto podría ocasionar que no te lleguen las solicitudes publicadas en tus categorías y el posible bloqueo de tu cuenta.
+        Tu dirección de correo electrónico <b><%= current_usuario.email %></b> aún no ha sido verificada. Esto podría ocasionar que no te lleguen las solicitudes publicadas en tus categorías y el posible bloqueo de tu cuenta.
     </p>
-    <p style="text-align: right;"><%= link_to "Verificar mi correo", new_confirmation_path(current_proveedor), :class => 'btn btn-info' %></p>
+    <p style="text-align: right;"><%= link_to "Verificar mi correo", new_confirmation_path(current_usuario), :class => 'btn btn-info' %></p>
 </div>
 <% end %>
 <aside class="span6">
     <div id="menu-panel" class="well">
         <div id="imagen-proveedor" class="img-rounded">
-            <%= link_to(image_tag(current_proveedor.perfil.avatar.url, :alt => "Cambiar imagen de perfil", :title => "Cambiar imagen de perfil"), imagen_proveedor_path) %>
+            <%= link_to(image_tag(current_usuario.perfil.avatar.url, :alt => "Cambiar imagen de perfil", :title => "Cambiar imagen de perfil"), imagen_proveedor_path) %>
         </div>
         <ul class="nav nav-list span5">
             <li class="nav-header">
                 <i class="icon-white icon-certificate"></i> Usuario
             </li>
             <li>
-                <%= link_to "Cambiar clave", edit_proveedor_registration_path %>
+                <%= link_to "Cambiar clave", edit_usuario_registration_path %>
             </li>
             <li>
-                <%= link_to "Ver perfil público", perfil_proveedor_path(current_proveedor.perfil) %>
+                <%= link_to "Ver perfil público", perfil_proveedor_path(current_usuario.perfil) %>
             </li>
             <li class="nav-header">
                 <i class="icon-white icon-user"></i> Perfil

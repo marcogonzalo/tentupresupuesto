@@ -1,7 +1,7 @@
 # coding: utf-8
 class EvaluacionesController < ApplicationController
-  before_filter :authenticated_solicitante, :only => [:new,:create]
-  before_filter :authenticated_proveedor, :only => [:edit,:update]
+  before_filter :authenticate_solicitante!, :only => [:new,:create]
+  before_filter :authenticate_proveedor!, :only => [:edit,:update]
   # GET /evaluaciones
   # GET /evaluaciones.json
   def index

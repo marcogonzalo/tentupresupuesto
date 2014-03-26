@@ -19,7 +19,7 @@ jQuery(function($) {
                 $("#evaluar-trabajo").removeClass("btn-success")
                 $("#evaluar-trabajo").addClass("btn-warning")*/
                 //$("#evaluar-trabajo").removeClass("disabled")
-                $("#finalizacion-trabajo").fadeOut();
+                $("#finalizar-trabajo").fadeOut();
                 $("#modal-finalizado").modal('hide')
             } 
             mostrar_mensaje("#mensaje-ttp", "alert-success", r.mensaje)

@@ -4,10 +4,6 @@ class ApplicationController < ActionController::Base
   FLASH_NOTICE_KEYS = [:error, :warning, :info, :success] # Tipos de notificaciones bootstrap
   
   add_breadcrumb "TTP", '/'
-  
-  def current_user
-    return current_solicitante ? current_solicitante : current_proveedor
-  end
 
 # Mensajes Flash 
   def flash_messages
@@ -34,64 +30,68 @@ class ApplicationController < ActionController::Base
 # Fin Mensjes Flash  
 
   protected
-  def authenticated_any
-    unless signed_in?
-      if solicitante_signed_in?
-        redirect_to new_solicitante_session_path
-      else
-        redirect_to new_proveedor_session_path
-      end
-    end
-    return true
-  end
-  
-  def authenticated_solicitante
-    if solicitante_signed_in? or admin_signed_in?
-      if current_solicitante.perfilable_id.nil? and (request.fullpath != new_solicitante_path and request.fullpath != solicitantes_path and request.fullpath != no_soy_solicitante_path)
+  def authenticate_solicitante!
+    if admin_signed_in? or (usuario_signed_in? and ["solicitante"].include? current_usuario.perfilable_type.downcase)
+      if current_usuario.perfilable_id.nil? and (request.fullpath != new_solicitante_path and request.fullpath != solicitantes_path and request.fullpath != no_soy_solicitante_path)
         redirect_to new_solicitante_path
+      else
+        return true
       end
-    else
-      sign_out_all_scopes
-      flash[:warning] = "Debes iniciar sesión con el usuario correcto" 
-      redirect_to new_solicitante_session_path
     end
-    return true
+    redirect_to new_usuario_session_path
   end
   
-  def authenticated_proveedor
-    if proveedor_signed_in? or admin_signed_in?
-      if current_proveedor.perfilable_id.nil? and (request.fullpath != new_proveedor_path and request.fullpath != proveedores_path and request.fullpath != no_soy_proveedor_path)
+  def authenticate_proveedor!
+    if admin_signed_in? or (usuario_signed_in? and ["proveedor"].include? current_usuario.perfilable_type.downcase)
+      if current_usuario.perfilable_id.nil? and (request.fullpath != new_proveedor_path and request.fullpath != proveedores_path and request.fullpath != no_soy_proveedor_path)
         redirect_to new_proveedor_path
+      else
+        return true
       end
-    else
-      sign_out_all_scopes
-      flash[:warning] = "Debes iniciar sesión con el usuario correcto" 
-      redirect_to new_proveedor_session_path
     end
-    return true
-  end
-  
-  def authenticated_admin
-    unless admin_signed_in?
-      sign_out_all_scopes
-      flash[:warning] = "Debes iniciar sesión con el usuario correcto" 
-      redirect_to root_path
-    end
-    return true
+    redirect_to new_usuario_session_path
   end
   
   def no_authenticated
-    if solicitante_signed_in?
-      return true if current_solicitante.perfilable_id.nil? or current_solicitante.perfilable_id < 1
-      redirect_to panel_solicitante_path
-    elsif proveedor_signed_in?
-      return true if current_proveedor.perfilable_id.nil? or current_proveedor.perfilable_id < 1
-      redirect_to panel_proveedor_path
+    unless usuario_signed_in?
+      return true if current_usuario.perfilable_id.nil? or current_usuario.perfilable_id < 1
+      if ["solicitante", "proveedor"].include? current_usuario.perfilable_type.downcase
+        redirect_to panel_path(current_usuario.perfilable_type.downcase)
+      end
     end
     return true
   end
   
   private
+  def after_sign_in_path_for(resource)
+    resource_type = resource.perfilable_type.downcase
+    if resource.instance_of?(Admin)
+      return rails_admin.dashboard_path
+    end
+    
+    if ["solicitante", "proveedor"].include? resource_type.downcase
+      if resource.confirmed_at.nil?
+        return new_confirmation_path(resource)
+      else
+        if resource.perfilable_id.nil? or resource.perfilable_id <= 0
+          case resource_type
+            when "solicitante"
+              return new_solicitante_path
+            when "proveedor"
+              return new_proveedor_path
+            else
+              root_path
+            end
+        end
+        # Construye path con los parametros enviados 
+        # Ver: http://api.rubyonrails.org/classes/ActionDispatch/Routing/PolymorphicRoutes.html#method-i-polymorphic_path 
+        return polymorphic_path([:panel,resource_type.to_sym])
+      end
+    end
+    return root_path
+  end
+
+=begin  
   def after_sign_in_path_for(resource)
     if resource.instance_of?(Admin)
       return rails_admin.dashboard_path
@@ -123,4 +123,5 @@ class ApplicationController < ActionController::Base
     end
     return root_path
   end
+=end
 end

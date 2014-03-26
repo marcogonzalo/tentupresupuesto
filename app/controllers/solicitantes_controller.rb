@@ -2,7 +2,7 @@
 class SolicitantesController < ApplicationController
   require 'genericas'
   #before_filter :no_authenticated, :only => [:new, :create]
-  before_filter :authenticated_solicitante, :except => [:new, :create]
+  before_filter :authenticate_solicitante!
   # GET /solicitantes
   # GET /solicitantes.json
   def index
@@ -17,7 +17,7 @@ class SolicitantesController < ApplicationController
   # GET /solicitantes/1
   # GET /solicitantes/1.json
   def show
-    @solicitante = current_solicitante.datos_y_perfil
+    @solicitante = current_usuario.datos_y_perfil
     
     add_breadcrumb :panel, panel_solicitante_path
     add_breadcrumb :show
@@ -43,7 +43,7 @@ class SolicitantesController < ApplicationController
 
   # GET /solicitantes/1/edit
   def edit
-    @solicitante = Solicitante.find(current_solicitante.perfilable_id)
+    @solicitante = Solicitante.find(current_usuario.perfilable_id)
     @localidad = @solicitante.localidad ? @solicitante.localidad.nombre : ""
     
     add_breadcrumb :panel, panel_solicitante_path
@@ -55,9 +55,9 @@ class SolicitantesController < ApplicationController
   end
   
   def panel
-    @solicitudes = Trabajo.where(:solicitante_id => current_solicitante.perfilable_id).includes(:presupuestos).estatus_buscando
-    @en_ejecucion = Trabajo.where(:solicitante_id => current_solicitante.perfilable_id).estatus_ejecutando
-    @por_evaluar = Trabajo.sin_evaluar.where(:solicitante_id => current_solicitante.perfilable_id).estatus_finalizado
+    @solicitudes = Trabajo.where(:solicitante_id => current_usuario.perfilable_id).includes(:presupuestos).estatus_buscando
+    @en_ejecucion = Trabajo.where(:solicitante_id => current_usuario.perfilable_id).estatus_ejecutando
+    @por_evaluar = Trabajo.sin_evaluar.where(:solicitante_id => current_usuario.perfilable_id).estatus_finalizado
 
     render "panel"
   end
@@ -79,13 +79,13 @@ class SolicitantesController < ApplicationController
     @solicitante = Solicitante.new(params[:solicitante])
     
     respond_to do |format|
-      if solicitante_signed_in?
-        if current_solicitante.perfilable_id.nil? or current_solicitante.perfilable_id <= 0
+      if usuario_signed_in?
+        if current_usuario.perfilable_id.nil? or current_usuario.perfilable_id <= 0
           if @solicitante.save
-            current_solicitante.update_attribute('perfilable_id', @solicitante.id)
+            current_usuario.update_attribute('perfilable_id', @solicitante.id)
             
             if Rails.env.production?
-              MailchimpController.subscribe(current_solicitante.email,'solicitantes')
+              MailchimpController.subscribe(current_usuario.email,'solicitantes')
             end
             
             flash[:success] = "Datos de solicitante registrados."
@@ -112,7 +112,7 @@ class SolicitantesController < ApplicationController
   # PUT /solicitantes/1
   # PUT /solicitantes/1.json
   def update
-    @solicitante = Solicitante.find(current_solicitante.perfilable_id)
+    @solicitante = Solicitante.find(current_usuario.perfilable_id)
 
     params[:solicitante][:pais_id] = 1 # Venezuela
     
@@ -148,16 +148,13 @@ class SolicitantesController < ApplicationController
   end
 
   def no_soy_solicitante
-    usuario = current_solicitante
-    
-    unless usuario.perfilable_id.blank?
+    unless current_usuario.perfilable_id.blank?
       redirect_to panel_solicitante_path 
       return
     end
     
-    usuario.update_attribute('perfilable_type','Proveedor')
-    Devise.sign_out_all_scopes
-    redirect_to new_session_path('proveedor')
+    current_usuario.update_attribute('perfilable_type','Proveedor')
+    redirect_to new_proveedor_path
     return
   end
 

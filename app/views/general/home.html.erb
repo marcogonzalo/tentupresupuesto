@@ -30,10 +30,10 @@ content_for :liston do %>
         <%= link_to "Inicia Sesión", '#', :class => "btn btn-large btn-success dropdown-toggle", 'data-toggle'=>"dropdown" %>
         <ul class="dropdown-menu">
             <li>
-                <%= link_to "Solicitante", new_session_path("solicitante") %>
+                <%= link_to "Solicitante", new_usuario_session_path %>
             </li>
             <li>
-                <%= link_to "Proveedor", new_session_path("proveedor") %>
+                <%= link_to "Proveedor", new_usuario_session_path %>
             </li>
         </ul>
     </div>

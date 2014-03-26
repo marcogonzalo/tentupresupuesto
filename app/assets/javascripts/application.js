@@ -23,7 +23,7 @@
 //= require comun
 
 $(document).ready(function () {
-  $('a').tooltip({trigger:'hover'});
+  $('a.tltip').tooltip({trigger:'hover'});
   $('input').tooltip({trigger:'focus'});
   $('textarea').tooltip({trigger:'focus'});
   $('select').tooltip({trigger:'click'});

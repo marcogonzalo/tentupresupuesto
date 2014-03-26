@@ -1,9 +1,9 @@
 # coding: utf-8
 class PresupuestosController < ApplicationController
   layout :resolve_layout
-  before_filter :authenticated_solicitante, :only => [:index, :aceptar_presupuesto, :rechazar_presupuesto, :datos_de_solicitante_a_proveedor]
-  before_filter :authenticated_proveedor, :except => [:index, :show, :aceptar_presupuesto, :rechazar_presupuesto, :datos_de_solicitante_a_proveedor]
-  before_filter :authenticated_any, :only => [:show]
+  before_filter :authenticate_solicitante!, :only => [:index, :aceptar_presupuesto, :rechazar_presupuesto, :datos_de_solicitante_a_proveedor]
+  before_filter :authenticate_proveedor!, :except => [:index, :show, :aceptar_presupuesto, :rechazar_presupuesto, :datos_de_solicitante_a_proveedor]
+  before_filter :authenticate_usuario!, :only => [:show]
   add_breadcrumb "Trabajos", :trabajos_path
   # GET /presupuestos
   # GET /presupuestos.json
@@ -26,18 +26,19 @@ class PresupuestosController < ApplicationController
     @trabajo = Trabajo.find(@presupuesto.trabajo_id)
     #Verificar si el trabajo existe y el usuario es el solicitante
     @es_el_solicitante = false
+    @es_el_proveedor = false
     @tipo_usuario = "Solicitante"
     m_u = 'proveedor'
-    if solicitante_signed_in?
-      @es_el_solicitante = @trabajo.solicitante_id.eql?(current_user.perfilable_id)
-      @tipo_usuario = current_user.perfilable_type
-      m_u = 'proveedor'
-    end
-    @es_el_proveedor = false
-    if proveedor_signed_in?
-      @es_el_proveedor = @presupuesto.proveedor_id.eql?(current_user.perfilable_id)
-      @tipo_usuario = current_user.perfilable_type
-      m_u = 'solicitante'
+    if usuario_signed_in? 
+      if current_usuario.tipo?("solicitante")
+        @es_el_solicitante = @trabajo.solicitante_id.eql?(current_usuario.perfilable_id)
+        @tipo_usuario = current_usuario.perfilable_type
+        m_u = 'proveedor'
+      elsif current_usuario.tipo?("proveedor")
+        @es_el_proveedor = @presupuesto.proveedor_id.eql?(current_usuario.perfilable_id)
+        @tipo_usuario = current_usuario.perfilable_type
+        m_u = 'solicitante'
+      end
     end
     
     if @es_el_solicitante or @es_el_proveedor or admin_signed_in?
@@ -73,7 +74,7 @@ class PresupuestosController < ApplicationController
   # GET /presupuestos/new.json
   def new
     @trabajo = Trabajo.find(params[:trabajo_id])
-    presupuestos_de_proveedor = @trabajo.presupuestos.where(:proveedor_id => current_proveedor.perfilable_id).size
+    presupuestos_de_proveedor = @trabajo.presupuestos.where(:proveedor_id => current_usuario.perfilable_id).size
     if presupuestos_de_proveedor > 0
       flash[:warning] = "Ya has presentado un presupuesto para esta solicitud."
       redirect_to @trabajo
@@ -96,8 +97,8 @@ class PresupuestosController < ApplicationController
     @path = @presupuesto
 
     @es_el_proveedor = false
-    if proveedor_signed_in?
-      @es_el_proveedor = @presupuesto.proveedor_id.eql?(current_proveedor.perfilable_id)
+    if usuario_signed_in?
+      @es_el_proveedor = @presupuesto.proveedor_id.eql?(current_usuario.perfilable_id)
     end
     add_breadcrumb @trabajo.proposito, trabajo_path(@trabajo)
     add_breadcrumb :edit
@@ -116,7 +117,7 @@ class PresupuestosController < ApplicationController
   # POST /presupuestos.json
   def create
     @trabajo = Trabajo.find(params[:trabajo_id])
-    presupuestos_de_proveedor = @trabajo.presupuestos.where(:proveedor_id => current_proveedor.perfilable_id).size
+    presupuestos_de_proveedor = @trabajo.presupuestos.where(:proveedor_id => current_usuario.perfilable_id).size
     if presupuestos_de_proveedor > 0
       flash[:warning] = "Ya has presentado un presupuesto para esta solicitud."
       redirect_to @trabajo
@@ -124,13 +125,10 @@ class PresupuestosController < ApplicationController
     end
     
     @presupuesto = @trabajo.presupuestos.build(params[:presupuesto])
-    @presupuesto.proveedor_id = current_proveedor.perfilable_id
+    @presupuesto.proveedor_id = current_usuario.perfilable_id
     
     @path = [@trabajo, @presupuesto]
-    @es_el_proveedor = false
-    if proveedor_signed_in?
-      @es_el_proveedor = @presupuesto.proveedor_id.eql?(current_proveedor.perfilable_id)
-    end
+    
     respond_to do |format|
       if @presupuesto.save
         TtpMailer.notificar_presupuesto_recibido(@trabajo,@presupuesto)
@@ -152,8 +150,8 @@ class PresupuestosController < ApplicationController
     @trabajo = @presupuesto.trabajo
     
     es_el_proveedor = false
-    if proveedor_signed_in?
-      es_el_proveedor = @presupuesto.proveedor_id.eql?(current_proveedor.perfilable_id)
+    if usuario_signed_in? and current_usuario.tipo?("proveedor")
+      es_el_proveedor = @presupuesto.proveedor_id.eql?(current_usuario.perfilable_id)
     end
     
     @path = @presupuesto
@@ -183,8 +181,8 @@ class PresupuestosController < ApplicationController
     @presupuesto.destroy
 
     es_el_proveedor = false
-    if proveedor_signed_in?
-      es_el_proveedor = @presupuesto.proveedor_id.eql?(current_proveedor.perfilable_id)
+    if usuario_signed_in? and current_usuario.tipo?("proveedor")
+      es_el_proveedor = @presupuesto.proveedor_id.eql?(current_usuario.perfilable_id)
     end
     respond_to do |format|
       if es_el_proveedor
@@ -200,13 +198,13 @@ class PresupuestosController < ApplicationController
   
   def aceptar_presupuesto
     @presupuesto = Presupuesto.find(params[:id])
-    es_el_solicitante = Trabajo.exists?(:id => @presupuesto.trabajo_id, :solicitante_id => current_solicitante.perfilable_id)
+    es_el_solicitante = Trabajo.exists?(:id => @presupuesto.trabajo_id, :solicitante_id => current_usuario.perfilable_id)
     
     respond_to do |format|
       if es_el_solicitante
         if @presupuesto.update_attribute('aprobado',true)
           TtpMailer.notificar_presupuesto_contratado(@presupuesto)
-          flash[:success] = "Has aceptado el presupuesto. El trabajo aparecera como en ejecución."
+          flash[:success] = "Has aceptado el presupuesto. El trabajo aparecerá como en ejecución."
           format.json { render :json => { presupuesto: @presupuesto, tipo_mensaje: :success, mensaje: flash[:success]}}
         else
           flash[:error] = "Ocurrió un error. No pudo aceptarse el presupuesto."
@@ -221,7 +219,7 @@ class PresupuestosController < ApplicationController
   
   def rechazar_presupuesto
     @presupuesto = Presupuesto.find(params[:id])
-    es_el_solicitante = Trabajo.exists?(:id => @presupuesto.trabajo_id, :solicitante_id => current_solicitante.perfilable_id)
+    es_el_solicitante = current_usuario.tipo?("solicitante") and Trabajo.exists?(:id => @presupuesto.trabajo_id, :solicitante_id => current_usuario.perfilable_id)
     if es_el_solicitante
       @presupuesto.aprobado = false
       @presupuesto.rechazado = true
@@ -246,7 +244,7 @@ class PresupuestosController < ApplicationController
   
   def datos_de_solicitante_a_proveedor
     @presupuesto = Presupuesto.find(params[:id])
-    es_el_solicitante = Trabajo.exists?(:id => @presupuesto.trabajo_id, :solicitante_id => current_solicitante.perfilable_id)
+    es_el_solicitante = current_usuario.tipo?("solicitante") and Trabajo.exists?(:id => @presupuesto.trabajo_id, :solicitante_id => current_usuario.perfilable_id)
     
     respond_to do |format|
       if es_el_solicitante
