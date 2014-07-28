@@ -12,6 +12,9 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require validate/jquery.validate.min.js
+//= require validate/localization/messages_es.js
+//= require validate/setDefaults.js
 //= require twitter/bootstrap/bootstrap-alert
 //= require twitter/bootstrap/bootstrap-modal
 //= require twitter/bootstrap/bootstrap-tooltip
@@ -20,8 +23,102 @@
 //= require comun
 
 $(document).ready(function () {
-  $('a').tooltip({trigger:'hover'});
+  $('a.tltip').tooltip({trigger:'hover'});
   $('input').tooltip({trigger:'focus'});
   $('textarea').tooltip({trigger:'focus'});
   $('select').tooltip({trigger:'click'});
+  
+  var validaciones_solicitante = {
+        rules : {
+            "solicitante[nombre_persona]" : {
+                required : true,
+                rangelength: [3, 50]
+            },
+            "solicitante[telefono_movil]" : {
+                digits: true,
+                minlength : 8
+            },
+            "solicitante[telefono_local]" : {
+                digits: true,
+                minlength : 8
+            },
+            "solicitante[telefono_alt]" : {
+                digits: true,
+                minlength : 8
+            },
+            "solicitante[pais_id]" : {
+                required : true
+            },
+            "solicitante[estado_id]" : {
+                required : true
+            },
+            "solicitante[municipio_id]" : {
+                required : true
+            },
+            "solicitante[localidad_id]" : {
+                required : true,
+                rangelength: [3, 50]
+            },
+            "solicitante[direccion]" : {
+                rangelength: [5, 255]
+            },
+            "solicitante[punto_referencia]" : {
+                rangelength: [3, 50]
+            }
+        }
+    };
+    var validator = $(".edit_solicitante").validate(validaciones_solicitante);
+    var validator = $(".new_solicitante").validate(validaciones_solicitante);
+  
+    var validaciones_proveedor = {
+        rules : {
+            "proveedor[nombre_empresa]" : {
+                required : true,
+                rangelength: [3, 50]
+            },
+            "proveedor[tipo_proveedor]" : {
+                required : true
+            },
+            "proveedor[descripcion]" : {
+                required : true
+            },
+            "proveedor[nombre_persona]" : {
+                required : true,
+                rangelength: [3, 50]
+            },
+            "proveedor[telefono_movil]" : {
+                digits: true,
+                minlength : 8
+            },
+            "proveedor[telefono_local]" : {
+                digits: true,
+                minlength : 8
+            },
+            "proveedor[telefono_alt]" : {
+                digits: true,
+                minlength : 8
+            },
+            "proveedor[pais_id]" : {
+                required : true
+            },
+            "proveedor[estado_id]" : {
+                required : true
+            },
+            "proveedor[municipio_id]" : {
+                required : true
+            },
+            "proveedor[localidad_id]" : {
+                required : true,
+                rangelength: [3, 50]
+            },
+            "proveedor[direccion]" : {
+                rangelength: [5, 255]
+            },
+            "proveedor[punto_referencia]" : {
+                rangelength: [3, 50]
+            }
+        }
+    };
+    var validator = $(".edit_proveedor").validate(validaciones_proveedor);
+    var validator = $(".new_proveedor").validate(validaciones_proveedor);
 });

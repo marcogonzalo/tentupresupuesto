@@ -9,13 +9,9 @@
                             <li>
                                 <%= link_to "Inicio", root_path %>
                             </li>
-                            <% if solicitante_signed_in? %>
+                            <% if usuario_signed_in? %>
                             <li>
-                                <%= link_to 'Panel', panel_solicitante_path %>
-                            </li>
-                            <% elsif proveedor_signed_in? %>
-                            <li>
-                                <%= link_to 'Panel', panel_proveedor_path %>
+                                <%= link_to 'Panel', polymorphic_path([:panel,current_usuario.perfilable_type.downcase]) %>
                             </li>
                             <% else %>
                             <li>

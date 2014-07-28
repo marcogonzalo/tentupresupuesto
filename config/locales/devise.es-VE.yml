@@ -21,10 +21,9 @@ es-VE:
       timeout: 'La sesión expiró. Inicia sesión nuevamente.'
       inactive: 'La cuenta no ha sido activada.'
       not_approved: 'La cuenta aún no ha sido aprobada'
-      proveedor:
+      usuario:
         not_found_in_database: "No se encontró en la base de datos"
-      solicitante:
-        not_found_in_database: "No se encontró en la base de datos"
+
     sessions:
       signed_in: 'Inicio de sesión satisfactorio.'
       signed_out: 'Cierre de sesión satisfactorio.'

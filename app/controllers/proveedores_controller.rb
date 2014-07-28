@@ -2,7 +2,7 @@
 class ProveedoresController < ApplicationController
   require 'genericas'
   #before_filter :no_authenticated, :only => [:new, :create]
-  before_filter :authenticated_proveedor, :except => [:index, :show]
+  before_filter :authenticate_proveedor!, :except => [:index, :show]
 
 ################  
 ######## VISTAS
@@ -99,40 +99,40 @@ class ProveedoresController < ApplicationController
 
   # GET /proveedor/editar
   def edit
-    @proveedor = Proveedor.find(current_proveedor.perfilable_id)
+    @proveedor = Proveedor.find(current_usuario.perfilable_id)
     @localidad = @proveedor.localidad ? @proveedor.localidad.nombre : ""
   end
 
   # GET /proveedor/cambiar-imagen
   def imagen
-    @proveedor = Proveedor.find(current_proveedor.perfilable_id)
+    @proveedor = Proveedor.find(current_usuario.perfilable_id)
     render "imagen_perfil"
   end
 
   # GET /proveedor
   def panel
-    @presupuestos_presentados = Presupuesto.includes([:trabajo, :mensajes]).where("presupuestos.proveedor_id = ? AND trabajos.estatus = 'buscando'", current_proveedor.perfilable_id).order("trabajos.updated_at DESC")
-    @trabajos_asignados = Presupuesto.includes([:trabajo, :mensajes]).where("presupuestos.proveedor_id = ? AND trabajos.estatus = 'ejecutando'", current_proveedor.perfilable_id).order("trabajos.updated_at DESC")
-    @por_evaluar = Trabajo.sin_evaluar.where(:contratado_id => current_proveedor.perfilable_id).estatus_finalizado
+    @presupuestos_presentados = Presupuesto.includes([:trabajo, :mensajes]).where("presupuestos.proveedor_id = ? AND trabajos.estatus = 'buscando'", current_usuario.perfilable_id).order("trabajos.updated_at DESC")
+    @trabajos_asignados = Presupuesto.includes([:trabajo, :mensajes]).where("presupuestos.proveedor_id = ? AND trabajos.estatus = 'ejecutando'", current_usuario.perfilable_id).order("trabajos.updated_at DESC")
+    @por_evaluar = Trabajo.sin_evaluar.where(:contratado_id => current_usuario.perfilable_id).estatus_finalizado
 
     render "panel"
   end
   
   # GET /proveedor/categorias
   def categorias_de_proveedor
-    @proveedor = Proveedor.find(current_proveedor.perfilable_id)
+    @proveedor = Proveedor.find(current_usuario.perfilable_id)
     render "categorias"
   end
   
   # GET /proveedor/ubicaciones
   def ubicaciones_de_proveedor
-    @proveedor = Proveedor.find(current_proveedor.perfilable_id)
+    @proveedor = Proveedor.find(current_usuario.perfilable_id)
     render "ubicaciones"
   end
   
   # GET /proveedor/enlaces
   def enlaces_de_proveedor
-    @proveedor = Proveedor.find(current_proveedor.perfilable_id)
+    @proveedor = Proveedor.find(current_usuario.perfilable_id)
     render "enlaces"
   end
 
@@ -154,13 +154,13 @@ class ProveedoresController < ApplicationController
     @proveedor = Proveedor.new(params[:proveedor])
     
     respond_to do |format|
-      if proveedor_signed_in?
-        if current_proveedor.perfilable_id.nil? or current_proveedor.perfilable_id <= 0
+      if usuario_signed_in?
+        if current_usuario.perfilable_id.nil? or current_usuario.perfilable_id <= 0
           if @proveedor.save
-            current_proveedor.update_attribute('perfilable_id', @proveedor.id)
+            current_usuario.update_attribute('perfilable_id', @proveedor.id)
             
             if Rails.env.production?
-              MailchimpController.subscribe(current_proveedor.email,'proveedores')
+              MailchimpController.subscribe(current_usuario.email,'proveedores')
             end
             
             flash[:success] = "Datos de proveedor registrados."
@@ -180,7 +180,7 @@ class ProveedoresController < ApplicationController
         end 
       else
         flash[:info] = 'No ha iniciado sesión.'
-        format.html { redirect_to new_proveedor_session }
+        format.html { redirect_to new_usuario_session }
         format.json { render json: @proveedor.errors, status: :unprocessable_entity }
       end
     end
@@ -189,7 +189,7 @@ class ProveedoresController < ApplicationController
   # PUT /proveedores/1
   # PUT /proveedores/1.json
   def update
-    @proveedor = Proveedor.find(current_proveedor.perfilable_id)
+    @proveedor = Proveedor.find(current_usuario.perfilable_id)
     
     params[:proveedor][:pais_id] = 1 # Venezuela
     
@@ -226,29 +226,26 @@ class ProveedoresController < ApplicationController
   end
 
   def no_soy_proveedor
-    usuario = current_proveedor
-    
-    unless usuario.perfilable_id.blank?
+    unless current_usuario.perfilable_id.blank?
       redirect_to panel_proveedor_path
       return
     end
     
-    usuario.update_attribute('perfilable_type','Solicitante')
-    Devise.sign_out_all_scopes
+    current_usuario.update_attribute('perfilable_type','Solicitante')
     redirect_to new_solicitante_path
     return
   end
 
   def cambiar_imagen
-    @proveedor = Proveedor.find(current_proveedor.perfilable_id)
+    @proveedor = Proveedor.find(current_usuario.perfilable_id)
     @proveedor.avatar = params[:proveedor][:avatar]
     #@proveedor.avatar = File.open('somewhere')
     #@proveedor.avatar.url # => '/url/to/file.png'
     #@proveedor.avatar.current_path # => 'path/to/file.png'
     #@proveedor.avatar.identifier # => 'file.png'
     respond_to do |format|
-      if proveedor_signed_in?
-        unless current_proveedor.perfilable_id.nil? or current_proveedor.perfilable_id <= 0
+      if usuario_signed_in?
+        unless current_usuario.perfilable_id.nil? or current_usuario.perfilable_id <= 0
           if @proveedor.save
             flash[:success] = "Imagen de perfil modificada."
             format.html { redirect_to panel_proveedor_path } #render action: "imagen_perfil" }
@@ -260,12 +257,12 @@ class ProveedoresController < ApplicationController
           end
         else
           flash[:warning] = 'No posees un perfil asociado.'
-          format.html { redirect_to new_proveedor_session }
+          format.html { redirect_to new_usuario_session }
           format.json { render json: @solicitante.errors, status: :unprocessable_entity }
         end 
       else
         flash[:info] = 'No has iniciado sesión.'
-        format.html { redirect_to new_proveedor_session }
+        format.html { redirect_to new_usuario_session }
         format.json { render json: @proveedor.errors, status: :unprocessable_entity }
       end
     end
@@ -273,14 +270,14 @@ class ProveedoresController < ApplicationController
 
   # PUT /proveedor/categorias
   def update_categorias_de_proveedor
-    if proveedor_signed_in?
-      @proveedor = Proveedor.find(current_proveedor.perfilable_id)
+    if usuario_signed_in?
+      @proveedor = Proveedor.find(current_usuario.perfilable_id)
       if params[:proveedor].nil?
         params[:proveedor] ||= {}
       end
     end
     respond_to do |format|
-      if proveedor_signed_in?
+      if usuario_signed_in?
         if params[:proveedor][:categoria_ids].nil?
           @proveedor.categorias.clear
           flash[:success] = "Categorías actualizadas."
@@ -297,7 +294,7 @@ class ProveedoresController < ApplicationController
         end
       else
         flash[:info] = 'No ha iniciado sesión.'
-        format.html { redirect_to new_proveedor_session }
+        format.html { redirect_to new_usuario_session }
         format.json { render :json => {tipo_mensaje: :info, mensaje: flash[:info]} }
       end
     end
@@ -305,14 +302,14 @@ class ProveedoresController < ApplicationController
   
   # PUT /proveedor/ubicaciones
   def update_ubicaciones_de_proveedor
-    if proveedor_signed_in?
-      @proveedor = Proveedor.find(current_proveedor.perfilable_id)
+    if usuario_signed_in?
+      @proveedor = Proveedor.find(current_usuario.perfilable_id)
       if params[:proveedor].nil?
         params[:proveedor] ||= {}
       end
     end
     respond_to do |format|
-      if proveedor_signed_in?
+      if usuario_signed_in?
         if params[:proveedor][:ubicacion_geografica_ids].nil?
           @proveedor.categorias.clear
           flash[:success] = "Ubicaciones actualizadas."
@@ -329,7 +326,7 @@ class ProveedoresController < ApplicationController
         end
       else
         flash[:info] = 'No ha iniciado sesión.'
-        format.html { redirect_to new_proveedor_session }
+        format.html { redirect_to new_usuario_session }
         format.json { render :json => {tipo_mensaje: :info, mensaje: flash[:info]} }
       end
     end
@@ -337,7 +334,7 @@ class ProveedoresController < ApplicationController
 
   # PUT /proveedor/enlaces
   def update_enlaces_de_proveedor
-    @proveedor = Proveedor.find(current_proveedor.perfilable_id)
+    @proveedor = Proveedor.find(current_usuario.perfilable_id)
     if params[:proveedor].nil?
       params[:proveedor] ||= {}
     end

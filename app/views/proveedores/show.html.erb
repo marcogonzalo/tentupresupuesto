@@ -21,7 +21,7 @@
         <div id="ficha-proveedor">
             <div id="imagen-proveedor" class="img-rounded">
             <%	# Si es el perfil del proveedor que esta en sesion
-            if proveedor_signed_in? and @proveedor.id == current_proveedor.perfilable_id
+            if usuario_signed_in? and current_usuario.tipo?("proveedor") and @proveedor.id == current_usuario.perfilable_id
             %>
                 <%= (link_to (image_tag @proveedor.avatar.url, :alt => "Cambiar imagen de perfil", :title => "Cambiar imagen de perfil"), imagen_proveedor_path) %>
             <% else %>

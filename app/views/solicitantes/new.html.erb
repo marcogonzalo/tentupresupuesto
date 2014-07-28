@@ -1,20 +1,29 @@
 <%- model_class = Solicitante -%>
-<% content_for :foot do %>
-  <%= javascript_include_tag 'ubicaciones_geograficas' %>
-  <%= javascript_include_tag 'solicitantes' %>
-  <script type="text/javascript">var _editando = false;</script>
-<% end %>
+<% 
+content_for :head do
+  stylesheet_link_tag 'solicitantes'
+end
+
+content_for :foot do
+  javascript_include_tag 'ubicaciones_geograficas', 'solicitantes'
+end
+
+content_for :title do
+  "Crear perfil de solicitante"
+end
+%>
+<script type="text/javascript">var _editando = false;</script>
 <div class="page-header">
   <h1><%=t '.title', :default => t('helpers.titles.new', :model => model_class.model_name.human,
                                  :default => "Perfil de #{model_class.model_name.human}") %></h1>
-</div
-<% if current_solicitante.confirmed_at.nil? %>
+</div>
+<% if current_usuario.confirmed_at.nil? %>
 <div class="alert alert-info alert-block">
     <p>
         <b>¡Verifica tu cuenta de correo!</b><br> 
-        Tu dirección de correo electrónico <b><%= current_solicitante.email %></b> debe ser verificada. De no hacerlo podría ocasionar que no te lleguen las notificaciones al recibir un presupuesto y el posible bloqueo de tu cuenta dentro de 30 minutos.        
+        Tu dirección de correo electrónico <b><%= current_usuario.email %></b> debe ser verificada. De no hacerlo podría ocasionar que no te lleguen las notificaciones al recibir un presupuesto y el posible bloqueo de tu cuenta dentro de 30 minutos.        
     </p>
-    <p style="text-align: right;"><%= link_to "Verificar mi correo", new_confirmation_path(current_solicitante), :class => 'btn btn-info' %></p>
+    <p style="text-align: right;"><%= link_to "Verificar mi correo", new_confirmation_path(current_usuario), :class => 'btn btn-info' %></p>
 </div>
 <% end %>
 <p class="centrado">Estás a punto de registrar un perfil como SOLICITANTE de servicios.<br>Si llegaste aquí por error, aún estás a tiempo de <%= link_to "cerrar sesión y crear un perfil de PROVEEDOR", no_soy_solicitante_path %></p>

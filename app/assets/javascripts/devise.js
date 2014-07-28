@@ -12,15 +12,45 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require twitter/bootstrap/bootstrap-alert
+//= require validate/jquery.validate.min.js
+//= require validate/localization/messages_es.js
+//= require validate/setDefaults.js
+// require twitter/bootstrap/bootstrap-alert
 //= require twitter/bootstrap/bootstrap-modal
 //= require twitter/bootstrap/bootstrap-tooltip
-//= require twitter/bootstrap/bootstrap-typeahead
+// require twitter/bootstrap/bootstrap-typeahead
 //= require comun
 
-$(document).ready(function () {
-  $('a').tooltip({trigger:'focus'});
-  $('input').tooltip({trigger:'focus'});
-  $('textarea').tooltip({trigger:'focus'});
-  $('select').tooltip({trigger:'click'});
+$(document).ready(function() {
+    $('a').tooltip({
+        trigger : 'focus'
+    });
+    $('input').tooltip({
+        trigger : 'focus'
+    });
+    $('textarea').tooltip({
+        trigger : 'focus'
+    });
+    $('select').tooltip({
+        trigger : 'click'
+    });
+
+    var validaciones_usuario = {
+        rules : {
+            "usuario[email]" : {
+                required : true,
+                email : true
+            },
+            "usuario[password]" : {
+                required : true,
+                minlength : 8
+            },
+            "usuario[password_confirmation]" : {
+                required : true,
+                minlength : 8,
+                equalTo : "#usuario_password"
+            }
+        }
+    };
+    var validator = $("#new_usuario").validate(validaciones_usuario);
 });

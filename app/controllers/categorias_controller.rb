@@ -1,6 +1,6 @@
 # coding: utf-8
 class CategoriasController < ApplicationController
-  before_filter :authenticated_admin, :only => [:reset]
+  before_filter :authenticate_admin!, :only => [:reset]
   add_breadcrumb :index, :categorias_path
 
 ################  

@@ -31,6 +31,8 @@ class Trabajo < ActiveRecord::Base
     :select     => "trabajos.*"
   }
   
+  validates :intencion,
+            :presence => true
   validates :proposito, 
             :length => { :in => 10..100 },
             :presence => true
